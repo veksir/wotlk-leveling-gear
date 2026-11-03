@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+data/raw_items.json
+data/raw_zones.json
+data/items.json
