@@ -1,42 +1,106 @@
-# Equipo óptimo por nivel — WotLK 3.3.5
+# WotLK Leveling Gear
 
-Página estática que muestra el mejor objeto disponible en cada slot para una clase, especialidad y nivel de 1 a 80.
+**English** | [Español](README.es.md)
 
-## Alcance
+[![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
+![World of Warcraft](https://img.shields.io/badge/WotLK-3.3.5-0b2230)
+![Static site](https://img.shields.io/badge/static-HTML%20%2B%20JS-75d7ef)
 
-- 31 especialidades de las 10 clases.
-- Selector de facción Horda/Alianza para misiones y vendedores.
-- Interfaz en español e inglés.
-- 18 slots posibles: armadura, anillos, abalorios, armas, escudo/offhand y reliquia.
-- Mejor objeto + 2 alternativas por slot.
-- Se priorizan misiones, mazmorras, vendedores y drops. El equipo PvP y las fuentes no registradas solo se usan si no hay una alternativa de subida.
-- No incluye botín de banda.
-- Las reliquias de herencia quedan en un panel aparte y mantienen sus tooltips escalados al nivel.
-- Tooltips de EVOWOW para todos los objetos.
+A static, client-side guide that answers one question:
 
-## Generar la página
+> What is the strongest item I can equip in each slot at my current level?
+
+It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Alliance, and both English and Spanish.
+
+![English interface](docs/screenshot-en.png)
+
+## Features
+
+- **Full equipment sheet**: head, neck, shoulders, back, chest, wrists, hands, waist, legs, feet, rings, trinkets, main hand, off hand, ranged, and relic.
+- **Best item per slot** with two alternatives.
+- **Faction-aware**: quests and vendors are filtered for Horde or Alliance.
+- **Bilingual UI**: Spanish and English.
+- **Item details**: icon, quality color, item level, required level, relevant stats, and source.
+- **Heirloom panel**: separate from the main ranking, with tooltips scaled to the selected level.
+- **EVOWOW tooltips** for every item.
+- **Responsive layout** and persisted selection (`localStorage`).
+- **No backend** and no build step required to view the page.
+
+## How it works
+
+1. `scripts/fetch_raw.py` downloads the raw item and zone data.
+2. `scripts/build_item_db.py` normalizes items, stats, required levels, armor/weapon metadata, and sources.
+3. `scripts/build_recommendations.py` filters items by class, spec, level, faction, armor type, and weapon proficiency, then ranks them with role-based stat weights.
+4. `scripts/build_page.py` injects the generated JSON into `src/template.html` and writes `tolltip.html`.
+
+The ranking is a practical leveling heuristic, not a combat simulator. It prioritizes leveling sources and uses PvP or unregistered sources only when no better leveling option exists. Known raid drops are excluded; some raid quest chains may still appear as quests.
+
+## Quick start
+
+Clone the repository and open `tolltip.html` in a browser.
+
+Internet access is required for Google Fonts and EVOWOW item tooltips. The page itself works without a local server.
+
+## Build from source
+
+Requirements:
+
+- Python 3.10+
+- Playwright + Chromium for the smoke test
 
 ```bash
+python -m pip install playwright
+python -m playwright install chromium
+
 python scripts/fetch_raw.py
 python scripts/build_item_db.py
 python scripts/build_recommendations.py
 python scripts/build_page.py
-```
 
-El resultado se escribe en `tolltip.html` y en `C:\Users\user\Desktop\tolltip.html`.
-
-## Probar
-
-```bash
 python tests/smoke.py
 ```
 
-## Datos
+`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`.
 
-La base de objetos se construye a partir de `wow-classic-items`:
+## Project structure
 
-- https://github.com/nexus-devs/wow-classic-items
+```text
+.
+├── data/                  # generated gear_data.json (raw data is ignored)
+├── docs/                  # README screenshots
+├── legacy/                # previous heirloom-only implementation
+├── scripts/               # data pipeline, ranking, and page builder
+├── src/                   # HTML/CSS/JS template
+├── tests/                 # Playwright smoke test
+├── tolltip.html           # generated standalone page
+├── CONTRIBUTING.md        # contribution guide (English)
+├── CONTRIBUTING.es.md     # contribution guide (Spanish)
+└── LICENSE
+```
+
+## Data and attribution
+
+The item database is derived from [wow-classic-items](https://github.com/nexus-devs/wow-classic-items):
+
 - `data/json/data.json`
 - `data/json/zones.json`
 
-El repositorio no versiona los JSON crudos ni la base intermedia; se pueden recuperar con `scripts/fetch_raw.py`.
+Item tooltips and icons are loaded from [EVOWOW](https://wotlk.evowow.com/).
+
+This project is not affiliated with Blizzard Entertainment. World of Warcraft and Wrath of the Lich King are trademarks of Blizzard Entertainment.
+
+## Limitations
+
+- The dataset is based on WotLK Classic; a few original 3.3.5 sources may be missing or labeled as “Other source”.
+- Raid loot is intentionally excluded, but some raid quest rewards can still be labeled as quests.
+- Stat weights are role-based approximations. They are designed to be useful while leveling, not to replace a full BiS simulator.
+- Some very low-level slots may legitimately have no item with known stats.
+- The generated page embeds the item data, so `tolltip.html` is intentionally large (around 3 MB).
+
+## Contributing
+
+Bug reports, item corrections, translations, and UI improvements are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+[MIT](LICENSE) © 2026 veksir
