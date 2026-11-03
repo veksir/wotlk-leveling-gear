@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equipo de subida por nivel - WotLK 3.3.5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://wotlk.evowow.com/static/widgets/power.js?lang=en"></script>
+<script>
+var aowow_tooltips = {
+  "colorlinks": true,
+  "iconizelinks": true,
+  "renamelinks": true,
+  "hide": { "reagents": true, "sellprice": true }
+};
+</script>
+<style>
+  :root {
+    --bg: #06141f;
+    --panel: #0c2534;
+    --panel-2: #0f2d3f;
+    --line: #1b4054;
+    --line-strong: #2a5a72;
+    --text: #e9f5fa;
+    --muted: #90afc0;
+    --ice: #74d7f2;
+    --ice-dim: #3f9cb8;
+    --gold: #d9b15f;
+    --danger: #e08a72;
+    --class: #74d7f2;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background:
+      radial-gradient(1100px 620px at 8% -12%, rgba(116, 215, 242, .12), transparent 62%),
+      radial-gradient(760px 480px at 102% -4%, rgba(217, 177, 95, .07), transparent 65%),
+      linear-gradient(180deg, #06141f 0%, #071a26 55%, #06141f 100%);
+    font-family: "Source Sans 3", "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: .35;
+    background-image:
+      linear-gradient(rgba(116, 215, 242, .045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(116, 215, 242, .045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 72%);
+  }
+  .page { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 22px 24px 72px; }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 8px 0 22px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    color: var(--ice);
+    font-family: Cinzel, Georgia, serif;
+    font-size: 18px;
+    background: linear-gradient(180deg, rgba(116,215,242,.12), rgba(116,215,242,.02));
+  }
+  .brand strong { display: block; font-weight: 600; letter-spacing: .01em; }
+  .brand small { display: block; color: var(--muted); font-size: 12px; }
+  .ghost {
+    appearance: none;
+    white-space: nowrap;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .ghost:hover { color: var(--text); border-color: var(--line-strong); }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) 350px;
+    gap: 44px;
+    align-items: center;
+    padding: 34px 0 38px;
+  }
+  .kicker {
+    margin: 0 0 10px;
+    color: var(--ice);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .05em;
+  }
+  h1 {
+    margin: 0 0 14px;
+    font-family: Cinzel, Georgia, serif;
+    font-size: clamp(34px, 4.8vw, 56px);
+    font-weight: 600;
+    line-height: 1.06;
+    letter-spacing: -.02em;
+    text-wrap: balance;
+  }
+  .lede {
+    margin: 0;
+    max-width: 58ch;
+    color: var(--muted);
+    font-size: 17px;
+  }
+  .selectors { margin-top: 28px; display: flex; flex-direction: column; gap: 20px; }
+  .selector-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .classes { display: flex; flex-wrap: wrap; gap: 7px; }
+  .class-chip {
+    --chip: var(--class);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 11px;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--chip);
+    border-radius: 6px;
+    background: rgba(12, 37, 52, .55);
+    color: var(--muted);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color .15s, color .15s, background .15s;
+  }
+  .class-chip::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--chip);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--chip) 55%, transparent);
+  }
+  .class-chip:hover { color: var(--text); border-color: var(--chip); }
+  .class-chip[aria-pressed="true"] {
+    color: var(--text);
+    background: color-mix(in srgb, var(--chip) 13%, rgba(12, 37, 52, .8));
+    border-color: var(--chip);
+  }
+  .specs { display: flex; flex-wrap: wrap; gap: 18px; }
+  .spec-chip {
+    appearance: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    padding: 4px 1px 6px;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 15px;
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+  }
+  .spec-chip:hover { color: var(--text); }
+  .spec-chip[aria-pressed="true"] { color: var(--text); border-bottom-color: var(--class); }
+  .class-note { margin: 8px 0 0; color: var(--gold); font-size: 13px; min-height: 20px; }
+  .level-panel {
+    position: relative;
+    padding: 24px 24px 20px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background:
+      linear-gradient(180deg, rgba(15, 45, 63, .86), rgba(7, 23, 34, .92));
+  }
+  .level-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .level-top span { color: var(--muted); font-size: 13px; font-weight: 600; }
+  .level-input {
+    width: 64px;
+    padding: 6px 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: rgba(6, 20, 31, .75);
+    color: var(--text);
+    font-family: Cinzel, Georgia, serif;
+    font-size: 16px;
+    text-align: center;
+  }
+  .level-input:focus-visible, .level-range:focus-visible, .class-chip:focus-visible, .spec-chip:focus-visible, .ghost:focus-visible, .gear-link:focus-visible {
+    outline: 2px solid var(--ice);
+    outline-offset: 3px;
+  }
+  .dial {
+    position: relative;
+    width: 178px;
+    height: 178px;
+    margin: 14px auto 10px;
+  }
+  .dial svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .dial .track { fill: none; stroke: var(--line); stroke-width: 5; }
+  .dial .progress {
+    fill: none;
+    stroke: var(--class);
+    stroke-width: 5;
+    stroke-linecap: round;
+    transition: stroke-dashoffset .35s ease, stroke .2s ease;
+  }
+  .dial-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .level-number {
+    font-family: Cinzel, Georgia, serif;
+    font-size: 62px;
+    line-height: .95;
+    font-weight: 600;
+    letter-spacing: -.04em;
+  }
+  .level-word { margin-top: 4px; color: var(--muted); font-size: 12px; letter-spacing: .12em; }
+  .level-range-wrap { margin-top: 6px; }
+  .level-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--class) var(--pct, 24%), var(--line) var(--pct, 24%));
+    outline: none;
+    cursor: pointer;
+  }
+  .level-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--text);
+    border: 3px solid var(--class);
+    box-shadow: 0 0 0 4px rgba(116, 215, 242, .12);
+  }
+  .level-range::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--text);
+    border: 3px solid var(--class);
+  }
+  .range-labels { display: flex; justify-content: space-between; margin-top: 7px; color: var(--muted); font-size: 11px; }
+  .bracket {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 5px 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    color: var(--ice);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .status {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .status-item { padding: 15px 20px; border-left: 1px solid var(--line); }
+  .status-item:first-child { border-left: 0; padding-left: 0; }
+  .status-item span { display: block; color: var(--muted); font-size: 12px; }
+  .status-item strong { display: block; margin-top: 2px; font-size: 15px; font-weight: 600; }
+  .advice-band {
+    margin: 22px 0 0;
+    padding: 14px 18px;
+    border-left: 3px solid var(--class);
+    background: linear-gradient(90deg, rgba(116, 215, 242, .07), transparent 70%);
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .advice-band strong { color: var(--text); font-weight: 600; }
+  .content {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(300px, .85fr);
+    gap: 26px;
+    align-items: start;
+    padding-top: 26px;
+  }
+  .panel {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(12, 37, 52, .78), rgba(7, 22, 32, .78));
+  }
+  .panel-head { padding: 20px 22px 16px; border-bottom: 1px solid var(--line); }
+  .panel-head h2, .side h2 {
+    margin: 0;
+    font-family: Cinzel, Georgia, serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+  }
+  .panel-head p { margin: 5px 0 0; color: var(--muted); font-size: 13px; max-width: 62ch; }
+  .gear-group + .gear-group { border-top: 1px solid var(--line); }
+  .group-title {
+    margin: 0;
+    padding: 15px 22px 5px;
+    color: var(--ice);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .05em;
+  }
+  .gear-row {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 14px;
+    padding: 11px 22px;
+    border-top: 1px solid rgba(27, 64, 84, .55);
+  }
+  .gear-row:first-of-type { border-top: 0; }
+  .gear-slot { color: var(--muted); font-size: 13px; padding-top: 1px; }
+  .gear-items { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+  .gear-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+  .gear-link { color: var(--text); font-size: 15px; font-weight: 600; text-decoration: none; }
+  .gear-link:hover { text-decoration: underline; }
+  .gear-line.alt .gear-link { color: #b9cbd6; font-weight: 500; font-size: 14px; }
+  .badge {
+    padding: 1px 7px;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    white-space: nowrap;
+  }
+  .badge.emblem { color: var(--gold); border-color: rgba(217, 177, 95, .4); }
+  .badge.pvp { color: #a9c6d4; border-color: rgba(116, 215, 242, .25); }
+  .advice { color: var(--muted); font-size: 14px; }
+  .advice-tag { color: #6f93a6; font-size: 12px; }
+  .side { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 18px; }
+  .side .panel { padding: 20px; }
+  .side h2 { font-size: 18px; margin-bottom: 12px; }
+  .stat-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; counter-reset: stat; }
+  .stat-list li { display: flex; align-items: baseline; gap: 10px; color: var(--text); font-size: 14px; }
+  .stat-list li::before {
+    counter-increment: stat;
+    content: counter(stat);
+    width: 14px;
+    color: var(--ice);
+    font-family: Cinzel, Georgia, serif;
+    font-size: 12px;
+  }
+  .hint { margin: 12px 0 0; color: var(--muted); font-size: 13px; }
+  .dungeon-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .dungeon-list li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(27, 64, 84, .45);
+    font-size: 14px;
+  }
+  .dungeon-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .dungeon-list li.current { color: var(--ice); }
+  .dungeon-list .range { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  .note { color: var(--muted); font-size: 14px; margin: 0; }
+  .note strong { color: var(--text); }
+  footer { margin-top: 34px; color: var(--muted); font-size: 12px; }
+  footer a { color: var(--muted); }
+  .reveal { animation: rise .22s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 28px; }
+    .level-panel { max-width: 420px; }
+    .content { grid-template-columns: 1fr; }
+    .side { position: static; }
+  }
+  @media (max-width: 600px) {
+    .page { padding: 16px 15px 54px; }
+    .hero { padding-top: 22px; }
+    .status { grid-template-columns: 1fr; }
+    .status-item { border-left: 0; border-top: 1px solid var(--line); padding: 11px 0; }
+    .status-item:first-child { border-top: 0; }
+    .gear-row { grid-template-columns: 84px minmax(0, 1fr); gap: 10px; padding: 11px 16px; }
+    .panel-head, .gear-row, .group-title { padding-left: 16px; padding-right: 16px; }
+    .side .panel { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">W</div>
+      <div>
+        <strong>Guía de subida</strong>
+        <small>World of Warcraft 3.3.5 · Wrath of the Lich King</small>
+      </div>
+    </div>
+    <button class="ghost" id="resetBtn" type="button">Reiniciar selección</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="kicker">Equipo por nivel, no BiS de 80</p>
+        <h1>Sube de nivel con el equipo correcto en cada tramo.</h1>
+        <p class="lede">Elige tu clase, especialización y nivel. La guía te muestra las reliquias de herencia que puedes usar, cómo se escalan sus estadísticas y qué mazmorras merecen la pena en ese momento.</p>
+
+        <div class="selectors">
+          <div>
+            <span class="selector-label" id="classLabel">Clase</span>
+            <div class="classes" id="classes" role="group" aria-labelledby="classLabel"></div>
+          </div>
+          <div>
+            <span class="selector-label" id="specLabel">Especialización</span>
+            <div class="specs" id="specs" role="group" aria-labelledby="specLabel"></div>
+            <p class="class-note" id="classNote"></p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="level-panel" aria-labelledby="levelHeading">
+        <div class="level-top">
+          <span id="levelHeading">Tu nivel actual</span>
+          <label>
+            <span class="selector-label" style="display:none">Nivel exacto</span>
+            <input class="level-input" id="levelInput" type="number" min="1" max="80" value="20" inputmode="numeric" aria-label="Nivel exacto">
+          </label>
+        </div>
+        <div class="dial">
+          <svg viewBox="0 0 180 180" aria-hidden="true">
+            <circle class="track" cx="90" cy="90" r="78"></circle>
+            <circle class="progress" id="dialProgress" cx="90" cy="90" r="78" stroke-dasharray="490" stroke-dashoffset="368"></circle>
+          </svg>
+          <div class="dial-center">
+            <div class="level-number" id="levelNumber">20</div>
+            <div class="level-word">NIVEL</div>
+          </div>
+        </div>
+        <div class="level-range-wrap">
+          <input class="level-range" id="levelRange" type="range" min="1" max="80" value="20" aria-label="Nivel de subida">
+          <div class="range-labels"><span>1</span><span>20</span><span>40</span><span>60</span><span>80</span></div>
+        </div>
+        <span class="bracket" id="bracketLabel">Aprendizaje</span>
+      </aside>
+    </section>
+
+    <section class="status" aria-label="Resumen de la selección">
+      <div class="status-item"><span>Fase de subida</span><strong id="statusBracket">Aprendizaje · 1 a 19</strong></div>
+      <div class="status-item"><span>Armadura utilizada</span><strong id="statusArmor">Tela</strong></div>
+      <div class="status-item"><span>Siguiente hito</span><strong id="statusNext">Nivel 20 · primeras mazmorras</strong></div>
+    </section>
+
+    <p class="advice-band" id="adviceBand" aria-live="polite"></p>
+
+    <div class="content">
+      <section class="panel" aria-labelledby="gearHeading">
+        <div class="panel-head">
+          <h2 id="gearHeading">Reliquias de herencia</h2>
+          <p id="gearIntro">Pasa el cursor por cada objeto para ver sus estadísticas reales al nivel seleccionado.</p>
+        </div>
+        <div id="gearGroups"></div>
+      </section>
+
+      <aside class="side">
+        <section class="panel" aria-labelledby="statsHeading">
+          <h2 id="statsHeading">Prioridad de estadísticas</h2>
+          <ol class="stat-list" id="statList"></ol>
+          <p class="hint" id="statsHint"></p>
+        </section>
+
+        <section class="panel" aria-labelledby="dungeonHeading">
+          <h2 id="dungeonHeading">Mazmorras de este tramo</h2>
+          <ul class="dungeon-list" id="dungeonList"></ul>
+        </section>
+
+        <section class="panel">
+          <h2>Cómo usar la herencia</h2>
+          <p class="note" id="heirloomNote"></p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <p>Las ventanas de objeto se cargan desde EVOWOW y respetan el nivel elegido. Si una reliquia no aparece, revisa que el nivel sea igual o superior al mínimo de la clase.</p>
+  </footer>
+</div>
+<script>
+const DATA = {"heirlooms":{"42985":{"name":"Tattered Dreadmist Mantle","slot":"Hombros","source":"Emblemas"},"44107":{"name":"Exquisite Sunderseer Mantle","slot":"Hombros","source":"PvP"},"42984":{"name":"Preened Ironfeather Shoulders","slot":"Hombros","source":"Emblemas"},"44105":{"name":"Lasting Feralheart Spaulders","slot":"Hombros","source":"PvP"},"42952":{"name":"Stained Shadowcraft Spaulders","slot":"Hombros","source":"Emblemas"},"44103":{"name":"Exceptional Stormshroud Shoulders","slot":"Hombros","source":"PvP"},"42951":{"name":"Mystical Pauldrons of Elements","slot":"Hombros","source":"Emblemas"},"44102":{"name":"Aged Pauldrons of The Five Thunders","slot":"Hombros","source":"PvP"},"42950":{"name":"Champion Herod's Shoulder","slot":"Hombros","source":"Emblemas"},"44101":{"name":"Prized Beastmaster's Mantle","slot":"Hombros","source":"PvP"},"42949":{"name":"Polished Spaulders of Valor","slot":"Hombros","source":"Emblemas"},"44099":{"name":"Strengthened Stockade Pauldrons","slot":"Hombros","source":"PvP"},"44100":{"name":"Pristine Lightforge Spaulders","slot":"Hombros","source":"PvP"},"48691":{"name":"Tattered Dreadmist Robe","slot":"Pecho","source":"Emblemas"},"48687":{"name":"Preened Ironfeather Breastplate","slot":"Pecho","source":"Emblemas"},"48689":{"name":"Stained Shadowcraft Tunic","slot":"Pecho","source":"Emblemas"},"48683":{"name":"Mystical Vest of Elements","slot":"Pecho","source":"Emblemas"},"48677":{"name":"Champion's Deathdealer Breastplate","slot":"Pecho","source":"Emblemas"},"48685":{"name":"Polished Breastplate of Valor","slot":"Pecho","source":"Emblemas"},"42943":{"name":"Bloodied Arcanite Reaper","slot":"Arma","source":"Emblemas"},"44092":{"name":"Reforged Truesilver Champion","slot":"Arma","source":"PvP"},"48718":{"name":"Repurposed Lava Dredger","slot":"Arma","source":"Emblemas"},"42947":{"name":"Dignified Headmaster's Charge","slot":"Arma","source":"Emblemas"},"44095":{"name":"Grand Staff of Jordan","slot":"Arma","source":"PvP"},"42948":{"name":"Devout Aurastone Hammer","slot":"Arma","source":"Emblemas"},"44094":{"name":"The Blessed Hammer of Grace","slot":"Arma","source":"PvP"},"48716":{"name":"Venerable Mass of McGowan","slot":"Arma","source":"Emblemas"},"42944":{"name":"Balanced Heartseeker","slot":"Arma","source":"Emblemas"},"44091":{"name":"Sharpened Scarlet Kris","slot":"Arma","source":"PvP"},"42945":{"name":"Venerable Dal'Rend's Sacred Charge","slot":"Arma","source":"Emblemas"},"44096":{"name":"Battleworn Thrash Blade","slot":"Arma","source":"PvP"},"42946":{"name":"Charmed Ancient Bone Bow","slot":"A distancia","source":"Emblemas"},"44093":{"name":"Upgraded Dwarven Hand Cannon","slot":"A distancia","source":"PvP"},"42991":{"name":"Swift Hand of Justice","slot":"Abalorios","source":"Emblemas"},"42992":{"name":"Discerning Eye of the Beast","slot":"Abalorios","source":"Emblemas"}},"sets":{"clothCaster":{"shoulders":["42985","44107"],"chest":["48691"],"weapons":["42947","44095"],"trinkets":["42992"]},"leatherCaster":{"shoulders":["42984","44105"],"chest":["48687"],"weapons":["42947","44095"],"trinkets":["42992"]},"leatherPhysical":{"shoulders":["42952","44103"],"chest":["48689"],"weapons":["42944","44091"],"trinkets":["42991"]},"mailCaster":{"shoulders":["42951","44102"],"chest":["48683"],"weapons":["42947","44095"],"trinkets":["42992"]},"mailPhysical":{"shoulders":["42950","44101"],"chest":["48677"],"weapons":["42946","44093"],"trinkets":["42991"]},"plateDps":{"shoulders":["42949"],"chest":["48685"],"weapons":["42943","44092"],"trinkets":["42991"]},"plateTank":{"shoulders":["44099"],"chest":["48685"],"weapons":["42943","44092"],"trinkets":["42991"]},"plateHealer":{"shoulders":["44100"],"chest":[],"weapons":["42948","44094"],"trinkets":["42992"]}},"specs":{"Death Knight":{"Blood Tank":{"set":"plateTank","role":"tank","primary":"str","weapons":["42943","44092"],"offhand":"none","ranged":"relic"},"Frost DPS":{"set":"plateDps","role":"physical","primary":"str","weapons":["42943","44092"],"offhand":"none","ranged":"relic"},"Unholy DPS":{"set":"plateDps","role":"physical","primary":"str","weapons":["42943","44092"],"offhand":"none","ranged":"relic"}},"Druid":{"Balance":{"set":"leatherCaster","role":"caster","primary":"int","weapons":["42947","44095"],"offhand":"none","ranged":"relic"},"Feral DPS":{"set":"leatherPhysical","role":"physical","primary":"agi","weapons":["48718"],"offhand":"none","ranged":"relic"},"Feral Tank":{"set":"leatherPhysical","role":"tank","primary":"agi","weapons":["48718"],"offhand":"none","ranged":"relic"},"Restoration":{"set":"leatherCaster","role":"healer","primary":"int","weapons":["42947","44095","42948"],"offhand":"none","ranged":"relic"}},"Hunter":{"Beast Mastery":{"set":"mailPhysical","role":"hunter","primary":"agi","weapons":[],"rangedItems":["42946","44093"],"offhand":"none","ranged":"ranged"},"Marksmanship":{"set":"mailPhysical","role":"hunter","primary":"agi","weapons":[],"rangedItems":["42946","44093"],"offhand":"none","ranged":"ranged"},"Survival":{"set":"mailPhysical","role":"hunter","primary":"agi","weapons":[],"rangedItems":["42946","44093"],"offhand":"none","ranged":"ranged"}},"Mage":{"Arcane":{"set":"clothCaster","role":"caster","primary":"int","weapons":["42947","44095"],"offhand":"held","ranged":"wand"},"Fire":{"set":"clothCaster","role":"caster","primary":"int","weapons":["42947","44095"],"offhand":"held","ranged":"wand"},"Frost":{"set":"clothCaster","role":"caster","primary":"int","weapons":["42947","44095"],"offhand":"held","ranged":"wand"}},"Paladin":{"Holy":{"set":"plateHealer","role":"healer","primary":"int","weapons":["42948","44094"],"offhand":"shield","ranged":"relic"},"Protection":{"set":"plateTank","role":"tank","primary":"str","weapons":["42945","44096"],"offhand":"shield","ranged":"relic"},"Retribution":{"set":"plateDps","role":"physical","primary":"str","weapons":["44092"],"offhand":"none","ranged":"relic"}},"Priest":{"Discipline":{"set":"clothCaster","role":"healer","primary":"int","weapons":["42947","42948","44094"],"offhand":"held","ranged":"wand"},"Holy":{"set":"clothCaster","role":"healer","primary":"int","weapons":["42947","42948","44094"],"offhand":"held","ranged":"wand"},"Shadow":{"set":"clothCaster","role":"caster","primary":"int","weapons":["42947","44095","42948"],"offhand":"held","ranged":"wand"}},"Rogue":{"Assassination":{"set":"leatherPhysical","role":"physical","primary":"agi","weapons":["42944","44091"],"offhand":"dual","ranged":"thrown"},"Combat":{"set":"leatherPhysical","role":"physical","primary":"agi","weapons":["42945","44096"],"offhand":"dual","ranged":"thrown"},"Subtlety":{"set":"leatherPhysical","role":"physical","primary":"agi","weapons":["42944","44091"],"offhand":"dual","ranged":"thrown"}},"Shaman":{"Elemental":{"set":"mailCaster","role":"caster","primary":"int","weapons":["42947","44095","42948","44094"],"offhand":"shield","ranged":"relic"},"Enhancement":{"set":"mailPhysical","role":"physical","primary":"agi","weapons":["48716"],"offhand":"dual","ranged":"relic"},"Restoration":{"set":"mailCaster","role":"healer","primary":"int","weapons":["42948","44094","42947"],"offhand":"shield","ranged":"relic"}},"Warlock":{"Affliction":{"set":"clothCaster","role":"caster","primary":"int","weapons":["42947","44095"],"offhand":"held","ranged":"wand"},"Demonology":{"set":"clothCaster","role":"caster","primary":"int","weapons":["42947","44095"],"offhand":"held","ranged":"wand"},"Destruction":{"set":"clothCaster","role":"caster","primary":"int","weapons":["42947","44095"],"offhand":"held","ranged":"wand"}},"Warrior":{"Arms":{"set":"plateDps","role":"physical","primary":"str","weapons":["42943","44092"],"offhand":"none","ranged":"thrown"},"Fury":{"set":"plateDps","role":"physical","primary":"str","weapons":["42945","44096"],"offhand":"dual","ranged":"thrown"},"Protection":{"set":"plateTank","role":"tank","primary":"str","weapons":["42945","44096"],"offhand":"shield","ranged":"thrown"}}},"classOrder":["Death Knight","Druid","Hunter","Mage","Paladin","Priest","Rogue","Shaman","Warlock","Warrior"],"classMeta":{"Death Knight":{"min":55,"color":"#c41e3a","armor":"Placa","weapons":"Espadas, hachas, mazas y lanzas"},"Druid":{"min":1,"color":"#ff7c0a","armor":"Cuero","weapons":"Bastones, mazas a dos manos, lanzas y dagas"},"Hunter":{"min":1,"color":"#aad372","armor":"Malla al 40","weapons":"Espadas, hachas, lanzas, arcos y armas de fuego"},"Mage":{"min":1,"color":"#3fc7eb","armor":"Tela","weapons":"Bastones, espadas, dagas y varitas"},"Paladin":{"min":1,"color":"#f48cba","armor":"Placa al 40","weapons":"Espadas, mazas y hachas, escudos"},"Priest":{"min":1,"color":"#f0f0f0","armor":"Tela","weapons":"Bastones, mazas de una mano, dagas y varitas"},"Rogue":{"min":1,"color":"#fff468","armor":"Cuero","weapons":"Dagas, espadas, mazas de una mano y armas de puño"},"Shaman":{"min":1,"color":"#0070dd","armor":"Malla al 40","weapons":"Mazas, hachas de una mano, bastones, dagas y escudos"},"Warlock":{"min":1,"color":"#8788ee","armor":"Tela","weapons":"Bastones, espadas, dagas y varitas"},"Warrior":{"min":1,"color":"#c69b6d","armor":"Placa al 40","weapons":"Todas las armas cuerpo a cuerpo, arcos, armas de fuego y escudos"}},"brackets":[{"min":1,"max":19,"name":"Aprendizaje","advice":"No gastes oro en equipo: las misiones dan más que suficiente. Guarda las piezas con la estadística principal de tu especialización.","dungeons":[["Ragefire Chasm",13,18],["The Deadmines",15,20],["Wailing Caverns",15,25]]},{"min":20,"max":39,"name":"Primeras mazmorras","advice":"Empiezan las mazmorras. Haz cada una una vez por las recompensas y sigue subiendo; no farmees equipo que vas a reemplazar en pocos niveles.","dungeons":[["Shadowfang Keep",18,25],["Blackfathom Deeps",20,30],["Gnomeregan",24,34],["Razorfen Kraul",25,35],["Scarlet Monastery",26,45],["Razorfen Downs",35,45],["Uldaman",35,45]]},{"min":40,"max":59,"name":"Especialización","advice":"Se desbloquea la armadura superior: malla para cazadores y chamanes, placa para guerreros y paladines. Renueva las piezas cada 5 u 8 niveles.","dungeons":[["Zul'Farrak",44,54],["Maraudon",45,55],["Temple of Atal'Hakkar",50,60],["Blackrock Depths",48,60],["Dire Maul",55,60],["Stratholme",58,60],["Scholomance",58,60]]},{"min":60,"max":69,"name":"Outland","advice":"El equipo de misión de nivel 60 o más supera casi todo lo anterior. Coge las piezas azules que te salgan en mazmorras y no te quedes a farmear.","dungeons":[["Hellfire Ramparts",60,62],["The Blood Furnace",61,63],["The Slave Pens",62,64],["The Underbog",63,65],["Mana-Tombs",64,66],["Auchenai Crypts",65,67],["Sethekk Halls",67,69],["Old Hillsbrad Foothills",66,68],["The Shattered Halls",68,70],["The Steamvault",68,70],["Shadow Labyrinth",68,70],["The Botanica",69,72],["The Mechanar",69,72],["The Arcatraz",70,72],["Magisters' Terrace",70,70]]},{"min":70,"max":79,"name":"Northrend","advice":"El equipo de misión de nivel 70 o más es la base. Las mazmorras de Northrend dan las piezas que te faltan para llegar al 80 sin sufrir.","dungeons":[["Utgarde Keep",70,72],["The Nexus",71,73],["Azjol-Nerub",72,74],["Ahn'kahet",73,75],["Drak'Tharon Keep",74,76],["Violet Hold",75,77],["Gundrak",76,78],["Halls of Stone",77,79],["Halls of Lightning",78,80],["The Oculus",78,80],["Culling of Stratholme",78,80]]},{"min":80,"max":80,"name":"Nivel máximo","advice":"Ya no necesitas equipo de subida. A partir de aquí toca elegir el BiS de nivel 80 según tu especialización y la fase de contenido.","dungeons":[["Trial of the Champion",80,80],["Forge of Souls",80,80],["Pit of Saron",80,80],["Halls of Reflection",80,80],["Icecrown Citadel",80,80]]}],"stats":{"caster":["Intelecto","Poder de hechizos","Golpe de hechizos","Crítico","Celeridad"],"healer":["Intelecto","Espíritu","Poder de hechizos","Celeridad","Crítico"],"str":["Fuerza","Golpe","Pericia","Crítico","Celeridad"],"agi":["Agilidad","Golpe","Pericia","Crítico","Celeridad"],"tank":["Aguante","Defensa","Esquiva","Parada","Golpe y pericia"],"bear":["Aguante","Agilidad","Esquiva","Pericia","Golpe"],"hunter":["Agilidad","Golpe","Crítico","Poder de ataque","Aguante"]}};
+const STORE = { cls: "wotlk-leveling-class", spec: "wotlk-leveling-spec", level: "wotlk-leveling-level" };
+
+const $ = (id) => document.getElementById(id);
+const classesEl = $("classes");
+const specsEl = $("specs");
+const levelInput = $("levelInput");
+const levelRange = $("levelRange");
+const levelNumber = $("levelNumber");
+const dialProgress = $("dialProgress");
+const bracketLabel = $("bracketLabel");
+const classNote = $("classNote");
+const gearGroups = $("gearGroups");
+const statList = $("statList");
+const statsHint = $("statsHint");
+const dungeonList = $("dungeonList");
+const adviceBand = $("adviceBand");
+const heirloomNote = $("heirloomNote");
+
+function load(key, fallback) {
+  try { return localStorage.getItem(key) || fallback; } catch (err) { return fallback; }
+}
+function save(key, value) {
+  try { localStorage.setItem(key, value); } catch (err) { /* almacenamiento no disponible */ }
+}
+
+let state = {
+  cls: load(STORE.cls, "Warrior"),
+  spec: load(STORE.spec, "Arms"),
+  level: Number(load(STORE.level, 20)) || 20
+};
+
+if (!DATA.specs[state.cls]) state.cls = "Warrior";
+if (!DATA.specs[state.cls][state.spec]) state.spec = Object.keys(DATA.specs[state.cls])[0];
+
+function bracketFor(level) {
+  return DATA.brackets.find((b) => level >= b.min && level <= b.max) || DATA.brackets[0];
+}
+
+function armorText(cls, level) {
+  if (cls === "Hunter" || cls === "Shaman") return level < 40 ? "Cuero (malla al 40)" : "Malla";
+  if (cls === "Paladin" || cls === "Warrior") return level < 40 ? "Malla (placa al 40)" : "Placa";
+  return DATA.classMeta[cls].armor;
+}
+
+function itemName(id) { return DATA.heirlooms[id] ? DATA.heirlooms[id].name : "Objeto " + id; }
+function itemSource(id) { return DATA.heirlooms[id] ? DATA.heirlooms[id].source : ""; }
+
+function itemLink(id, level) {
+  const src = itemSource(id);
+  const badge = src === "PvP" ? '<span class="badge pvp">PvP</span>' : '<span class="badge emblem">Emblemas</span>';
+  return '<span class="gear-line"><a class="gear-link" href="https://wotlk.evowow.com/?item=' + id + '" rel="lvl=' + level + ' noopener" target="_blank">' + itemName(id) + "</a>" + badge + "</span>";
+}
+
+function itemRow(slot, ids, level, altStart) {
+  const list = ids.slice();
+  const first = list.shift();
+  let html = '<div class="gear-row"><div class="gear-slot">' + slot + "</div><div class=\"gear-items\">";
+  html += itemLink(first, level).replace('class="gear-line"', 'class="gear-line main"');
+  list.forEach((id) => { html += itemLink(id, level).replace('class="gear-line"', 'class="gear-line alt"'); });
+  html += "</div></div>";
+  return html;
+}
+
+function adviceRow(slot, text) {
+  return '<div class="gear-row"><div class="gear-slot">' + slot + '</div><div class="gear-items"><span class="advice">' + text + "</span></div></div>";
+}
+
+function renderClasses() {
+  classesEl.innerHTML = "";
+  DATA.classOrder.forEach((name) => {
+    const meta = DATA.classMeta[name];
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "class-chip";
+    btn.style.setProperty("--chip", meta.color);
+    btn.setAttribute("aria-pressed", String(name === state.cls));
+    btn.textContent = name;
+    btn.addEventListener("click", () => {
+      state.cls = name;
+      state.spec = Object.keys(DATA.specs[name])[0];
+      const min = DATA.classMeta[name].min;
+      if (state.level < min) state.level = min;
+      persist();
+      renderClasses();
+      renderSpecs();
+      render();
+    });
+    classesEl.appendChild(btn);
+  });
+}
+
+function renderSpecs() {
+  specsEl.innerHTML = "";
+  Object.keys(DATA.specs[state.cls]).forEach((name) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "spec-chip";
+    btn.setAttribute("aria-pressed", String(name === state.spec));
+    btn.textContent = name;
+    btn.addEventListener("click", () => {
+      state.spec = name;
+      persist();
+      renderSpecs();
+      render();
+    });
+    specsEl.appendChild(btn);
+  });
+  updateClassNote();
+}
+
+function updateClassNote() {
+  const meta = DATA.classMeta[state.cls];
+  classNote.textContent = state.cls === "Death Knight"
+    ? "Los caballeros de la muerte empiezan en el nivel 55. El selector se ajusta solo."
+    : "Armadura principal: " + armorText(state.cls, state.level) + ". Armas: " + meta.weapons + ".";
+}
+
+function persist() {
+  save(STORE.cls, state.cls);
+  save(STORE.spec, state.spec);
+  save(STORE.level, String(state.level));
+}
+
+function clampLevel(value) {
+  const min = DATA.classMeta[state.cls].min;
+  return Math.max(min, Math.min(80, Number(value) || min));
+}
+
+function setLevel(value, fromRange) {
+  state.level = clampLevel(value);
+  levelInput.value = state.level;
+  levelRange.value = state.level;
+  if (!fromRange) levelRange.focus({ preventScroll: true });
+  persist();
+  render();
+}
+
+function render() {
+  const level = state.level;
+  const meta = DATA.classMeta[state.cls];
+  const spec = DATA.specs[state.cls][state.spec];
+  const bracket = bracketFor(level);
+  const color = meta.color;
+
+  document.documentElement.style.setProperty("--class", color);
+  updateClassNote();
+
+  levelInput.min = meta.min;
+  levelRange.min = meta.min;
+  levelInput.value = level;
+  levelRange.value = level;
+  levelNumber.textContent = level;
+  const pct = ((level - 1) / 79) * 100;
+  levelRange.style.setProperty("--pct", pct + "%");
+  const circumference = 2 * Math.PI * 78;
+  dialProgress.setAttribute("stroke-dasharray", circumference.toFixed(1));
+  dialProgress.setAttribute("stroke-dashoffset", (circumference * (1 - (level - 1) / 79)).toFixed(1));
+
+  bracketLabel.textContent = bracket.name;
+  $("statusBracket").textContent = level === 80 ? "Nivel máximo" : bracket.name + " · " + bracket.min + " a " + bracket.max;
+  $("statusArmor").textContent = armorText(state.cls, level);
+  const next = DATA.brackets.find((b) => b.min > level);
+  $("statusNext").textContent = next ? "Nivel " + next.min + " · " + next.name : "Ya puedes buscar el BiS de nivel 80";
+  adviceBand.innerHTML = "<strong>" + bracket.name + ".</strong> " + bracket.advice;
+  $("gearIntro").textContent = level === 80
+    ? "A nivel 80 estas reliquias dejan de ser BiS. La sección queda como referencia de lo que usaste para subir."
+    : "Pasa el cursor por cada objeto para ver sus estadísticas al nivel " + level + ".";
+
+  renderGear(spec, level);
+  renderStats(spec, level);
+  renderDungeons(bracket, level);
+  heirloomNote.textContent = "Las reliquias escalan contigo y sirven de 1 a 80 según tu clase. Las de Emblemas se compran en Dalaran con Emblemas de heroísmo; las PvP, con marcas de la Conquista del Invierno. No las vendas: te acompañan en todas las subidas.";
+
+  scheduleRefresh();
+  gearGroups.classList.remove("reveal");
+  void gearGroups.offsetWidth;
+  gearGroups.classList.add("reveal");
+}
+
+function renderGear(spec, level) {
+  const set = DATA.sets[spec.set];
+  let html = "";
+
+  html += '<div class="gear-group"><h3 class="group-title">Hombros</h3>';
+  if (set.shoulders.length) html += itemRow("Reliquia", set.shoulders, level);
+  else html += adviceRow("Hombros", "No hay reliquia para esta combinación. Usa los hombros de misión del nivel.");
+  html += "</div>";
+
+  html += '<div class="gear-group"><h3 class="group-title">Pecho</h3>';
+  if (set.chest.length) html += itemRow("Reliquia", set.chest, level);
+  else html += adviceRow("Pecho", "No existe reliquia de pecho para esta combinación. Usa la mejor pieza de misión.");
+  html += "</div>";
+
+  html += '<div class="gear-group"><h3 class="group-title">Armas</h3>';
+  const weapons = spec.weapons.filter((id) => DATA.heirlooms[id]);
+  if (spec.offhand === "dual") {
+    html += itemRow("Mano derecha", [weapons[0]], level);
+    if (weapons.length > 1) html += itemRow("Mano izquierda", [weapons[1]], level);
+    else html += adviceRow("Mano izquierda", "No hay otra reliquia física para esta mano. Usa la mejor maza o hacha de una mano de tu nivel.");
+  } else if (weapons.length) {
+    html += itemRow("Arma", weapons, level);
+  }
+  if (spec.offhand === "shield") html += adviceRow("Escudo", "No hay reliquia de escudo. Usa el mejor escudo de misión o mazmorra de tu nivel.");
+  if (spec.offhand === "held") html += adviceRow("Mano izquierda", "No hay objeto sostenido de herencia. Usa el mejor que encuentres para tu nivel.");
+  if (spec.ranged === "relic") html += adviceRow("Reliquia", "Usa la reliquia de clase con la estadística principal; no existe versión de herencia.");
+  if (spec.ranged === "wand") html += adviceRow("Varita", "No hay varita de herencia. Coge una de misión con Intelecto o poder de hechizos.");
+  if (spec.ranged === "thrown") html += adviceRow("A distancia", "No hay arma arrojadiza de herencia. Usa la mejor de tu nivel.");
+  if (spec.role === "hunter") html += adviceRow("Cuerpo a cuerpo", "No hay reliquia de arma cuerpo a cuerpo para cazador. Usa la mejor de tu nivel; tu daño viene del arco o del arma de fuego.");
+  if (spec.ranged === "ranged") html += itemRow("Arma a distancia", spec.rangedItems || ["42946", "44093"], level);
+  html += "</div>";
+
+  html += '<div class="gear-group"><h3 class="group-title">Abalorios</h3>';
+  if (set.trinkets.length) html += itemRow("Reliquia", set.trinkets, level);
+  else html += adviceRow("Abalorio", "Sin reliquia de abalorio para esta función.");
+  html += "</div>";
+
+  gearGroups.innerHTML = html;
+  scheduleRefresh();
+}
+
+function renderStats(spec, level) {
+  let key = spec.role;
+  if (spec.role === "physical") key = spec.primary === "agi" ? "agi" : "str";
+  if (spec.role === "tank") key = state.cls === "Druid" ? "bear" : "tank";
+  if (spec.role === "caster") key = "caster";
+  if (spec.role === "healer") key = "healer";
+  if (spec.role === "hunter") key = "hunter";
+  const list = DATA.stats[key] || DATA.stats.str;
+  statList.innerHTML = list.map((s) => "<li>" + s + "</li>").join("");
+  const hints = {
+    caster: "Llega al tope de golpe de hechizos y reparte el resto entre crítico y celeridad.",
+    healer: "Intelecto y espíritu sostienen tus curas; la celeridad gana valor al llegar a Northend.",
+    str: "Golpe y pericia hasta los topes; después crítico y celeridad.",
+    agi: "Agilidad, golpe y pericia son la base; el crítico escala muy bien.",
+    tank: "Aguante primero. Defensa, esquiva y parada antes de buscar daño.",
+    bear: "Aguante y agilidad son la base. Esquiva, pericia y golpe antes de buscar daño.",
+    hunter: "Agilidad y golpe mandan; el crítico y el poder de ataque vienen después."
+  };
+  statsHint.textContent = hints[key];
+}
+
+function renderDungeons(bracket, level) {
+  const anyActive = bracket.dungeons.some((d) => level >= d[1] && level <= d[2]);
+  const upcoming = !anyActive ? bracket.dungeons.find((d) => d[1] > level) : null;
+  dungeonList.innerHTML = bracket.dungeons.map((d) => {
+    const name = d[0], min = d[1], max = d[2];
+    const isCurrent = level >= min && level <= max;
+    const isNext = upcoming === d;
+    const label = bracket.min === 80 ? "" : (isCurrent ? " · ahora" : (isNext ? " · próxima" : ""));
+    return '<li class="' + (isCurrent || isNext ? "current" : "") + '"><span>' + name + label + '</span><span class="range">' + min + "–" + max + "</span></li>";
+  }).join("");
+}
+
+let refreshTimer = null;
+function scheduleRefresh() {
+  clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(() => {
+    try { if (window.$WowheadPower && window.$WowheadPower.refreshLinks) window.$WowheadPower.refreshLinks(); } catch (err) { /* widget no listo */ }
+  }, 450);
+}
+
+levelRange.addEventListener("input", (e) => setLevel(e.target.value, true));
+levelInput.addEventListener("change", (e) => setLevel(e.target.value));
+levelInput.addEventListener("blur", (e) => setLevel(e.target.value));
+
+$("resetBtn").addEventListener("click", () => {
+  state = { cls: "Warrior", spec: "Arms", level: 20 };
+  try { localStorage.removeItem(STORE.cls); localStorage.removeItem(STORE.spec); localStorage.removeItem(STORE.level); } catch (err) {}
+  document.documentElement.style.setProperty("--class", DATA.classMeta.Warrior.color);
+  renderClasses();
+  renderSpecs();
+  render();
+});
+
+renderClasses();
+renderSpecs();
+render();
+</script>
+
+</body>
+</html>
