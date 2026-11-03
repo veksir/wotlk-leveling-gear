@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-names = json.loads(Path(r"C:\Users\user\AppData\Local\Temp\heirloom_names.json").read_text(encoding="utf-8"))
+names = json.loads((Path(__file__).resolve().parent / "heirloom_names.json").read_text(encoding="utf-8"))
 
 heirlooms = {
     "42985": {"name": names["42985"], "slot": "Hombros", "source": "Emblemas"},
