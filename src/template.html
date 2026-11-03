@@ -339,6 +339,19 @@ var aowow_tooltips = {
   footer { margin-top: 18px; color: #6f93a5; font-size: 11px; }
   .reveal { animation: rise .18s ease both; }
   @keyframes rise { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+  .topbar-right { display: flex; align-items: center; gap: 10px; }
+  .lang-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
+  .lang-switch button {
+    appearance: none; border: 0; background: transparent; color: var(--muted);
+    padding: 6px 8px; font: inherit; font-size: 11px; font-weight: 700; cursor: pointer;
+  }
+  .lang-switch button + button { border-left: 1px solid var(--line); }
+  .lang-switch button.active { color: var(--text); background: rgba(117, 215, 239, .12); }
+  .faction-chip { --f: var(--ice); }
+  .faction-chip[data-faction="horde"] { --f: #d34a4a; }
+  .faction-chip[data-faction="alliance"] { --f: #5b8def; }
+  .faction-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--f); }
+  .faction-chip[aria-pressed="true"] { border-bottom-color: var(--f); }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -369,31 +382,39 @@ var aowow_tooltips = {
     <div class="brand">
       <div class="brand-mark" aria-hidden="true">W</div>
       <div>
-        <strong>Equipo óptimo</strong>
+        <strong data-i18n="brandTitle">Equipo óptimo</strong>
         <small>World of Warcraft 3.3.5 · Wrath of the Lich King</small>
       </div>
     </div>
-    <button class="ghost" id="resetBtn" type="button">Reiniciar</button>
+    <div class="topbar-right">
+      <div class="lang-switch" role="group" aria-label="Idioma">
+        <button type="button" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="ghost" id="resetBtn" type="button" data-i18n="reset">Reiniciar</button>
+    </div>
   </header>
 
   <main>
     <section class="intro">
-      <p class="eyebrow">El mejor objeto disponible hasta tu nivel</p>
-      <h1>Qué llevar en cada slot, sin adivinar.</h1>
-      <p>Elige clase, especialidad y nivel. Para cada ranura se muestra el objeto más fuerte que puedes usar en ese punto, con sus estadísticas, su fuente y dos alternativas.</p>
+      <p class="eyebrow" data-i18n="eyebrow">El mejor objeto disponible hasta tu nivel</p>
+      <h1 data-i18n="h1">Qué llevar en cada slot, sin adivinar.</h1>
+      <p data-i18n="intro">Elige clase, especialidad y nivel. Para cada ranura se muestra el objeto más fuerte que puedes usar en ese punto, con sus estadísticas, su fuente y dos alternativas.</p>
     </section>
 
     <section class="deck" aria-label="Configuración">
       <div class="deck-main">
-        <span class="field-label" id="classLabel">Clase</span>
+        <span class="field-label" id="classLabel" data-i18n="classLabel">Clase</span>
         <div class="chips" id="classes" role="group" aria-labelledby="classLabel"></div>
-        <span class="field-label" style="margin-top:14px" id="specLabel">Especialidad</span>
+        <span class="field-label" style="margin-top:14px" id="specLabel" data-i18n="specLabel">Especialidad</span>
         <div class="spec-row" id="specs" role="group" aria-labelledby="specLabel"></div>
+        <span class="field-label" style="margin-top:14px" id="factionLabel" data-i18n="factionLabel">Facción</span>
+        <div class="spec-row" id="factions" role="group" aria-labelledby="factionLabel"></div>
         <p class="class-note" id="classNote"></p>
       </div>
       <div class="deck-side">
         <div class="level-line">
-          <div class="level-big"><span id="levelNumber">20</span><small>NIVEL</small></div>
+          <div class="level-big"><span id="levelNumber">20</span><small data-i18n="levelWord">NIVEL</small></div>
           <input class="level-input" id="levelInput" type="number" min="1" max="80" value="20" inputmode="numeric" aria-label="Nivel exacto">
         </div>
         <input class="level-range" id="levelRange" type="range" min="1" max="80" value="20" aria-label="Nivel de subida">
@@ -403,17 +424,17 @@ var aowow_tooltips = {
     </section>
 
     <section class="summary" aria-label="Resumen">
-      <div><span>Fase de subida</span><strong id="statusBracket">Aprendizaje · 1 a 19</strong></div>
-      <div><span>Armadura</span><strong id="statusArmor">Malla (placa al 40)</strong></div>
-      <div><span>Siguiente hito</span><strong id="statusNext">Nivel 20 · primeras mazmorras</strong></div>
-      <div><span>Fuentes incluidas</span><strong>Misiones, mazmorras, vendedores y drops</strong></div>
+      <div><span data-i18n="statusPhase">Fase de subida</span><strong id="statusBracket">Aprendizaje · 1 a 19</strong></div>
+      <div><span data-i18n="statusArmor">Armadura</span><strong id="statusArmor">Malla (placa al 40)</strong></div>
+      <div><span data-i18n="statusNext">Siguiente hito</span><strong id="statusNext">Nivel 20 · primeras mazmorras</strong></div>
+      <div><span data-i18n="statusSources">Fuentes incluidas</span><strong id="sourcesValue" data-i18n="sourcesValue">Misiones, mazmorras, vendedores y drops</strong></div>
     </section>
 
     <div class="main">
       <section class="panel" aria-labelledby="sheetHeading">
         <div class="panel-head">
           <div>
-            <h2 id="sheetHeading">Equipamiento recomendado</h2>
+            <h2 id="sheetHeading" data-i18n="sheetTitle">Equipamiento recomendado</h2>
             <p id="sheetIntro">El mejor objeto usable en cada slot para tu nivel.</p>
           </div>
           <span class="slot-count" id="slotCount"></span>
@@ -423,40 +444,112 @@ var aowow_tooltips = {
 
       <aside class="side">
         <section class="panel" aria-labelledby="statsHeading">
-          <h2 id="statsHeading">Prioridad de estadísticas</h2>
+          <h2 id="statsHeading" data-i18n="statsTitle">Prioridad de estadísticas</h2>
           <ol class="stat-list" id="statList"></ol>
           <p class="hint" id="statsHint"></p>
         </section>
 
         <section class="panel" aria-labelledby="dungeonHeading">
-          <h2 id="dungeonHeading">Mazmorras del tramo</h2>
+          <h2 id="dungeonHeading" data-i18n="dungeonsTitle">Mazmorras del tramo</h2>
           <ul class="dungeon-list" id="dungeonList"></ul>
         </section>
 
         <details class="panel" id="heirloomPanel">
-          <summary>Reliquias de herencia</summary>
+          <summary data-i18n="heirloomTitle">Reliquias de herencia</summary>
           <div id="heirloomList" style="margin-top:8px"></div>
         </details>
 
         <section class="panel">
-          <h2>Cómo se calcula</h2>
-          <p class="note">Se puntúa cada objeto según la estadística principal de tu especialidad y se elige el de mayor valor disponible a tu nivel. Se priorizan misiones, mazmorras, vendedores y drops; el equipo PvP y las fuentes no registradas solo se usan si no hay una alternativa de subida. Se excluyen los objetos de banda detectados por la fuente; algunas cadenas de misión de banda pueden aparecer como Misión.</p>
+          <h2 data-i18n="calcTitle">Cómo se calcula</h2>
+          <p class="note" data-i18n="calcText">Se puntúa cada objeto según la estadística principal de tu especialidad y se elige el de mayor valor disponible a tu nivel. Se priorizan misiones, mazmorras, vendedores y drops; el equipo PvP y las fuentes no registradas solo se usan si no hay una alternativa de subida. Se excluyen los objetos de banda detectados por la fuente; algunas cadenas de misión de banda pueden aparecer como Misión.</p>
         </section>
       </aside>
     </div>
   </main>
 
   <footer>
-    <p>Las ventanas de objeto se cargan desde EVOWOW. Pasa el cursor sobre un objeto para ver su ficha completa.</p>
+    <p data-i18n="footer">Las ventanas de objeto se cargan desde EVOWOW. Pasa el cursor sobre un objeto para ver su ficha completa.</p>
   </footer>
 </div>
 <script>
 const DATA = /*__DATA__*/;
-const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level" };
+const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang" };
+
+const I18N = {
+  es: {
+    brandTitle: "Equipo óptimo", reset: "Reiniciar",
+    eyebrow: "El mejor objeto disponible hasta tu nivel",
+    h1: "Qué llevar en cada slot, sin adivinar.",
+    intro: "Elige clase, especialidad y nivel. Para cada ranura se muestra el objeto más fuerte que puedes usar en ese punto, con sus estadísticas, su fuente y dos alternativas.",
+    classLabel: "Clase", specLabel: "Especialidad", factionLabel: "Facción", levelWord: "NIVEL",
+    statusPhase: "Fase de subida", statusArmor: "Armadura", statusNext: "Siguiente hito",
+    statusSources: "Fuentes incluidas", sourcesValue: "Misiones, mazmorras, vendedores y drops",
+    sheetTitle: "Equipamiento recomendado", statsTitle: "Prioridad de estadísticas",
+    dungeonsTitle: "Mazmorras del tramo", heirloomTitle: "Reliquias de herencia",
+    calcTitle: "Cómo se calcula",
+    calcText: "Se puntúa cada objeto según la estadística principal de tu especialidad y se elige el de mayor valor disponible a tu nivel. Se priorizan misiones, mazmorras, vendedores y drops; el equipo PvP y las fuentes no registradas solo se usan si no hay una alternativa de subida. Se excluyen los objetos de banda detectados por la fuente; algunas cadenas de misión de banda pueden aparecer como Misión.",
+    footer: "Las ventanas de objeto se cargan desde EVOWOW. Pasa el cursor sobre un objeto para ver su ficha completa.",
+    horde: "Horda", alliance: "Alianza",
+    levelMax: "Nivel máximo", nextBiS: "Revisa el BiS de nivel 80",
+    sheetIntro: "El mejor objeto usable en cada slot para nivel ",
+    sheetIntro80: "Referencia de nivel 80. El botín de banda no está incluido.",
+    slots: " ranuras", alt: "Alt: ", noAlts: "Sin alternativas claras en este nivel.",
+    emptyItem: "Sin objeto", emptyMeta: "No hay un objeto válido para este nivel.",
+    offhandNote: "Con un arma de dos manos, ignora este slot.",
+    now: " · ahora", next: " · próxima", noReq: "Sin requisito", level: "Nivel ",
+    shoulders: "Hombros", chest: "Pecho", weapons: "Armas", trinkets: "Abalorios"
+  },
+  en: {
+    brandTitle: "Optimal gear", reset: "Reset",
+    eyebrow: "The best item available at your level",
+    h1: "What to wear in every slot, without guessing.",
+    intro: "Choose class, spec, and level. Each slot shows the strongest item you can use at this point, with its stats, source, and two alternatives.",
+    classLabel: "Class", specLabel: "Spec", factionLabel: "Faction", levelWord: "LEVEL",
+    statusPhase: "Leveling phase", statusArmor: "Armor", statusNext: "Next milestone",
+    statusSources: "Sources included", sourcesValue: "Quests, dungeons, vendors, and drops",
+    sheetTitle: "Recommended gear", statsTitle: "Stat priority",
+    dungeonsTitle: "Dungeons in this range", heirloomTitle: "Heirloom pieces",
+    calcTitle: "How it is calculated",
+    calcText: "Each item is scored using your spec's primary stats and the highest-value item available at your level is chosen. Quests, dungeons, vendors, and drops are prioritized; PvP gear and unregistered sources are only used when no leveling alternative exists. Raid items detected by source are excluded; some raid quest chains may still appear as Quest.",
+    footer: "Item tooltips load from EVOWOW. Hover over an item to see its full card.",
+    horde: "Horde", alliance: "Alliance",
+    levelMax: "Max level", nextBiS: "Check level 80 BiS",
+    sheetIntro: "The best usable item in every slot for level ",
+    sheetIntro80: "Level 80 reference. Raid loot is not included.",
+    slots: " slots", alt: "Alt: ", noAlts: "No clear alternatives at this level.",
+    emptyItem: "No item", emptyMeta: "No valid item for this level.",
+    offhandNote: "With a two-handed weapon, ignore this slot.",
+    now: " · now", next: " · next", noReq: "No requirement", level: "Level ",
+    shoulders: "Shoulders", chest: "Chest", weapons: "Weapons", trinkets: "Trinkets"
+  }
+};
+
+const SLOT_LABEL = {
+  es: { head: "Cabeza", neck: "Cuello", shoulder: "Hombros", back: "Espalda", chest: "Pecho", wrist: "Muñecas", hands: "Manos", waist: "Cintura", legs: "Piernas", feet: "Pies", ring1: "Anillo 1", ring2: "Anillo 2", trinket1: "Abalorio 1", trinket2: "Abalorio 2", mainhand: "Mano principal", offhand: "Mano secundaria", ranged: "A distancia", relic: "Reliquia" },
+  en: { head: "Head", neck: "Neck", shoulder: "Shoulders", back: "Back", chest: "Chest", wrist: "Wrists", hands: "Hands", waist: "Waist", legs: "Legs", feet: "Feet", ring1: "Ring 1", ring2: "Ring 2", trinket1: "Trinket 1", trinket2: "Trinket 2", mainhand: "Main hand", offhand: "Off hand", ranged: "Ranged", relic: "Relic" }
+};
+
+const STAT_LABEL = {
+  es: { str: "Fuerza", agi: "Agilidad", int: "Intelecto", sta: "Aguante", spi: "Espíritu", sp: "Poder de hechizos", ap: "Poder de ataque", heal: "Sanación", hit: "Golpe", crit: "Crítico", haste: "Celeridad", exp: "Pericia", arp: "Pen. armadura", def: "Defensa", dodge: "Esquiva", parry: "Parada", block: "Bloqueo", blockval: "Valor de bloqueo", mp5: "Maná/5s", res: "Resiliencia", spen: "Pen. hechizos" },
+  en: { str: "Strength", agi: "Agility", int: "Intellect", sta: "Stamina", spi: "Spirit", sp: "Spell power", ap: "Attack power", heal: "Healing", hit: "Hit", crit: "Crit", haste: "Haste", exp: "Expertise", arp: "Armor pen.", def: "Defense", dodge: "Dodge", parry: "Parry", block: "Block", blockval: "Block value", mp5: "Mana/5s", res: "Resilience", spen: "Spell pen." }
+};
+
+const STATS_EN = {
+  caster: ["Intellect", "Spell power", "Spell hit", "Crit", "Haste"],
+  healer: ["Intellect", "Spirit", "Spell power", "Haste", "Crit"],
+  str: ["Strength", "Hit", "Expertise", "Crit", "Haste"],
+  agi: ["Agility", "Hit", "Expertise", "Crit", "Haste"],
+  tank: ["Stamina", "Defense", "Dodge", "Parry", "Hit and expertise"],
+  bear: ["Stamina", "Agility", "Dodge", "Expertise", "Hit"],
+  hunter: ["Agility", "Hit", "Crit", "Attack power", "Stamina"]
+};
+
+const FACTION_HEIRLOOM = { "44097": "horde", "44098": "alliance" };
 
 const $ = (id) => document.getElementById(id);
 const classesEl = $("classes");
 const specsEl = $("specs");
+const factionsEl = $("factions");
 const slotsEl = $("slots");
 const levelInput = $("levelInput");
 const levelRange = $("levelRange");
@@ -485,32 +578,17 @@ function esc(value) {
 let state = {
   cls: load(STORE.cls, "Warrior"),
   spec: load(STORE.spec, "Arms"),
-  level: Number(load(STORE.level, 20)) || 20
+  level: Number(load(STORE.level, 20)) || 20,
+  faction: load(STORE.faction, "horde"),
+  lang: load(STORE.lang, "es")
 };
+if (!DATA.factions.includes(state.faction)) state.faction = "horde";
+if (!I18N[state.lang]) state.lang = "es";
 if (!DATA.specs[state.cls + "|" + state.spec]) {
   state.cls = "Warrior";
   state.spec = "Arms";
 }
 if (!DATA.classMeta[state.cls]) state.cls = "Warrior";
-
-const SLOT_LABEL = {
-  head: "Cabeza", neck: "Cuello", shoulder: "Hombros", back: "Espalda",
-  chest: "Pecho", wrist: "Muñecas", hands: "Manos", waist: "Cintura",
-  legs: "Piernas", feet: "Pies",
-  ring1: "Anillo 1", ring2: "Anillo 2",
-  trinket1: "Abalorio 1", trinket2: "Abalorio 2",
-  mainhand: "Mano principal", offhand: "Mano secundaria",
-  ranged: "A distancia", relic: "Reliquia"
-};
-
-const STAT_LABEL = {
-  str: "Fuerza", agi: "Agilidad", int: "Intelecto", sta: "Aguante", spi: "Espíritu",
-  sp: "Poder de hechizos", ap: "Poder de ataque", heal: "Sanación",
-  hit: "Golpe", crit: "Crítico", haste: "Celeridad", exp: "Pericia",
-  arp: "Pen. armadura", def: "Defensa", dodge: "Esquiva", parry: "Parada",
-  block: "Bloqueo", blockval: "Valor de bloqueo", mp5: "Maná/5s",
-  res: "Resiliencia", spen: "Pen. hechizos"
-};
 
 const STAT_ORDER = [
   "str", "agi", "int", "sta", "sp", "ap", "hit", "crit", "haste", "exp",
@@ -535,10 +613,37 @@ function clampLevel(value) {
   return Math.max(min, Math.min(80, Number(value) || min));
 }
 
+function t(key) { return (I18N[state.lang] && I18N[state.lang][key]) || key; }
+
+function applyLanguage() {
+  document.documentElement.lang = state.lang;
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const value = I18N[state.lang] && I18N[state.lang][el.dataset.i18n];
+    if (value) el.textContent = value;
+  });
+  document.querySelectorAll(".lang-switch button").forEach((btn) => {
+    btn.setAttribute("aria-pressed", String(btn.dataset.lang === state.lang));
+    btn.classList.toggle("active", btn.dataset.lang === state.lang);
+  });
+}
+
 function armorText(cls, level) {
+  if (state.lang === "en") {
+    if (cls === "Hunter" || cls === "Shaman") return level < 40 ? "Leather (mail at 40)" : "Mail";
+    if (cls === "Paladin" || cls === "Warrior") return level < 40 ? "Mail (plate at 40)" : "Plate";
+    return DATA.classMetaEn[cls].armor;
+  }
   if (cls === "Hunter" || cls === "Shaman") return level < 40 ? "Cuero (malla al 40)" : "Malla";
   if (cls === "Paladin" || cls === "Warrior") return level < 40 ? "Malla (placa al 40)" : "Placa";
   return DATA.classMeta[cls].armor;
+}
+
+function bracketName(bracket) {
+  return state.lang === "en" ? (bracket.nameEn || bracket.name) : bracket.name;
+}
+
+function bracketAdvice(bracket) {
+  return state.lang === "en" ? (bracket.adviceEn || bracket.advice) : bracket.advice;
 }
 
 function bracketFor(level) {
@@ -561,25 +666,35 @@ function itemLink(id, scaled, className) {
 
 function sourceText(item) {
   const src = item.src;
-  if (!src || src.t === "Otra") return "Otra fuente";
-  if (src.t === "Quest") return "Misión · " + (src.n || "Desconocida");
-  if (src.t === "Vendor") return "Vendedor · " + (src.n || "Desconocido");
-  if (src.t === "Rare") return "Drop raro";
+  const en = state.lang === "en";
+  if (!src || src.t === "Otra") return en ? "Other source" : "Otra fuente";
+  if (src.t === "Quest") {
+    const variants = src.q || [];
+    const match = variants.find((q) => {
+      const f = String(q.f || "Both").toLowerCase();
+      return f === "both" || f === state.faction;
+    });
+    const name = (match || variants[0] || {}).n || (en ? "Unknown" : "Desconocida");
+    return (en ? "Quest · " : "Misión · ") + name;
+  }
+  if (src.t === "Vendor") return (en ? "Vendor · " : "Vendedor · ") + (src.n || (en ? "Unknown" : "Desconocido"));
+  if (src.t === "Rare") return en ? "Rare drop" : "Drop raro";
   if (src.t === "Drop") {
-    const kind = src.zc === "Dungeon" ? "Mazmorra" : src.zc === "Raid" ? "Banda" : "Zona";
+    const kind = src.zc === "Dungeon" ? (en ? "Dungeon" : "Mazmorra")
+      : src.zc === "Raid" ? (en ? "Raid" : "Banda") : (en ? "Zone" : "Zona");
     const parts = [kind];
     if (src.z) parts.push(src.z);
     if (src.n) parts.push(src.n);
     return parts.join(" · ");
   }
-  return src.t || "Otra fuente";
+  return src.t || (en ? "Other source" : "Otra fuente");
 }
 
 function statLine(item) {
   const stats = item.st || {};
   const keys = STAT_ORDER.filter((key) => stats[key]);
-  if (!keys.length) return item.ar ? "<span>Armadura " + item.ar + "</span>" : "<span>Sin estadísticas</span>";
-  return keys.slice(0, 6).map((key) => "<span><b>+" + stats[key] + "</b> " + STAT_LABEL[key] + "</span>").join("");
+  if (!keys.length) return item.ar ? "<span>" + (state.lang === "en" ? "Armor " : "Armadura ") + item.ar + "</span>" : "<span>" + (state.lang === "en" ? "No stats" : "Sin estadísticas") + "</span>";
+  return keys.slice(0, 6).map((key) => "<span><b>+" + stats[key] + "</b> " + ((STAT_LABEL[state.lang] || STAT_LABEL.es)[key] || key) + "</span>").join("");
 }
 
 function renderClasses() {
@@ -624,8 +739,33 @@ function renderSpecs() {
   updateClassNote();
 }
 
+function renderFactions() {
+  factionsEl.innerHTML = "";
+  DATA.factions.forEach((faction) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "spec-chip faction-chip";
+    btn.dataset.faction = faction;
+    btn.setAttribute("aria-pressed", String(faction === state.faction));
+    btn.textContent = t(faction);
+    btn.addEventListener("click", () => {
+      state.faction = faction;
+      persist();
+      renderFactions();
+      render();
+    });
+    factionsEl.appendChild(btn);
+  });
+}
+
 function updateClassNote() {
   const meta = DATA.classMeta[state.cls];
+  if (state.lang === "en") {
+    classNote.textContent = state.cls === "Death Knight"
+      ? "Death knights start at level 55. The minimum level adjusts automatically."
+      : "Armor: " + armorText(state.cls, state.level) + ". Weapons: " + DATA.classMetaEn[state.cls].weapons + ".";
+    return;
+  }
   classNote.textContent = state.cls === "Death Knight"
     ? "Los caballeros de la muerte empiezan en el nivel 55. El nivel mínimo se ajusta solo."
     : "Armadura: " + armorText(state.cls, state.level) + ". Armas: " + meta.weapons + ".";
@@ -635,6 +775,8 @@ function persist() {
   save(STORE.cls, state.cls);
   save(STORE.spec, state.spec);
   save(STORE.level, String(state.level));
+  save(STORE.faction, state.faction);
+  save(STORE.lang, state.lang);
 }
 
 function setLevel(value) {
@@ -645,29 +787,29 @@ function setLevel(value) {
   render();
 }
 
-function renderSlot(spec, slot, level) {
-  const ids = (spec.slots[slot] && spec.slots[slot][level]) || [];
+function renderSlot(spec, slots, slot, level) {
+  const ids = (slots[slot] && slots[slot][level]) || [];
   const id = ids[0];
   const item = DATA.items[id];
-  const label = SLOT_LABEL[slot] || slot;
+  const label = (SLOT_LABEL[state.lang] || SLOT_LABEL.es)[slot] || slot;
   if (!item) {
     return '<article class="slot empty"><div class="slot-top"><span class="slot-name">' + label +
-      '</span><span class="slot-ilvl">—</span></div><div class="slot-body"><div class="item-icon placeholder">?</div><div><span class="item-name" style="color:var(--muted)">Sin objeto</span><div class="item-meta">No hay un objeto válido para este nivel.</div></div></div></article>';
+      '</span><span class="slot-ilvl">—</span></div><div class="slot-body"><div class="item-icon placeholder">?</div><div><span class="item-name" style="color:var(--muted)">' + t("emptyItem") + '</span><div class="item-meta">' + t("emptyMeta") + '</div></div></div></article>';
   }
   const color = qColor(item.q);
   const alts = ids.slice(1).filter((x) => DATA.items[x]);
   const altHtml = alts.length
-    ? '<div class="alts">Alt: ' + alts.map((x) => itemLink(x, false, "alt-link")).join(" · ") + "</div>"
-    : '<div class="alts">Sin alternativas claras en este nivel.</div>';
+    ? '<div class="alts">' + t("alt") + alts.map((x) => itemLink(x, false, "alt-link")).join(" · ") + "</div>"
+    : '<div class="alts">' + t("noAlts") + "</div>";
   let note = "";
-  if (slot === "offhand" && spec.slots.mainhand) {
-    const mhId = spec.slots.mainhand[level] && spec.slots.mainhand[level][0];
+  if (slot === "offhand" && slots.mainhand) {
+    const mhId = slots.mainhand[level] && slots.mainhand[level][0];
     const mh = DATA.items[mhId];
-    if (mh && mh.h === 2) note = '<div class="alt-note">Con un arma de dos manos, ignora este slot.</div>';
+    if (mh && mh.h === 2) note = '<div class="alt-note">' + t("offhandNote") + '</div>';
   }
-  let meta = item.req ? "Nivel " + item.req : "Sin requisito";
+  let meta = item.req ? t("level") + item.req : t("noReq");
   if (item.dps) meta += " · " + item.dps + " DPS";
-  if (item.ar) meta += " · " + item.ar + " armadura";
+  if (item.ar) meta += " · " + item.ar + (state.lang === "en" ? " armor" : " armadura");
   return '<article class="slot" style="--q:' + color + '">' +
     '<div class="slot-top"><span class="slot-name">' + label + '</span><span class="slot-ilvl">iLvl ' + item.ilvl + '</span></div>' +
     '<div class="slot-body">' + iconHtml(item) + '<div>' +
@@ -679,16 +821,25 @@ function renderSlot(spec, slot, level) {
 }
 
 function renderSlots(spec, level) {
-  const order = DATA.slotOrder.filter((slot) => spec.slots[slot]);
-  slotCount.textContent = order.length + " ranuras";
-  slotsEl.innerHTML = order.map((slot) => renderSlot(spec, slot, level)).join("");
+  const slots = spec.slots[state.faction];
+  const order = DATA.slotOrder.filter((slot) => slots[slot]);
+  slotCount.textContent = order.length + t("slots");
+  slotsEl.innerHTML = order.map((slot) => renderSlot(spec, slots, slot, level)).join("");
 }
 
 function renderStats(spec) {
   const key = DATA.stats[spec.role] ? spec.role : "str";
-  const list = DATA.stats[key] || DATA.stats.str;
+  const list = state.lang === "en" ? (STATS_EN[key] || STATS_EN.str) : (DATA.stats[key] || DATA.stats.str);
   statList.innerHTML = list.map((s) => "<li>" + esc(s) + "</li>").join("");
-  const hints = {
+  const hints = state.lang === "en" ? {
+    str: "Hit and expertise to cap, then crit and haste.",
+    agi: "Agility, hit, and expertise are the base; crit scales very well.",
+    caster: "Intellect and spell power first; fix hit, then crit or haste.",
+    healer: "Intellect and spirit sustain your heals; haste gains value with level.",
+    tank: "Stamina and armor first; defense, dodge, and parry before damage.",
+    bear: "Stamina and agility are the base; dodge, expertise, and hit before damage.",
+    hunter: "Agility and hit lead; crit and attack power follow."
+  } : {
     str: "Golpe y pericia hasta los topes; después crítico y celeridad.",
     agi: "Agilidad, golpe y pericia son la base; el crítico escala muy bien.",
     caster: "Intelecto y poder de hechizos primero; ajusta golpe y luego crítico o celeridad.",
@@ -707,7 +858,7 @@ function renderDungeons(bracket, level) {
     const name = d[0], min = d[1], max = d[2];
     const current = level >= min && level <= max;
     const next = upcoming === d;
-    const label = bracket.min === 80 ? "" : (current ? " · ahora" : (next ? " · próxima" : ""));
+    const label = bracket.min === 80 ? "" : (current ? t("now") : (next ? t("next") : ""));
     return '<li class="' + (current || next ? "current" : "") + '"><span>' + esc(name) + label + '</span><span class="range">' + min + "–" + max + "</span></li>";
   }).join("");
 }
@@ -720,11 +871,12 @@ function renderHeirlooms(key, level) {
     return;
   }
   const groups = [
-    ["Hombros", set.shoulders || []],
-    ["Pecho", set.chest || []],
-    ["Armas", (hs.weapons && hs.weapons.length) ? hs.weapons : (set.weapons || [])],
-    ["Abalorios", set.trinkets || []]
-  ].filter((g) => g[1].length);
+    [t("shoulders"), set.shoulders || []],
+    [t("chest"), set.chest || []],
+    [t("weapons"), (hs.weapons && hs.weapons.length) ? hs.weapons : (set.weapons || [])],
+    [t("trinkets"), set.trinkets || []]
+  ].map((g) => [g[0], g[1].filter((id) => !FACTION_HEIRLOOM[id] || FACTION_HEIRLOOM[id] === state.faction)])
+   .filter((g) => g[1].length);
   if (!groups.length) {
     heirloomPanel.hidden = true;
     return;
@@ -744,6 +896,11 @@ function render() {
   const bracket = bracketFor(level);
   const next = DATA.brackets.find((b) => b.min > level);
 
+  applyLanguage();
+  factionsEl.querySelectorAll("button").forEach((btn) => {
+    btn.textContent = t(btn.dataset.faction);
+    btn.setAttribute("aria-pressed", String(btn.dataset.faction === state.faction));
+  });
   document.documentElement.style.setProperty("--class", meta.color);
   levelInput.min = meta.min;
   levelRange.min = meta.min;
@@ -751,13 +908,15 @@ function render() {
   levelRange.value = level;
   levelNumber.textContent = level;
   levelRange.style.setProperty("--pct", (((level - 1) / 79) * 100) + "%");
-  bracketLabel.textContent = bracket.name;
-  $("statusBracket").textContent = level === 80 ? "Nivel máximo" : bracket.name + " · " + bracket.min + " a " + bracket.max;
+  bracketLabel.textContent = bracketName(bracket);
+  $("statusBracket").textContent = level === 80
+    ? t("levelMax")
+    : bracketName(bracket) + " · " + bracket.min + (state.lang === "en" ? " to " : " a ") + bracket.max;
   $("statusArmor").textContent = armorText(state.cls, level);
-  $("statusNext").textContent = next ? "Nivel " + next.min + " · " + next.name : "Revisa el BiS de nivel 80";
+  $("statusNext").textContent = next ? t("level") + next.min + " · " + bracketName(next) : t("nextBiS");
   $("sheetIntro").textContent = level === 80
-    ? "Referencia de nivel 80. El botín de banda no está incluido."
-    : "El mejor objeto usable en cada slot para nivel " + level + ".";
+    ? t("sheetIntro80")
+    : t("sheetIntro") + level + ".";
   updateClassNote();
   renderSlots(spec, level);
   renderStats(spec);
@@ -789,7 +948,9 @@ levelInput.addEventListener("change", (e) => setLevel(e.target.value));
 levelInput.addEventListener("blur", (e) => setLevel(e.target.value));
 
 $("resetBtn").addEventListener("click", () => {
-  state = { cls: "Warrior", spec: "Arms", level: 20 };
+  state.cls = "Warrior";
+  state.spec = "Arms";
+  state.level = 20;
   try {
     localStorage.removeItem(STORE.cls);
     localStorage.removeItem(STORE.spec);
@@ -797,12 +958,23 @@ $("resetBtn").addEventListener("click", () => {
   } catch (err) { /* sin almacenamiento */ }
   renderClasses();
   renderSpecs();
+  renderFactions();
   render();
+});
+
+document.querySelectorAll(".lang-switch button").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    state.lang = btn.dataset.lang;
+    persist();
+    renderFactions();
+    render();
+  });
 });
 
 state.level = clampLevel(state.level);
 renderClasses();
 renderSpecs();
+renderFactions();
 render();
 </script>
 <!--__BODY__-->
