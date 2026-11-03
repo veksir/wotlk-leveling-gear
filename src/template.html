@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equipo óptimo por nivel - WotLK 3.3.5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://wotlk.evowow.com/static/widgets/power.js?lang=en"></script>
+<script>
+var aowow_tooltips = {
+  "colorlinks": true,
+  "iconizelinks": false,
+  "renamelinks": false,
+  "hide": { "reagents": true, "sellprice": true }
+};
+</script>
+<style>
+  :root {
+    --bg: #06131d;
+    --panel: #0b2230;
+    --panel-2: #0e2a3a;
+    --line: #1a3d50;
+    --line-2: #28586e;
+    --text: #e9f4f8;
+    --muted: #8fadbd;
+    --ice: #75d7ef;
+    --gold: #d9b15f;
+    --class: #75d7ef;
+    --q2: #1eff00;
+    --q3: #2f9bff;
+    --q4: #b45cff;
+    --q7: #32d6ff;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background:
+      radial-gradient(900px 500px at 5% -10%, rgba(117, 215, 239, .10), transparent 65%),
+      linear-gradient(180deg, #06131d, #081b27 55%, #06131d);
+    font-family: "Source Sans 3", "Segoe UI", sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .28;
+    background-image:
+      linear-gradient(rgba(117, 215, 239, .04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(117, 215, 239, .04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(#000, transparent 80%);
+  }
+  .app { position: relative; max-width: 1320px; margin: 0 auto; padding: 18px 22px 60px; }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding-bottom: 16px;
+  }
+  .brand { display: flex; align-items: center; gap: 11px; }
+  .brand-mark {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--line-2);
+    border-radius: 7px;
+    color: var(--ice);
+    background: linear-gradient(180deg, rgba(117,215,239,.13), rgba(117,215,239,.02));
+    font-family: Cinzel, Georgia, serif;
+    font-size: 17px;
+  }
+  .brand strong { display: block; font-weight: 600; }
+  .brand small { display: block; color: var(--muted); font-size: 12px; }
+  .ghost {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font: inherit;
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .ghost:hover { color: var(--text); border-color: var(--line-2); }
+  .intro { padding: 8px 0 18px; }
+  .intro .eyebrow {
+    margin: 0 0 7px;
+    color: var(--ice);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .07em;
+  }
+  h1 {
+    margin: 0;
+    font-family: Cinzel, Georgia, serif;
+    font-size: clamp(28px, 3.4vw, 42px);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -.02em;
+  }
+  .intro p { margin: 8px 0 0; max-width: 75ch; color: var(--muted); font-size: 15px; }
+  .deck {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 285px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(14, 42, 58, .92), rgba(8, 25, 36, .94));
+    overflow: hidden;
+  }
+  .deck-main { padding: 16px 18px 18px; border-right: 1px solid var(--line); }
+  .deck-side { padding: 16px 18px 18px; }
+  .field-label {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .06em;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    --chip: var(--class);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 9px;
+    border: 1px solid var(--line);
+    border-left: 2px solid var(--chip);
+    border-radius: 5px;
+    background: rgba(8, 25, 36, .5);
+    color: var(--muted);
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .chip::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--chip);
+  }
+  .chip:hover { color: var(--text); border-color: var(--chip); }
+  .chip[aria-pressed="true"] {
+    color: var(--text);
+    background: color-mix(in srgb, var(--chip) 12%, rgba(8, 25, 36, .85));
+    border-color: var(--chip);
+  }
+  .spec-row { display: flex; flex-wrap: wrap; gap: 5px 14px; margin-top: 14px; }
+  .spec-chip {
+    appearance: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    padding: 3px 0 5px;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .spec-chip:hover { color: var(--text); }
+  .spec-chip[aria-pressed="true"] { color: var(--text); border-bottom-color: var(--class); }
+  .class-note { margin: 9px 0 0; color: var(--gold); font-size: 12px; min-height: 18px; }
+  .level-line { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .level-big {
+    font-family: Cinzel, Georgia, serif;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: -.04em;
+  }
+  .level-big small { margin-left: 4px; color: var(--muted); font-family: "Source Sans 3", sans-serif; font-size: 11px; letter-spacing: .1em; }
+  .level-input {
+    width: 58px;
+    padding: 4px 6px;
+    border: 1px solid var(--line-2);
+    border-radius: 5px;
+    background: rgba(6, 19, 29, .8);
+    color: var(--text);
+    font-family: Cinzel, Georgia, serif;
+    font-size: 14px;
+    text-align: center;
+  }
+  .level-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 5px;
+    margin: 14px 0 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--class) var(--pct, 25%), var(--line) var(--pct, 25%));
+    outline: none;
+    cursor: pointer;
+  }
+  .level-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: var(--text);
+    border: 3px solid var(--class);
+  }
+  .level-range::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--text);
+    border: 3px solid var(--class);
+  }
+  .range-labels { display: flex; justify-content: space-between; color: var(--muted); font-size: 10px; }
+  .bracket {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 8px;
+    border: 1px solid var(--line-2);
+    border-radius: 4px;
+    color: var(--ice);
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(8, 25, 36, .55);
+  }
+  .summary div { padding: 10px 14px; border-left: 1px solid var(--line); }
+  .summary div:first-child { border-left: 0; }
+  .summary span { display: block; color: var(--muted); font-size: 10px; letter-spacing: .04em; }
+  .summary strong { display: block; margin-top: 2px; font-size: 13px; font-weight: 600; }
+  .main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 315px;
+    gap: 14px;
+    align-items: start;
+    margin-top: 14px;
+  }
+  .panel {
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: linear-gradient(180deg, rgba(11, 34, 48, .88), rgba(7, 22, 32, .9));
+  }
+  .panel-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .panel-head h2, .side h2 {
+    margin: 0;
+    font-family: Cinzel, Georgia, serif;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .panel-head p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+  .slot-count { color: var(--muted); font-size: 11px; white-space: nowrap; }
+  .slots {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 12px;
+  }
+  .slot {
+    --q: var(--line-2);
+    display: flex;
+    flex-direction: column;
+    min-height: 128px;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--q);
+    border-radius: 6px;
+    background: rgba(8, 25, 36, .55);
+    padding: 9px 10px 8px;
+  }
+  .slot.empty { --q: var(--line); opacity: .72; }
+  .slot-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .slot-name { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .05em; }
+  .slot-ilvl { color: #6e91a3; font-size: 10px; white-space: nowrap; }
+  .slot-body { display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 9px; margin-top: 7px; }
+  .item-icon {
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--line-2);
+    border-radius: 4px;
+    background: #071722;
+    object-fit: cover;
+  }
+  .item-icon.placeholder { display: grid; place-items: center; color: var(--muted); font-size: 15px; }
+  .item-name {
+    display: block;
+    color: var(--q);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.25;
+    text-decoration: none;
+  }
+  .item-name:hover { text-decoration: underline; }
+  .item-meta { margin-top: 2px; color: var(--muted); font-size: 10.5px; }
+  .item-source { margin-top: 1px; color: #6f93a5; font-size: 10.5px; }
+  .item-stats { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 2px 8px; color: #c3d8e2; font-size: 10.5px; }
+  .item-stats b { color: var(--text); font-weight: 600; }
+  .alts { margin-top: auto; padding-top: 6px; color: #6f93a5; font-size: 10.5px; border-top: 1px solid rgba(26, 61, 80, .55); }
+  .alts a { color: #9fb9c8; text-decoration: none; }
+  .alts a:hover { color: var(--text); text-decoration: underline; }
+  .alt-note { color: var(--gold); }
+  .side { display: flex; flex-direction: column; gap: 10px; position: sticky; top: 12px; }
+  .side .panel { padding: 13px 14px; }
+  .side h2 { font-size: 15px; margin-bottom: 9px; }
+  .stat-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; counter-reset: s; }
+  .stat-list li { display: flex; gap: 8px; color: var(--text); font-size: 12px; }
+  .stat-list li::before { counter-increment: s; content: counter(s); width: 12px; color: var(--ice); font-family: Cinzel, Georgia, serif; font-size: 10px; }
+  .hint, .note { margin: 8px 0 0; color: var(--muted); font-size: 11.5px; }
+  .dungeon-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+  .dungeon-list li { display: flex; justify-content: space-between; gap: 8px; padding-bottom: 3px; border-bottom: 1px solid rgba(26, 61, 80, .4); font-size: 11.5px; }
+  .dungeon-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .dungeon-list li.current { color: var(--ice); }
+  .dungeon-list .range { color: var(--muted); font-size: 10px; white-space: nowrap; }
+  .heirloom-group + .heirloom-group { margin-top: 7px; }
+  .heirloom-group b { display: block; color: var(--muted); font-size: 10px; letter-spacing: .04em; }
+  .heirloom-group a { display: inline-block; margin: 2px 8px 0 0; color: #b9d4e0; font-size: 11.5px; text-decoration: none; }
+  .heirloom-group a:hover { color: var(--text); text-decoration: underline; }
+  details.panel summary { cursor: pointer; color: var(--text); font-family: Cinzel, Georgia, serif; font-size: 15px; }
+  details.panel summary::marker { color: var(--ice); }
+  footer { margin-top: 18px; color: #6f93a5; font-size: 11px; }
+  .reveal { animation: rise .18s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+  @media (max-width: 1000px) {
+    .deck { grid-template-columns: 1fr; }
+    .deck-main { border-right: 0; border-bottom: 1px solid var(--line); }
+    .deck-side { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: end; }
+    .main { grid-template-columns: 1fr; }
+    .side { position: static; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 680px) {
+    .app { padding: 14px 12px 46px; }
+    h1 { font-size: 27px; }
+    .summary { grid-template-columns: 1fr 1fr; }
+    .summary div:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+    .summary div:nth-child(4) { border-top: 1px solid var(--line); }
+    .slots { grid-template-columns: 1fr; padding: 9px; }
+    .side { grid-template-columns: 1fr; }
+    .deck-side { grid-template-columns: 1fr; }
+    .brand small { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">W</div>
+      <div>
+        <strong>Equipo óptimo</strong>
+        <small>World of Warcraft 3.3.5 · Wrath of the Lich King</small>
+      </div>
+    </div>
+    <button class="ghost" id="resetBtn" type="button">Reiniciar</button>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p class="eyebrow">El mejor objeto disponible hasta tu nivel</p>
+      <h1>Qué llevar en cada slot, sin adivinar.</h1>
+      <p>Elige clase, especialidad y nivel. Para cada ranura se muestra el objeto más fuerte que puedes usar en ese punto, con sus estadísticas, su fuente y dos alternativas.</p>
+    </section>
+
+    <section class="deck" aria-label="Configuración">
+      <div class="deck-main">
+        <span class="field-label" id="classLabel">Clase</span>
+        <div class="chips" id="classes" role="group" aria-labelledby="classLabel"></div>
+        <span class="field-label" style="margin-top:14px" id="specLabel">Especialidad</span>
+        <div class="spec-row" id="specs" role="group" aria-labelledby="specLabel"></div>
+        <p class="class-note" id="classNote"></p>
+      </div>
+      <div class="deck-side">
+        <div class="level-line">
+          <div class="level-big"><span id="levelNumber">20</span><small>NIVEL</small></div>
+          <input class="level-input" id="levelInput" type="number" min="1" max="80" value="20" inputmode="numeric" aria-label="Nivel exacto">
+        </div>
+        <input class="level-range" id="levelRange" type="range" min="1" max="80" value="20" aria-label="Nivel de subida">
+        <div class="range-labels"><span>1</span><span>20</span><span>40</span><span>60</span><span>80</span></div>
+        <span class="bracket" id="bracketLabel">Aprendizaje</span>
+      </div>
+    </section>
+
+    <section class="summary" aria-label="Resumen">
+      <div><span>Fase de subida</span><strong id="statusBracket">Aprendizaje · 1 a 19</strong></div>
+      <div><span>Armadura</span><strong id="statusArmor">Malla (placa al 40)</strong></div>
+      <div><span>Siguiente hito</span><strong id="statusNext">Nivel 20 · primeras mazmorras</strong></div>
+      <div><span>Fuentes incluidas</span><strong>Misiones, mazmorras, vendedores y drops</strong></div>
+    </section>
+
+    <div class="main">
+      <section class="panel" aria-labelledby="sheetHeading">
+        <div class="panel-head">
+          <div>
+            <h2 id="sheetHeading">Equipamiento recomendado</h2>
+            <p id="sheetIntro">El mejor objeto usable en cada slot para tu nivel.</p>
+          </div>
+          <span class="slot-count" id="slotCount"></span>
+        </div>
+        <div class="slots" id="slots"></div>
+      </section>
+
+      <aside class="side">
+        <section class="panel" aria-labelledby="statsHeading">
+          <h2 id="statsHeading">Prioridad de estadísticas</h2>
+          <ol class="stat-list" id="statList"></ol>
+          <p class="hint" id="statsHint"></p>
+        </section>
+
+        <section class="panel" aria-labelledby="dungeonHeading">
+          <h2 id="dungeonHeading">Mazmorras del tramo</h2>
+          <ul class="dungeon-list" id="dungeonList"></ul>
+        </section>
+
+        <details class="panel" id="heirloomPanel">
+          <summary>Reliquias de herencia</summary>
+          <div id="heirloomList" style="margin-top:8px"></div>
+        </details>
+
+        <section class="panel">
+          <h2>Cómo se calcula</h2>
+          <p class="note">Se puntúa cada objeto según la estadística principal de tu especialidad y se elige el de mayor valor disponible a tu nivel. Se priorizan misiones, mazmorras, vendedores y drops; el equipo PvP y las fuentes no registradas solo se usan si no hay una alternativa de subida.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <p>Las ventanas de objeto se cargan desde EVOWOW. Pasa el cursor sobre un objeto para ver su ficha completa.</p>
+  </footer>
+</div>
+<script>
+const DATA = /*__DATA__*/;
+const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level" };
+
+const $ = (id) => document.getElementById(id);
+const classesEl = $("classes");
+const specsEl = $("specs");
+const slotsEl = $("slots");
+const levelInput = $("levelInput");
+const levelRange = $("levelRange");
+const levelNumber = $("levelNumber");
+const bracketLabel = $("bracketLabel");
+const classNote = $("classNote");
+const statList = $("statList");
+const statsHint = $("statsHint");
+const dungeonList = $("dungeonList");
+const heirloomPanel = $("heirloomPanel");
+const heirloomList = $("heirloomList");
+const slotCount = $("slotCount");
+
+function load(key, fallback) {
+  try { return localStorage.getItem(key) || fallback; } catch (err) { return fallback; }
+}
+function save(key, value) {
+  try { localStorage.setItem(key, value); } catch (err) { /* sin almacenamiento */ }
+}
+function esc(value) {
+  return String(value == null ? "" : value).replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
+let state = {
+  cls: load(STORE.cls, "Warrior"),
+  spec: load(STORE.spec, "Arms"),
+  level: Number(load(STORE.level, 20)) || 20
+};
+if (!DATA.specs[state.cls + "|" + state.spec]) {
+  state.cls = "Warrior";
+  state.spec = "Arms";
+}
+if (!DATA.classMeta[state.cls]) state.cls = "Warrior";
+
+const SLOT_LABEL = {
+  head: "Cabeza", neck: "Cuello", shoulder: "Hombros", back: "Espalda",
+  chest: "Pecho", wrist: "Muñecas", hands: "Manos", waist: "Cintura",
+  legs: "Piernas", feet: "Pies",
+  ring1: "Anillo 1", ring2: "Anillo 2",
+  trinket1: "Abalorio 1", trinket2: "Abalorio 2",
+  mainhand: "Mano principal", offhand: "Mano secundaria",
+  ranged: "A distancia", relic: "Reliquia"
+};
+
+const STAT_LABEL = {
+  str: "Fuerza", agi: "Agilidad", int: "Intelecto", sta: "Aguante", spi: "Espíritu",
+  sp: "Poder de hechizos", ap: "Poder de ataque", heal: "Sanación",
+  hit: "Golpe", crit: "Crítico", haste: "Celeridad", exp: "Pericia",
+  arp: "Pen. armadura", def: "Defensa", dodge: "Esquiva", parry: "Parada",
+  block: "Bloqueo", blockval: "Valor de bloqueo", mp5: "Maná/5s",
+  res: "Resiliencia", spen: "Pen. hechizos"
+};
+
+const STAT_ORDER = [
+  "str", "agi", "int", "sta", "sp", "ap", "hit", "crit", "haste", "exp",
+  "arp", "def", "dodge", "parry", "block", "mp5", "spi", "heal", "blockval", "res", "spen"
+];
+
+const QUALITY_COLOR = { 2: "#1eff00", 3: "#2f9bff", 4: "#b45cff", 7: "#32d6ff" };
+
+function allSpecsFor(cls) {
+  const prefix = cls + "|";
+  return Object.keys(DATA.specs)
+    .filter((key) => key.indexOf(prefix) === 0)
+    .map((key) => key.slice(prefix.length));
+}
+
+function specFor(cls, name) {
+  return DATA.specs[cls + "|" + name];
+}
+
+function clampLevel(value) {
+  const min = DATA.classMeta[state.cls].min;
+  return Math.max(min, Math.min(80, Number(value) || min));
+}
+
+function armorText(cls, level) {
+  if (cls === "Hunter" || cls === "Shaman") return level < 40 ? "Cuero (malla al 40)" : "Malla";
+  if (cls === "Paladin" || cls === "Warrior") return level < 40 ? "Malla (placa al 40)" : "Placa";
+  return DATA.classMeta[cls].armor;
+}
+
+function bracketFor(level) {
+  return DATA.brackets.find((b) => level >= b.min && level <= b.max) || DATA.brackets[0];
+}
+
+function qColor(q) { return QUALITY_COLOR[q] || "#9fb9c8"; }
+
+function iconHtml(item) {
+  if (!item || !item.i) return '<div class="item-icon placeholder">?</div>';
+  return '<img class="item-icon" src="https://wotlk.evowow.com/static/images/wow/icons/medium/' + esc(item.i) + '.jpg" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">';
+}
+
+function itemLink(id, scaled, className) {
+  const item = DATA.items[id] || DATA.heirlooms[id];
+  if (!item) return "";
+  const rel = scaled ? ' rel="lvl=' + state.level + ' noopener"' : ' rel="noopener"';
+  return '<a class="' + (className || "") + '" style="color:' + qColor(item.q) + '" href="https://wotlk.evowow.com/?item=' + id + '" target="_blank"' + rel + '>' + esc(item.n) + "</a>";
+}
+
+function sourceText(item) {
+  const src = item.src;
+  if (!src || src.t === "Otra") return "Otra fuente";
+  if (src.t === "Quest") return "Misión · " + (src.n || "Desconocida");
+  if (src.t === "Vendor") return "Vendedor · " + (src.n || "Desconocido");
+  if (src.t === "Rare") return "Drop raro";
+  if (src.t === "Drop") {
+    const kind = src.zc === "Dungeon" ? "Mazmorra" : src.zc === "Raid" ? "Banda" : "Zona";
+    const parts = [kind];
+    if (src.z) parts.push(src.z);
+    if (src.n) parts.push(src.n);
+    return parts.join(" · ");
+  }
+  return src.t || "Otra fuente";
+}
+
+function statLine(item) {
+  const stats = item.st || {};
+  const keys = STAT_ORDER.filter((key) => stats[key]);
+  if (!keys.length) return item.ar ? "<span>Armadura " + item.ar + "</span>" : "<span>Sin estadísticas</span>";
+  return keys.slice(0, 6).map((key) => "<span><b>+" + stats[key] + "</b> " + STAT_LABEL[key] + "</span>").join("");
+}
+
+function renderClasses() {
+  classesEl.innerHTML = "";
+  DATA.classOrder.forEach((name) => {
+    const meta = DATA.classMeta[name];
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "chip";
+    btn.style.setProperty("--chip", meta.color);
+    btn.setAttribute("aria-pressed", String(name === state.cls));
+    btn.textContent = name;
+    btn.addEventListener("click", () => {
+      state.cls = name;
+      state.spec = allSpecsFor(name)[0];
+      if (state.level < DATA.classMeta[name].min) state.level = DATA.classMeta[name].min;
+      persist();
+      renderClasses();
+      renderSpecs();
+      render();
+    });
+    classesEl.appendChild(btn);
+  });
+}
+
+function renderSpecs() {
+  specsEl.innerHTML = "";
+  allSpecsFor(state.cls).forEach((name) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "spec-chip";
+    btn.setAttribute("aria-pressed", String(name === state.spec));
+    btn.textContent = name;
+    btn.addEventListener("click", () => {
+      state.spec = name;
+      persist();
+      renderSpecs();
+      render();
+    });
+    specsEl.appendChild(btn);
+  });
+  updateClassNote();
+}
+
+function updateClassNote() {
+  const meta = DATA.classMeta[state.cls];
+  classNote.textContent = state.cls === "Death Knight"
+    ? "Los caballeros de la muerte empiezan en el nivel 55. El nivel mínimo se ajusta solo."
+    : "Armadura: " + armorText(state.cls, state.level) + ". Armas: " + meta.weapons + ".";
+}
+
+function persist() {
+  save(STORE.cls, state.cls);
+  save(STORE.spec, state.spec);
+  save(STORE.level, String(state.level));
+}
+
+function setLevel(value) {
+  state.level = clampLevel(value);
+  levelInput.value = state.level;
+  levelRange.value = state.level;
+  persist();
+  render();
+}
+
+function renderSlot(spec, slot, level) {
+  const ids = (spec.slots[slot] && spec.slots[slot][level]) || [];
+  const id = ids[0];
+  const item = DATA.items[id];
+  const label = SLOT_LABEL[slot] || slot;
+  if (!item) {
+    return '<article class="slot empty"><div class="slot-top"><span class="slot-name">' + label +
+      '</span><span class="slot-ilvl">—</span></div><div class="slot-body"><div class="item-icon placeholder">?</div><div><span class="item-name" style="color:var(--muted)">Sin objeto</span><div class="item-meta">No hay un objeto válido para este nivel.</div></div></div></article>';
+  }
+  const color = qColor(item.q);
+  const alts = ids.slice(1).filter((x) => DATA.items[x]);
+  const altHtml = alts.length
+    ? '<div class="alts">Alt: ' + alts.map((x) => itemLink(x, false, "alt-link")).join(" · ") + "</div>"
+    : '<div class="alts">Sin alternativas claras en este nivel.</div>';
+  let note = "";
+  if (slot === "offhand" && spec.slots.mainhand) {
+    const mhId = spec.slots.mainhand[level] && spec.slots.mainhand[level][0];
+    const mh = DATA.items[mhId];
+    if (mh && mh.h === 2) note = '<div class="alt-note">Con un arma de dos manos, ignora este slot.</div>';
+  }
+  let meta = item.req ? "Nivel " + item.req : "Sin requisito";
+  if (item.dps) meta += " · " + item.dps + " DPS";
+  if (item.ar) meta += " · " + item.ar + " armadura";
+  return '<article class="slot" style="--q:' + color + '">' +
+    '<div class="slot-top"><span class="slot-name">' + label + '</span><span class="slot-ilvl">iLvl ' + item.ilvl + '</span></div>' +
+    '<div class="slot-body">' + iconHtml(item) + '<div>' +
+    itemLink(id, false, "item-name") +
+    '<div class="item-meta">' + meta + '</div>' +
+    '<div class="item-source">' + esc(sourceText(item)) + '</div>' +
+    '<div class="item-stats">' + statLine(item) + '</div>' +
+    '</div></div>' + note + altHtml + '</article>';
+}
+
+function renderSlots(spec, level) {
+  const order = DATA.slotOrder.filter((slot) => spec.slots[slot]);
+  slotCount.textContent = order.length + " ranuras";
+  slotsEl.innerHTML = order.map((slot) => renderSlot(spec, slot, level)).join("");
+}
+
+function renderStats(spec) {
+  const key = DATA.stats[spec.role] ? spec.role : "str";
+  const list = DATA.stats[key] || DATA.stats.str;
+  statList.innerHTML = list.map((s) => "<li>" + esc(s) + "</li>").join("");
+  const hints = {
+    str: "Golpe y pericia hasta los topes; después crítico y celeridad.",
+    agi: "Agilidad, golpe y pericia son la base; el crítico escala muy bien.",
+    caster: "Intelecto y poder de hechizos primero; ajusta golpe y luego crítico o celeridad.",
+    healer: "Intelecto y espíritu sostienen tus curas; la celeridad gana valor con el nivel.",
+    tank: "Aguante y armadura primero; defensa, esquiva y parada antes de buscar daño.",
+    bear: "Aguante y agilidad son la base; esquiva, pericia y golpe antes de buscar daño.",
+    hunter: "Agilidad y golpe mandan; crítico y poder de ataque vienen después."
+  };
+  statsHint.textContent = hints[key] || "";
+}
+
+function renderDungeons(bracket, level) {
+  const anyActive = bracket.dungeons.some((d) => level >= d[1] && level <= d[2]);
+  const upcoming = !anyActive ? bracket.dungeons.find((d) => d[1] > level) : null;
+  dungeonList.innerHTML = bracket.dungeons.map((d) => {
+    const name = d[0], min = d[1], max = d[2];
+    const current = level >= min && level <= max;
+    const next = upcoming === d;
+    const label = bracket.min === 80 ? "" : (current ? " · ahora" : (next ? " · próxima" : ""));
+    return '<li class="' + (current || next ? "current" : "") + '"><span>' + esc(name) + label + '</span><span class="range">' + min + "–" + max + "</span></li>";
+  }).join("");
+}
+
+function renderHeirlooms(key, level) {
+  const hs = DATA.heirloomSets[key];
+  const set = hs && DATA.legacySets[hs.set];
+  if (!hs || !set) {
+    heirloomPanel.hidden = true;
+    return;
+  }
+  const groups = [
+    ["Hombros", set.shoulders || []],
+    ["Pecho", set.chest || []],
+    ["Armas", (hs.weapons && hs.weapons.length) ? hs.weapons : (set.weapons || [])],
+    ["Abalorios", set.trinkets || []]
+  ].filter((g) => g[1].length);
+  if (!groups.length) {
+    heirloomPanel.hidden = true;
+    return;
+  }
+  heirloomPanel.hidden = false;
+  heirloomList.innerHTML = groups.map((g) => {
+    const links = g[1].map((id) => itemLink(id, true, "heirloom-link")).filter(Boolean).join("");
+    return '<div class="heirloom-group"><b>' + g[0] + "</b>" + links + "</div>";
+  }).join("");
+}
+
+function render() {
+  const level = state.level;
+  const meta = DATA.classMeta[state.cls];
+  const spec = specFor(state.cls, state.spec);
+  if (!spec) return;
+  const bracket = bracketFor(level);
+  const next = DATA.brackets.find((b) => b.min > level);
+
+  document.documentElement.style.setProperty("--class", meta.color);
+  levelInput.min = meta.min;
+  levelRange.min = meta.min;
+  levelInput.value = level;
+  levelRange.value = level;
+  levelNumber.textContent = level;
+  levelRange.style.setProperty("--pct", (((level - 1) / 79) * 100) + "%");
+  bracketLabel.textContent = bracket.name;
+  $("statusBracket").textContent = level === 80 ? "Nivel máximo" : bracket.name + " · " + bracket.min + " a " + bracket.max;
+  $("statusArmor").textContent = armorText(state.cls, level);
+  $("statusNext").textContent = next ? "Nivel " + next.min + " · " + next.name : "Revisa el BiS de nivel 80";
+  $("sheetIntro").textContent = level === 80
+    ? "Referencia de nivel 80. El botín de banda no está incluido."
+    : "El mejor objeto usable en cada slot para nivel " + level + ".";
+  updateClassNote();
+  renderSlots(spec, level);
+  renderStats(spec);
+  renderDungeons(bracket, level);
+  renderHeirlooms(state.cls + "|" + state.spec, level);
+  slotsEl.classList.remove("reveal");
+  void slotsEl.offsetWidth;
+  slotsEl.classList.add("reveal");
+  scheduleRefresh();
+}
+
+let refreshTimer = null;
+function scheduleRefresh() {
+  clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(() => {
+    try {
+      if (window.$WowheadPower && window.$WowheadPower.refreshLinks) window.$WowheadPower.refreshLinks();
+    } catch (err) { /* widget no listo */ }
+    setTimeout(() => {
+      try {
+        if (window.$WowheadPower && window.$WowheadPower.refreshLinks) window.$WowheadPower.refreshLinks();
+      } catch (err) { /* widget no listo */ }
+    }, 900);
+  }, 600);
+}
+
+levelRange.addEventListener("input", (e) => setLevel(e.target.value));
+levelInput.addEventListener("change", (e) => setLevel(e.target.value));
+levelInput.addEventListener("blur", (e) => setLevel(e.target.value));
+
+$("resetBtn").addEventListener("click", () => {
+  state = { cls: "Warrior", spec: "Arms", level: 20 };
+  try {
+    localStorage.removeItem(STORE.cls);
+    localStorage.removeItem(STORE.spec);
+    localStorage.removeItem(STORE.level);
+  } catch (err) { /* sin almacenamiento */ }
+  renderClasses();
+  renderSpecs();
+  render();
+});
+
+state.level = clampLevel(state.level);
+renderClasses();
+renderSpecs();
+render();
+</script>
+<!--__BODY__-->
+</body>
+</html>
