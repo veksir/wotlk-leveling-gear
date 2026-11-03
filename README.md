@@ -5,6 +5,8 @@ Página estática que muestra el mejor objeto disponible en cada slot para una c
 ## Alcance
 
 - 31 especialidades de las 10 clases.
+- Selector de facción Horda/Alianza para misiones y vendedores.
+- Interfaz en español e inglés.
 - 18 slots posibles: armadura, anillos, abalorios, armas, escudo/offhand y reliquia.
 - Mejor objeto + 2 alternativas por slot.
 - Se priorizan misiones, mazmorras, vendedores y drops. El equipo PvP y las fuentes no registradas solo se usan si no hay una alternativa de subida.
