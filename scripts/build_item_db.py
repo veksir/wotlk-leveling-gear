@@ -129,10 +129,11 @@ def source_info(source, zones):
     cat = source.get("category")
     if cat == "Quest":
         quests = source.get("quests") or []
-        name = quests[0].get("name") if quests else "Misión"
-        return {"t": "Quest", "n": name}, "quest", False
+        variants = [{"n": q.get("name") or "Misión", "f": q.get("faction") or "Both"} for q in quests]
+        name = variants[0]["n"] if variants else "Misión"
+        return {"t": "Quest", "n": name, "q": variants}, "quest", False
     if cat == "Vendor":
-        return {"t": "Vendor", "n": source.get("name", "Vendedor")}, "vendor", False
+        return {"t": "Vendor", "n": source.get("name", "Vendedor"), "f": source.get("faction") or "Both"}, "vendor", False
     if cat in ("Boss Drop", "Zone Drop"):
         z = zones.get(source.get("zone"))
         zone_name = z["name"] if z else None
