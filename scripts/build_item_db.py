@@ -8,7 +8,7 @@ RAW = ROOT / "data" / "raw_items.json"
 ZONES_RAW = ROOT / "data" / "raw_zones.json"
 OUT = ROOT / "data" / "items.json"
 
-QUALITY = {"Uncommon": 2, "Rare": 3, "Epic": 4, "Heirloom": 7}
+QUALITY = {"Uncommon": 2, "Rare": 3, "Epic": 4, "Legendary": 5, "Heirloom": 7}
 SLOT_MAP = {
     "Head": "head", "Neck": "neck", "Shoulder": "shoulder", "Back": "back",
     "Chest": "chest", "Wrist": "wrist", "Hands": "hands", "Waist": "waist",
@@ -42,6 +42,9 @@ RATING_PATTERNS = [
     (r"block value", "blockval"),
     (r"spell penetration", "spen"),
 ]
+
+
+JUNK_RE = re.compile(r"^(\[ph\]|test\b|zz|monster -|npc equip)|deprecated|\(test\)", re.I)
 
 
 def infer_req(ilvl):
@@ -123,26 +126,52 @@ def parse_restrictions(tooltip):
     return classes, races
 
 
-def source_info(source, zones):
-    if not source:
+PVP_RE = re.compile(
+    r"Gladiator|Field Marshal|Warlord|Marshal's|General's|Champion's|Lieutenant Commander's|"
+    r"Knight-Captain|Knight-Lieutenant|Knight's|Legionnaire|Grand Marshal|High Warlord|Sergeant|"
+    r"Stone Guard|Blood Guard|Centurion|Battlemaster",
+    re.I,
+)
+# Una misión de recompensa con este nivel de objeto o más es de cadena de banda
+# (Ojo de la Eternidad, Ulduar, Ciudadela de la Corona de Hielo...). Las cartas
+# de Darkmoon (200) y las misiones diarias quedan por debajo.
+RAID_QUEST_MIN_ILVL = 213
+# Épico sin fuente registrada y con este nivel de objeto o más: casi seguro viene de banda
+# (fichas de set, botín sin jefe asignado). Se oculta en "Sin bandas" y se rotula "probable".
+UNSOURCED_RAID_MIN_ILVL = 213
+
+
+def source_info(source, zones, ilvl=0, quality=0):
+    """Devuelve (src, tipo, es_banda). Campos cortos para que el JSON pese poco."""
+    if not source or not source.get("category"):
         return None, "unknown", False
     cat = source.get("category")
     if cat == "Quest":
         quests = source.get("quests") or []
-        variants = [{"n": q.get("name") or "Misión", "f": q.get("faction") or "Both"} for q in quests]
+        variants = [{"n": q.get("name") or "Misión", "f": q.get("faction") or "Both", "id": q.get("questId")} for q in quests]
         name = variants[0]["n"] if variants else "Misión"
-        return {"t": "Quest", "n": name, "q": variants}, "quest", False
+        raid_quest = quality == 5 or ilvl >= RAID_QUEST_MIN_ILVL
+        return {"t": "Quest", "n": name, "q": variants, **({"rq": 1} if raid_quest else {})}, "quest", raid_quest
     if cat == "Vendor":
         return {"t": "Vendor", "n": source.get("name", "Vendedor"), "f": source.get("faction") or "Both"}, "vendor", False
     if cat in ("Boss Drop", "Zone Drop"):
-        z = zones.get(source.get("zone"))
+        zid = source.get("zone")
+        z = zones.get(zid)
         zone_name = z["name"] if z else None
         zone_cat = z.get("category") if z else None
+        chance = source.get("dropChance")
+        out = {"t": "Drop", "z": zone_name, "zc": zone_cat, "zid": zid}
         if cat == "Boss Drop":
-            return {"t": "Drop", "n": source.get("name"), "z": zone_name, "zc": zone_cat}, "drop", zone_cat == "Raid"
-        return {"t": "Drop", "z": zone_name, "zc": zone_cat}, "drop", zone_cat == "Raid"
+            out["n"] = source.get("name")
+        if isinstance(chance, (int, float)) and 0 < chance <= 1:
+            out["dc"] = round(chance * 100, 1)
+        return out, "drop", zone_cat == "Raid"
     if cat == "Rare Drop":
-        return {"t": "Rare"}, "rare", False
+        chance = source.get("dropChance")
+        out = {"t": "Rare"}
+        if isinstance(chance, (int, float)) and 0 < chance <= 1:
+            out["dc"] = round(chance * 100, 2)
+        return out, "rare", False
     return {"t": cat or "Fuente"}, "other", False
 
 
@@ -159,7 +188,7 @@ def main():
         if not slot:
             continue
         quality = QUALITY.get(it.get("quality"))
-        if quality not in (2, 3, 4):
+        if quality not in (2, 3, 4, 5):
             continue
         req = int(it.get("requiredLevel") or 0)
         ilvl = int(it.get("itemLevel") or 0)
@@ -167,6 +196,8 @@ def main():
         if it.get("quality") != "Heirloom" and (req == 0 or inferred - req > 15):
             req = inferred
         if req > 80 or ilvl > 284 or ilvl < 1:
+            continue
+        if JUNK_RE.search(it.get("name") or ""):
             continue
         tooltip = it.get("tooltip") or []
         labels = " ".join((t.get("label") or "") for t in tooltip)
@@ -176,14 +207,20 @@ def main():
         if not stats and dps == 0 and not (slot == "offhand" and armor > 0):
             continue
         classes, races = parse_restrictions(tooltip)
-        src, src_kind, is_raid = source_info(it.get("source"), zones)
+        is_pvp = bool(PVP_RE.search(it.get("name") or "")) or bool(stats.get("res"))
+        src, src_kind, is_raid = source_info(it.get("source"), zones, ilvl, quality)
         if src is None:
             src, src_kind = {"t": "Otra"}, "other"
+            if is_pvp:
+                src = {"t": "PvP"}
+            elif quality >= 4 and ilvl >= UNSOURCED_RAID_MIN_ILVL:
+                src, is_raid = {"t": "RaidProb"}, True
         sub = it.get("subclass") or ""
         cls = it.get("class")
         armor_type = sub if cls == "Armor" and sub in ("Cloth", "Leather", "Mail", "Plate", "Shield") else None
         hands = 2 if slot == "twohand" else (1 if slot in ("onehand", "mainhand", "offhand") else 0)
         ranged = slot in ("ranged", "thrown")
+        phase = it.get("contentPhase")
         items[str(it["itemId"])] = {
             "n": it.get("name") or "",
             "i": it.get("icon") or "",
@@ -200,6 +237,8 @@ def main():
             "src": src,
             "sk": src_kind,
             "raid": is_raid,
+            "pvp": is_pvp,
+            "ph": phase if isinstance(phase, int) else 0,
             "cl": classes,
             "ra": races,
             "h": hands,
