@@ -17,7 +17,11 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 ## Features
 
 - **Full equipment sheet**: head, neck, shoulders, back, chest, wrists, hands, waist, legs, feet, rings, trinkets, main hand, off hand, ranged, and relic.
-- **Best item per slot** with two alternatives.
+- **Best item per slot** with 2, 5, or 10 alternatives, ranked by score (not by source).
+- **How to get it**: every item shows its source (quest, vendor, dungeon boss with drop chance, raid, rare drop) and links to its EVOWOW page.
+- **"Why this item?"** per slot: score breakdown by stat, armor-type penalty, comparison with the next alternative, and a warning when a higher item level option is hidden or weaker.
+- **Content modes**: "No raids" (default) or "With raids", raid phase 1–4 or All, and a separate "PvP only" mode (PvE is the default; PvP gear is never mixed into PvE recommendations).
+- **Dungeon loot from your gear**: enter what your character is wearing (or load the recommended set), pick a dungeon, and see every item it can drop for your class and spec with the % change over your equipped piece. The same flow is meant to extend to raids.
 - **Faction-aware**: quests and vendors are filtered for Horde or Alliance.
 - **Bilingual UI**: Spanish and English.
 - **Item details**: icon, quality color, item level, required level, relevant stats, and source.
@@ -30,10 +34,10 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 
 1. `scripts/fetch_raw.py` downloads the raw item and zone data.
 2. `scripts/build_item_db.py` normalizes items, stats, required levels, armor/weapon metadata, and sources.
-3. `scripts/build_recommendations.py` filters items by class, spec, level, faction, armor type, and weapon proficiency, then ranks them with role-based stat weights.
+3. `scripts/build_recommendations.py` emits the item database, spec definitions, stat weights, and dungeon list. The ranking itself runs in the browser, so mode, phase, PvP, and faction filters apply instantly.
 4. `scripts/build_page.py` injects the generated JSON into `src/template.html` and writes `tolltip.html`.
 
-The ranking is a practical leveling heuristic, not a combat simulator. It prioritizes leveling sources and uses PvP or unregistered sources only when no better leveling option exists. Known raid drops are excluded; some raid quest chains may still appear as quests.
+The ranking is a practical heuristic, not a combat simulator: it sorts by a weighted stat score (item level only breaks ties) and penalizes armor types that are not ideal for the class. Epic items with no recorded source at item level 213 or higher are treated as raid loot ("likely raid"). Hit/expertise caps, gems, set bonuses, proc effects, and full weapon loadouts are not modeled yet.
 
 ## Quick start
 
@@ -95,7 +99,7 @@ This project is not affiliated with Blizzard Entertainment. World of Warcraft an
 - Raid loot is intentionally excluded, but some raid quest rewards can still be labeled as quests.
 - Stat weights are role-based approximations. They are designed to be useful while leveling, not to replace a full BiS simulator.
 - Some very low-level slots may legitimately have no item with known stats.
-- The generated page embeds the item data, so `tolltip.html` is intentionally large (around 3 MB).
+- The generated page embeds the item data, so `tolltip.html` is intentionally large (around 4.5 MB).
 
 ## Contributing
 
