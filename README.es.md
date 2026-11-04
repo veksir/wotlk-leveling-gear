@@ -21,6 +21,7 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 - **Cómo conseguirlo**: cada objeto muestra su fuente (misión, vendedor, jefe de mazmorra con probabilidad de drop, banda, drop raro) y enlaza a su ficha de EVOWOW.
 - **«¿Por qué este objeto?»** por slot: desglose de la puntuación por estadística, penalización por tipo de armadura, comparación con la siguiente alternativa y aviso cuando una opción de mayor nivel está oculta o es peor.
 - **Modos de contenido**: «Sin bandas» (por defecto) o «Con bandas», fase de raid 1–4 o Todas y un modo aparte «Solo PvP» (el PvE es el predeterminado; el equipo PvP nunca se mezcla en la recomendación PvE).
+- **Legendarios incluidos**: los legendarios se puntúan como cualquier otro objeto y aparecen cuando son la mejor opción; los de banda requieren «Con bandas». La página muestra el top por slot, no un catálogo completo de legendarios.
 - **Botín de mazmorra según tu equipo**: indica lo que lleva puesto tu personaje (o carga el recomendado), elige una mazmorra y mira todo lo que puede soltar para tu clase y especialidad, con el % de cambio frente a tu pieza equipada. La idea es extenderlo después a raids.
 - **Filtro de facción**: las misiones y vendedores se ajustan a Horda o Alianza.
 - **Interfaz bilingüe**: español e inglés.
@@ -100,6 +101,8 @@ Este proyecto no está afiliado a Blizzard Entertainment. World of Warcraft y Wr
 - En «Sin bandas» se excluyen el botín de banda y las cadenas de misión de banda; en «Con bandas» aparecen.
 - Los pesos de estadísticas son aproximaciones por rol. Sirven para subir de nivel, no sustituyen a un simulador de BiS.
 - Algunos slots de niveles muy bajos pueden no tener objetos con estadísticas conocidas.
+- La página muestra el mejor objeto y alternativas por slot, no todos los objetos. Un legendario solo aparece si puntúa para la especialidad, nivel, facción, modo, fase y filtro PvP seleccionados. Los legendarios de nivel bajo o que dependen de una combinación no modelada pueden no aparecer.
+- Las combinaciones de armas están simplificadas: algunos setups especiales, como Titan's Grip de Fury, todavía no se modelan, así que ciertos objetos BiS o legendarios pueden faltar.
 - La página final incluye los datos incrustados, así que `tolltip.html` pesa alrededor de 4,5 MB.
 
 ## Contribuir

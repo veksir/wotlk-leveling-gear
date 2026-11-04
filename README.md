@@ -21,6 +21,7 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 - **How to get it**: every item shows its source (quest, vendor, dungeon boss with drop chance, raid, rare drop) and links to its EVOWOW page.
 - **"Why this item?"** per slot: score breakdown by stat, armor-type penalty, comparison with the next alternative, and a warning when a higher item level option is hidden or weaker.
 - **Content modes**: "No raids" (default) or "With raids", raid phase 1–4 or All, and a separate "PvP only" mode (PvE is the default; PvP gear is never mixed into PvE recommendations).
+- **Legendary items included**: legendaries are scored like any other item and appear when they are the best option; raid legendaries require "With raids". The page shows the top choices per slot, not a full legendary catalog.
 - **Dungeon loot from your gear**: enter what your character is wearing (or load the recommended set), pick a dungeon, and see every item it can drop for your class and spec with the % change over your equipped piece. The same flow is meant to extend to raids.
 - **Faction-aware**: quests and vendors are filtered for Horde or Alliance.
 - **Bilingual UI**: Spanish and English.
@@ -96,9 +97,11 @@ This project is not affiliated with Blizzard Entertainment. World of Warcraft an
 ## Limitations
 
 - The dataset is based on WotLK Classic; a few original 3.3.5 sources may be missing or labeled as “Other source”.
-- Raid loot is intentionally excluded, but some raid quest rewards can still be labeled as quests.
+- "No raids" excludes raid loot and raid quest chains; "With raids" includes them.
 - Stat weights are role-based approximations. They are designed to be useful while leveling, not to replace a full BiS simulator.
 - Some very low-level slots may legitimately have no item with known stats.
+- The page shows the best item plus alternatives per slot, not every item. A legendary only appears if it ranks for the selected spec, level, faction, mode, phase, and PvP filter. Low-level legendaries or ones that depend on an unmodeled setup may not appear.
+- Weapon combinations are simplified: special setups such as Fury's Titan's Grip are not fully modeled yet, so some BiS or legendary items may be missing.
 - The generated page embeds the item data, so `tolltip.html` is intentionally large (around 4.5 MB).
 
 ## Contributing
