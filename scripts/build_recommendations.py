@@ -3,7 +3,6 @@ import re
 import sys
 from pathlib import Path
 from collections import defaultdict
-from bisect import insort
 
 ROOT = Path(__file__).resolve().parent.parent
 ITEMS_PATH = ROOT / "data" / "items.json"
@@ -112,14 +111,6 @@ BRACKET_EN = {
     80: ("Max level", "You no longer need leveling gear. From here, pick the level 80 BiS for your spec and content phase."),
 }
 
-PVP_RE = re.compile(
-    r"Gladiator|Field Marshal|Warlord|Marshal's|General's|Champion's|Lieutenant Commander's|"
-    r"Knight-Captain|Knight-Lieutenant|Knight's|Legionnaire|Grand Marshal|High Warlord|Sergeant|"
-    r"Stone Guard|Blood Guard|Centurion|Battlemaster",
-    re.I,
-)
-
-
 def weights_for(role):
     w = defaultdict(float)
     if role in ("str", "agi"):
@@ -146,195 +137,26 @@ def weights_for(role):
     return w
 
 
-def source_priority(item):
-    known = bool(item.get("src")) and item.get("src", {}).get("t") != "Otra"
-    if known and not PVP_RE.search(item.get("n", "")):
-        return 2
-    if known:
-        return 1
-    return 0
+ARMOR_UNLOCK = {"Plate": {"Death Knight": 55, "Warrior": 40, "Paladin": 40}, "Mail": {"Hunter": 40, "Shaman": 40}}
+ROLES = ["str", "agi", "caster", "healer", "tank", "bear", "hunter"]
 
 
-def norm_faction(value):
-    if not value:
-        return "both"
-    value = str(value).lower()
-    return "both" if value in ("both", "none") else value
-
-
-def item_factions(item):
-    src = item.get("src") or {}
-    factions = set()
-    if src.get("t") == "Quest":
-        for quest in src.get("q") or []:
-            factions.add(norm_faction(quest.get("f")))
-    elif src.get("t") == "Vendor":
-        factions.add(norm_faction(src.get("f")))
-    return factions or {"both"}
-
-
-def item_score(item, weights):
-    total = item.get("ar", 0) * weights.get("armor", 0) + item.get("dps", 0) * weights.get("dps", 0) + item.get("ilvl", 0) * 0.01
-    for key, value in (item.get("st") or {}).items():
-        total += value * weights.get(key, 0)
-    return round(total, 4)
-
-
-def armor_unlock(cls, at):
-    if at == "Plate":
-        if cls == "Death Knight":
-            return 55
-        if cls in ("Warrior", "Paladin"):
-            return 40
-    if at == "Mail" and cls in ("Hunter", "Shaman"):
-        return 40
-    return 1
-
-
-def preferred_armor(spec_cls, level):
-    if spec_cls in ("Mage", "Priest", "Warlock"):
-        return "Cloth"
-    if spec_cls in ("Druid", "Rogue"):
-        return "Leather"
-    if spec_cls in ("Hunter", "Shaman"):
-        return "Leather" if level < 40 else "Mail"
-    if spec_cls in ("Warrior", "Paladin"):
-        return "Mail" if level < 40 else "Plate"
-    return "Plate"
-
-
-def armor_factor(spec_cls, at, level):
-    tiers = ARMOR_TIERS.get(spec_cls, ["Cloth"])
-    if at not in tiers:
-        return 0
-    pref = preferred_armor(spec_cls, level)
-    diff = tiers.index(at) - tiers.index(pref)
-    return [1.0, 0.6, 0.35, 0.2][max(0, diff)] if diff >= 0 else 0.4
-
-
-def spec_slots(spec):
-    _, _, role, primary, mode, off, ranged, relic = spec
-    slots = list(ARMOR_KEYS) + ["neck", "ring1", "ring2", "trinket1", "trinket2", "mainhand"]
-    if off:
-        slots.append("offhand")
-    if ranged:
-        slots.append("ranged")
-    if relic:
-        slots.append("relic")
-    return slots
-
-
-def compute_slots(items, spec, faction, minlevel):
-    cls, name, role, primary, mode, off, ranged, relic = spec
-    weights = weights_for(role)
-    out_slots = {key: [[] for _ in range(81)] for key in spec_slots(spec)}
-    referenced = set()
-
-    def eligible(item):
-        if item.get("raid"):
-            return False
-        if item.get("cl") and cls not in item["cl"]:
-            return False
-        factions = item_factions(item)
-        return "both" in factions or faction in factions
-
-    def available_level(item):
-        req = item.get("req") or 0
-        level = max(1 if req <= 0 else req, minlevel)
-        if item.get("at"):
-            level = max(level, armor_unlock(cls, item["at"]))
-        return level if level <= 80 else None
-
-    by_level = defaultdict(lambda: defaultdict(list))
-    for iid, item in items.items():
-        if not eligible(item):
-            continue
-        slot = item["s"]
-        sub = item.get("sub")
-        at = item.get("at")
-        hands = item.get("h", 0)
-        score = item_score(item, weights)
-        if score <= 0:
-            continue
-        level = available_level(item)
-        if level is None:
-            continue
-        prio = source_priority(item)
-
-        if slot in ARMOR_KEYS:
-            if slot == "back":
-                by_level["back"].setdefault(level, []).append((score, item.get("ilvl", 0), iid, None, prio))
-            elif at in ARMOR_TIERS.get(cls, []):
-                by_level[slot].setdefault(level, []).append((score, item.get("ilvl", 0), iid, at, prio))
-        elif slot in ("neck", "ring", "trinket"):
-            by_level[slot].setdefault(level, []).append((score, item.get("ilvl", 0), iid, None, prio))
-        elif slot == "offhand" and at == "Shield" and off == "shield":
-            by_level["offhand"].setdefault(level, []).append((score, item.get("ilvl", 0), iid, None, prio))
-        elif slot in ("twohand", "onehand", "mainhand", "offhand"):
-            if sub not in CLASS_WEAPONS[cls]:
-                continue
-            if hands not in WEAPON_HANDS.get(cls, {}).get(sub, set()):
-                continue
-            if mode == "2h" and hands != 2:
-                continue
-            if mode == "1h" and hands != 1:
-                continue
-            if mode == "any" and hands not in (1, 2):
-                continue
-            by_level["mainhand"].setdefault(level, []).append((score, item.get("ilvl", 0), iid, None, prio))
-            if off == "dw" and hands == 1:
-                by_level["offhand"].setdefault(level, []).append((score, item.get("ilvl", 0), iid, None, prio))
-        elif slot == "held" and off == "held":
-            by_level["offhand"].setdefault(level, []).append((score, item.get("ilvl", 0), iid, None, prio))
-        elif slot in ("ranged", "thrown") and ranged:
-            if ranged == "ranged":
-                ok = slot == "ranged" and sub in ("Bow", "Gun", "Crossbow")
-            elif ranged == "wand":
-                ok = slot == "ranged" and sub == "Wand"
-            elif ranged == "thrown":
-                ok = slot == "thrown" or (slot == "ranged" and sub == "Thrown")
-            else:
-                ok = False
-            if ok:
-                by_level["ranged"].setdefault(level, []).append((score, item.get("ilvl", 0), iid, None, prio))
-        elif slot == "relic" and relic and sub == relic:
-            by_level["relic"].setdefault(level, []).append((score, item.get("ilvl", 0), iid, None, prio))
-
-    pools = {key: [] for key in out_slots}
-    for level in range(1, 81):
-        for slot, bucket in by_level.items():
-            for entry in bucket.get(level, []):
-                insort(pools.setdefault(slot, []), entry)
-        for slot in out_slots:
-            source = "ring" if slot in ("ring1", "ring2") else ("trinket" if slot in ("trinket1", "trinket2") else slot)
-            pool = pools.get(source, [])
-
-            def adjusted(entry):
-                return entry[0] * (armor_factor(cls, entry[3], level) if entry[3] else 1.0)
-
-            top = sorted(pool, key=lambda x: (-x[4], -adjusted(x), -x[1]))[:4]
-            if slot == "ring1":
-                ids = [x[2] for x in top[:3]]
-            elif slot == "ring2":
-                ids = [x[2] for x in top[1:4]]
-            elif slot == "trinket1":
-                ids = [x[2] for x in top[:3]]
-            elif slot == "trinket2":
-                ids = [x[2] for x in top[1:4]]
-            elif slot == "offhand" and off == "dw":
-                main = out_slots["mainhand"][level]
-                exclude = main[0] if main else None
-                ids = [x[2] for x in top if x[2] != exclude][:3]
-            else:
-                ids = [x[2] for x in top[:3]]
-            out_slots[slot][level] = ids
-            referenced.update(ids)
-    return out_slots, referenced
+def compact(it):
+    """Quita campos vacíos y derivables: la página calcula el resto en el navegador."""
+    out = {k: it[k] for k in ("n", "i", "q", "ilvl", "req", "s", "sub", "src") if it.get(k) not in (None, "")}
+    for k in ("at", "ar", "dps", "cl", "st"):
+        if it.get(k):
+            out[k] = it[k]
+    for k in ("raid", "pvp", "ph"):
+        if it.get(k):
+            out[k] = 1 if k != "ph" else it[k]
+    return out
 
 
 def main():
     items = json.loads(ITEMS_PATH.read_text(encoding="utf-8"))
     raw = json.loads((ROOT / "data" / "raw_items.json").read_text(encoding="utf-8"))
+    zones = {z["id"]: z for z in json.loads((ROOT / "data" / "raw_zones.json").read_text(encoding="utf-8"))}
     raw_by_id = {str(x["itemId"]): x for x in raw}
     heirloom_ids = set(legacy["heirlooms"].keys())
     heirlooms = {}
@@ -348,55 +170,53 @@ def main():
             heirlooms[iid] = {
                 "n": raw_item.get("name") or "", "i": raw_item.get("icon") or "", "q": 7,
                 "ilvl": raw_item.get("itemLevel") or 1, "req": 0, "s": "heirloom",
-                "sub": raw_item.get("subclass") or "", "at": None, "st": {}, "ar": 0,
-                "dps": 0, "spd": 0, "src": None, "sk": "heirloom", "raid": False,
-                "cl": None, "ra": None, "h": 0, "rg": False,
+                "sub": raw_item.get("subclass") or "", "src": None,
             }
 
-    recommendations = {}
-    referenced = set(heirloom_ids)
     class_min = {name: legacy["classMeta"][name]["min"] for name in legacy["classOrder"]}
-
-    for spec in SPECS:
-        cls, name, role, primary, mode, off, ranged, relic = spec
-        key = f"{cls}|{name}"
-        rec = {
-            "cls": cls, "name": name, "role": role, "primary": primary,
-            "min": class_min[cls], "off": off, "ranged": ranged, "relic": relic,
-            "mode": mode, "slots": {},
-        }
-        for faction in FACTIONS:
-            slots, used = compute_slots(items, spec, faction, class_min[cls])
-            rec["slots"][faction] = slots
-            referenced.update(used)
-        recommendations[key] = rec
+    specs = {}
+    for cls, name, role, primary, mode, off, ranged, relic in SPECS:
+        specs[f"{cls}|{name}"] = {"cls": cls, "name": name, "role": role, "primary": primary,
+                                  "min": class_min[cls], "off": off, "ranged": ranged, "relic": relic, "mode": mode}
 
     heirloom_sets = {}
     for cls, spec_map in legacy["specs"].items():
         for spec_name, data in spec_map.items():
             heirloom_sets[f"{cls}|{spec_name}"] = {
-                "set": data.get("set"),
-                "weapons": data.get("weapons") or [],
-                "offhand": data.get("offhand"),
+                "set": data.get("set"), "weapons": data.get("weapons") or [], "offhand": data.get("offhand"),
             }
 
     brackets = []
     for bracket in legacy["brackets"]:
-        try:
-            name_en, advice_en = BRACKET_EN.get(bracket["min"], (bracket["name"], bracket["advice"]))
-        except Exception:
-            name_en, advice_en = bracket["name"], bracket["advice"]
+        name_en, advice_en = BRACKET_EN.get(bracket["min"], (bracket["name"], bracket["advice"]))
         item = dict(bracket)
         item["nameEn"] = name_en
         item["adviceEn"] = advice_en
         brackets.append(item)
 
+    drop_zones = {v["src"]["zid"] for v in items.values()
+                  if (v.get("src") or {}).get("t") == "Drop" and v["src"].get("zid") and not v.get("raid")}
+    dungeons = sorted(
+        ({"id": z["id"], "n": z["name"], "lv": z["level"]} for z in zones.values()
+         if z.get("category") == "Dungeon" and z.get("level") and z["level"][0] and z["id"] in drop_zones),
+        key=lambda d: (d["lv"][0], d["n"]),
+    )
+
+    engine = {
+        "weights": {role: dict(weights_for(role)) for role in ROLES},
+        "armorTiers": ARMOR_TIERS,
+        "armorUnlock": ARMOR_UNLOCK,
+        "classWeapons": CLASS_WEAPONS,
+        "weaponHands": {c: {sub: sorted(h) for sub, h in m.items()} for c, m in WEAPON_HANDS.items()},
+    }
     data = {
-        "items": {iid: items[iid] for iid in referenced if iid in items},
+        "items": {iid: compact(it) for iid, it in items.items()},
         "heirlooms": heirlooms,
         "heirloomSets": heirloom_sets,
         "legacySets": legacy["sets"],
-        "specs": recommendations,
+        "specs": specs,
+        "engine": engine,
+        "dungeons": dungeons,
         "classOrder": legacy["classOrder"],
         "classMeta": legacy["classMeta"],
         "classMetaEn": CLASS_META_EN,
@@ -406,13 +226,7 @@ def main():
         "factions": list(FACTIONS),
     }
     OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    print("specs", len(recommendations), "items used", len(data["items"]), "bytes", OUT.stat().st_size)
-    for key in ["Warrior|Arms", "Mage|Frost", "Paladin|Holy", "Hunter|Marksmanship"]:
-        rec = recommendations[key]
-        print("\n", key)
-        for faction in FACTIONS:
-            for level in (20, 60, 80):
-                print(faction, level, {s: rec["slots"][faction][s][level] for s in ("head", "chest", "mainhand", "ranged") if s in rec["slots"][faction]})
+    print("specs", len(specs), "items", len(data["items"]), "dungeons", len(dungeons), "bytes", OUT.stat().st_size)
 
 
 if __name__ == "__main__":

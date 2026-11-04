@@ -119,7 +119,7 @@ var aowow_tooltips = {
     background: linear-gradient(180deg, rgba(14, 42, 58, .92), rgba(8, 25, 36, .94));
     overflow: hidden;
   }
-  .deck-main { padding: 16px 18px 18px; border-right: 1px solid var(--line); }
+  .deck-main { padding: 14px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
   .deck-side { padding: 16px 18px 18px; }
   .field-label {
     display: block;
@@ -158,20 +158,6 @@ var aowow_tooltips = {
     background: color-mix(in srgb, var(--chip) 12%, rgba(8, 25, 36, .85));
     border-color: var(--chip);
   }
-  .spec-row { display: flex; flex-wrap: wrap; gap: 5px 14px; margin-top: 14px; }
-  .spec-chip {
-    appearance: none;
-    border: 0;
-    border-bottom: 2px solid transparent;
-    padding: 3px 0 5px;
-    background: transparent;
-    color: var(--muted);
-    font: inherit;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  .spec-chip:hover { color: var(--text); }
-  .spec-chip[aria-pressed="true"] { color: var(--text); border-bottom-color: var(--class); }
   .class-note { margin: 9px 0 0; color: var(--gold); font-size: 12px; min-height: 18px; }
   .level-line { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
   .level-big {
@@ -220,16 +206,6 @@ var aowow_tooltips = {
     border: 3px solid var(--class);
   }
   .range-labels { display: flex; justify-content: space-between; color: var(--muted); font-size: 10px; }
-  .bracket {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 4px 8px;
-    border: 1px solid var(--line-2);
-    border-radius: 4px;
-    color: var(--ice);
-    font-size: 11px;
-    font-weight: 600;
-  }
   .summary {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -347,11 +323,89 @@ var aowow_tooltips = {
   }
   .lang-switch button + button { border-left: 1px solid var(--line); }
   .lang-switch button.active { color: var(--text); background: rgba(117, 215, 239, .12); }
-  .faction-chip { --f: var(--ice); }
-  .faction-chip[data-faction="horde"] { --f: #d34a4a; }
-  .faction-chip[data-faction="alliance"] { --f: #5b8def; }
-  .faction-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--f); }
-  .faction-chip[aria-pressed="true"] { border-bottom-color: var(--f); }
+  .seg { display: flex; flex-wrap: wrap; gap: 6px; }
+  .seg-btn {
+    --f: var(--class);
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid var(--line-2);
+    border-radius: 6px;
+    background: rgba(8, 25, 36, .65);
+    color: var(--text);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color .12s, background .12s;
+  }
+  .seg-btn:hover { border-color: var(--f); background: rgba(117, 215, 239, .08); }
+  .seg-btn:focus-visible, .mini-btn:focus-visible, .look-btn:focus-visible { outline: 2px solid var(--ice); outline-offset: 2px; }
+  .seg-btn[aria-pressed="true"] { border-color: var(--f); background: color-mix(in srgb, var(--f) 24%, #0a2231); font-weight: 600; }
+  .seg-btn[data-faction="horde"] { --f: #d34a4a; }
+  .seg-btn[data-faction="alliance"] { --f: #5b8def; }
+  .seg-btn[data-faction]::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--f); }
+  .opts { display: flex; flex-wrap: wrap; gap: 14px 30px; }
+  .opts .seg { flex-wrap: nowrap; }
+  .opts .field-label { margin-bottom: 6px; }
+  .opts-hint { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11.5px; }
+  .bracket { display: inline-block; margin-top: 12px; color: var(--ice); font-size: 12px; font-weight: 600; }
+  .bracket::before { content: "\25CF  "; font-size: 8px; vertical-align: 1px; }
+  .src-badge { display: inline-block; padding: 0 6px; margin-right: 5px; border-radius: 3px; font-size: 10px; font-weight: 700; letter-spacing: .02em; color: #06131d; background: #8fadbd; }
+  .src-quest { background: #e3c86d; } .src-rquest, .src-raid { background: #e58b5a; } .src-vendor { background: #7fd49a; }
+  .src-dungeon { background: #75d7ef; } .src-zone, .src-rare { background: #b9a3e8; }
+  .item-source { color: #9fb9c8; }
+  .mini-btn, .look-btn {
+    display: inline-block; padding: 2px 8px; border: 1px solid var(--line-2); border-radius: 4px;
+    background: rgba(8, 25, 36, .65); color: var(--text); font: inherit; font-size: 10.5px; text-decoration: none; cursor: pointer;
+  }
+  .mini-btn:hover, .look-btn:hover { border-color: var(--ice); }
+  .slot-actions { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .warn { margin-top: 6px; padding: 4px 7px; border-left: 2px solid var(--gold); background: rgba(217, 177, 95, .08); color: #e8cf93; font-size: 10.5px; }
+  details.why { margin-top: 6px; font-size: 10.5px; color: #c3d8e2; }
+  details.why summary { cursor: pointer; color: var(--ice); }
+  details.why table { width: 100%; margin-top: 4px; border-collapse: collapse; }
+  details.why td { padding: 1px 0; } details.why td:last-child { text-align: right; color: var(--text); }
+  details.why p { margin: 4px 0 0; color: var(--muted); }
+  .alt-list { margin: 6px 0 0; padding: 6px 0 0; list-style: none; border-top: 1px solid rgba(26, 61, 80, .55); font-size: 10.5px; }
+  .alt-list li { display: flex; gap: 6px; flex-wrap: wrap; align-items: baseline; padding: 1px 0; color: #8fadbd; }
+  .loot-ctl { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+  .loot-ctl select { padding: 6px 8px; border: 1px solid var(--line-2); border-radius: 6px; background: #071722; color: var(--text); font: inherit; font-size: 13px; }
+  .loot-ctl label { font-size: 12px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+  .loot-body { padding: 8px 16px 14px; }
+  .boss h3 { margin: 12px 0 4px; font-size: 13px; color: var(--ice); font-family: Cinzel, Georgia, serif; font-weight: 600; }
+  .loot-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; padding: 3px 0; border-bottom: 1px solid rgba(26, 61, 80, .35); font-size: 12px; }
+  .loot-row .m { color: var(--muted); font-size: 11px; }
+  .loot-row.na { opacity: .55; }
+  .delta { padding: 0 6px; border-radius: 3px; font-size: 10.5px; font-weight: 700; white-space: nowrap; }
+  .delta.up { background: rgba(126, 212, 154, .18); color: #7fd49a; } .delta.eq { background: rgba(143, 173, 189, .15); color: var(--muted); } .delta.dn { background: rgba(211, 74, 74, .14); color: #d98a8a; } .delta.lv { background: rgba(217, 177, 95, .15); color: var(--gold); }
+  .dungeon-list button { all: unset; display: flex; justify-content: space-between; gap: 8px; width: 100%; cursor: pointer; }
+  .dungeon-list button:hover span:first-child { text-decoration: underline; }
+  .box { padding: 11px 13px 12px; border: 1px solid var(--line); border-radius: 8px; background: rgba(6, 19, 29, .45); }
+  .box .field-label { display: block; margin-bottom: 8px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .class-note { margin: 0; }
+  .bracket-advice { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+  details.calc { margin-top: 12px; padding: 11px 16px; }
+  details.calc summary { cursor: pointer; font-family: Cinzel, Georgia, serif; font-size: 15px; font-weight: 600; }
+  details.eq { padding: 10px 16px 14px; border-bottom: 1px solid var(--line); }
+  details.eq summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ice); }
+  .eq-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .eq-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 12px; }
+  .eq-slot label { display: block; margin-bottom: 3px; color: var(--muted); font-size: 11px; }
+  .eq-field { position: relative; }
+  .eq-field input { width: 100%; padding: 6px 26px 6px 8px; border: 1px solid var(--line-2); border-radius: 6px; background: #071722; color: var(--text); font: inherit; font-size: 12.5px; }
+  .eq-field input:focus { outline: 2px solid var(--ice); outline-offset: 1px; }
+  .eq-x { position: absolute; right: 3px; top: 3px; width: 22px; height: 22px; border: 0; border-radius: 4px; background: transparent; color: var(--muted); cursor: pointer; }
+  .eq-x:hover { color: var(--text); background: rgba(117, 215, 239, .12); }
+  .eq-sug { position: absolute; z-index: 30; left: 0; right: 0; top: 100%; margin: 2px 0 0; padding: 2px; list-style: none; max-height: 250px; overflow: auto; border: 1px solid var(--line-2); border-radius: 6px; background: #071722; box-shadow: 0 8px 24px rgba(0, 0, 0, .5); }
+  .eq-sug[hidden] { display: none; }
+  .eq-sug li { display: flex; flex-direction: column; padding: 5px 8px; border-radius: 4px; font-size: 12px; cursor: pointer; }
+  .eq-sug li:hover { background: rgba(117, 215, 239, .12); }
+  .eq-sug small { color: var(--muted); font-size: 10.5px; }
+  @media (max-width: 1000px) { .eq-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 680px) { .eq-grid, .row2 { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -399,17 +453,28 @@ var aowow_tooltips = {
     <section class="intro">
       <p class="eyebrow" data-i18n="eyebrow">El mejor objeto disponible hasta tu nivel</p>
       <h1 data-i18n="h1">Qué llevar en cada slot, sin adivinar.</h1>
-      <p data-i18n="intro">Elige clase, especialidad y nivel. Para cada ranura se muestra el objeto más fuerte que puedes usar en ese punto, con sus estadísticas, su fuente y dos alternativas.</p>
+      <p data-i18n="intro">Elige clase, especialidad, facción y nivel. Cada slot muestra el mejor objeto que puedes usar en ese punto, cómo conseguirlo, por qué se recomienda y varias alternativas. Activa «Con bandas» para ver el mejor equipo de raid, o consulta abajo qué te puede tocar en cada mazmorra.</p>
     </section>
 
     <section class="deck" aria-label="Configuración">
       <div class="deck-main">
-        <span class="field-label" id="classLabel" data-i18n="classLabel">Clase</span>
-        <div class="chips" id="classes" role="group" aria-labelledby="classLabel"></div>
-        <span class="field-label" style="margin-top:14px" id="specLabel" data-i18n="specLabel">Especialidad</span>
-        <div class="spec-row" id="specs" role="group" aria-labelledby="specLabel"></div>
-        <span class="field-label" style="margin-top:14px" id="factionLabel" data-i18n="factionLabel">Facción</span>
-        <div class="spec-row" id="factions" role="group" aria-labelledby="factionLabel"></div>
+        <div class="box"><span class="field-label" id="classLabel" data-i18n="classLabel">Clase</span>
+          <div class="chips" id="classes" role="group" aria-labelledby="classLabel"></div></div>
+        <div class="row2">
+          <div class="box"><span class="field-label" id="specLabel" data-i18n="specLabel">Especialidad</span>
+            <div class="seg" id="specs" role="group" aria-labelledby="specLabel"></div></div>
+          <div class="box"><span class="field-label" id="factionLabel" data-i18n="factionLabel">Facción</span>
+            <div class="seg" id="factions" role="group" aria-labelledby="factionLabel"></div></div>
+        </div>
+        <div class="box">
+          <div class="opts">
+            <div><span class="field-label" id="modeLabel" data-i18n="modeLabel">Contenido</span><div class="seg" id="modes" role="group" aria-labelledby="modeLabel"></div></div>
+            <div><span class="field-label" id="phaseLabel" data-i18n="phaseLabel">Fase</span><div class="seg" id="phases" role="group" aria-labelledby="phaseLabel"></div></div>
+            <div><span class="field-label" id="pvpLabel" data-i18n="pvpLabel">Tipo de equipo</span><div class="seg" id="pvps" role="group" aria-labelledby="pvpLabel"></div></div>
+            <div><span class="field-label" id="altsLabel" data-i18n="altsLabel">Alternativas por slot</span><div class="seg" id="alts" role="group" aria-labelledby="altsLabel"></div></div>
+          </div>
+          <p class="opts-hint" data-i18n="optsHint"></p>
+        </div>
         <p class="class-note" id="classNote"></p>
       </div>
       <div class="deck-side">
@@ -420,6 +485,7 @@ var aowow_tooltips = {
         <input class="level-range" id="levelRange" type="range" min="1" max="80" value="20" aria-label="Nivel de subida">
         <div class="range-labels"><span>1</span><span>20</span><span>40</span><span>60</span><span>80</span></div>
         <span class="bracket" id="bracketLabel">Aprendizaje</span>
+        <p class="bracket-advice" id="bracketAdvice"></p>
       </div>
     </section>
 
@@ -429,6 +495,11 @@ var aowow_tooltips = {
       <div><span data-i18n="statusNext">Siguiente hito</span><strong id="statusNext">Nivel 20 · primeras mazmorras</strong></div>
       <div><span data-i18n="statusSources">Fuentes incluidas</span><strong id="sourcesValue" data-i18n="sourcesValue">Misiones, mazmorras, vendedores y drops</strong></div>
     </section>
+
+    <details class="panel calc">
+      <summary data-i18n="calcTitle">Cómo se calcula</summary>
+      <p class="note" data-i18n="calcText"></p>
+    </details>
 
     <div class="main">
       <section class="panel" aria-labelledby="sheetHeading">
@@ -459,12 +530,27 @@ var aowow_tooltips = {
           <div id="heirloomList" style="margin-top:8px"></div>
         </details>
 
-        <section class="panel">
-          <h2 data-i18n="calcTitle">Cómo se calcula</h2>
-          <p class="note" data-i18n="calcText">Se puntúa cada objeto según la estadística principal de tu especialidad y se elige el de mayor valor disponible a tu nivel. Se priorizan misiones, mazmorras, vendedores y drops; el equipo PvP y las fuentes no registradas solo se usan si no hay una alternativa de subida. Se excluyen los objetos de banda detectados por la fuente; algunas cadenas de misión de banda pueden aparecer como Misión.</p>
-        </section>
       </aside>
     </div>
+
+    <section class="panel" style="margin-top:14px" aria-labelledby="lootHeading">
+      <div class="panel-head"><div><h2 id="lootHeading" data-i18n="lootTitle">Botín de mazmorra</h2><p id="lootIntro" data-i18n="lootIntro"></p></div></div>
+      <details class="eq" id="eqPanel" open>
+        <summary data-i18n="eqTitle">Mi equipo actual</summary>
+        <div class="eq-tools">
+          <button type="button" class="mini-btn" id="eqUseRec" data-i18n="eqUseRec">Usar el recomendado</button>
+          <button type="button" class="mini-btn" id="eqClear" data-i18n="eqClear">Vaciar</button>
+          <span class="note" data-i18n="eqHint"></span>
+        </div>
+        <div class="eq-grid" id="eqGrid"></div>
+      </details>
+      <div class="loot-ctl">
+        <label><span data-i18n="lootPick">Mazmorra</span> <select id="dungeonSelect"></select></label>
+        <label><input type="checkbox" id="onlyUp"> <span data-i18n="lootOnlyUp">Solo mejoras</span></label>
+        <strong id="lootCount"></strong>
+      </div>
+      <div class="loot-body" id="lootBody"></div>
+    </section>
   </main>
 
   <footer>
@@ -473,14 +559,14 @@ var aowow_tooltips = {
 </div>
 <script>
 const DATA = /*__DATA__*/;
-const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang" };
+const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup" };
 
 const I18N = {
   es: {
     brandTitle: "Equipo óptimo", reset: "Reiniciar",
     eyebrow: "El mejor objeto disponible hasta tu nivel",
     h1: "Qué llevar en cada slot, sin adivinar.",
-    intro: "Elige clase, especialidad y nivel. Para cada ranura se muestra el objeto más fuerte que puedes usar en ese punto, con sus estadísticas, su fuente y dos alternativas.",
+    intro: "Elige clase, especialidad, facción y nivel. Cada slot muestra el mejor objeto que puedes usar en ese punto, cómo conseguirlo, por qué se recomienda y varias alternativas. Activa «Con bandas» para ver el mejor equipo de raid, o consulta abajo qué te puede tocar en cada mazmorra.",
     classLabel: "Clase", specLabel: "Especialidad", factionLabel: "Facción", levelWord: "NIVEL",
     statusPhase: "Fase de subida", statusArmor: "Armadura", statusNext: "Siguiente hito",
     statusSources: "Fuentes incluidas", sourcesValue: "Misiones, mazmorras, vendedores y drops",
@@ -503,7 +589,7 @@ const I18N = {
     brandTitle: "Optimal gear", reset: "Reset",
     eyebrow: "The best item available at your level",
     h1: "What to wear in every slot, without guessing.",
-    intro: "Choose class, spec, and level. Each slot shows the strongest item you can use at this point, with its stats, source, and two alternatives.",
+    intro: "Choose class, spec, faction, and level. Each slot shows the strongest item you can use at this point, how to get it, why it is recommended, and several alternatives. Turn on \"With raids\" to see the best raid gear, or check below what each dungeon can drop for you.",
     classLabel: "Class", specLabel: "Spec", factionLabel: "Faction", levelWord: "LEVEL",
     statusPhase: "Leveling phase", statusArmor: "Armor", statusNext: "Next milestone",
     statusSources: "Sources included", sourcesValue: "Quests, dungeons, vendors, and drops",
@@ -544,6 +630,48 @@ const STATS_EN = {
   hunter: ["Agility", "Hit", "Crit", "Attack power", "Stamina"]
 };
 
+
+Object.assign(I18N.es, {
+
+  eqTitle: "Mi equipo actual", eqUseRec: "Usar el recomendado", eqClear: "Vaciar",
+  eqHint: "Busca por nombre cada pieza que llevas puesta (también de banda, si tu clase y nivel la permiten).",
+  eqPlaceholder: "Buscar objeto…", eqRemove: "Quitar", eqNone: "Sin resultados", eqEmpty: "Slot vacío",
+  eqHintNone: "Aún no indicaste tu equipo: mientras tanto, todo objeto cuenta como mejora.", lootUps: " mejoras para ti",
+  sheetIntroPvp: "Equipo útil para PvP en cada slot, nivel ", sourcesPvpOnly: "Solo equipo PvP",
+  modeLabel: "Contenido", modeNoRaid: "Sin bandas", modeRaid: "Con bandas",
+  phaseLabel: "Fase", phaseAll: "Todas", pvpLabel: "Tipo de equipo", pvpOff: "PvE", pvpOn: "Solo PvP",
+  altsLabel: "Alternativas por slot",
+  optsHint: "«Sin bandas» sirve para subir de nivel o jugar sin raid; «Con bandas» muestra el mejor equipo de raid; «Solo PvP» muestra únicamente equipo útil para PvP, sin mezclarlo con el PvE. La fase limita el contenido disponible hasta esa fase del juego.",
+  sourcesRaid: "Misiones, mazmorras, vendedores, drops y bandas", sourcesPvp: " + PvP",
+  sheetIntro80Raid: "Referencia de nivel 80 con botín de banda incluido.",
+  calcText: "Cada objeto se puntúa con las estadísticas que importan a tu especialidad (más el DPS del arma y la armadura) y se ordena por esa puntuación; el nivel de objeto solo desempata. La armadura de un tipo que no es el ideal para tu clase se penaliza. «Sin bandas» oculta el botín y las cadenas de misión de banda, el equipo PvP se ve aparte en el modo «Solo PvP» (con peso a la resiliencia) y la fase limita el contenido disponible. Los épicos sin fuente registrada de nivel 213 o más se tratan como de banda. Aún no se calculan topes de golpe/pericia, gemas, sets ni efectos de procs.",
+  whyTitle: "¿Por qué este objeto?", scoreWord: "Puntuación", ilvlTie: "Nivel de objeto (desempate)",
+  howTo: "Cómo conseguirlo ↗", moreAlts: "Alternativas",
+  lootTitle: "Botín de mazmorra según tu equipo", lootIntro: "Indica lo que llevas puesto y verás qué objetos de cada mazmorra te sirven y cuánto mejoran tu equipo actual.",
+  lootPick: "Mazmorra", lootAuto: "Según tu nivel", lootOnlyUp: "Solo mejoras",
+  lootEmpty: "Ningún objeto útil para tu especialidad en esta mazmorra.", zoneDrops: "Botín de la zona"
+});
+Object.assign(I18N.en, {
+
+  eqTitle: "My current gear", eqUseRec: "Use recommended", eqClear: "Clear all",
+  eqHint: "Search each piece you are wearing by name (raid items too, if your class and level allow it).",
+  eqPlaceholder: "Search item…", eqRemove: "Remove", eqNone: "No results", eqEmpty: "Empty slot",
+  eqHintNone: "You have not entered your gear yet: until then every item counts as an upgrade.", lootUps: " upgrades for you",
+  sheetIntroPvp: "PvP-useful gear for each slot, level ", sourcesPvpOnly: "PvP gear only",
+  modeLabel: "Content", modeNoRaid: "No raids", modeRaid: "With raids",
+  phaseLabel: "Phase", phaseAll: "All", pvpLabel: "Gear type", pvpOff: "PvE", pvpOn: "PvP only",
+  altsLabel: "Alternatives per slot",
+  optsHint: "\"No raids\" is for leveling or playing without raiding; \"With raids\" shows the best raid gear; \"PvP only\" shows only PvP-useful gear, never mixed with PvE. The phase limits content to what is available up to that game phase.",
+  sourcesRaid: "Quests, dungeons, vendors, drops, and raids", sourcesPvp: " + PvP",
+  sheetIntro80Raid: "Level 80 reference with raid loot included.",
+  calcText: "Each item is scored with the stats that matter to your spec (plus weapon DPS and armor) and sorted by that score; item level only breaks ties. Armor of a type that is not ideal for your class is penalized. \"No raids\" hides raid loot and raid quest chains, PvP gear is shown separately in \"PvP only\" mode (resilience is weighted), and the phase limits available content. Epics with no recorded source at item level 213 or higher are treated as raid loot. Hit/expertise caps, gems, set bonuses, and proc effects are not scored yet.",
+  whyTitle: "Why this item?", scoreWord: "Score", ilvlTie: "Item level (tiebreaker)",
+  howTo: "How to get it ↗", moreAlts: "Alternatives",
+  lootTitle: "Dungeon loot for your gear", lootIntro: "Tell us what you are wearing and see which dungeon items help you, and by how much over your current gear.",
+  lootPick: "Dungeon", lootAuto: "By your level", lootOnlyUp: "Upgrades only",
+  lootEmpty: "No useful item for your spec in this dungeon.", zoneDrops: "Zone loot"
+});
+
 const FACTION_HEIRLOOM = { "44097": "horde", "44098": "alliance" };
 
 const $ = (id) => document.getElementById(id);
@@ -580,8 +708,18 @@ let state = {
   spec: load(STORE.spec, "Arms"),
   level: Number(load(STORE.level, 20)) || 20,
   faction: load(STORE.faction, "horde"),
-  lang: load(STORE.lang, "es")
+  lang: load(STORE.lang, "es"),
+  scope: load(STORE.scope, "noraid"),
+  phase: Number(load(STORE.phase, 0)) || 0,
+  pvp: load(STORE.pvp, "0") === "1",
+  alts: Number(load(STORE.alts, 2)) || 2,
+  dungeon: Number(load(STORE.dungeon, 0)) || 0,
+  onlyUp: load(STORE.onlyUp, "0") === "1",
+  gear: (() => { try { return JSON.parse(load(STORE.gear, "{}")) || {}; } catch (e) { return {}; } })()
 };
+if (state.scope !== "raid") state.scope = "noraid";
+if (![0, 1, 2, 3, 4].includes(state.phase)) state.phase = 0;
+if (![2, 5, 10].includes(state.alts)) state.alts = 2;
 if (!DATA.factions.includes(state.faction)) state.faction = "horde";
 if (!I18N[state.lang]) state.lang = "es";
 if (!DATA.specs[state.cls + "|" + state.spec]) {
@@ -664,37 +802,385 @@ function itemLink(id, scaled, className) {
   return '<a class="' + (className || "") + '" style="color:' + qColor(item.q) + '" href="https://wotlk.evowow.com/?item=' + id + '" target="_blank"' + rel + '>' + esc(item.n) + "</a>";
 }
 
-function sourceText(item) {
-  const src = item.src;
-  const en = state.lang === "en";
-  if (!src || src.t === "Otra") return en ? "Other source" : "Otra fuente";
-  if (src.t === "Quest") {
-    const variants = src.q || [];
-    const match = variants.find((q) => {
-      const f = String(q.f || "Both").toLowerCase();
-      return f === "both" || f === state.faction;
-    });
-    const name = (match || variants[0] || {}).n || (en ? "Unknown" : "Desconocida");
-    return (en ? "Quest · " : "Misión · ") + name;
-  }
-  if (src.t === "Vendor") return (en ? "Vendor · " : "Vendedor · ") + (src.n || (en ? "Unknown" : "Desconocido"));
-  if (src.t === "Rare") return en ? "Rare drop" : "Drop raro";
-  if (src.t === "Drop") {
-    const kind = src.zc === "Dungeon" ? (en ? "Dungeon" : "Mazmorra")
-      : src.zc === "Raid" ? (en ? "Raid" : "Banda") : (en ? "Zone" : "Zona");
-    const parts = [kind];
-    if (src.z) parts.push(src.z);
-    if (src.n) parts.push(src.n);
-    return parts.join(" · ");
-  }
-  return src.t || (en ? "Other source" : "Otra fuente");
-}
 
 function statLine(item) {
   const stats = item.st || {};
   const keys = STAT_ORDER.filter((key) => stats[key]);
   if (!keys.length) return item.ar ? "<span>" + (state.lang === "en" ? "Armor " : "Armadura ") + item.ar + "</span>" : "<span>" + (state.lang === "en" ? "No stats" : "Sin estadísticas") + "</span>";
   return keys.slice(0, 6).map((key) => "<span><b>+" + stats[key] + "</b> " + ((STAT_LABEL[state.lang] || STAT_LABEL.es)[key] || key) + "</span>").join("");
+}
+
+
+/* ---------- Motor de recomendaciones (se calcula en el navegador) ---------- */
+const ENG = DATA.engine;
+const ARMOR_KEYS = ["head", "shoulder", "chest", "wrist", "hands", "waist", "legs", "feet", "back"];
+const ITEM_URL = "https://wotlk.evowow.com/?item=";
+const L = (es, en) => (state.lang === "en" ? en : es);
+const itemHands = (it) => (it.s === "twohand" ? 2 : (it.s === "onehand" || it.s === "mainhand" || it.s === "offhand" ? 1 : 0));
+const zoneOf = (id) => DATA.dungeons.find((d) => d.id === id);
+
+function itemFactions(it) {
+  const src = it.src || {};
+  const set = new Set();
+  const norm = (v) => { v = String(v || "both").toLowerCase(); return v === "none" ? "both" : v; };
+  if (src.t === "Quest") (src.q || []).forEach((q) => set.add(norm(q.f)));
+  else if (src.t === "Vendor") set.add(norm(src.f));
+  if (!set.size) set.add("both");
+  return set;
+}
+function armorUnlock(cls, at) { const m = ENG.armorUnlock[at]; return (m && m[cls]) || 1; }
+function preferredArmor(cls, level) {
+  if (["Mage", "Priest", "Warlock"].includes(cls)) return "Cloth";
+  if (["Druid", "Rogue"].includes(cls)) return "Leather";
+  if (["Hunter", "Shaman"].includes(cls)) return level < 40 ? "Leather" : "Mail";
+  if (["Warrior", "Paladin"].includes(cls)) return level < 40 ? "Mail" : "Plate";
+  return "Plate";
+}
+function armorFactor(cls, at, level) {
+  const tiers = ENG.armorTiers[cls] || ["Cloth"];
+  if (!tiers.includes(at)) return 0;
+  const diff = tiers.indexOf(at) - tiers.indexOf(preferredArmor(cls, level));
+  return diff >= 0 ? [1, 0.6, 0.35, 0.2][Math.min(diff, 3)] : 0.4;
+}
+function scoreParts(it, w) {
+  const parts = [];
+  const add = (k, v, wt) => { if (v && wt) parts.push({ k, v, c: v * wt }); };
+  add("armor", it.ar || 0, w.armor);
+  add("dps", it.dps || 0, w.dps);
+  Object.entries(it.st || {}).forEach(([k, v]) => add(k, v, w[k]));
+  return { parts, base: parts.reduce((a, p) => a + p.c, 0) + (it.ilvl || 0) * 0.01 };
+}
+function availableLevel(it, spec) {
+  let lv = Math.max(it.req > 0 ? it.req : 1, spec.min);
+  if (it.at) lv = Math.max(lv, armorUnlock(spec.cls, it.at));
+  return lv <= 80 ? lv : null;
+}
+function poolsFor(it, spec) {
+  const { cls, off, ranged, relic, mode } = spec;
+  const slot = it.s, sub = it.sub, at = it.at, hands = itemHands(it);
+  if (ARMOR_KEYS.includes(slot)) {
+    if (slot === "back") return ["back"];
+    return (ENG.armorTiers[cls] || []).includes(at) ? [slot] : [];
+  }
+  if (slot === "neck" || slot === "ring" || slot === "trinket") return [slot];
+  if (slot === "offhand" && at === "Shield" && off === "shield") return ["offhand"];
+  if (["twohand", "onehand", "mainhand", "offhand"].includes(slot)) {
+    if (!ENG.classWeapons[cls].includes(sub)) return [];
+    if (!((ENG.weaponHands[cls] || {})[sub] || []).includes(hands)) return [];
+    if (mode === "2h" && hands !== 2) return [];
+    if (mode === "1h" && hands !== 1) return [];
+    return off === "dw" && hands === 1 ? ["mainhand", "offhand"] : ["mainhand"];
+  }
+  if (slot === "held" && off === "held") return ["offhand"];
+  if ((slot === "ranged" || slot === "thrown") && ranged) {
+    let ok = false;
+    if (ranged === "ranged") ok = slot === "ranged" && ["Bow", "Gun", "Crossbow"].includes(sub);
+    else if (ranged === "wand") ok = slot === "ranged" && sub === "Wand";
+    else if (ranged === "thrown") ok = slot === "thrown" || (slot === "ranged" && sub === "Thrown");
+    return ok ? ["ranged"] : [];
+  }
+  if (slot === "relic" && relic && sub === relic) return ["relic"];
+  return [];
+}
+function specSlots(spec) {
+  return DATA.slotOrder.filter((s) => (s === "offhand" ? !!spec.off : s === "ranged" ? !!spec.ranged : s === "relic" ? !!spec.relic : true));
+}
+
+function evalItem(it, spec, w, o, cap) {
+  if (it.cl && !it.cl.includes(spec.cls)) return null;
+  const fs = itemFactions(it);
+  if (!(fs.has("both") || fs.has(o.faction))) return null;
+  const pk = poolsFor(it, spec);
+  if (!pk.length) return null;
+  const al = availableLevel(it, spec);
+  if (al === null || (cap && al > o.level)) return null;
+  const sp = scoreParts(it, w);
+  if (sp.base <= 0) return null;
+  // La penalización de armadura solo aplica a piezas de armadura (no a escudos ni a capas).
+  const tiered = it.at && it.s !== "back" && ARMOR_KEYS.includes(it.s);
+  const af = tiered ? armorFactor(spec.cls, it.at, o.level) : 1;
+  if (af <= 0) return null;
+  return { pk, al, parts: sp.parts, base: sp.base, af, score: sp.base * af };
+}
+
+/* opts: { level, faction, scope: "noraid"|"raid", phase: 0 (todas)|1-4, pvp: bool (solo equipo PvP) } */
+function computeGear(spec, o) {
+  const w0 = ENG.weights[spec.role] || {};
+  const w = o.pvp ? Object.assign({}, w0, { res: 0.9 }) : w0;
+  const pools = {}, info = {};
+  for (const id in DATA.items) {
+    const it = DATA.items[id];
+    if (o.pvp && !it.pvp) continue;
+    const r = evalItem(it, spec, w, o, true);
+    if (!r) continue;
+    const e = { id, it, parts: r.parts, base: r.base, af: r.af, score: r.score };
+    const reasons = [];
+    if (!o.pvp) {
+      if (it.pvp) reasons.push("pvp");
+      if (it.raid && o.scope !== "raid") reasons.push("raid");
+    }
+    if (o.phase && it.ph > o.phase) reasons.push("phase");
+    if (reasons.length) e.reasons = reasons;
+    r.pk.forEach((p) => {
+      const inf = info[p] || (info[p] = { top: null, blocked: null });
+      if (!inf.top || it.ilvl > inf.top.it.ilvl || (it.ilvl === inf.top.it.ilvl && e.score > inf.top.score)) inf.top = e;
+      if (reasons.length) { if (!inf.blocked || e.score > inf.blocked.score) inf.blocked = e; }
+      else (pools[p] || (pools[p] = [])).push(e);
+    });
+  }
+  for (const p in pools) {
+    pools[p].sort((a, b) => b.score - a.score || b.it.ilvl - a.it.ilvl);
+    const seen = new Set();
+    pools[p] = pools[p].filter((e) => (seen.has(e.it.n) ? false : (seen.add(e.it.n), true)));
+  }
+  const slots = {};
+  const mainBest = (pools.mainhand || [])[0];
+  specSlots(spec).forEach((slot) => {
+    const src = poolOfSlot(slot);
+    let pool = pools[src] || [];
+    if (slot === "offhand" && spec.off === "dw" && mainBest) pool = pool.filter((e) => e.it.n !== mainBest.it.n);
+    let list = pool;
+    if (slot === "ring1" || slot === "trinket1") list = [pool[0]].concat(pool.slice(2)).filter(Boolean);
+    if (slot === "ring2" || slot === "trinket2") list = [pool[1]].concat(pool.slice(2)).filter(Boolean);
+    slots[slot] = { list: list.slice(0, 11), info: info[src] || null };
+  });
+  return { pools, info, slots };
+}
+
+/* ---------- Equipo actual del personaje ---------- */
+const poolOfSlot = (s) => (s.startsWith("ring") ? "ring" : s.startsWith("trinket") ? "trinket" : s);
+const gearKey = () => state.cls + "|" + state.spec;
+const equippedMap = () => state.gear[gearKey()] || {};
+/* El equipo que ya llevas puesto puede ser cualquier cosa que tu clase pueda equipar,
+   aunque no sea ideal para la especialidad (armas de dos manos, otro tipo de armadura, etc.). */
+const SHIELD_CLASSES = ["Warrior", "Paladin", "Shaman"];
+const DW_CLASSES = ["Rogue", "Warrior", "Death Knight", "Hunter", "Shaman"];
+const CLASS_RELIC = {}, CLASS_RANGED = {};
+Object.values(DATA.specs).forEach((sp) => { if (sp.relic) CLASS_RELIC[sp.cls] = sp.relic; if (sp.ranged) CLASS_RANGED[sp.cls] = sp.ranged; });
+function equipPools(it, spec) {
+  const cls = spec.cls, slot = it.s, sub = it.sub;
+  if (ARMOR_KEYS.includes(slot)) {
+    if (slot === "back") return ["back"];
+    return (ENG.armorTiers[cls] || []).includes(it.at) ? [slot] : [];
+  }
+  if (slot === "neck" || slot === "ring" || slot === "trinket") return [slot];
+  if (slot === "offhand" && it.at === "Shield") return SHIELD_CLASSES.includes(cls) ? ["offhand"] : [];
+  if (slot === "held") return ["offhand"];
+  if (["twohand", "onehand", "mainhand", "offhand"].includes(slot)) {
+    if (!(ENG.classWeapons[cls] || []).includes(sub)) return [];
+    const hands = itemHands(it);
+    if (!((ENG.weaponHands[cls] || {})[sub] || []).includes(hands)) return [];
+    return hands === 1 && (spec.off === "dw" || DW_CLASSES.includes(cls)) ? ["mainhand", "offhand"] : ["mainhand"];
+  }
+  if ((slot === "ranged" || slot === "thrown") && CLASS_RANGED[cls]) {
+    const r = CLASS_RANGED[cls];
+    const ok = r === "ranged" ? slot === "ranged" && ["Bow", "Gun", "Crossbow"].includes(sub)
+      : r === "wand" ? slot === "ranged" && sub === "Wand"
+      : slot === "thrown" || (slot === "ranged" && sub === "Thrown");
+    return ok ? ["ranged"] : [];
+  }
+  if (slot === "relic" && CLASS_RELIC[cls] === sub) return ["relic"];
+  return [];
+}
+function evalEquip(it, spec, w, o) {
+  if (it.cl && !it.cl.includes(spec.cls)) return null;
+  const fs = itemFactions(it);
+  if (!(fs.has("both") || fs.has(o.faction))) return null;
+  const pk = equipPools(it, spec);
+  if (!pk.length) return null;
+  const al = availableLevel(it, spec);
+  if (al === null) return null;
+  const tiered = it.at && it.s !== "back" && ARMOR_KEYS.includes(it.s);
+  const af = tiered ? armorFactor(spec.cls, it.at, o.level) : 1;
+  return { pk, al, score: Math.max(scoreParts(it, w).base, 0) * af };
+}
+let candCache = { key: "", pools: null };
+let lastGear = null;
+function candidates(spec) {
+  const key = [spec.cls, spec.name, state.level, state.faction].join("|");
+  if (candCache.key === key) return candCache.pools;
+  const w = ENG.weights[spec.role] || {};
+  const pools = {};
+  for (const id in DATA.items) {
+    const it = DATA.items[id];
+    const r = evalEquip(it, spec, w, { level: state.level, faction: state.faction });
+    if (!r) continue;
+    const e = { id, it, score: r.score, usable: r.al <= state.level };
+    r.pk.forEach((p) => (pools[p] || (pools[p] = [])).push(e));
+  }
+  for (const p in pools) pools[p].sort((a, b) => (b.usable - a.usable) || b.score - a.score || b.it.ilvl - a.it.ilvl);
+  candCache = { key, pools };
+  return pools;
+}
+function equippedEntry(spec, slot) {
+  const id = equippedMap()[slot], it = id && DATA.items[id];
+  if (!it) return null;
+  const r = evalEquip(it, spec, ENG.weights[spec.role] || {}, { level: state.level, faction: state.faction });
+  return { id, it, score: r ? r.score : 0 };
+}
+function setEquipped(slot, id) {
+  const g = (state.gear[gearKey()] = state.gear[gearKey()] || {});
+  if (id) g[slot] = id; else delete g[slot];
+  persist();
+  render();
+}
+function renderEquip(spec) {
+  const grid = $("eqGrid"), pools = candidates(spec);
+  const labels = SLOT_LABEL[state.lang] || SLOT_LABEL.es;
+  grid.innerHTML = specSlots(spec).map((slot) => {
+    const cur = equippedEntry(spec, slot);
+    return '<div class="eq-slot"><label for="eq-' + slot + '">' + (labels[slot] || slot) + '</label><div class="eq-field"><input id="eq-' + slot +
+      '" type="text" autocomplete="off" data-slot="' + slot + '" placeholder="' + esc(t("eqPlaceholder")) + '" value="' + esc(cur ? cur.it.n : "") + '">' +
+      (cur ? '<button type="button" class="eq-x" data-slot="' + slot + '" aria-label="' + esc(t("eqRemove")) + '">✕</button>' : "") + '<ul class="eq-sug" hidden></ul></div></div>';
+  }).join("");
+  grid.querySelectorAll("input").forEach((inp) => {
+    const slot = inp.dataset.slot, ul = inp.parentNode.querySelector(".eq-sug");
+    const curName = () => { const id = equippedMap()[slot]; return id && DATA.items[id] ? DATA.items[id].n : ""; };
+    const show = () => {
+      const q = inp.value.trim().toLowerCase();
+      const q2 = q === curName().toLowerCase() ? "" : q;
+      const list = (pools[poolOfSlot(slot)] || []).filter((e) => !q2 || e.it.n.toLowerCase().includes(q2)).slice(0, 8);
+      ul.innerHTML = list.map((e) => '<li data-id="' + e.id + '"><span style="color:' + qColor(e.it.q) + '">' + esc(e.it.n) + "</span><small>iLvl " + e.it.ilvl + " · " + esc(obtainInfo(e.it).kind) + "</small></li>").join("") || '<li class="none">' + t("eqNone") + "</li>";
+      ul.hidden = false;
+    };
+    inp.addEventListener("focus", () => { inp.select(); show(); });
+    inp.addEventListener("input", show);
+    inp.addEventListener("blur", () => setTimeout(() => { ul.hidden = true; inp.value = curName(); }, 150));
+    ul.addEventListener("mousedown", (ev) => {
+      ev.preventDefault();
+      const li = ev.target.closest("li[data-id]");
+      if (li) setEquipped(slot, li.dataset.id);
+    });
+  });
+  grid.querySelectorAll(".eq-x").forEach((b) => b.addEventListener("click", () => setEquipped(b.dataset.slot, null)));
+}
+
+/* ---------- Explicaciones y fuentes ---------- */
+const pctDiff = (a, b) => (b > 0 ? Math.round((a / b - 1) * 100) : 0);
+function partLabel(k) {
+  if (k === "armor") return L("Armadura", "Armor");
+  if (k === "dps") return L("DPS del arma", "Weapon DPS");
+  if (k === "feralap") return L("Poder de ataque (feral)", "Attack power (feral)");
+  return (STAT_LABEL[state.lang] || STAT_LABEL.es)[k] || k;
+}
+function reasonText(e) {
+  const out = [];
+  if (e.reasons.includes("raid")) out.push(L("es de banda y estás en «Sin bandas»", "is a raid item and you are in \"No raids\""));
+  if (e.reasons.includes("pvp")) out.push(L("es de PvP, que se ve en el modo «Solo PvP»", "is PvP gear, shown in \"PvP only\" mode"));
+  if (e.reasons.includes("phase")) out.push(L("es de la fase " + e.it.ph + ", posterior a la fase " + state.phase, "is from phase " + e.it.ph + ", later than phase " + state.phase));
+  return out.join(L(" y ", " and "));
+}
+function rivalNote(best, inf) {
+  const r = inf && inf.top;
+  if (!r || r.id === best.id || r.it.ilvl - best.it.ilvl < 5) return "";
+  const head = L("Hay un objeto de mayor nivel (", "A higher item level option (") + r.it.n + ", iLvl " + r.it.ilvl + ")";
+  if (r.reasons && r.score > best.score) return head + L(" oculto: ", " is hidden: ") + reasonText(r) + ".";
+  if (r.af < best.af) return head + L(" es de armadura ", " is ") + r.it.at + L(" y tiene penalización ×", " armor and gets a penalty of ×") + r.af.toFixed(2) + ".";
+  let key = null, gain = 0;
+  best.parts.forEach((p) => {
+    const other = (r.parts.find((q) => q.k === p.k) || { c: 0 }).c;
+    if (p.c - other > gain) { gain = p.c - other; key = p.k; }
+  });
+  return L("Tiene menos nivel de objeto que ", "It has a lower item level than ") + r.it.n + L(", pero más ", ", but more ") + (key ? partLabel(key) : L("valor", "value")) + L(" y mejor mezcla de estadísticas.", " and a better stat mix.");
+}
+function whyHtml(e, next, inf) {
+  const rows = e.parts.slice().sort((a, b) => b.c - a.c).map((p) =>
+    "<tr><td>" + esc(partLabel(p.k)) + " " + (p.k === "armor" || p.k === "dps" ? p.v : "+" + p.v) + "</td><td>" + p.c.toFixed(1) + "</td></tr>").join("") +
+    "<tr><td>" + t("ilvlTie") + "</td><td>" + (e.it.ilvl * 0.01).toFixed(1) + "</td></tr>";
+  let extra = "";
+  if (e.af < 1) extra += "<p>" + L("Penalización por tipo de armadura (", "Armor type penalty (") + esc(e.it.at) + "): ×" + e.af.toFixed(2) + "</p>";
+  if (next) extra += "<p>" + L("Frente a «", "Versus \"") + esc(next.it.n) + L("»: ", "\": ") + (pctDiff(e.score, next.score) >= 0 ? "+" : "") + pctDiff(e.score, next.score) + L("% de puntuación.", "% score.") + "</p>";
+  const b = inf && inf.blocked;
+  if (b && b.score > e.score) extra += "<p>" + L("Oculto por tus filtros: «", "Hidden by your filters: \"") + esc(b.it.n) + L("» (+", "\" (+") + pctDiff(b.score, e.score) + L("% de puntuación): ", "% score): ") + esc(reasonText(b)) + ".</p>";
+  return '<details class="why"><summary>' + t("whyTitle") + "</summary><table>" + rows + "</table><p><b>" + t("scoreWord") + ": " + e.score.toFixed(1) + "</b></p>" + extra + "</details>";
+}
+function obtainInfo(it) {
+  const s = it.src || {};
+  if (s.t === "Quest") {
+    const v = s.q || [];
+    const m = v.find((q) => { const f = String(q.f || "Both").toLowerCase(); return f === "both" || f === state.faction; }) || v[0] || {};
+    return { cls: s.rq ? "rquest" : "quest", kind: s.rq ? L("Misión de banda", "Raid quest") : L("Misión", "Quest"), detail: m.n || L("Desconocida", "Unknown") };
+  }
+  if (s.t === "Vendor") return { cls: "vendor", kind: L("Vendedor", "Vendor"), detail: s.n || L("Desconocido", "Unknown") };
+  if (s.t === "Drop") {
+    const raid = s.zc === "Raid", dungeon = s.zc === "Dungeon", z = zoneOf(s.zid);
+    const parts = [];
+    if (s.z) parts.push(s.z + (z ? " (" + z.lv[0] + "–" + z.lv[1] + ")" : ""));
+    parts.push(s.n || L("drop de la zona", "zone drop"));
+    if (s.dc) parts.push(s.dc + "%");
+    return { cls: raid ? "raid" : dungeon ? "dungeon" : "zone", kind: raid ? L("Banda", "Raid") : dungeon ? L("Mazmorra", "Dungeon") : L("Zona", "Zone"), detail: parts.join(" · ") };
+  }
+  if (s.t === "RaidProb") return { cls: "raid", kind: L("Banda (prob.)", "Raid (likely)"), detail: L("fuente no registrada: probablemente botín o ficha de banda", "unrecorded source: most likely raid loot or a raid token") };
+  if (s.t === "PvP") return { cls: "rare", kind: "PvP", detail: L("honor o arena (fuente no registrada)", "honor or arena (unrecorded source)") };
+  if (s.t === "Rare") return { cls: "rare", kind: L("Drop raro", "Rare drop"), detail: s.dc ? "~" + s.dc + "%" : L("monstruos raros o élite", "rare or elite mobs") };
+  return { cls: "other", kind: L("Otra fuente", "Other source"), detail: L("profesión, evento o fuente no registrada", "profession, event, or unrecorded source") };
+}
+const badgeHtml = (o) => '<span class="src-badge src-' + o.cls + '">' + esc(o.kind) + "</span>" + esc(o.detail);
+
+/* ---------- Botín de mazmorra ---------- */
+const normName = (n) => String(n).toLowerCase().replace(/^the /, "").replace(/[^a-z0-9]/g, "");
+const dungeonByName = (n) => DATA.dungeons.find((d) => normName(d.n) === normName(n));
+function autoDungeon(level) {
+  const ds = DATA.dungeons;
+  const inRange = ds.filter((d) => level >= d.lv[0] && level <= d.lv[1]);
+  if (inRange.length) return inRange[inRange.length - 1].id;
+  return ds.slice().sort((a, b) => Math.abs(level - a.lv[0]) - Math.abs(level - b.lv[0]))[0].id;
+}
+function lootSlotLabel(it) {
+  const extra = { ring: L("Anillo", "Ring"), trinket: L("Abalorio", "Trinket"), twohand: L("Dos manos", "Two-hand"), onehand: L("Una mano", "One-hand"), held: L("Mano sec.", "Off hand"), thrown: L("Arrojadiza", "Thrown") };
+  return extra[it.s] || (SLOT_LABEL[state.lang] || SLOT_LABEL.es)[it.s] || it.s;
+}
+function renderLoot(spec) {
+  const level = state.level, w = ENG.weights[spec.role] || {};
+  const cur = state.dungeon || autoDungeon(level);
+  const sel = $("dungeonSelect");
+  const autoName = (zoneOf(autoDungeon(level)) || {}).n || "";
+  sel.innerHTML = '<option value="0">' + esc(t("lootAuto") + ": " + autoName) + "</option>" +
+    DATA.dungeons.map((d) => '<option value="' + d.id + '">' + esc(d.n) + " (" + d.lv[0] + "–" + d.lv[1] + ")</option>").join("");
+  sel.value = String(state.dungeon || 0);
+  $("onlyUp").checked = state.onlyUp;
+  const eq = {};
+  specSlots(spec).forEach((sl) => { eq[sl] = equippedEntry(spec, sl); });
+  const anyEq = Object.values(eq).some(Boolean);
+  const slotsOf = (p) => (p === "ring" ? ["ring1", "ring2"] : p === "trinket" ? ["trinket1", "trinket2"] : [p]).filter((sl) => sl in eq);
+  const bosses = {};
+  let ups = 0;
+  for (const id in DATA.items) {
+    const it = DATA.items[id], s = it.src;
+    if (!s || s.t !== "Drop" || s.zid !== cur) continue;
+    if (state.phase && it.ph > state.phase) continue;
+    const r = evalItem(it, spec, w, { level, faction: state.faction }, false);
+    if (!r) continue;
+    let bestD = -1e9, vs = null;
+    r.pk.forEach((p) => {
+      let worst = null;
+      slotsOf(p).forEach((sl) => { const sc = eq[sl] ? eq[sl].score : 0; if (!worst || sc < worst.sc) worst = { sc, e: eq[sl] }; });
+      if (!worst) return;
+      const d = worst.sc > 0 ? pctDiff(r.score, worst.sc) : 100;
+      if (d > bestD) { bestD = d; vs = worst.e; }
+    });
+    if (bestD === -1e9) continue;
+    const usable = r.al <= level, up = usable && bestD >= 3;
+    if (up) ups++;
+    if (state.onlyUp && !up) continue;
+    (bosses[s.n || ""] = bosses[s.n || ""] || []).push({ id, it, delta: bestD, usable, al: r.al, dc: s.dc, vs });
+  }
+  $("lootCount").textContent = ups + t("lootUps");
+  const hint = anyEq ? "" : '<p class="note">' + t("eqHintNone") + "</p>";
+  const names = Object.keys(bosses).sort((a, b) => (a === "" ? 1 : b === "" ? -1 : a.localeCompare(b)));
+  if (!names.length) { $("lootBody").innerHTML = hint + '<p class="note">' + t("lootEmpty") + "</p>"; return; }
+  $("lootBody").innerHTML = hint + names.map((n) => {
+    const rows = bosses[n].sort((a, b) => (b.usable - a.usable) || (b.delta - a.delta)).map((r) => {
+      const badge = !r.usable ? '<span class="delta lv">' + t("level") + (r.al || "?") + "</span>"
+        : !r.vs ? '<span class="delta up">' + t("eqEmpty") + "</span>"
+        : r.delta >= 3 ? '<span class="delta up">↑ +' + r.delta + "%</span>"
+        : r.delta > -3 ? '<span class="delta eq">≈</span>' : '<span class="delta dn">↓ ' + r.delta + "%</span>";
+      const vs = r.vs ? " · vs " + esc(r.vs.it.n) : "";
+      return '<div class="loot-row' + (r.usable ? "" : " na") + '"><span class="m">' + esc(lootSlotLabel(r.it)) + "</span><span>" + itemLink(r.id, false, "") +
+        ' <span class="m">iLvl ' + r.it.ilvl + (r.dc ? " · " + r.dc + "%" : "") + vs + "</span></span>" + badge + "</div>";
+    }).join("");
+    return '<div class="boss"><h3>' + esc(n || t("zoneDrops")) + "</h3>" + rows + "</div>";
+  }).join("");
 }
 
 function renderClasses() {
@@ -720,12 +1206,33 @@ function renderClasses() {
   });
 }
 
+function renderSeg(el, options, current, onPick) {
+  el.innerHTML = "";
+  options.forEach((o) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "seg-btn";
+    btn.textContent = o.label;
+    btn.setAttribute("aria-pressed", String(o.value === current));
+    btn.addEventListener("click", () => onPick(o.value));
+    el.appendChild(btn);
+  });
+}
+
+function renderOptions() {
+  const set = (key, fn) => (v) => { fn(v); persist(); renderOptions(); render(); };
+  renderSeg($("modes"), [{ value: "noraid", label: t("modeNoRaid") }, { value: "raid", label: t("modeRaid") }], state.scope, set("scope", (v) => { state.scope = v; }));
+  renderSeg($("phases"), [1, 2, 3, 4].map((n) => ({ value: n, label: String(n) })).concat([{ value: 0, label: t("phaseAll") }]), state.phase, set("phase", (v) => { state.phase = v; }));
+  renderSeg($("pvps"), [{ value: false, label: t("pvpOff") }, { value: true, label: t("pvpOn") }], state.pvp, set("pvp", (v) => { state.pvp = v; }));
+  renderSeg($("alts"), [2, 5, 10].map((n) => ({ value: n, label: String(n) })), state.alts, set("alts", (v) => { state.alts = v; }));
+}
+
 function renderSpecs() {
   specsEl.innerHTML = "";
   allSpecsFor(state.cls).forEach((name) => {
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "spec-chip";
+    btn.className = "seg-btn";
     btn.setAttribute("aria-pressed", String(name === state.spec));
     btn.textContent = name;
     btn.addEventListener("click", () => {
@@ -744,7 +1251,7 @@ function renderFactions() {
   DATA.factions.forEach((faction) => {
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "spec-chip faction-chip";
+    btn.className = "seg-btn";
     btn.dataset.faction = faction;
     btn.setAttribute("aria-pressed", String(faction === state.faction));
     btn.textContent = t(faction);
@@ -777,6 +1284,13 @@ function persist() {
   save(STORE.level, String(state.level));
   save(STORE.faction, state.faction);
   save(STORE.lang, state.lang);
+  save(STORE.scope, state.scope);
+  save(STORE.phase, String(state.phase));
+  save(STORE.pvp, state.pvp ? "1" : "0");
+  save(STORE.alts, String(state.alts));
+  save(STORE.dungeon, String(state.dungeon));
+  save(STORE.onlyUp, state.onlyUp ? "1" : "0");
+  save(STORE.gear, JSON.stringify(state.gear));
 }
 
 function setLevel(value) {
@@ -787,44 +1301,43 @@ function setLevel(value) {
   render();
 }
 
-function renderSlot(spec, slots, slot, level) {
-  const ids = (slots[slot] && slots[slot][level]) || [];
-  const id = ids[0];
-  const item = DATA.items[id];
+function renderSlot(spec, gear, slot) {
+  const sl = gear.slots[slot];
+  const list = sl.list.slice(0, 1 + state.alts);
+  const e = list[0];
   const label = (SLOT_LABEL[state.lang] || SLOT_LABEL.es)[slot] || slot;
-  if (!item) {
+  if (!e) {
     return '<article class="slot empty"><div class="slot-top"><span class="slot-name">' + label +
       '</span><span class="slot-ilvl">—</span></div><div class="slot-body"><div class="item-icon placeholder">?</div><div><span class="item-name" style="color:var(--muted)">' + t("emptyItem") + '</span><div class="item-meta">' + t("emptyMeta") + '</div></div></div></article>';
   }
-  const color = qColor(item.q);
-  const alts = ids.slice(1).filter((x) => DATA.items[x]);
+  const item = e.it;
+  const alts = list.slice(1);
   const altHtml = alts.length
-    ? '<div class="alts">' + t("alt") + alts.map((x) => itemLink(x, false, "alt-link")).join(" · ") + "</div>"
+    ? '<ul class="alt-list" aria-label="' + t("moreAlts") + '">' + alts.map((a) => "<li>" + itemLink(a.id, false, "alt-link") + "<span>iLvl " + a.it.ilvl + "</span><span>" + badgeHtml(obtainInfo(a.it)) + "</span></li>").join("") + "</ul>"
     : '<div class="alts">' + t("noAlts") + "</div>";
   let note = "";
-  if (slot === "offhand" && slots.mainhand) {
-    const mhId = slots.mainhand[level] && slots.mainhand[level][0];
-    const mh = DATA.items[mhId];
-    if (mh && mh.h === 2) note = '<div class="alt-note">' + t("offhandNote") + '</div>';
-  }
+  if (slot === "offhand" && gear.slots.mainhand && gear.slots.mainhand.list[0] && gear.slots.mainhand.list[0].it.s === "twohand") note = '<div class="alt-note">' + t("offhandNote") + "</div>";
+  const warn = rivalNote(e, sl.info);
   let meta = item.req ? t("level") + item.req : t("noReq");
   if (item.dps) meta += " · " + item.dps + " DPS";
   if (item.ar) meta += " · " + item.ar + (state.lang === "en" ? " armor" : " armadura");
-  return '<article class="slot" style="--q:' + color + '">' +
-    '<div class="slot-top"><span class="slot-name">' + label + '</span><span class="slot-ilvl">iLvl ' + item.ilvl + '</span></div>' +
-    '<div class="slot-body">' + iconHtml(item) + '<div>' +
-    itemLink(id, false, "item-name") +
-    '<div class="item-meta">' + meta + '</div>' +
-    '<div class="item-source">' + esc(sourceText(item)) + '</div>' +
-    '<div class="item-stats">' + statLine(item) + '</div>' +
-    '</div></div>' + note + altHtml + '</article>';
+  return '<article class="slot" style="--q:' + qColor(item.q) + '">' +
+    '<div class="slot-top"><span class="slot-name">' + label + '</span><span class="slot-ilvl">iLvl ' + item.ilvl + "</span></div>" +
+    '<div class="slot-body">' + iconHtml(item) + "<div>" + itemLink(e.id, false, "item-name") +
+    '<div class="item-meta">' + meta + "</div>" +
+    '<div class="item-source">' + badgeHtml(obtainInfo(item)) + "</div>" +
+    '<div class="item-stats">' + statLine(item) + "</div></div></div>" +
+    '<div class="slot-actions"><a class="mini-btn" href="' + ITEM_URL + e.id + '" target="_blank" rel="noopener">' + t("howTo") + "</a></div>" +
+    (warn ? '<div class="warn">' + esc(warn) + "</div>" : "") + note +
+    whyHtml(e, alts[0], sl.info) + altHtml + "</article>";
 }
 
 function renderSlots(spec, level) {
-  const slots = spec.slots[state.faction];
-  const order = DATA.slotOrder.filter((slot) => slots[slot]);
+  const gear = computeGear(spec, { level, faction: state.faction, scope: state.scope, phase: state.phase, pvp: state.pvp });
+  const order = specSlots(spec);
   slotCount.textContent = order.length + t("slots");
-  slotsEl.innerHTML = order.map((slot) => renderSlot(spec, slots, slot, level)).join("");
+  slotsEl.innerHTML = order.map((slot) => renderSlot(spec, gear, slot)).join("");
+  return gear;
 }
 
 function renderStats(spec) {
@@ -859,8 +1372,16 @@ function renderDungeons(bracket, level) {
     const current = level >= min && level <= max;
     const next = upcoming === d;
     const label = bracket.min === 80 ? "" : (current ? t("now") : (next ? t("next") : ""));
-    return '<li class="' + (current || next ? "current" : "") + '"><span>' + esc(name) + label + '</span><span class="range">' + min + "–" + max + "</span></li>";
+    const zone = dungeonByName(name);
+    const inner = "<span>" + esc(name) + label + '</span><span class="range">' + min + "–" + max + "</span>";
+    return '<li class="' + (current || next ? "current" : "") + '">' + (zone ? '<button type="button" data-zone="' + zone.id + '" title="' + t("lootTitle") + '">' + inner + "</button>" : inner) + "</li>";
   }).join("");
+  dungeonList.querySelectorAll("button[data-zone]").forEach((btn) => btn.addEventListener("click", () => {
+    state.dungeon = Number(btn.dataset.zone);
+    persist();
+    render();
+    $("lootHeading").scrollIntoView({ behavior: "smooth", block: "start" });
+  }));
 }
 
 function renderHeirlooms(key, level) {
@@ -914,11 +1435,16 @@ function render() {
     : bracketName(bracket) + " · " + bracket.min + (state.lang === "en" ? " to " : " a ") + bracket.max;
   $("statusArmor").textContent = armorText(state.cls, level);
   $("statusNext").textContent = next ? t("level") + next.min + " · " + bracketName(next) : t("nextBiS");
-  $("sheetIntro").textContent = level === 80
-    ? t("sheetIntro80")
+  $("sheetIntro").textContent = state.pvp ? t("sheetIntroPvp") + level + "."
+    : level === 80 ? t(state.scope === "raid" ? "sheetIntro80Raid" : "sheetIntro80")
     : t("sheetIntro") + level + ".";
+  $("sourcesValue").textContent = state.pvp ? t("sourcesPvpOnly") : t(state.scope === "raid" ? "sourcesRaid" : "sourcesValue");
+  $("bracketAdvice").textContent = bracketAdvice(bracket);
   updateClassNote();
-  renderSlots(spec, level);
+  const gear = renderSlots(spec, level);
+  lastGear = gear;
+  renderEquip(spec);
+  renderLoot(spec);
   renderStats(spec);
   renderDungeons(bracket, level);
   renderHeirlooms(state.cls + "|" + state.spec, level);
@@ -948,25 +1474,33 @@ levelInput.addEventListener("change", (e) => setLevel(e.target.value));
 levelInput.addEventListener("blur", (e) => setLevel(e.target.value));
 
 $("resetBtn").addEventListener("click", () => {
-  state.cls = "Warrior";
-  state.spec = "Arms";
-  state.level = 20;
-  try {
-    localStorage.removeItem(STORE.cls);
-    localStorage.removeItem(STORE.spec);
-    localStorage.removeItem(STORE.level);
-  } catch (err) { /* sin almacenamiento */ }
+  Object.assign(state, { cls: "Warrior", spec: "Arms", level: 20, scope: "noraid", phase: 0, pvp: false, alts: 2, dungeon: 0, onlyUp: false });
+  persist();
   renderClasses();
   renderSpecs();
   renderFactions();
+  renderOptions();
   render();
 });
+
+$("dungeonSelect").addEventListener("change", (e) => { state.dungeon = Number(e.target.value) || 0; persist(); render(); });
+$("onlyUp").addEventListener("change", (e) => { state.onlyUp = e.target.checked; persist(); render(); });
+$("eqUseRec").addEventListener("click", () => {
+  if (!lastGear) return;
+  const spec = DATA.specs[state.cls + "|" + state.spec], g = {};
+  specSlots(spec).forEach((sl) => { const e = lastGear.slots[sl] && lastGear.slots[sl].list[0]; if (e) g[sl] = e.id; });
+  state.gear[gearKey()] = g;
+  persist();
+  render();
+});
+$("eqClear").addEventListener("click", () => { state.gear[gearKey()] = {}; persist(); render(); });
 
 document.querySelectorAll(".lang-switch button").forEach((btn) => {
   btn.addEventListener("click", () => {
     state.lang = btn.dataset.lang;
     persist();
     renderFactions();
+    renderOptions();
     render();
   });
 });
@@ -975,6 +1509,7 @@ state.level = clampLevel(state.level);
 renderClasses();
 renderSpecs();
 renderFactions();
+renderOptions();
 render();
 </script>
 <!--__BODY__-->
