@@ -34,6 +34,8 @@ Genera los datos y la página:
 
 ```bash
 python scripts/fetch_raw.py
+python scripts/fetch_atlasloot.py
+python scripts/build_loot.py
 python scripts/build_item_db.py
 python scripts/build_recommendations.py
 python scripts/build_page.py

@@ -22,7 +22,9 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 - **"Why this item?"** per slot: score breakdown by stat, armor-type penalty, comparison with the next alternative, and a warning when a higher item level option is hidden or weaker.
 - **Content modes**: "No raids" (default) or "With raids", raid phase 1–4 or All, and a separate "PvP only" mode (PvE is the default; PvP gear is never mixed into PvE recommendations).
 - **Legendary items included**: legendaries are scored like any other item and appear when they are the best option; raid legendaries require "With raids". The page shows the top choices per slot, not a full legendary catalog.
-- **Dungeon loot from your gear**: enter what your character is wearing (or load the recommended set), pick a dungeon, and see every item it can drop for your class and spec with the % change over your equipped piece. The same flow is meant to extend to raids.
+- **Proc-aware trinkets**: on-use and proc effects are averaged by duration and cooldown (≈).
+- **Level 80 caps**: hit and expertise totals are shown; stats above the cap count for 15 %.
+- **Loot browser**: enter what your character is wearing (or load the recommended set), pick a dungeon or raid, and see every item it can drop for your class and spec with the % change over your equipped piece.
 - **Faction-aware**: quests and vendors are filtered for Horde or Alliance.
 - **Bilingual UI**: Spanish and English.
 - **Item details**: icon, quality color, item level, required level, relevant stats, and source.
@@ -33,12 +35,12 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 
 ## How it works
 
-1. `scripts/fetch_raw.py` downloads the raw item and zone data.
-2. `scripts/build_item_db.py` normalizes items, stats, required levels, armor/weapon metadata, and sources.
+1. `scripts/fetch_raw.py` downloads the raw item and zone data, and `scripts/fetch_atlasloot.py` + `scripts/build_loot.py` add per-boss loot tables for WotLK (Ulduar, Trial of the Crusader, Icecrown Citadel, heroic dungeons, 10/25) from AtlasLootClassic.
+2. `scripts/build_item_db.py` normalizes items, stats (including averaged trinket procs and on-use effects), required levels, armor/weapon metadata, and sources.
 3. `scripts/build_recommendations.py` emits the item database, spec definitions, stat weights, and dungeon list. The ranking itself runs in the browser, so mode, phase, PvP, and faction filters apply instantly.
 4. `scripts/build_page.py` injects the generated JSON into `src/template.html` and writes `tolltip.html`.
 
-The ranking is a practical heuristic, not a combat simulator: it sorts by a weighted stat score (item level only breaks ties) and penalizes armor types that are not ideal for the class. Epic items with no recorded source at item level 213 or higher are treated as raid loot ("likely raid"). Hit/expertise caps, gems, set bonuses, proc effects, and full weapon loadouts are not modeled yet.
+The ranking is a practical heuristic, not a combat simulator: it sorts by a weighted stat score (item level only breaks ties), penalizes armor types that are not ideal for the class, averages trinket procs and on-use effects by duration and cooldown, applies hit/expertise caps at level 80, and compares two-handers against one-hand + off-hand for "any weapon" specs. Epic items with no recorded source at item level 213 or higher are treated as raid loot ("likely raid"). Gems, enchants, set bonuses, and random-enchant items are not scored yet.
 
 ## Quick start
 
@@ -58,14 +60,17 @@ python -m pip install playwright
 python -m playwright install chromium
 
 python scripts/fetch_raw.py
+python scripts/fetch_atlasloot.py
+python scripts/build_loot.py
 python scripts/build_item_db.py
 python scripts/build_recommendations.py
 python scripts/build_page.py
 
 python tests/smoke.py
+python tests/check_reference.py
 ```
 
-`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`.
+`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` compares the ranking with the reference BiS list in `tests/reference_bis.json`.
 
 ## Project structure
 
@@ -90,6 +95,8 @@ The item database is derived from [wow-classic-items](https://github.com/nexus-d
 - `data/json/data.json`
 - `data/json/zones.json`
 
+Per-boss loot tables come from [AtlasLootClassic](https://github.com/Hoizame/AtlasLootClassic).
+
 Item tooltips and icons are loaded from [EVOWOW](https://wotlk.evowow.com/).
 
 This project is not affiliated with Blizzard Entertainment. World of Warcraft and Wrath of the Lich King are trademarks of Blizzard Entertainment.
@@ -102,7 +109,7 @@ This project is not affiliated with Blizzard Entertainment. World of Warcraft an
 - Some very low-level slots may legitimately have no item with known stats.
 - The page shows the best item plus alternatives per slot, not every item. A legendary only appears if it ranks for the selected spec, level, faction, mode, phase, and PvP filter. Low-level legendaries or ones that depend on an unmodeled setup may not appear.
 - Weapon combinations are simplified: special setups such as Fury's Titan's Grip are not fully modeled yet, so some BiS or legendary items may be missing.
-- The generated page embeds the item data, so `tolltip.html` is intentionally large (around 4.5 MB).
+- The generated page embeds the item data, so `tolltip.html` is intentionally large (around 4.9 MB).
 
 ## Contributing
 
