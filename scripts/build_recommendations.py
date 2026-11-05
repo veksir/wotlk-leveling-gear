@@ -138,13 +138,22 @@ def weights_for(role):
 
 
 ARMOR_UNLOCK = {"Plate": {"Death Knight": 55, "Warrior": 40, "Paladin": 40}, "Mail": {"Hunter": 40, "Shaman": 40}}
+# Pesos propios de una especialidad (se aplican sobre los del rol). Solo hay entradas con una
+# fuente verificada; el resto de especialidades usa los pesos genéricos de su rol.
+SPEC_WEIGHTS = {
+    # Icy Veins WotLK Classic: golpe hasta el tope > poder de hechizos > celeridad > crítico > espíritu
+    "Priest|Shadow": {"int": 0.3, "sp": 1.0, "haste": 0.8, "crit": 0.5, "spi": 0.2, "hit": 0.9},
+}
+# Topes a nivel 80 en puntuación, sin talentos ni bonificaciones raciales (que los bajan):
+# golpe de hechizos 17 %, golpe cuerpo a cuerpo/a distancia 8 %, pericia 26.
+CAPS = {"caster": {"hit": 446}, "str": {"hit": 263, "exp": 214}, "agi": {"hit": 263, "exp": 214}, "hunter": {"hit": 263}}
 ROLES = ["str", "agi", "caster", "healer", "tank", "bear", "hunter"]
 
 
 def compact(it):
     """Quita campos vacíos y derivables: la página calcula el resto en el navegador."""
     out = {k: it[k] for k in ("n", "i", "q", "ilvl", "req", "s", "sub", "src") if it.get(k) not in (None, "")}
-    for k in ("at", "ar", "dps", "cl", "st"):
+    for k in ("at", "ar", "dps", "cl", "st", "px"):
         if it.get(k):
             out[k] = it[k]
     for k in ("raid", "pvp", "ph"):
@@ -194,15 +203,15 @@ def main():
         item["adviceEn"] = advice_en
         brackets.append(item)
 
-    drop_zones = {v["src"]["zid"] for v in items.values()
-                  if (v.get("src") or {}).get("t") == "Drop" and v["src"].get("zid") and not v.get("raid")}
-    dungeons = sorted(
-        ({"id": z["id"], "n": z["name"], "lv": z["level"]} for z in zones.values()
-         if z.get("category") == "Dungeon" and z.get("level") and z["level"][0] and z["id"] in drop_zones),
-        key=lambda d: (d["lv"][0], d["n"]),
-    )
+    loot = json.loads((ROOT / "data" / "loot.json").read_text(encoding="utf-8"))
+    def zone_list(kind):
+        return sorted(({"id": z["id"], "n": z["n"], "lv": z["lv"]} for z in loot.values() if z["ty"] == kind and z["lv"][0]),
+                      key=lambda d: (d["lv"][0], d["n"]))
+    dungeons, raids = zone_list("Dungeon"), zone_list("Raid")
 
     engine = {
+        "specWeights": SPEC_WEIGHTS,
+        "caps": CAPS,
         "weights": {role: dict(weights_for(role)) for role in ROLES},
         "armorTiers": ARMOR_TIERS,
         "armorUnlock": ARMOR_UNLOCK,
@@ -217,6 +226,8 @@ def main():
         "specs": specs,
         "engine": engine,
         "dungeons": dungeons,
+        "raids": raids,
+        "loot": {zid: z["b"] for zid, z in loot.items()},
         "classOrder": legacy["classOrder"],
         "classMeta": legacy["classMeta"],
         "classMetaEn": CLASS_META_EN,

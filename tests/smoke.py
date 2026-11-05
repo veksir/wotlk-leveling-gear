@@ -86,6 +86,18 @@ def main():
           return { twohand: (p.mainhand || []).some((e) => e.it.s === "twohand"), cloth: (p.chest || []).some((e) => e.it.at === "Cloth"),
                    zero: Object.values(p).some((l) => l.some((e) => e.score === 0)) }; }""")
         assert eq["twohand"] and eq["cloth"], "el buscador de equipo debe ofrecer armas de dos manos y otra armadura"
+        # Regresiones del motor: procs, topes, 2 manos vs 1 mano + secundaria, raids en el panel.
+        eng = page.evaluate("""() => {
+          const phy = Object.values(DATA.items).filter((i) => i.n === "Phylactery of the Nameless Lich");
+          const shadow = computeGear(DATA.specs["Priest|Shadow"], { level: 80, faction: "horde", scope: "raid", phase: 0, pvp: false });
+          const arms = computeGear(DATA.specs["Warrior|Arms"], { level: 80, faction: "horde", scope: "raid", phase: 0, pvp: false });
+          const low = computeGear(DATA.specs["Warrior|Arms"], { level: 60, faction: "horde", scope: "raid", phase: 0, pvp: false });
+          return { phy: phy.length, phyPx: phy.every((i) => i.px && i.px.sp > 0), loadout: !!shadow.loadout,
+                   capsHit: arms.totals && arms.totals.hit > 0, noCapsBelow80: low.totals === null,
+                   groups: document.querySelectorAll("#dungeonSelect optgroup").length }; }""")
+        assert eng["phy"] == 2 and eng["phyPx"], "Phylactery debe estar con su proc estimado"
+        assert eng["loadout"] and eng["capsHit"] and eng["noCapsBelow80"], eng
+        assert eng["groups"] == 2, "el selector del botín debe tener mazmorras y bandas"
         page.get_by_role("button", name="Warrior", exact=True).click()
         page.get_by_role("button", name="Arms", exact=True).click()
         page.locator("#levelInput").fill("80")
@@ -93,6 +105,7 @@ def main():
         page.get_by_role("button", name="Con bandas", exact=True).click()
         page.locator("#alts button", has_text="10").click()
         page.wait_for_timeout(400)
+        assert page.locator("#capsBox").is_visible(), "el panel de topes debe verse a nivel 80"
         assert page.locator(".slot details.why").count() >= 15, "falta el desplegable por qué"
         assert page.locator(".slot .src-badge").count() >= 15, "falta la fuente"
         assert page.locator('#slots a[href$="item=49623"]').count() > 0, "Shadowmourne debe verse con bandas"
@@ -108,7 +121,7 @@ def main():
         page.locator("#levelInput").fill("25")
         page.locator("#levelInput").dispatch_event("change")
         page.wait_for_timeout(300)
-        page.select_option("#dungeonSelect", label="Utgarde Keep (69–72)")
+        page.select_option("#dungeonSelect", value="206")  # Utgarde Keep
         page.wait_for_timeout(300)
         assert page.locator(".loot-row").count() > 0, "el botín de mazmorra no muestra objetos"
         empty_rows = page.locator(".loot-row .delta.up").count()
@@ -122,6 +135,13 @@ def main():
         page.locator("#eqClear").click()
         page.wait_for_timeout(200)
         assert page.locator("#eqGrid input").first.input_value() == ""
+        for zone, name in (("4812", "Icecrown Citadel"), ("4273", "Ulduar"), ("4722", "Trial of the Crusader")):
+            page.locator("#levelInput").fill("80")
+            page.locator("#levelInput").dispatch_event("change")
+            page.select_option("#dungeonSelect", value=zone)
+            page.wait_for_timeout(300)
+            assert page.locator(".boss h3").count() >= 3, name + ": el botín de banda debe mostrar jefes"
+            assert page.locator(".loot-row").count() > 20, name + ": faltan objetos"
         page.select_option("#dungeonSelect", value="0")
         assert page.locator(".loot-row").count() > 0
         assert page.locator("details.calc").count() == 1 and page.locator(".side details.calc").count() == 0
