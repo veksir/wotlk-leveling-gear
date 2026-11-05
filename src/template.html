@@ -378,8 +378,9 @@ var aowow_tooltips = {
   .loot-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; padding: 3px 0; border-bottom: 1px solid rgba(26, 61, 80, .35); font-size: 12px; }
   .loot-row .m { color: var(--muted); font-size: 11px; }
   .loot-row.na { opacity: .55; }
+  .loot-row.offspec { opacity: .62; }
   .delta { padding: 0 6px; border-radius: 3px; font-size: 10.5px; font-weight: 700; white-space: nowrap; }
-  .delta.up { background: rgba(126, 212, 154, .18); color: #7fd49a; } .delta.eq { background: rgba(143, 173, 189, .15); color: var(--muted); } .delta.dn { background: rgba(211, 74, 74, .14); color: #d98a8a; } .delta.lv { background: rgba(217, 177, 95, .15); color: var(--gold); }
+  .delta.up { background: rgba(126, 212, 154, .18); color: #7fd49a; } .delta.eq { background: rgba(143, 173, 189, .15); color: var(--muted); } .delta.dn { background: rgba(211, 74, 74, .14); color: #d98a8a; } .delta.lv { background: rgba(217, 177, 95, .15); color: var(--gold); } .delta.off { background: rgba(143, 173, 189, .15); color: #9fb9c8; }
   .dungeon-list button { all: unset; display: flex; justify-content: space-between; gap: 8px; width: 100%; cursor: pointer; }
   .dungeon-list button:hover span:first-child { text-decoration: underline; }
   .box { padding: 11px 13px 12px; border: 1px solid var(--line); border-radius: 8px; background: rgba(6, 19, 29, .45); }
@@ -553,6 +554,7 @@ var aowow_tooltips = {
       <div class="loot-ctl">
         <label><span data-i18n="lootPick">Mazmorra</span> <select id="dungeonSelect"></select></label>
         <label><input type="checkbox" id="onlyUp"> <span data-i18n="lootOnlyUp">Solo mejoras</span></label>
+        <label><input type="checkbox" id="showOffspec"> <span data-i18n="showOffspec">Mostrar fuera de especialidad</span></label>
         <strong id="lootCount"></strong>
       </div>
       <div class="loot-body" id="lootBody"></div>
@@ -565,7 +567,7 @@ var aowow_tooltips = {
 </div>
 <script>
 const DATA = /*__DATA__*/;
-const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup" };
+const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup", showOffspec: "wotlk-gear-show-offspec" };
 
 const I18N = {
   es: {
@@ -588,6 +590,7 @@ const I18N = {
     slots: " ranuras", alt: "Alt: ", noAlts: "Sin alternativas claras en este nivel.",
     emptyItem: "Sin objeto", emptyMeta: "No hay un objeto válido para este nivel.",
     offhandNote: "Con un arma de dos manos, ignora este slot.",
+    offhandBlocked: "No aplica con un arma a dos manos",
     now: " · ahora", next: " · próxima", noReq: "Sin requisito", level: "Nivel ",
     shoulders: "Hombros", chest: "Pecho", weapons: "Armas", trinkets: "Abalorios"
   },
@@ -611,6 +614,7 @@ const I18N = {
     slots: " slots", alt: "Alt: ", noAlts: "No clear alternatives at this level.",
     emptyItem: "No item", emptyMeta: "No valid item for this level.",
     offhandNote: "With a two-handed weapon, ignore this slot.",
+    offhandBlocked: "Not used with a two-handed weapon",
     now: " · now", next: " · next", noReq: "No requirement", level: "Level ",
     shoulders: "Shoulders", chest: "Chest", weapons: "Weapons", trinkets: "Trinkets"
   }
@@ -658,6 +662,8 @@ Object.assign(I18N.es, {
   howTo: "Cómo conseguirlo ↗", moreAlts: "Alternativas",
   lootTitle: "Botín de mazmorra según tu equipo", lootIntro: "Indica lo que llevas puesto y verás qué objetos de cada mazmorra te sirven y cuánto mejoran tu equipo actual.",
   lootPick: "Mazmorra", lootAuto: "Según tu nivel", lootOnlyUp: "Solo mejoras",
+  showOffspec: "Mostrar fuera de especialidad", offspecTag: "Off-spec",
+  lootHidden: " fuera de especialidad", offspecGear: "Fuera de especialidad",
   lootEmpty: "Ningún objeto útil para tu especialidad en esta mazmorra.", zoneDrops: "Botín de la zona"
 });
 Object.assign(I18N.en, {
@@ -681,6 +687,8 @@ Object.assign(I18N.en, {
   howTo: "How to get it ↗", moreAlts: "Alternatives",
   lootTitle: "Dungeon loot for your gear", lootIntro: "Tell us what you are wearing and see which dungeon items help you, and by how much over your current gear.",
   lootPick: "Dungeon", lootAuto: "By your level", lootOnlyUp: "Upgrades only",
+  showOffspec: "Show off-spec items", offspecTag: "Off-spec",
+  lootHidden: " off-spec", offspecGear: "Off-spec",
   lootEmpty: "No useful item for your spec in this dungeon.", zoneDrops: "Zone loot"
 });
 
@@ -727,6 +735,7 @@ let state = {
   alts: Number(load(STORE.alts, 2)) || 2,
   dungeon: Number(load(STORE.dungeon, 0)) || 0,
   onlyUp: load(STORE.onlyUp, "0") === "1",
+  showOffspec: load(STORE.showOffspec, "0") === "1",
   gear: (() => { try { return JSON.parse(load(STORE.gear, "{}")) || {}; } catch (e) { return {}; } })()
 };
 if (state.scope !== "raid") state.scope = "noraid";
@@ -871,6 +880,30 @@ function scoreParts(it, w) {
   Object.entries(it.px || {}).forEach(([k, v]) => add(k, v, w[k], true));
   return { parts, base: parts.reduce((a, p) => a + p.c, 0) + (it.ilvl || 0) * 0.01 };
 }
+// Relevancia: un objeto puede ser equipable por la clase y aun así no aportar nada a la
+// especialidad (por ejemplo, plate de heal para un paladín tanque). La puntuación no cambia;
+// solo se usa para decidir qué mostrar como recomendación o botín útil.
+function isRelevant(it, spec, w) {
+  const ignore = new Set(["sta", "armor"]);
+  let signature = 0, foreign = 0;
+  const add = (k, v) => {
+    if (!v || ignore.has(k) || k === "dps") return;
+    if (k === "hs") {
+      if ((w[spec.primary] || 0) > 0) signature += v;
+      return;
+    }
+    if ((w[k] || 0) > 0) signature += v; else foreign += v;
+  };
+  Object.entries(it.st || {}).forEach(([k, v]) => add(k, v));
+  Object.entries(it.px || {}).forEach(([k, v]) => add(k, v));
+  if (it.dps && (w.dps || 0) > 0) signature += it.dps;
+  if (it.at === "Shield" && spec.off === "shield") return true;
+  if (signature <= 0) {
+    const pureTankStamina = !foreign && (it.st || {}).sta && (spec.role === "tank" || spec.role === "bear");
+    return !!pureTankStamina;
+  }
+  return foreign === 0 || signature >= foreign * 0.5;
+}
 function availableLevel(it, spec) {
   let lv = Math.max(it.req > 0 ? it.req : 1, spec.min);
   if (it.at) lv = Math.max(lv, armorUnlock(spec.cls, it.at));
@@ -921,7 +954,7 @@ function evalItem(it, spec, w, o, cap) {
   const tiered = it.at && it.s !== "back" && ARMOR_KEYS.includes(it.s);
   const af = tiered ? armorFactor(spec.cls, it.at, o.level) : 1;
   if (af <= 0) return null;
-  return { pk, al, parts: sp.parts, base: sp.base, af, score: sp.base * af };
+  return { pk, al, parts: sp.parts, base: sp.base, af, score: sp.base * af, rel: isRelevant(it, spec, w) };
 }
 
 /* opts: { level, faction, scope: "noraid"|"raid", phase: 0 (todas)|1-4, pvp: bool (solo equipo PvP) } */
@@ -934,7 +967,7 @@ function computeGear(spec, o) {
     const it = DATA.items[id];
     if (o.pvp && !it.pvp) continue;
     const r = evalItem(it, spec, w, o, true);
-    if (!r) continue;
+    if (!r || !r.rel) continue;
     const e = { id, it, parts: r.parts, base: r.base, af: r.af, score: r.score, capPen: 0 };
     const reasons = [];
     if (!o.pvp) {
@@ -959,9 +992,11 @@ function computeGear(spec, o) {
   const buildSlots = () => {
     const out = {};
     const mainBest = (pools.mainhand || [])[0];
+    const twoHandMain = !!mainBest && itemHands(mainBest.it) === 2;
     specSlots(spec).forEach((slot) => {
       const src = poolOfSlot(slot);
       let pool = pools[src] || [];
+      if (slot === "offhand" && twoHandMain) pool = [];
       if (slot === "offhand" && spec.off === "dw" && mainBest) pool = pool.filter((e) => e.it.n !== mainBest.it.n);
       let list = pool;
       if (slot === "ring1" || slot === "trinket1") list = [pool[0]].concat(pool.slice(2)).filter(Boolean);
@@ -1012,6 +1047,7 @@ function computeGear(spec, o) {
       const use1 = one.score + off.score > two.score;
       loadout = { use1, diff: pctDiff(use1 ? one.score + off.score : two.score, use1 ? two.score : one.score + off.score), other: use1 ? two.it.n : one.it.n + " + " + off.it.n };
       pools.mainhand = pools.mainhand.filter((e) => (itemHands(e.it) === 1) === use1);
+      if (!use1) pools.offhand = [];
       slots = buildSlots();
     }
   }
@@ -1031,6 +1067,10 @@ function computeGear(spec, o) {
 const poolOfSlot = (s) => (s.startsWith("ring") ? "ring" : s.startsWith("trinket") ? "trinket" : s);
 const gearKey = () => state.cls + "|" + state.spec;
 const equippedMap = () => state.gear[gearKey()] || {};
+function equippedMainTwoHand() {
+  const id = equippedMap().mainhand, it = id && DATA.items[id];
+  return !!(it && itemHands(it) === 2);
+}
 /* El equipo que ya llevas puesto puede ser cualquier cosa que tu clase pueda equipar,
    aunque no sea ideal para la especialidad (armas de dos manos, otro tipo de armadura, etc.). */
 const SHIELD_CLASSES = ["Warrior", "Paladin", "Shaman"];
@@ -1100,7 +1140,12 @@ function equippedEntry(spec, slot) {
 }
 function setEquipped(slot, id) {
   const g = (state.gear[gearKey()] = state.gear[gearKey()] || {});
+  if (slot === "offhand" && equippedMainTwoHand()) return;
   if (id) g[slot] = id; else delete g[slot];
+  if (slot === "mainhand") {
+    const it = id && DATA.items[id];
+    if (it && itemHands(it) === 2) delete g.offhand;
+  }
   persist();
   render();
 }
@@ -1108,9 +1153,11 @@ function renderEquip(spec) {
   const grid = $("eqGrid"), pools = candidates(spec);
   const labels = SLOT_LABEL[state.lang] || SLOT_LABEL.es;
   grid.innerHTML = specSlots(spec).map((slot) => {
-    const cur = equippedEntry(spec, slot);
+    const blocked = slot === "offhand" && equippedMainTwoHand();
+    const cur = blocked ? null : equippedEntry(spec, slot);
+    const ph = blocked ? t("offhandBlocked") : t("eqPlaceholder");
     return '<div class="eq-slot"><label for="eq-' + slot + '">' + (labels[slot] || slot) + '</label><div class="eq-field"><input id="eq-' + slot +
-      '" type="text" autocomplete="off" data-slot="' + slot + '" placeholder="' + esc(t("eqPlaceholder")) + '" value="' + esc(cur ? cur.it.n : "") + '">' +
+      '" type="text" autocomplete="off" data-slot="' + slot + '" placeholder="' + esc(ph) + '" value="' + esc(cur ? cur.it.n : "") + '"' + (blocked ? " disabled" : "") + '>' +
       (cur ? '<button type="button" class="eq-x" data-slot="' + slot + '" aria-label="' + esc(t("eqRemove")) + '">✕</button>' : "") + '<ul class="eq-sug" hidden></ul></div></div>';
   }).join("");
   grid.querySelectorAll("input").forEach((inp) => {
@@ -1224,12 +1271,13 @@ function renderLoot(spec) {
     '<optgroup label="' + esc(t("lootRaids")) + '">' + (DATA.raids || []).map((d) => '<option value="' + d.id + '">' + esc(d.n) + " (" + d.lv[0] + (d.lv[1] !== d.lv[0] ? "–" + d.lv[1] : "") + ")</option>").join("") + "</optgroup>";
   sel.value = String(state.dungeon || 0);
   $("onlyUp").checked = state.onlyUp;
+  $("showOffspec").checked = state.showOffspec;
   const eq = {};
   specSlots(spec).forEach((sl) => { eq[sl] = equippedEntry(spec, sl); });
   const anyEq = Object.values(eq).some(Boolean);
   const slotsOf = (p) => (p === "ring" ? ["ring1", "ring2"] : p === "trinket" ? ["trinket1", "trinket2"] : [p]).filter((sl) => sl in eq);
   const bosses = {};
-  let ups = 0;
+  let ups = 0, hidden = 0;
   const zoneLoot = (DATA.loot || {})[cur] || {};
   for (const boss in zoneLoot) for (const id in zoneLoot[boss]) {
     const it = DATA.items[id];
@@ -1240,6 +1288,9 @@ function renderLoot(spec) {
     if (state.phase && it.ph > state.phase) continue;
     const r = evalItem(it, spec, w, { level, faction: state.faction }, false);
     if (!r) continue;
+    if (equippedMainTwoHand() && r.pk.length === 1 && r.pk[0] === "offhand") continue;
+    if (!r.rel && !state.showOffspec) { hidden++; continue; }
+    const offspec = !r.rel;
     let bestD = -1e9, vs = null;
     r.pk.forEach((p) => {
       let worst = null;
@@ -1253,20 +1304,21 @@ function renderLoot(spec) {
     if (up) ups++;
     if (state.onlyUp && !up) continue;
     const s = it.src || {};
-    (bosses[boss] = bosses[boss] || []).push({ id, it, delta: bestD, usable, al: r.al, df: tags.filter((x) => x !== fac).join("/"), dc: s.n === boss ? s.dc : null, vs });
+    (bosses[boss] = bosses[boss] || []).push({ id, it, delta: bestD, usable, al: r.al, df: tags.filter((x) => x !== fac).join("/"), dc: s.n === boss ? s.dc : null, vs, offspec });
   }
-  $("lootCount").textContent = ups + t("lootUps");
+  $("lootCount").textContent = ups + t("lootUps") + (hidden ? " · " + hidden + t("lootHidden") : "");
   const hint = anyEq ? "" : '<p class="note">' + t("eqHintNone") + "</p>";
   const names = Object.keys(bosses).sort((a, b) => (a === "" ? 1 : b === "" ? -1 : a.localeCompare(b)));
   if (!names.length) { $("lootBody").innerHTML = hint + '<p class="note">' + t("lootEmpty") + "</p>"; return; }
   $("lootBody").innerHTML = hint + names.map((n) => {
-    const rows = bosses[n].sort((a, b) => (b.usable - a.usable) || (b.delta - a.delta)).map((r) => {
-      const badge = !r.usable ? '<span class="delta lv">' + t("level") + (r.al || "?") + "</span>"
+    const rows = bosses[n].sort((a, b) => (a.offspec - b.offspec) || (b.usable - a.usable) || (b.delta - a.delta)).map((r) => {
+      const badge = r.offspec ? '<span class="delta off">' + t("offspecTag") + "</span>"
+        : !r.usable ? '<span class="delta lv">' + t("level") + (r.al || "?") + "</span>"
         : !r.vs ? '<span class="delta up">' + t("eqEmpty") + "</span>"
         : r.delta >= 3 ? '<span class="delta up">↑ +' + r.delta + "%</span>"
         : r.delta > -3 ? '<span class="delta eq">≈</span>' : '<span class="delta dn">↓ ' + r.delta + "%</span>";
       const vs = r.vs ? " · vs " + esc(r.vs.it.n) : "";
-      return '<div class="loot-row' + (r.usable ? "" : " na") + '"><span class="m">' + esc(lootSlotLabel(r.it)) + "</span><span>" + itemLink(r.id, false, "") +
+      return '<div class="loot-row' + (r.usable ? "" : " na") + (r.offspec ? " offspec" : "") + '"><span class="m">' + esc(lootSlotLabel(r.it)) + "</span><span>" + itemLink(r.id, false, "") +
         ' <span class="m">iLvl ' + r.it.ilvl + (r.df ? " · " + diffLabel(r.df) : "") + (r.dc ? " · " + r.dc + "%" : "") + vs + "</span></span>" + badge + "</div>";
     }).join("");
     return '<div class="boss"><h3>' + esc(n || t("zoneDrops")) + "</h3>" + rows + "</div>";
@@ -1380,6 +1432,7 @@ function persist() {
   save(STORE.alts, String(state.alts));
   save(STORE.dungeon, String(state.dungeon));
   save(STORE.onlyUp, state.onlyUp ? "1" : "0");
+  save(STORE.showOffspec, state.showOffspec ? "1" : "0");
   save(STORE.gear, JSON.stringify(state.gear));
 }
 
@@ -1581,7 +1634,7 @@ levelInput.addEventListener("change", (e) => setLevel(e.target.value));
 levelInput.addEventListener("blur", (e) => setLevel(e.target.value));
 
 $("resetBtn").addEventListener("click", () => {
-  Object.assign(state, { cls: "Warrior", spec: "Arms", level: 20, scope: "noraid", phase: 0, pvp: false, alts: 2, dungeon: 0, onlyUp: false });
+  Object.assign(state, { cls: "Warrior", spec: "Arms", level: 20, scope: "noraid", phase: 0, pvp: false, alts: 2, dungeon: 0, onlyUp: false, showOffspec: false });
   persist();
   renderClasses();
   renderSpecs();
@@ -1592,10 +1645,13 @@ $("resetBtn").addEventListener("click", () => {
 
 $("dungeonSelect").addEventListener("change", (e) => { state.dungeon = Number(e.target.value) || 0; persist(); render(); });
 $("onlyUp").addEventListener("change", (e) => { state.onlyUp = e.target.checked; persist(); render(); });
+$("showOffspec").addEventListener("change", (e) => { state.showOffspec = e.target.checked; persist(); render(); });
 $("eqUseRec").addEventListener("click", () => {
   if (!lastGear) return;
   const spec = DATA.specs[state.cls + "|" + state.spec], g = {};
   specSlots(spec).forEach((sl) => { const e = lastGear.slots[sl] && lastGear.slots[sl].list[0]; if (e) g[sl] = e.id; });
+  const mh = g.mainhand && DATA.items[g.mainhand];
+  if (mh && itemHands(mh) === 2) delete g.offhand;
   state.gear[gearKey()] = g;
   persist();
   render();
