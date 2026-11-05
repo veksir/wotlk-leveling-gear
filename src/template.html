@@ -349,6 +349,8 @@ var aowow_tooltips = {
   .opts { display: flex; flex-wrap: wrap; gap: 14px 30px; }
   .opts .seg { flex-wrap: nowrap; }
   .opts .field-label { margin-bottom: 6px; }
+  .opt-check { display: flex; align-items: center; gap: 6px; align-self: end; padding-bottom: 3px; color: var(--muted); font-size: 12px; cursor: pointer; }
+  .opt-check input { accent-color: var(--class); }
   .opts-hint { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11.5px; }
   .bracket { display: inline-block; margin-top: 12px; color: var(--ice); font-size: 12px; font-weight: 600; }
   .bracket::before { content: "\25CF  "; font-size: 8px; vertical-align: 1px; }
@@ -478,6 +480,7 @@ var aowow_tooltips = {
             <div><span class="field-label" id="phaseLabel" data-i18n="phaseLabel">Fase</span><div class="seg" id="phases" role="group" aria-labelledby="phaseLabel"></div></div>
             <div><span class="field-label" id="pvpLabel" data-i18n="pvpLabel">Tipo de equipo</span><div class="seg" id="pvps" role="group" aria-labelledby="pvpLabel"></div></div>
             <div><span class="field-label" id="altsLabel" data-i18n="altsLabel">Alternativas por slot</span><div class="seg" id="alts" role="group" aria-labelledby="altsLabel"></div></div>
+            <label class="opt-check"><input type="checkbox" id="showHeirlooms"> <span data-i18n="showHeirlooms">Incluir reliquias que ya tengo</span></label>
           </div>
           <p class="opts-hint" data-i18n="optsHint"></p>
         </div>
@@ -567,7 +570,7 @@ var aowow_tooltips = {
 </div>
 <script>
 const DATA = /*__DATA__*/;
-const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup", showOffspec: "wotlk-gear-show-offspec" };
+const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup", showOffspec: "wotlk-gear-show-offspec", showHeirlooms: "wotlk-gear-show-heirlooms" };
 
 const I18N = {
   es: {
@@ -657,12 +660,14 @@ Object.assign(I18N.es, {
   optsHint: "«Sin bandas» sirve para subir de nivel o jugar sin raid; «Con bandas» muestra el mejor equipo de raid; «Solo PvP» muestra únicamente equipo útil para PvP, sin mezclarlo con el PvE. La fase limita el contenido disponible hasta esa fase del juego.",
   sourcesRaid: "Misiones, mazmorras, vendedores, drops y bandas", sourcesPvp: " + PvP",
   sheetIntro80Raid: "Referencia de nivel 80 con botín de banda incluido.",
-  calcText: "Cada objeto se puntúa con las estadísticas que importan a tu especialidad (más el DPS del arma y la armadura) y se ordena por esa puntuación; el nivel de objeto solo desempata. La armadura de un tipo que no es el ideal para tu clase se penaliza. «Sin bandas» oculta el botín y las cadenas de misión de banda, el equipo PvP se ve aparte en el modo «Solo PvP» (con peso a la resiliencia) y la fase limita el contenido disponible. Los procs y efectos de uso de los abalorios se promedian según su duración y enfriamiento (≈). A nivel 80 el golpe y la pericia por encima del tope valen un 15 %, y para las especialidades de «cualquier arma» se compara dos manos contra una mano + secundaria. Los épicos sin fuente registrada de nivel 213 o más se tratan como de banda. Aún no se calculan gemas, encantamientos, bonificaciones de set ni objetos con encantamiento aleatorio.",
+  calcText: "Cada objeto se puntúa con las estadísticas que importan a tu especialidad (más el DPS del arma y la armadura) y se ordena por esa puntuación; el nivel de objeto solo desempata. La armadura de un tipo que no es el ideal para tu clase se penaliza. «Sin bandas» oculta el botín y las cadenas de misión de banda, el equipo PvP se ve aparte en el modo «Solo PvP» (con peso a la resiliencia) y la fase limita el contenido disponible. Los procs y efectos de uso de los abalorios se promedian según su duración y enfriamiento (≈). A nivel 80 el golpe y la pericia por encima del tope valen un 15 %, y para las especialidades de «cualquier arma» se compara dos manos contra una mano + secundaria. Los épicos sin fuente registrada de nivel 213 o más se tratan como de banda. Las reliquias de herencia quedan fuera del ranking salvo que marques «Incluir reliquias que ya tengo». Aún no se calculan gemas, encantamientos, bonificaciones de set ni objetos con encantamiento aleatorio.",
   whyTitle: "¿Por qué este objeto?", scoreWord: "Puntuación", ilvlTie: "Nivel de objeto (desempate)",
   howTo: "Cómo conseguirlo ↗", moreAlts: "Alternativas",
   lootTitle: "Botín de mazmorra según tu equipo", lootIntro: "Indica lo que llevas puesto y verás qué objetos de cada mazmorra te sirven y cuánto mejoran tu equipo actual.",
   lootPick: "Mazmorra", lootAuto: "Según tu nivel", lootOnlyUp: "Solo mejoras",
   showOffspec: "Mostrar fuera de especialidad", offspecTag: "Off-spec",
+  showHeirlooms: "Incluir reliquias que ya tengo",
+  heirloomNote: "Las reliquias se compran con Emblemas de Heroísmo o Marcas de la Conquista del Invierno, que se obtienen a nivel 80. No entran en las recomendaciones salvo que marques «Incluir reliquias que ya tengo».",
   lootHidden: " fuera de especialidad", offspecGear: "Fuera de especialidad",
   lootEmpty: "Ningún objeto útil para tu especialidad en esta mazmorra.", zoneDrops: "Botín de la zona"
 });
@@ -682,12 +687,14 @@ Object.assign(I18N.en, {
   optsHint: "\"No raids\" is for leveling or playing without raiding; \"With raids\" shows the best raid gear; \"PvP only\" shows only PvP-useful gear, never mixed with PvE. The phase limits content to what is available up to that game phase.",
   sourcesRaid: "Quests, dungeons, vendors, drops, and raids", sourcesPvp: " + PvP",
   sheetIntro80Raid: "Level 80 reference with raid loot included.",
-  calcText: "Each item is scored with the stats that matter to your spec (plus weapon DPS and armor) and sorted by that score; item level only breaks ties. Armor of a type that is not ideal for your class is penalized. \"No raids\" hides raid loot and raid quest chains, PvP gear is shown separately in \"PvP only\" mode (resilience is weighted), and the phase limits available content. Proc and on-use effects of trinkets are averaged by duration and cooldown (≈). At level 80, hit and expertise above the cap count for 15 %, and for \"any weapon\" specs a two-hander is compared against one-hand + off hand. Epics with no recorded source at item level 213 or higher are treated as raid loot. Gems, enchants, set bonuses, and random-enchant items are not scored yet.",
+  calcText: "Each item is scored with the stats that matter to your spec (plus weapon DPS and armor) and sorted by that score; item level only breaks ties. Armor of a type that is not ideal for your class is penalized. \"No raids\" hides raid loot and raid quest chains, PvP gear is shown separately in \"PvP only\" mode (resilience is weighted), and the phase limits available content. Proc and on-use effects of trinkets are averaged by duration and cooldown (≈). At level 80, hit and expertise above the cap count for 15 %, and for \"any weapon\" specs a two-hander is compared against one-hand + off hand. Epics with no recorded source at item level 213 or higher are treated as raid loot. Heirlooms stay out of the ranking unless you check «Include heirlooms I already own». Gems, enchants, set bonuses, and random-enchant items are not scored yet.",
   whyTitle: "Why this item?", scoreWord: "Score", ilvlTie: "Item level (tiebreaker)",
   howTo: "How to get it ↗", moreAlts: "Alternatives",
   lootTitle: "Dungeon loot for your gear", lootIntro: "Tell us what you are wearing and see which dungeon items help you, and by how much over your current gear.",
   lootPick: "Dungeon", lootAuto: "By your level", lootOnlyUp: "Upgrades only",
   showOffspec: "Show off-spec items", offspecTag: "Off-spec",
+  showHeirlooms: "Include heirlooms I already own",
+  heirloomNote: "Heirlooms cost Emblems of Heroism or Wintergrasp Marks, which are earned at level 80. They stay out of recommendations unless you check «Include heirlooms I already own».",
   lootHidden: " off-spec", offspecGear: "Off-spec",
   lootEmpty: "No useful item for your spec in this dungeon.", zoneDrops: "Zone loot"
 });
@@ -736,6 +743,7 @@ let state = {
   dungeon: Number(load(STORE.dungeon, 0)) || 0,
   onlyUp: load(STORE.onlyUp, "0") === "1",
   showOffspec: load(STORE.showOffspec, "0") === "1",
+  showHeirlooms: load(STORE.showHeirlooms, "0") === "1",
   gear: (() => { try { return JSON.parse(load(STORE.gear, "{}")) || {}; } catch (e) { return {}; } })()
 };
 if (state.scope !== "raid") state.scope = "noraid";
@@ -976,6 +984,7 @@ function computeGear(spec, o) {
   const capKeys = caps ? Object.keys(caps) : [];
   const pools = {}, info = {};
   for (const id in GEAR_ITEMS) {
+    if (!state.showHeirlooms && DATA.heirlooms[id]) continue;
     const it = levelItem(GEAR_ITEMS[id], o.level);
     if (o.pvp && !it.pvp) continue;
     const r = evalItem(it, spec, w, o, true);
@@ -1375,6 +1384,7 @@ function renderSeg(el, options, current, onPick) {
 }
 
 function renderOptions() {
+  $("showHeirlooms").checked = state.showHeirlooms;
   const set = (key, fn) => (v) => { fn(v); persist(); renderOptions(); render(); };
   renderSeg($("modes"), [{ value: "noraid", label: t("modeNoRaid") }, { value: "raid", label: t("modeRaid") }], state.scope, set("scope", (v) => { state.scope = v; }));
   renderSeg($("phases"), [1, 2, 3, 4].map((n) => ({ value: n, label: String(n) })).concat([{ value: 0, label: t("phaseAll") }]), state.phase, set("phase", (v) => { state.phase = v; }));
@@ -1446,6 +1456,7 @@ function persist() {
   save(STORE.dungeon, String(state.dungeon));
   save(STORE.onlyUp, state.onlyUp ? "1" : "0");
   save(STORE.showOffspec, state.showOffspec ? "1" : "0");
+  save(STORE.showHeirlooms, state.showHeirlooms ? "1" : "0");
   save(STORE.gear, JSON.stringify(state.gear));
 }
 
@@ -1575,7 +1586,7 @@ function renderHeirlooms(key, level) {
     return;
   }
   heirloomPanel.hidden = false;
-  heirloomList.innerHTML = groups.map((g) => {
+  heirloomList.innerHTML = '<p class="note">' + t("heirloomNote") + "</p>" + groups.map((g) => {
     const links = g[1].map((id) => itemLink(id, true, "heirloom-link")).filter(Boolean).join("");
     return '<div class="heirloom-group"><b>' + g[0] + "</b>" + links + "</div>";
   }).join("");
@@ -1647,7 +1658,7 @@ levelInput.addEventListener("change", (e) => setLevel(e.target.value));
 levelInput.addEventListener("blur", (e) => setLevel(e.target.value));
 
 $("resetBtn").addEventListener("click", () => {
-  Object.assign(state, { cls: "Warrior", spec: "Arms", level: 20, scope: "noraid", phase: 0, pvp: false, alts: 2, dungeon: 0, onlyUp: false, showOffspec: false });
+  Object.assign(state, { cls: "Warrior", spec: "Arms", level: 20, scope: "noraid", phase: 0, pvp: false, alts: 2, dungeon: 0, onlyUp: false, showOffspec: false, showHeirlooms: false });
   persist();
   renderClasses();
   renderSpecs();
@@ -1659,6 +1670,7 @@ $("resetBtn").addEventListener("click", () => {
 $("dungeonSelect").addEventListener("change", (e) => { state.dungeon = Number(e.target.value) || 0; persist(); render(); });
 $("onlyUp").addEventListener("change", (e) => { state.onlyUp = e.target.checked; persist(); render(); });
 $("showOffspec").addEventListener("change", (e) => { state.showOffspec = e.target.checked; persist(); render(); });
+$("showHeirlooms").addEventListener("change", (e) => { state.showHeirlooms = e.target.checked; persist(); render(); });
 $("eqUseRec").addEventListener("click", () => {
   if (!lastGear) return;
   const spec = DATA.specs[state.cls + "|" + state.spec], g = {};

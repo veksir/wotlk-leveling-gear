@@ -31,18 +31,28 @@ def main():
         assert stats["forty"]["st"] == {"res": 9, "sta": 14, "str": 9}
         assert stats["eighty"]["at"] == "Plate" and stats["eighty"]["ar"] == 1570
 
-        # Las reliquias entran en las recomendaciones y en «Mi equipo actual».
+        # Por defecto no se recomiendan reliquias: requieren moneda de nivel 80.
         page.evaluate("""() => {
           state.cls = "Warrior"; state.spec = "Protection"; state.level = 20;
-          state.gear = {}; render();
+          state.gear = {}; state.showHeirlooms = false; render();
         }""")
+        page.wait_for_timeout(300)
+        assert not page.locator("#showHeirlooms").is_checked()
+        excluded = page.evaluate("""() => {
+          const g = computeGear(DATA.specs["Warrior|Protection"], {level: 20, faction: "horde", scope: "noraid", phase: 0, pvp: false});
+          return Object.values(g.slots).flatMap((s) => s.list).some((x) => x.id === "44099");
+        }""")
+        assert not excluded, "la reliquia aparece sin marcar que ya se tiene"
+
+        # Al marcar que ya las tienes, entran en las recomendaciones.
+        page.locator("#showHeirlooms").check()
         page.wait_for_timeout(300)
         rec = page.evaluate("""() => {
           const g = computeGear(DATA.specs["Warrior|Protection"], {level: 20, faction: "horde", scope: "noraid", phase: 0, pvp: false});
           const e = g.slots.shoulder.list.find((x) => x.id === "44099");
           return e ? { score: e.score, name: e.it.n } : null;
         }""")
-        assert rec and rec["score"] > 0, "la reliquia de hombros no se recomienda"
+        assert rec and rec["score"] > 0, "la reliquia de hombros no se recomienda con el toggle"
         page.evaluate("""() => setEquipped("shoulder", "44099")""")
         page.wait_for_timeout(300)
         assert page.locator("#eq-shoulder").input_value() == "Strengthened Stockade Pauldrons"
