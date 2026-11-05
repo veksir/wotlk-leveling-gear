@@ -34,6 +34,7 @@ Build the data and page:
 
 ```bash
 python scripts/fetch_raw.py
+python scripts/fetch_heirloom_stats.py
 python scripts/fetch_atlasloot.py
 python scripts/build_loot.py
 python scripts/build_item_db.py
@@ -41,19 +42,25 @@ python scripts/build_recommendations.py
 python scripts/build_page.py
 ```
 
-Run the smoke test:
+Run the smoke and regression tests:
 
 ```bash
 python tests/smoke.py
+python tests/check_reference.py
+python tests/heirlooms.py
+python tests/spec_weights.py
 ```
 
 ## Where to make changes
 
 - `src/template.html`: HTML, CSS, and client-side JavaScript. This is the source for the page.
 - `scripts/build_item_db.py`: item parsing, stats, required levels, armor/weapon metadata, and sources.
-- `scripts/build_recommendations.py`: class/spec rules, faction filtering, armor/weapon eligibility, scoring, and ranking.
+- `scripts/build_recommendations.py`: class/spec rules, faction filtering, armor/weapon eligibility, scoring, and ranking. Level-80 priorities live in `data/spec_weights.json`.
+- `scripts/fetch_heirloom_stats.py`: level-by-level heirloom stats from the WoWWiki archive and Wowhead.
 - `scripts/build_page.py`: injects data into the template and writes `tolltip.html`.
 - `tests/smoke.py`: browser smoke test.
+- `tests/heirlooms.py`: heirloom scaling, off-spec filtering, and two-handed off-hand rules.
+- `tests/spec_weights.py`: all 31 level-80 specializations.
 
 Do **not** edit `tolltip.html` by hand. It is generated. After changing the template or data, run the build again.
 
@@ -61,6 +68,7 @@ Do **not** edit `tolltip.html` by hand. It is generated. After changing the temp
 
 - Never commit `data/raw_items.json`, `data/raw_zones.json`, or `data/items.json`. They are ignored on purpose.
 - Commit the generated `data/gear_data.json` when recommendations change.
+- Commit `data/heirloom_stats.json` when heirloom stats change and `data/spec_weights.json` when priorities change. Every spec entry keeps its Icy Veins URL and priority.
 - Keep item sources and faction availability accurate. If a source is unknown, label it as “Other source” rather than guessing.
 - Do not add raid loot to the main leveling ranking unless the project scope changes.
 
@@ -88,7 +96,7 @@ Avoid mixing unrelated changes in one commit.
 ## Pull request checklist
 
 - [ ] The page builds with `python scripts/build_page.py`.
-- [ ] `python tests/smoke.py` passes.
+- [ ] `python tests/smoke.py`, `tests/check_reference.py`, `tests/heirlooms.py`, and `tests/spec_weights.py` pass.
 - [ ] `data/gear_data.json` and `tolltip.html` are regenerated if needed.
 - [ ] Both Spanish and English UI strings are updated.
 - [ ] No raw data, caches, or `__pycache__` files are included.

@@ -34,6 +34,7 @@ Genera los datos y la página:
 
 ```bash
 python scripts/fetch_raw.py
+python scripts/fetch_heirloom_stats.py
 python scripts/fetch_atlasloot.py
 python scripts/build_loot.py
 python scripts/build_item_db.py
@@ -41,19 +42,25 @@ python scripts/build_recommendations.py
 python scripts/build_page.py
 ```
 
-Ejecuta la prueba de humo:
+Ejecuta las pruebas de humo y regresión:
 
 ```bash
 python tests/smoke.py
+python tests/check_reference.py
+python tests/heirlooms.py
+python tests/spec_weights.py
 ```
 
 ## Dónde hacer los cambios
 
 - `src/template.html`: HTML, CSS y JavaScript del cliente. Es la fuente de la página.
 - `scripts/build_item_db.py`: parseo de objetos, estadísticas, niveles requeridos, armadura/armas y fuentes.
-- `scripts/build_recommendations.py`: reglas por clase/especialidad, filtro de facción, elegibilidad de armadura/armas, puntuación y ranking.
+- `scripts/build_recommendations.py`: reglas por clase/especialidad, filtro de facción, elegibilidad de armadura/armas, puntuación y ranking. Las prioridades de nivel 80 están en `data/spec_weights.json`.
+- `scripts/fetch_heirloom_stats.py`: estadísticas de reliquias nivel a nivel desde WoWWiki archive y Wowhead.
 - `scripts/build_page.py`: inyecta los datos en la plantilla y escribe `tolltip.html`.
 - `tests/smoke.py`: prueba de humo en navegador.
+- `tests/heirlooms.py`: escalado de reliquias, filtro fuera de especialidad y reglas de mano secundaria con 2H.
+- `tests/spec_weights.py`: las 31 especialidades a nivel 80.
 
 **No** edites `tolltip.html` a mano. Es generado. Después de cambiar la plantilla o los datos, vuelve a ejecutar la generación.
 
@@ -61,6 +68,7 @@ python tests/smoke.py
 
 - No subas `data/raw_items.json`, `data/raw_zones.json` ni `data/items.json`. Están ignorados a propósito.
 - Incluye `data/gear_data.json` cuando cambien las recomendaciones.
+- Incluye `data/heirloom_stats.json` cuando cambien las reliquias y `data/spec_weights.json` cuando cambien las prioridades. Cada especialidad conserva su URL de Icy Veins y su prioridad.
 - Mantén las fuentes y la disponibilidad por facción con la mayor precisión posible. Si una fuente es desconocida, usa “Otra fuente” en vez de adivinar.
 - No añadas botín de banda al ranking principal de subida salvo que cambie el alcance del proyecto.
 
@@ -88,7 +96,7 @@ Evita mezclar cambios no relacionados en un mismo commit.
 ## Lista de comprobación para pull requests
 
 - [ ] La página se genera con `python scripts/build_page.py`.
-- [ ] `python tests/smoke.py` pasa.
+- [ ] Pasan `python tests/smoke.py`, `tests/check_reference.py`, `tests/heirlooms.py` y `tests/spec_weights.py`.
 - [ ] `data/gear_data.json` y `tolltip.html` están regenerados si hace falta.
 - [ ] Los textos en español e inglés están actualizados.
 - [ ] No se incluyen datos crudos, cachés ni `__pycache__`.

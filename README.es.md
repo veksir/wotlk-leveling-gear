@@ -24,23 +24,23 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 - **Legendarios incluidos**: los legendarios se puntúan como cualquier otro objeto y aparecen cuando son la mejor opción; los de banda requieren «Con bandas». La página muestra el top por slot, no un catálogo completo de legendarios.
 - **Abalorios con procs**: los efectos de uso y los procs se promedian según duración y enfriamiento (≈).
 - **Topes de nivel 80**: se muestran los totales de golpe y pericia; lo que excede el tope vale un 15 %.
-- **Buscador de botín**: indica lo que lleva puesto tu personaje (o carga el recomendado), elige una mazmorra o banda y mira todo lo que puede soltar para tu clase y especialidad, con el % de cambio frente a tu pieza equipada.
+- **Buscador de botín**: indica lo que lleva puesto tu personaje (o carga el recomendado), elige una mazmorra o banda y mira todo lo que puede soltar para tu clase y especialidad, con el % de cambio frente a tu pieza equipada. El botín fuera de especialidad queda oculto por defecto y se puede mostrar con un interruptor.
 - **Filtro de facción**: las misiones y vendedores se ajustan a Horda o Alianza.
 - **Interfaz bilingüe**: español e inglés.
 - **Detalle de cada objeto**: icono, calidad, nivel de objeto, nivel requerido, estadísticas relevantes y fuente.
-- **Panel de reliquias de herencia** separado del ranking principal, con tooltips escalados al nivel.
+- **Reliquias de herencia integradas**: las 35 reliquias compiten en el ranking normal y en la ficha de equipo actual, con estadísticas exactas por nivel y cambio de tipo de armadura antes del nivel 40.
 - **Tooltips de EVOWOW** para todos los objetos.
 - **Diseño responsive** y selección guardada en `localStorage`.
 - **Sin backend** y sin compilación para ver la página.
 
 ## Cómo funciona
 
-1. `scripts/fetch_raw.py` descarga los datos crudos de objetos y zonas, y `scripts/fetch_atlasloot.py` + `scripts/build_loot.py` añaden las tablas de botín por jefe de WotLK (Ulduar, Trial of the Crusader, Icecrown Citadel, mazmorras heroicas, 10/25) desde AtlasLootClassic.
+1. `scripts/fetch_raw.py` descarga los datos crudos de objetos y zonas, `scripts/fetch_heirloom_stats.py` añade las estadísticas de las reliquias nivel a nivel, y `scripts/fetch_atlasloot.py` + `scripts/build_loot.py` añaden las tablas de botín por jefe de WotLK (Ulduar, Trial of the Crusader, Icecrown Citadel, mazmorras heroicas, 10/25) desde AtlasLootClassic.
 2. `scripts/build_item_db.py` normaliza objetos, estadísticas (incluidos los procs y efectos de uso de abalorios, promediados), niveles requeridos, armadura/armas y fuentes.
-3. `scripts/build_recommendations.py` genera la base de objetos, las definiciones de especialidad, los pesos de estadísticas y la lista de mazmorras. El ranking se calcula en el navegador, así que los filtros de modo, fase, PvP y facción se aplican al instante.
+3. `scripts/build_recommendations.py` genera la base de objetos, las definiciones de especialidad, los pesos de estadísticas y la lista de mazmorras. A nivel 80 se usa la prioridad de Icy Veins de cada especialidad; por debajo de 80, los pesos por rol mantienen el equipo de subida coherente. El ranking se calcula en el navegador, así que los filtros de modo, fase, PvP y facción se aplican al instante.
 4. `scripts/build_page.py` inyecta el JSON generado en `src/template.html` y escribe `tolltip.html`.
 
-El ranking es una heurística práctica, no un simulador de combate: ordena por una puntuación ponderada de estadísticas (el nivel de objeto solo desempata), penaliza los tipos de armadura que no son ideales para la clase, promedia los procs y efectos de uso de los abalorios según duración y enfriamiento, aplica los topes de golpe/pericia a nivel 80 y compara dos manos contra una mano + secundaria en las especialidades de «cualquier arma». Los épicos sin fuente registrada de nivel de objeto 213 o más se tratan como botín de banda («banda probable»). Aún no se puntúan gemas, encantamientos, bonificaciones de set ni objetos con encantamiento aleatorio.
+El ranking es una heurística práctica, no un simulador de combate: ordena por una puntuación ponderada de estadísticas (el nivel de objeto solo desempata), usa prioridades por especialidad a nivel 80 y pesos por rol durante la subida, penaliza los tipos de armadura que no son ideales para la clase, promedia los procs y efectos de uso de los abalorios según duración y enfriamiento, aplica los topes de golpe/pericia a nivel 80 y compara dos manos contra una mano + secundaria. Un arma a dos manos también bloquea la mano secundaria. Los épicos sin fuente registrada de nivel de objeto 213 o más se tratan como botín de banda («banda probable»). Aún no se puntúan gemas, encantamientos, bonificaciones de set ni objetos con encantamiento aleatorio.
 
 ## Inicio rápido
 
@@ -60,6 +60,7 @@ python -m pip install playwright
 python -m playwright install chromium
 
 python scripts/fetch_raw.py
+python scripts/fetch_heirloom_stats.py
 python scripts/fetch_atlasloot.py
 python scripts/build_loot.py
 python scripts/build_item_db.py
@@ -68,9 +69,11 @@ python scripts/build_page.py
 
 python tests/smoke.py
 python tests/check_reference.py
+python tests/heirlooms.py
+python tests/spec_weights.py
 ```
 
-`build_page.py` escribe `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` compara el ranking con la lista BiS de referencia en `tests/reference_bis.json`.
+`build_page.py` escribe `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` compara el BiS de Shadow con `tests/reference_bis.json`; `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad y las armas a dos manos; `spec_weights.py` comprueba las 31 especialidades a nivel 80.
 
 ## Estructura del proyecto
 
@@ -81,7 +84,7 @@ python tests/check_reference.py
 ├── legacy/                # implementación anterior, solo reliquias
 ├── scripts/               # pipeline de datos, ranking y generador de página
 ├── src/                   # plantilla HTML/CSS/JS
-├── tests/                 # prueba de humo con Playwright
+├── tests/                 # pruebas de humo y regresión con Playwright
 ├── tolltip.html           # página final autocontenida
 ├── README.md              # README en inglés
 ├── CONTRIBUTING.md        # guía de contribución en inglés
@@ -100,17 +103,20 @@ Las tablas de botín por jefe vienen de [AtlasLootClassic](https://github.com/Ho
 
 Los tooltips e iconos se cargan desde [EVOWOW](https://wotlk.evowow.com/).
 
+Las estadísticas de las reliquias vienen de las tablas por nivel de [WoWWiki archive](https://wowwiki-archive.fandom.com/) y de la [API de tooltips de Wowhead WotLK](https://www.wowhead.com/wotlk). Las prioridades de estadísticas a nivel 80 siguen [Icy Veins WotLK Classic](https://www.icy-veins.com/wotlk-classic/); `data/spec_weights.json` guarda la fuente y la prioridad de cada especialidad.
+
 Este proyecto no está afiliado a Blizzard Entertainment. World of Warcraft y Wrath of the Lich King son marcas de Blizzard Entertainment.
 
 ## Limitaciones
 
 - La base está basada en WotLK Classic; algunas fuentes originales de 3.3.5 pueden faltar o aparecer como “Otra fuente”.
 - En «Sin bandas» se excluyen el botín de banda y las cadenas de misión de banda; en «Con bandas» aparecen.
-- Los pesos de estadísticas son aproximaciones por rol. Sirven para subir de nivel, no sustituyen a un simulador de BiS.
+- Los pesos de estadísticas son aproximaciones por rol durante la subida y siguen las prioridades de Icy Veins a nivel 80. Sirven para orientar, no sustituyen a un simulador de BiS; los topes suaves de celeridad, los sets y las interacciones de talentos no se modelan.
+- El botín fuera de especialidad está oculto por defecto. El interruptor lo muestra atenuado para valorar mejoras cruzadas sin mezclarlo con la recomendación.
 - Algunos slots de niveles muy bajos pueden no tener objetos con estadísticas conocidas.
 - La página muestra el mejor objeto y alternativas por slot, no todos los objetos. Un legendario solo aparece si puntúa para la especialidad, nivel, facción, modo, fase y filtro PvP seleccionados. Los legendarios de nivel bajo o que dependen de una combinación no modelada pueden no aparecer.
 - Las combinaciones de armas están simplificadas: algunos setups especiales, como Titan's Grip de Fury, todavía no se modelan, así que ciertos objetos BiS o legendarios pueden faltar.
-- La página final incluye los datos incrustados, así que `tolltip.html` pesa alrededor de 4,9 MB.
+- La página final incluye los datos incrustados, así que `tolltip.html` pesa alrededor de 5,1 MB.
 
 ## Contribuir
 

@@ -24,23 +24,23 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 - **Legendary items included**: legendaries are scored like any other item and appear when they are the best option; raid legendaries require "With raids". The page shows the top choices per slot, not a full legendary catalog.
 - **Proc-aware trinkets**: on-use and proc effects are averaged by duration and cooldown (≈).
 - **Level 80 caps**: hit and expertise totals are shown; stats above the cap count for 15 %.
-- **Loot browser**: enter what your character is wearing (or load the recommended set), pick a dungeon or raid, and see every item it can drop for your class and spec with the % change over your equipped piece.
+- **Loot browser**: enter what your character is wearing (or load the recommended set), pick a dungeon or raid, and see every item it can drop for your class and spec with the % change over your equipped piece. Off-spec items are hidden by default and can be revealed with a toggle.
 - **Faction-aware**: quests and vendors are filtered for Horde or Alliance.
 - **Bilingual UI**: Spanish and English.
 - **Item details**: icon, quality color, item level, required level, relevant stats, and source.
-- **Heirloom panel**: separate from the main ranking, with tooltips scaled to the selected level.
+- **Heirlooms integrated**: all 35 heirlooms compete in the normal ranking and in the current-gear sheet, with exact stats per level and armor-type changes before level 40.
 - **EVOWOW tooltips** for every item.
 - **Responsive layout** and persisted selection (`localStorage`).
 - **No backend** and no build step required to view the page.
 
 ## How it works
 
-1. `scripts/fetch_raw.py` downloads the raw item and zone data, and `scripts/fetch_atlasloot.py` + `scripts/build_loot.py` add per-boss loot tables for WotLK (Ulduar, Trial of the Crusader, Icecrown Citadel, heroic dungeons, 10/25) from AtlasLootClassic.
+1. `scripts/fetch_raw.py` downloads the raw item and zone data, `scripts/fetch_heirloom_stats.py` adds level-by-level heirloom stats, and `scripts/fetch_atlasloot.py` + `scripts/build_loot.py` add per-boss loot tables for WotLK (Ulduar, Trial of the Crusader, Icecrown Citadel, heroic dungeons, 10/25) from AtlasLootClassic.
 2. `scripts/build_item_db.py` normalizes items, stats (including averaged trinket procs and on-use effects), required levels, armor/weapon metadata, and sources.
-3. `scripts/build_recommendations.py` emits the item database, spec definitions, stat weights, and dungeon list. The ranking itself runs in the browser, so mode, phase, PvP, and faction filters apply instantly.
+3. `scripts/build_recommendations.py` emits the item database, spec definitions, stat weights, and dungeon list. Level-80 weights follow each spec's Icy Veins priority; below 80 the role weights keep leveling gear sensible. The ranking itself runs in the browser, so mode, phase, PvP, and faction filters apply instantly.
 4. `scripts/build_page.py` injects the generated JSON into `src/template.html` and writes `tolltip.html`.
 
-The ranking is a practical heuristic, not a combat simulator: it sorts by a weighted stat score (item level only breaks ties), penalizes armor types that are not ideal for the class, averages trinket procs and on-use effects by duration and cooldown, applies hit/expertise caps at level 80, and compares two-handers against one-hand + off-hand for "any weapon" specs. Epic items with no recorded source at item level 213 or higher are treated as raid loot ("likely raid"). Gems, enchants, set bonuses, and random-enchant items are not scored yet.
+The ranking is a practical heuristic, not a combat simulator: it sorts by a weighted stat score (item level only breaks ties), uses per-spec priorities at level 80 and role weights while leveling, penalizes armor types that are not ideal for the class, averages trinket procs and on-use effects by duration and cooldown, applies hit/expertise caps at level 80, and compares two-handers against one-hand + off-hand. A two-hander also blocks the off-hand slot. Epic items with no recorded source at item level 213 or higher are treated as raid loot ("likely raid"). Gems, enchants, set bonuses, and random-enchant items are not scored yet.
 
 ## Quick start
 
@@ -60,6 +60,7 @@ python -m pip install playwright
 python -m playwright install chromium
 
 python scripts/fetch_raw.py
+python scripts/fetch_heirloom_stats.py
 python scripts/fetch_atlasloot.py
 python scripts/build_loot.py
 python scripts/build_item_db.py
@@ -68,9 +69,11 @@ python scripts/build_page.py
 
 python tests/smoke.py
 python tests/check_reference.py
+python tests/heirlooms.py
+python tests/spec_weights.py
 ```
 
-`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` compares the ranking with the reference BiS list in `tests/reference_bis.json`.
+`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` compares the Shadow BiS ranking with `tests/reference_bis.json`; `heirlooms.py` covers level scaling, off-spec filtering, and two-handed weapons; `spec_weights.py` checks all 31 level-80 specializations.
 
 ## Project structure
 
@@ -81,7 +84,7 @@ python tests/check_reference.py
 ├── legacy/                # previous heirloom-only implementation
 ├── scripts/               # data pipeline, ranking, and page builder
 ├── src/                   # HTML/CSS/JS template
-├── tests/                 # Playwright smoke test
+├── tests/                 # Playwright smoke and regression tests
 ├── tolltip.html           # generated standalone page
 ├── CONTRIBUTING.md        # contribution guide (English)
 ├── CONTRIBUTING.es.md     # contribution guide (Spanish)
@@ -99,17 +102,20 @@ Per-boss loot tables come from [AtlasLootClassic](https://github.com/Hoizame/Atl
 
 Item tooltips and icons are loaded from [EVOWOW](https://wotlk.evowow.com/).
 
+Heirloom stats come from the [WoWWiki archive](https://wowwiki-archive.fandom.com/) level tables and the [Wowhead WotLK tooltip API](https://www.wowhead.com/wotlk). Level-80 stat priorities follow [Icy Veins WotLK Classic](https://www.icy-veins.com/wotlk-classic/); `data/spec_weights.json` records the source and priority for every specialization.
+
 This project is not affiliated with Blizzard Entertainment. World of Warcraft and Wrath of the Lich King are trademarks of Blizzard Entertainment.
 
 ## Limitations
 
 - The dataset is based on WotLK Classic; a few original 3.3.5 sources may be missing or labeled as “Other source”.
 - "No raids" excludes raid loot and raid quest chains; "With raids" includes them.
-- Stat weights are role-based approximations. They are designed to be useful while leveling, not to replace a full BiS simulator.
+- Stat weights are role-based while leveling and follow Icy Veins priorities at level 80. They are designed to be useful, not to replace a full BiS simulator; haste soft caps, set bonuses, and talent interactions are not modeled.
+- Off-spec loot is hidden by default. The toggle reveals it faded so you can judge cross-spec upgrades without mixing it into the recommendation.
 - Some very low-level slots may legitimately have no item with known stats.
 - The page shows the best item plus alternatives per slot, not every item. A legendary only appears if it ranks for the selected spec, level, faction, mode, phase, and PvP filter. Low-level legendaries or ones that depend on an unmodeled setup may not appear.
 - Weapon combinations are simplified: special setups such as Fury's Titan's Grip are not fully modeled yet, so some BiS or legendary items may be missing.
-- The generated page embeds the item data, so `tolltip.html` is intentionally large (around 4.9 MB).
+- The generated page embeds the item data, so `tolltip.html` is intentionally large (around 5.1 MB).
 
 ## Contributing
 
