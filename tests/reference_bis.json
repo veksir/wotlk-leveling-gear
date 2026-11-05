@@ -1,0 +1,24 @@
+{
+  "Priest|Shadow": {
+    "source": "Warcraft Tavern, PvE Shadow Priest BiS (WotLK Classic, fases 4 y 5); prioridad de estadísticas de Icy Veins",
+    "level": 80,
+    "faction": "horde",
+    "slots": {
+      "head": ["Sanctified Crimson Acolyte Cowl"],
+      "neck": ["Amulet of the Silent Eulogy", "Blood Queen's Crimson Choker"],
+      "shoulder": ["Sanctified Crimson Acolyte Mantle"],
+      "back": ["Cloak of Burning Dusk", "Frostbinder's Shredded Cape"],
+      "chest": ["Sanctified Crimson Acolyte Raiments"],
+      "wrist": ["Bracers of Fiery Night", "The Lady's Brittle Bracers"],
+      "hands": ["Sanctified Crimson Acolyte Handwraps"],
+      "waist": ["Crushing Coldwraith Belt"],
+      "legs": ["Plaguebringer's Stained Pants"],
+      "feet": ["Plague Scientist's Boots"],
+      "ring": ["Ashen Band of Endless Destruction", "Ring of Rapid Ascent"],
+      "trinket": ["Dislodged Foreign Object", "Phylactery of the Nameless Lich", "Charred Twilight Scale"],
+      "mainhand": ["Royal Scepter of Terenas II"],
+      "offhand": ["Shadow Silk Spindle"],
+      "ranged": ["Corpse-Impaling Spike"]
+    }
+  }
+}
