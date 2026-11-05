@@ -836,10 +836,21 @@ function statLine(item) {
 
 /* ---------- Motor de recomendaciones (se calcula en el navegador) ---------- */
 const ENG = DATA.engine;
+const GEAR_ITEMS = Object.assign({}, DATA.items, DATA.heirlooms);
 const ARMOR_KEYS = ["head", "shoulder", "chest", "wrist", "hands", "waist", "legs", "feet", "back"];
 const ITEM_URL = "https://wotlk.evowow.com/?item=";
 const L = (es, en) => (state.lang === "en" ? en : es);
+const gearItem = (id) => DATA.items[id] || DATA.heirlooms[id];
 const itemHands = (it) => (it.s === "twohand" ? 2 : (it.s === "onehand" || it.s === "mainhand" || it.s === "offhand" ? 1 : 0));
+// Las reliquias escalan con el nivel y las de malla/placa cambian de tipo antes del 40.
+function levelItem(it, level) {
+  if (!it.hl) return it;
+  let stage = it.hl[0];
+  for (const row of it.hl) { if (row[0] <= level) stage = row; else break; }
+  const data = (stage && stage[1]) || {};
+  const at = level < 40 ? (it.at === "Plate" ? "Mail" : it.at === "Mail" ? "Leather" : it.at) : it.at;
+  return Object.assign({}, it, { ar: data.ar || 0, dps: data.dps || 0, st: data.st || {}, at, ilvl: level });
+}
 const zoneOf = (id) => DATA.dungeons.find((d) => d.id === id) || (DATA.raids || []).find((d) => d.id === id);
 
 function itemFactions(it) {
@@ -963,8 +974,8 @@ function computeGear(spec, o) {
   const caps = o.level === 80 ? (ENG.caps || {})[spec.role] || null : null;
   const capKeys = caps ? Object.keys(caps) : [];
   const pools = {}, info = {};
-  for (const id in DATA.items) {
-    const it = DATA.items[id];
+  for (const id in GEAR_ITEMS) {
+    const it = levelItem(GEAR_ITEMS[id], o.level);
     if (o.pvp && !it.pvp) continue;
     const r = evalItem(it, spec, w, o, true);
     if (!r || !r.rel) continue;
@@ -1068,7 +1079,7 @@ const poolOfSlot = (s) => (s.startsWith("ring") ? "ring" : s.startsWith("trinket
 const gearKey = () => state.cls + "|" + state.spec;
 const equippedMap = () => state.gear[gearKey()] || {};
 function equippedMainTwoHand() {
-  const id = equippedMap().mainhand, it = id && DATA.items[id];
+  const id = equippedMap().mainhand, it = id && gearItem(id);
   return !!(it && itemHands(it) === 2);
 }
 /* El equipo que ya llevas puesto puede ser cualquier cosa que tu clase pueda equipar,
@@ -1121,8 +1132,8 @@ function candidates(spec) {
   if (candCache.key === key) return candCache.pools;
   const w = weightsFor(spec, false);
   const pools = {};
-  for (const id in DATA.items) {
-    const it = DATA.items[id];
+  for (const id in GEAR_ITEMS) {
+    const it = levelItem(GEAR_ITEMS[id], state.level);
     const r = evalEquip(it, spec, w, { level: state.level, faction: state.faction });
     if (!r) continue;
     const e = { id, it, score: r.score, usable: r.al <= state.level };
@@ -1133,8 +1144,9 @@ function candidates(spec) {
   return pools;
 }
 function equippedEntry(spec, slot) {
-  const id = equippedMap()[slot], it = id && DATA.items[id];
-  if (!it) return null;
+  const id = equippedMap()[slot], source = id && gearItem(id);
+  if (!source) return null;
+  const it = levelItem(source, state.level);
   const r = evalEquip(it, spec, weightsFor(spec, false), { level: state.level, faction: state.faction });
   return { id, it, score: r ? r.score : 0 };
 }
@@ -1143,7 +1155,7 @@ function setEquipped(slot, id) {
   if (slot === "offhand" && equippedMainTwoHand()) return;
   if (id) g[slot] = id; else delete g[slot];
   if (slot === "mainhand") {
-    const it = id && DATA.items[id];
+    const it = id && gearItem(id);
     if (it && itemHands(it) === 2) delete g.offhand;
   }
   persist();
@@ -1162,7 +1174,7 @@ function renderEquip(spec) {
   }).join("");
   grid.querySelectorAll("input").forEach((inp) => {
     const slot = inp.dataset.slot, ul = inp.parentNode.querySelector(".eq-sug");
-    const curName = () => { const id = equippedMap()[slot]; return id && DATA.items[id] ? DATA.items[id].n : ""; };
+    const curName = () => { const id = equippedMap()[slot], it = id && gearItem(id); return it ? it.n : ""; };
     const show = () => {
       const q = inp.value.trim().toLowerCase();
       const q2 = q === curName().toLowerCase() ? "" : q;
@@ -1650,7 +1662,7 @@ $("eqUseRec").addEventListener("click", () => {
   if (!lastGear) return;
   const spec = DATA.specs[state.cls + "|" + state.spec], g = {};
   specSlots(spec).forEach((sl) => { const e = lastGear.slots[sl] && lastGear.slots[sl].list[0]; if (e) g[sl] = e.id; });
-  const mh = g.mainhand && DATA.items[g.mainhand];
+  const mh = g.mainhand && gearItem(g.mainhand);
   if (mh && itemHands(mh) === 2) delete g.offhand;
   state.gear[gearKey()] = g;
   persist();

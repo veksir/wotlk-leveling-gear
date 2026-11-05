@@ -162,25 +162,44 @@ def compact(it):
     return out
 
 
+HEIRLOOM_SLOTS = {
+    "Head": "head", "Neck": "neck", "Shoulder": "shoulder", "Back": "back",
+    "Chest": "chest", "Wrist": "wrist", "Hands": "hands", "Waist": "waist",
+    "Legs": "legs", "Feet": "feet", "Finger": "ring", "Trinket": "trinket",
+    "Two-Hand": "twohand", "One-Hand": "onehand", "Main Hand": "mainhand",
+    "Off Hand": "offhand", "Held In Off-hand": "held", "Ranged": "ranged",
+    "Thrown": "thrown", "Relic": "relic",
+}
+HEIRLOOM_ARMOR = {"Cloth", "Leather", "Mail", "Plate"}
+
+
 def main():
     items = json.loads(ITEMS_PATH.read_text(encoding="utf-8"))
     raw = json.loads((ROOT / "data" / "raw_items.json").read_text(encoding="utf-8"))
     zones = {z["id"]: z for z in json.loads((ROOT / "data" / "raw_zones.json").read_text(encoding="utf-8"))}
     raw_by_id = {str(x["itemId"]): x for x in raw}
+    stats_path = ROOT / "data" / "heirloom_stats.json"
+    heirloom_stats = json.loads(stats_path.read_text(encoding="utf-8")) if stats_path.exists() else {}
     heirloom_ids = set(legacy["heirlooms"].keys())
     heirlooms = {}
     for iid in heirloom_ids:
-        item = items.get(iid)
-        if item:
-            heirlooms[iid] = item
-            continue
         raw_item = raw_by_id.get(iid)
-        if raw_item:
-            heirlooms[iid] = {
-                "n": raw_item.get("name") or "", "i": raw_item.get("icon") or "", "q": 7,
-                "ilvl": raw_item.get("itemLevel") or 1, "req": 0, "s": "heirloom",
-                "sub": raw_item.get("subclass") or "", "src": None,
-            }
+        if not raw_item:
+            continue
+        subclass = raw_item.get("subclass") or ""
+        source = (legacy["heirlooms"].get(iid) or {}).get("source") or ""
+        entry = {
+            "n": raw_item.get("name") or "", "i": raw_item.get("icon") or "", "q": 7,
+            "ilvl": raw_item.get("itemLevel") or 1, "req": 0,
+            "s": HEIRLOOM_SLOTS.get(raw_item.get("slot") or "", "heirloom"),
+            "sub": subclass,
+            "src": {"t": "Vendor", "n": "Emblemas de Heroísmo" if source == "Emblemas" else "Marcas de la Conquista del Invierno", "f": "Both"},
+        }
+        if subclass in HEIRLOOM_ARMOR:
+            entry["at"] = subclass
+        if iid in heirloom_stats:
+            entry["hl"] = heirloom_stats[iid]
+        heirlooms[iid] = entry
 
     class_min = {name: legacy["classMeta"][name]["min"] for name in legacy["classOrder"]}
     specs = {}
