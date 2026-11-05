@@ -7,6 +7,7 @@ from collections import defaultdict
 ROOT = Path(__file__).resolve().parent.parent
 ITEMS_PATH = ROOT / "data" / "items.json"
 OUT = ROOT / "data" / "gear_data.json"
+SPEC_WEIGHTS_PATH = ROOT / "data" / "spec_weights.json"
 sys.path.insert(0, str(ROOT / "legacy"))
 from data_leveling import payload as legacy  # noqa: E402
 
@@ -138,12 +139,21 @@ def weights_for(role):
 
 
 ARMOR_UNLOCK = {"Plate": {"Death Knight": 55, "Warrior": 40, "Paladin": 40}, "Mail": {"Hunter": 40, "Shaman": 40}}
-# Pesos propios de una especialidad (se aplican sobre los del rol). Solo hay entradas con una
-# fuente verificada; el resto de especialidades usa los pesos genéricos de su rol.
-SPEC_WEIGHTS = {
-    # Icy Veins WotLK Classic: golpe hasta el tope > poder de hechizos > celeridad > crítico > espíritu
-    "Priest|Shadow": {"int": 0.3, "sp": 1.0, "haste": 0.8, "crit": 0.5, "spi": 0.2, "hit": 0.9},
-}
+# Pesos por especialidad a nivel 80, derivados de las prioridades de Icy Veins WotLK Classic
+# (data/spec_weights.json guarda fuente y prioridad). En niveles inferiores se usan los del rol.
+def load_spec_weights():
+    source = json.loads(SPEC_WEIGHTS_PATH.read_text(encoding="utf-8"))
+    source.pop("_meta", None)
+    known = {f"{cls}|{name}" for cls, name, *_ in SPECS}
+    missing, extra = known - source.keys(), source.keys() - known
+    if missing or extra:
+        raise SystemExit(f"spec_weights.json: faltan {sorted(missing)}; sobran {sorted(extra)}")
+    for key, entry in source.items():
+        if not entry.get("source") or not entry.get("priority") or not isinstance(entry.get("weights"), dict):
+            raise SystemExit(f"spec_weights.json: entrada incompleta para {key}")
+    return {key: entry["weights"] for key, entry in source.items()}
+
+SPEC_WEIGHTS = load_spec_weights()
 # Topes a nivel 80 en puntuación, sin talentos ni bonificaciones raciales (que los bajan):
 # golpe de hechizos 17 %, golpe cuerpo a cuerpo/a distancia 8 %, pericia 26.
 CAPS = {"caster": {"hit": 446}, "str": {"hit": 263, "exp": 214}, "agi": {"hit": 263, "exp": 214}, "hunter": {"hit": 263}}

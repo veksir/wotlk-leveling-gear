@@ -1,0 +1,162 @@
+{
+  "_meta": {
+    "accessed": "2026-11-04",
+    "primary": "Icy Veins WotLK Classic stat priority pages",
+    "note": "Relative heuristic weights at level 80, not simulator EP values."
+  },
+  "Death Knight|Blood Tank": {
+    "source": "https://www.icy-veins.com/wotlk-classic/blood-death-knight-tank-pve-stat-priority",
+    "priority": "Defense to 540 > Hit to taunt cap > Stamina > Expertise > Dodge",
+    "weights": {"def": 1.0, "hit": 0.65, "sta": 1.0, "exp": 0.6, "dodge": 0.55, "parry": 0.4, "block": 0.0, "str": 0.15, "agi": 0.2, "armor": 0.02, "ap": 0.05, "dps": 1.0}
+  },
+  "Death Knight|Frost DPS": {
+    "source": "https://www.icy-veins.com/wotlk-classic/frost-death-knight-dps-pve-stat-priority",
+    "priority": "Hit/Expertise cap > Strength > Armor Penetration > Critical Strike > Haste",
+    "weights": {"hit": 0.9, "exp": 0.75, "str": 1.0, "arp": 0.8, "crit": 0.65, "haste": 0.4, "ap": 0.2}
+  },
+  "Death Knight|Unholy DPS": {
+    "source": "https://www.icy-veins.com/wotlk-classic/unholy-death-knight-dps-pve-stat-priority",
+    "priority": "Hit cap > Strength > Haste > Armor Penetration > Critical Strike > Expertise",
+    "weights": {"hit": 0.9, "str": 1.0, "haste": 0.75, "arp": 0.6, "crit": 0.55, "exp": 0.5, "ap": 0.2}
+  },
+  "Druid|Balance": {
+    "source": "https://www.icy-veins.com/wotlk-classic/balance-druid-dps-pve-stat-priority",
+    "priority": "Spell Hit cap > Spell Power > Haste > Critical Strike > Intellect > Spirit > Mp5",
+    "weights": {"hit": 0.9, "sp": 1.0, "haste": 0.8, "crit": 0.6, "int": 0.5, "spi": 0.35, "mp5": 0.2}
+  },
+  "Druid|Feral DPS": {
+    "source": "https://www.icy-veins.com/wotlk-classic/feral-druid-dps-pve-stat-priority",
+    "priority": "Strength > Hit cap > Agility > Expertise > Critical Strike > Armor Penetration > Haste",
+    "weights": {"str": 1.0, "hit": 0.85, "agi": 0.9, "exp": 0.8, "crit": 0.65, "arp": 0.6, "haste": 0.3, "ap": 0.2}
+  },
+  "Druid|Feral Tank": {
+    "source": "https://www.icy-veins.com/wotlk-classic/feral-druid-tank-pve-stat-priority",
+    "priority": "Stamina > Expertise > Agility > Hit cap > Armor > Strength > Haste > Armor Penetration > Defense",
+    "weights": {"sta": 1.0, "exp": 0.8, "agi": 0.9, "hit": 0.7, "armor": 0.03, "str": 0.5, "haste": 0.2, "arp": 0.15, "def": 0.3, "dodge": 0.5, "ap": 0.15}
+  },
+  "Druid|Restoration": {
+    "source": "https://www.icy-veins.com/wotlk-classic/restoration-druid-healer-pve-stat-priority",
+    "priority": "Spell Power > Haste > Mp5 > Intellect > Spirit > Critical Strike",
+    "weights": {"sp": 1.0, "haste": 1.0, "mp5": 1.2, "int": 0.9, "spi": 0.7, "crit": 0.2}
+  },
+  "Hunter|Beast Mastery": {
+    "source": "https://www.icy-veins.com/wotlk-classic/beast-mastery-hunter-dps-pve-stat-priority",
+    "priority": "Hit cap > Attack Power > Agility > Critical Strike > Armor Penetration > Haste",
+    "weights": {"hit": 0.9, "ap": 0.8, "agi": 0.85, "crit": 0.65, "arp": 0.55, "haste": 0.3}
+  },
+  "Hunter|Marksmanship": {
+    "source": "https://www.icy-veins.com/wotlk-classic/marksmanship-hunter-dps-pve-stat-priority",
+    "priority": "Hit cap > Agility > Armor Penetration > Critical Strike > Attack Power > Haste",
+    "weights": {"hit": 0.9, "agi": 1.0, "arp": 0.9, "crit": 0.7, "ap": 0.4, "haste": 0.3}
+  },
+  "Hunter|Survival": {
+    "source": "https://www.icy-veins.com/wotlk-classic/survival-hunter-dps-pve-stat-priority",
+    "priority": "Hit cap > Agility > Critical Strike > Attack Power > Armor Penetration > Haste",
+    "weights": {"hit": 0.9, "agi": 1.0, "crit": 0.8, "ap": 0.5, "arp": 0.45, "haste": 0.3}
+  },
+  "Mage|Arcane": {
+    "source": "https://www.icy-veins.com/wotlk-classic/arcane-mage-dps-pve-stat-priority",
+    "priority": "Spell Hit cap > Spell Power >= Haste > Critical Strike > Spirit > Intellect > Mp5",
+    "weights": {"hit": 0.9, "sp": 1.0, "haste": 0.85, "crit": 0.65, "spi": 0.3, "int": 0.4, "mp5": 0.1}
+  },
+  "Mage|Fire": {
+    "source": "https://www.icy-veins.com/wotlk-classic/fire-mage-dps-pve-stat-priority",
+    "priority": "Spell Hit cap > Spell Power > Critical Strike > Haste > Spirit > Intellect",
+    "weights": {"hit": 0.9, "sp": 1.0, "crit": 0.8, "haste": 0.65, "spi": 0.3, "int": 0.4}
+  },
+  "Mage|Frost": {
+    "source": "https://www.icy-veins.com/wotlk-classic/frost-mage-dps-pve-stat-priority",
+    "priority": "Spell Hit cap > Spell Power >= Haste > Critical Strike > Spirit > Intellect",
+    "weights": {"hit": 0.9, "sp": 1.0, "haste": 0.8, "crit": 0.7, "spi": 0.3, "int": 0.4}
+  },
+  "Paladin|Holy": {
+    "source": "https://www.icy-veins.com/wotlk-classic/holy-paladin-healer-pve-stat-priority",
+    "priority": "Intellect > Spell Haste > Mp5 > Spell Critical Strike",
+    "weights": {"int": 1.0, "haste": 0.9, "mp5": 0.7, "crit": 0.5, "sp": 0.8, "spi": 0.1}
+  },
+  "Paladin|Protection": {
+    "source": "https://www.icy-veins.com/wotlk-classic/protection-paladin-tank-pve-stat-priority",
+    "priority": "Defense to 540 > Stamina > Block Rating > Expertise > Hit > Dodge > Parry",
+    "weights": {"def": 1.0, "sta": 1.0, "block": 0.8, "exp": 0.6, "hit": 0.55, "dodge": 0.5, "parry": 0.45, "armor": 0.02, "str": 0.1, "blockval": 0.05}
+  },
+  "Paladin|Retribution": {
+    "source": "https://www.icy-veins.com/wotlk-classic/retribution-paladin-dps-pve-stat-priority",
+    "priority": "Hit cap > Expertise > Strength > Agility/Attack Power > Critical Strike > Haste > Armor Penetration",
+    "weights": {"hit": 0.9, "exp": 0.8, "str": 1.0, "agi": 0.3, "ap": 0.4, "crit": 0.7, "haste": 0.5, "arp": 0.4}
+  },
+  "Priest|Discipline": {
+    "source": "https://www.icy-veins.com/wotlk-classic/discipline-priest-healer-pve-stat-priority",
+    "priority": "Haste to soft cap > Spell Power > Critical Strike > Intellect > Spirit > Mp5",
+    "weights": {"haste": 1.0, "sp": 1.0, "crit": 0.8, "int": 0.6, "spi": 0.35, "mp5": 0.25}
+  },
+  "Priest|Holy": {
+    "source": "https://www.icy-veins.com/wotlk-classic/holy-priest-healer-pve-stat-priority",
+    "priority": "Haste > Intellect > Spell Power > Spirit > Critical Strike > Mp5",
+    "weights": {"haste": 1.0, "int": 0.9, "sp": 0.85, "spi": 0.6, "crit": 0.5, "mp5": 0.3}
+  },
+  "Priest|Shadow": {
+    "source": "https://www.icy-veins.com/wotlk-classic/shadow-priest-dps-pve-stat-priority",
+    "priority": "Hit cap > Spell Power > Haste > Critical Strike > Spirit > Intellect",
+    "weights": {"int": 0.3, "sp": 1.0, "haste": 0.8, "crit": 0.5, "spi": 0.2, "hit": 0.9}
+  },
+  "Rogue|Assassination": {
+    "source": "https://www.icy-veins.com/wotlk-classic/assassination-rogue-dps-pve-stat-priority",
+    "priority": "Hit cap > Expertise cap > Agility > Strength/Attack Power > Haste > Critical Strike > Armor Penetration",
+    "weights": {"hit": 0.9, "exp": 0.85, "agi": 1.0, "str": 0.5, "ap": 0.4, "haste": 0.7, "crit": 0.55, "arp": 0.2}
+  },
+  "Rogue|Combat": {
+    "source": "https://www.icy-veins.com/wotlk-classic/combat-rogue-dps-pve-stat-priority",
+    "priority": "Hit cap > Expertise cap > Agility > Strength/Attack Power > Armor Penetration > Haste > Critical Strike",
+    "weights": {"hit": 0.9, "exp": 0.85, "agi": 1.0, "str": 0.5, "ap": 0.4, "arp": 0.8, "haste": 0.55, "crit": 0.4}
+  },
+  "Rogue|Subtlety": {
+    "source": "https://www.icy-veins.com/wotlk-classic/subtlety-rogue-dps-pve-stat-priority",
+    "priority": "Hit cap > Expertise cap > Agility > Strength/Attack Power > Armor Penetration > Haste > Critical Strike",
+    "weights": {"hit": 0.9, "exp": 0.85, "agi": 1.0, "str": 0.5, "ap": 0.4, "arp": 0.7, "haste": 0.6, "crit": 0.45}
+  },
+  "Shaman|Elemental": {
+    "source": "https://www.icy-veins.com/wotlk-classic/elemental-shaman-dps-pve-stat-priority",
+    "priority": "Spell Hit cap > Spell Power > Haste > Critical Strike > Intellect > Mp5",
+    "weights": {"hit": 0.9, "sp": 1.0, "haste": 0.8, "crit": 0.65, "int": 0.5, "mp5": 0.2}
+  },
+  "Shaman|Enhancement": {
+    "source": "https://www.icy-veins.com/wotlk-classic/enhancement-shaman-dps-pve-stat-priority",
+    "priority": "Hit cap > Expertise cap > Attack Power > Haste > Agility > Intellect > Spell Power > Critical Strike > Strength > Armor Penetration",
+    "weights": {"hit": 0.9, "exp": 0.8, "ap": 0.8, "haste": 0.7, "agi": 0.65, "int": 0.4, "sp": 0.3, "crit": 0.5, "str": 0.15, "arp": 0.1}
+  },
+  "Shaman|Restoration": {
+    "source": "https://www.icy-veins.com/wotlk-classic/restoration-shaman-healer-pve-stat-priority",
+    "priority": "Spell Power > Haste > Mp5 > Intellect > Critical Strike",
+    "weights": {"sp": 1.0, "haste": 1.1, "mp5": 1.2, "crit": 0.8, "int": 1.0, "spi": 0.2}
+  },
+  "Warlock|Affliction": {
+    "source": "https://www.icy-veins.com/wotlk-classic/affliction-warlock-dps-pve-stat-priority",
+    "priority": "Hit cap > Spell Power > Haste > Critical Strike > Spirit > Intellect",
+    "weights": {"hit": 0.9, "sp": 1.0, "haste": 0.8, "crit": 0.6, "spi": 0.35, "int": 0.4, "mp5": 0.15}
+  },
+  "Warlock|Demonology": {
+    "source": "https://www.icy-veins.com/wotlk-classic/demonology-warlock-dps-pve-stat-priority",
+    "priority": "Hit cap > Spell Power > Haste or Spirit > Critical Strike > Intellect",
+    "weights": {"hit": 0.9, "sp": 1.0, "haste": 0.75, "spi": 0.35, "crit": 0.6, "int": 0.4}
+  },
+  "Warlock|Destruction": {
+    "source": "https://www.icy-veins.com/wotlk-classic/destruction-warlock-dps-pve-stat-priority",
+    "priority": "Hit cap > Spell Power > Haste > Critical Strike > Spirit > Intellect",
+    "weights": {"hit": 0.9, "sp": 1.0, "haste": 0.8, "crit": 0.65, "spi": 0.3, "int": 0.4}
+  },
+  "Warrior|Arms": {
+    "source": "https://www.icy-veins.com/wotlk-classic/arms-warrior-dps-pve-stat-priority",
+    "priority": "Hit cap > Armor Penetration > Strength > Critical Strike > Expertise > Haste",
+    "weights": {"hit": 0.9, "arp": 0.9, "str": 1.0, "crit": 0.75, "exp": 0.6, "haste": 0.35, "ap": 0.3}
+  },
+  "Warrior|Fury": {
+    "source": "https://www.icy-veins.com/wotlk-classic/fury-warrior-dps-pve-stat-priority",
+    "priority": "Hit cap > Expertise > Armor Penetration > Strength > Critical Strike > Haste",
+    "weights": {"hit": 0.9, "exp": 0.8, "arp": 0.85, "str": 1.0, "crit": 0.7, "haste": 0.4, "ap": 0.3}
+  },
+  "Warrior|Protection": {
+    "source": "https://www.icy-veins.com/wotlk-classic/protection-warrior-tank-pve-stat-priority",
+    "priority": "Defense > Stamina > Armor > Hit > Expertise > Block Rating > Block Value > Dodge > Parry",
+    "weights": {"def": 1.0, "sta": 1.0, "armor": 0.03, "hit": 0.6, "exp": 0.55, "block": 0.5, "blockval": 0.1, "dodge": 0.45, "parry": 0.4, "str": 0.1}
+  }
+}

@@ -876,8 +876,9 @@ function armorFactor(cls, at, level) {
   const diff = tiers.indexOf(at) - tiers.indexOf(preferredArmor(cls, level));
   return diff >= 0 ? [1, 0.6, 0.35, 0.2][Math.min(diff, 3)] : 0.4;
 }
-function weightsFor(spec, pvp) {
-  const w = Object.assign({}, ENG.weights[spec.role] || {}, (ENG.specWeights || {})[spec.cls + "|" + spec.name] || {});
+function weightsFor(spec, pvp, level) {
+  const specW = level === 80 ? (ENG.specWeights || {})[spec.cls + "|" + spec.name] : null;
+  const w = Object.assign({}, ENG.weights[spec.role] || {}, specW || {});
   w.hs = w[spec.primary] || 0; // «mejor estadística» de un proc: la principal de la especialidad
   if (pvp) w.res = 0.9;
   return w;
@@ -970,7 +971,7 @@ function evalItem(it, spec, w, o, cap) {
 
 /* opts: { level, faction, scope: "noraid"|"raid", phase: 0 (todas)|1-4, pvp: bool (solo equipo PvP) } */
 function computeGear(spec, o) {
-  const w = weightsFor(spec, o.pvp);
+  const w = weightsFor(spec, o.pvp, o.level);
   const caps = o.level === 80 ? (ENG.caps || {})[spec.role] || null : null;
   const capKeys = caps ? Object.keys(caps) : [];
   const pools = {}, info = {};
@@ -1130,7 +1131,7 @@ let lastGear = null;
 function candidates(spec) {
   const key = [spec.cls, spec.name, state.level, state.faction].join("|");
   if (candCache.key === key) return candCache.pools;
-  const w = weightsFor(spec, false);
+  const w = weightsFor(spec, false, state.level);
   const pools = {};
   for (const id in GEAR_ITEMS) {
     const it = levelItem(GEAR_ITEMS[id], state.level);
@@ -1147,7 +1148,7 @@ function equippedEntry(spec, slot) {
   const id = equippedMap()[slot], source = id && gearItem(id);
   if (!source) return null;
   const it = levelItem(source, state.level);
-  const r = evalEquip(it, spec, weightsFor(spec, false), { level: state.level, faction: state.faction });
+  const r = evalEquip(it, spec, weightsFor(spec, false, state.level), { level: state.level, faction: state.faction });
   return { id, it, score: r ? r.score : 0 };
 }
 function setEquipped(slot, id) {
@@ -1274,7 +1275,7 @@ function lootSlotLabel(it) {
   return extra[it.s] || (SLOT_LABEL[state.lang] || SLOT_LABEL.es)[it.s] || it.s;
 }
 function renderLoot(spec) {
-  const level = state.level, w = weightsFor(spec, false);
+  const level = state.level, w = weightsFor(spec, false, level);
   const cur = state.dungeon || autoDungeon(level);
   const sel = $("dungeonSelect");
   const autoName = (zoneOf(autoDungeon(level)) || {}).n || "";
