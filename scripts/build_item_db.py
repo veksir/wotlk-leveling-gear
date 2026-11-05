@@ -98,6 +98,8 @@ def parse_stats(tooltip):
         lower = line.lower()
         if "chance on hit" in lower:
             continue
+        if re.search(r"proc chance|chance to|for \d+ sec|each time|when you|whenever", lower):
+            continue
         if not (lower.startswith("equip:") or lower.startswith("increases") or lower.startswith("improves") or lower.startswith("restores")):
             continue
         m = re.search(r"(?:by|up to|restores)\s+(\d+)", lower)
@@ -112,6 +114,58 @@ def parse_stats(tooltip):
                 stats[key] = stats.get(key, 0) + value
                 break
     return stats, armor, dps, speed
+
+
+EFFECT_STATS = [
+    ("strength, agility, intellect, or spirit", "hs"),
+    ("spell power", "sp"), ("attack power", "ap"), ("haste rating", "haste"), ("critical strike rating", "crit"),
+    ("hit rating", "hit"), ("expertise rating", "exp"), ("armor penetration rating", "arp"),
+    ("defense rating", "def"), ("dodge rating", "dodge"), ("parry rating", "parry"),
+    ("intellect", "int"), ("strength", "str"), ("agility", "agi"), ("stamina", "sta"), ("spirit", "spi"),
+]
+# Cada cuántos segundos "llega" un evento que puede activar el proc (aproximación única para todas las clases)
+PROC_EVENT_SECONDS = 1.5
+
+
+def parse_effects(tooltip):
+    """Procs y efectos de uso con duración ("gain N spell power for D sec").
+    Devuelve el promedio estimado de cada estadística: cantidad x tiempo activo."""
+    out = {}
+    for t in tooltip:
+        low = (t.get("label") or "").lower().replace("\xa0", " ")
+        if not (low.startswith("use:") or low.startswith("equip:")):
+            continue
+        dm = re.search(r"for (\d+) sec", low)
+        if not dm:
+            continue
+        duration = int(dm.group(1))
+        if low.startswith("use:"):
+            cm = re.search(r"\(([\d.]+) (min|sec)[a-z]* cooldown\)", low)
+            if not cm:
+                continue
+            cooldown = float(cm.group(1)) * (60 if cm.group(2) == "min" else 1)
+            uptime = min(1.0, duration / cooldown)
+        else:
+            pm = re.search(r"proc chance: ([\d.]+)%, ([\d.]+)(m|s) cooldown", low)
+            if not pm:
+                continue
+            chance = float(pm.group(1)) / 100
+            icd = float(pm.group(2)) * (60 if pm.group(3) == "m" else 1)
+            uptime = min(1.0, duration / (icd + PROC_EVENT_SECONDS / max(chance, 0.01)))
+        ramp = re.search(r"additional (\d+) every (\d+) sec", low)
+        factor = (1 + duration / int(ramp.group(2))) / 2 if ramp else 1.0
+        got_hs = False
+        for phrase, key in EFFECT_STATS:
+            if got_hs and key in ("str", "agi", "int", "spi", "sta"):
+                continue  # ya cubierto por «mejor estadística»
+            ph = re.escape(phrase)
+            # El número debe acompañar a la estadística: "<estadística> by N" o "gain/grant N <estadística>"
+            am = re.search(ph + r"\s+by\s+(\d+)", low) or re.search(r"(?:gain|grants?|by)\s+(\d+)\s+(?:additional\s+)?" + ph, low)
+            if not am:
+                continue
+            got_hs = got_hs or key == "hs"
+            out[key] = out.get(key, 0) + round(float(am.group(1)) * factor * uptime)
+    return {k: v for k, v in out.items() if v > 0}
 
 
 def parse_restrictions(tooltip):
@@ -175,6 +229,54 @@ def source_info(source, zones, ilvl=0, quality=0):
     return {"t": cat or "Fuente"}, "other", False
 
 
+LOOT_PATH = Path(__file__).resolve().parent.parent / "data" / "loot_wrath.json"
+LOOT_OUT = Path(__file__).resolve().parent.parent / "data" / "loot.json"
+DIFF_ORDER = ["N", "H", "10", "25", "10H", "25H"]
+
+
+def apply_atlasloot(items, zones):
+    """Une el botín de AtlasLoot (WotLK, por jefe y dificultad) con las fuentes del dataset.
+    Escribe data/loot.json: zona -> jefe -> objeto -> dificultades, que usa el panel de botín."""
+    loot = {}
+    # 1) Fuentes de jefe que ya trae el dataset principal
+    for iid, it in items.items():
+        s = it.get("src") or {}
+        if s.get("t") == "Drop" and s.get("zid"):
+            z = loot.setdefault(s["zid"], {"id": s["zid"], "n": s.get("z"), "ty": s.get("zc"),
+                                           "lv": (zones.get(s["zid"]) or {}).get("level"), "b": {}})
+            z["b"].setdefault(s.get("n") or "", {}).setdefault(iid, {"d": []})
+    # 2) AtlasLoot: completa Ulduar, ToC, ICC... y marca normal/heroica y 10/25
+    if LOOT_PATH.exists():
+        for zone in json.loads(LOOT_PATH.read_text(encoding="utf-8")):
+            z = loot.setdefault(zone["id"], {"id": zone["id"], "n": zone["n"], "ty": zone["type"], "lv": zone["lv"], "b": {}})
+            z["n"], z["ty"], z["lv"] = zone["n"], zone["type"], zone["lv"] or z.get("lv")
+            for boss, entries in zone["bosses"].items():
+                for iid, e in entries.items():
+                    it = items.get(iid)
+                    if not it:
+                        continue
+                    z["b"].setdefault(boss, {})[iid] = e
+                    src = it.get("src") or {}
+                    if src.get("t") in ("Otra", "RaidProb"):  # sin fuente hasta ahora
+                        it["src"] = {"t": "Drop", "z": zone["n"], "zc": zone["type"], "zid": zone["id"], "n": boss}
+                        it["sk"] = "drop"
+                        it["raid"] = zone["type"] == "Raid"
+                    if e.get("f") and (it["src"] or {}).get("t") == "Drop":
+                        it["src"]["f"] = e["f"]
+                    if (it["src"] or {}).get("zid") == zone["id"] and (it["src"] or {}).get("n") == boss:
+                        it["src"]["df"] = "/".join(sorted(e["d"], key=DIFF_ORDER.index)) if e["d"] else None
+                        if not it["src"]["df"]:
+                            del it["src"]["df"]
+    out = {}
+    for zid, z in loot.items():
+        bosses = {b: {i: sorted(e.get("d", []), key=DIFF_ORDER.index) + ([e["f"]] if e.get("f") else []) for i, e in its.items()}
+                  for b, its in z["b"].items() if its}
+        if bosses and z.get("n") and z.get("ty") in ("Dungeon", "Raid"):
+            out[str(zid)] = {"id": zid, "n": z["n"], "ty": z["ty"], "lv": z.get("lv") or [0, 0], "b": bosses}
+    LOOT_OUT.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    print("zonas con botín", len(out), "(raids:", sum(1 for z in out.values() if z["ty"] == "Raid"), ")")
+
+
 def main():
     raw = load_json(RAW)
     zones_list = load_json(ZONES_RAW)
@@ -204,7 +306,8 @@ def main():
         if "Random enchantment" in labels:
             continue
         stats, armor, dps, speed = parse_stats(tooltip)
-        if not stats and dps == 0 and not (slot == "offhand" and armor > 0):
+        px = parse_effects(tooltip)
+        if not stats and not px and dps == 0 and not (slot == "offhand" and armor > 0):
             continue
         classes, races = parse_restrictions(tooltip)
         is_pvp = bool(PVP_RE.search(it.get("name") or "")) or bool(stats.get("res"))
@@ -231,6 +334,7 @@ def main():
             "sub": sub,
             "at": armor_type,
             "st": stats,
+            "px": px,
             "ar": armor,
             "dps": round(dps, 1),
             "spd": speed,
@@ -245,6 +349,7 @@ def main():
             "rg": ranged,
         }
 
+    apply_atlasloot(items, zones)
     print("items", len(items))
     from collections import Counter
     print("slots", Counter(v["s"] for v in items.values()))

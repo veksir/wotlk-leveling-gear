@@ -3,3 +3,6 @@ __pycache__/
 data/raw_items.json
 data/raw_zones.json
 data/items.json
+data/loot_wrath.json
+data/loot.json
+data/raw_atlasloot_wrath.lua

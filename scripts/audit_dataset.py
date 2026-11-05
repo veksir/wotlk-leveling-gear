@@ -52,7 +52,7 @@ def main():
             drop("encantamiento aleatorio (…of the Bear/Monkey)", it)
             continue
         stats, armor, dps, _ = b.parse_stats(it.get("tooltip") or [])
-        if not stats and dps == 0 and not (slot == "offhand" and armor > 0):
+        if not stats and not b.parse_effects(it.get("tooltip") or []) and dps == 0 and not (slot == "offhand" and armor > 0):
             drop("sin estadísticas reconocidas", it)
             continue
         if str(it["itemId"]) not in kept:
