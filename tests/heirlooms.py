@@ -31,6 +31,13 @@ def main():
         assert stats["forty"]["st"] == {"res": 9, "sta": 14, "str": 9}
         assert stats["eighty"]["at"] == "Plate" and stats["eighty"]["ar"] == 1570
 
+        # Las reliquias sin estadísticas parseables siguen disponibles para «Mi equipo actual».
+        relic = page.evaluate("""() => {
+          const p = candidates(DATA.specs["Death Knight|Frost DPS"]);
+          return (p.relic || []).some((e) => e.it.n === "Sigil of the Hanged Man");
+        }""")
+        assert relic, "falta la reliquia en el buscador de equipo"
+
         # Por defecto no se recomiendan reliquias: requieren moneda de nivel 80.
         page.evaluate("""() => {
           state.cls = "Warrior"; state.spec = "Protection"; state.level = 20;
