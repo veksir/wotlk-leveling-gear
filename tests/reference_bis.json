@@ -1,24 +1,2095 @@
 {
-  "Priest|Shadow": {
-    "source": "Warcraft Tavern, PvE Shadow Priest BiS (WotLK Classic, fases 4 y 5); prioridad de estadísticas de Icy Veins",
-    "level": 80,
-    "faction": "horde",
-    "slots": {
-      "head": ["Sanctified Crimson Acolyte Cowl"],
-      "neck": ["Amulet of the Silent Eulogy", "Blood Queen's Crimson Choker"],
-      "shoulder": ["Sanctified Crimson Acolyte Mantle"],
-      "back": ["Cloak of Burning Dusk", "Frostbinder's Shredded Cape"],
-      "chest": ["Sanctified Crimson Acolyte Raiments"],
-      "wrist": ["Bracers of Fiery Night", "The Lady's Brittle Bracers"],
-      "hands": ["Sanctified Crimson Acolyte Handwraps"],
-      "waist": ["Crushing Coldwraith Belt"],
-      "legs": ["Plaguebringer's Stained Pants"],
-      "feet": ["Plague Scientist's Boots"],
-      "ring": ["Ashen Band of Endless Destruction", "Ring of Rapid Ascent"],
-      "trinket": ["Dislodged Foreign Object", "Phylactery of the Nameless Lich", "Charred Twilight Scale"],
-      "mainhand": ["Royal Scepter of Terenas II"],
-      "offhand": ["Shadow Silk Spindle"],
-      "ranged": ["Corpse-Impaling Spike"]
-    }
-  }
+ "Death Knight|Blood Tank": {
+  "source": "https://www.icy-veins.com/wotlk-classic/blood-death-knight-tank-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc / Human, 43/26/2 Blood Tank (Dual-Wield Buff / Threat-Mitigation), 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Scourgelord Faceguard",
+    "Broken Ram Skull Helm"
+   ],
+   "neck": [
+    "Bile-Encrusted Medallion",
+    "Noose of Malachite"
+   ],
+   "shoulder": [
+    "Sanctified Scourgelord Pauldrons",
+    "Boneguard Commander's Pauldrons"
+   ],
+   "back": [
+    "Sentinel's Winter Cloak",
+    "Royal Crimson Cloak"
+   ],
+   "chest": [
+    "Sanctified Scourgelord Chestguard",
+    "Blightborne Warplate"
+   ],
+   "wrist": [
+    "Gargoyle Spit Bracers",
+    "Bracers of Dark Reckoning"
+   ],
+   "hands": [
+    "Sanctified Scourgelord Handguards",
+    "Taldaram's Plated Fists"
+   ],
+   "waist": [
+    "Verdigris Chain Belt",
+    "Belt of Broken Bones"
+   ],
+   "legs": [
+    "Legguards of Lost Hope",
+    "Sanctified Scourgelord Legguards"
+   ],
+   "feet": [
+    "Grinning Skull Greatboots",
+    "Scourge Fanged Stompers"
+   ],
+   "ring": [
+    "Ashen Band of Endless Courage",
+    "Devium's Eternally Cold Ring",
+    "Juggernaut Band"
+   ],
+   "trinket": [
+    "Sindragosa's Flawless Fang",
+    "Corroded Skeleton Key",
+    "Satrina's Impeding Scarab"
+   ],
+   "mainhand": [
+    "Glorenzelg, High-Blade of the Silver Hand",
+    "Oathbinder, Charge of the Ranger-General"
+   ],
+   "ranged": [
+    "Sigil of the Bone Gryphon",
+    "Sigil of Insolence"
+   ]
+  },
+  "phase": 4
+ },
+ "Death Knight|Frost DPS": {
+  "source": "https://www.icy-veins.com/wotlk-classic/frost-death-knight-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc (Horde) / Human (Alliance), 0/53/18 Dual-Wield Frost, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Scourgelord Helmet",
+    "Landsoul's Horned Greathelm"
+   ],
+   "neck": [
+    "Lana'thel's Chain of Flagellation",
+    "Ahn'kahar Onyx Neckguard"
+   ],
+   "shoulder": [
+    "Sanctified Scourgelord Shoulderplates",
+    "Raging Behemoth's Shoulderplates"
+   ],
+   "back": [
+    "Varian's Furor",
+    "Garrosh's Rage"
+   ],
+   "chest": [
+    "Sanctified Scourgelord Battleplate",
+    "Blightborne Warplate"
+   ],
+   "wrist": [
+    "Toskk's Maximized Wristguards",
+    "Taiga Bindings"
+   ],
+   "hands": [
+    "Sanctified Scourgelord Gauntlets",
+    "Aldriana's Gloves of Secrecy"
+   ],
+   "waist": [
+    "Coldwraith Links",
+    "Astrylian's Sutured Cinch"
+   ],
+   "legs": [
+    "Legplates of Aetheric Strife",
+    "Scourge Reaver's Legplates"
+   ],
+   "feet": [
+    "Blood-Soaked Saronite Stompers",
+    "Frostbitten Fur Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Might",
+    "Might of Blight",
+    "Skeleton Lord's Circle"
+   ],
+   "trinket": [
+    "Deathbringer's Will",
+    "Death's Verdict",
+    "Death's Choice"
+   ],
+   "mainhand": [
+    "Havoc's Call, Blade of Lordaeron Kings",
+    "Bloodvenom Blade"
+   ],
+   "offhand": [
+    "Havoc's Call, Blade of Lordaeron Kings",
+    "Scourgeborne Waraxe"
+   ],
+   "ranged": [
+    "Sigil of the Hanged Man",
+    "Sigil of Awareness"
+   ]
+  },
+  "phase": 4
+ },
+ "Death Knight|Unholy DPS": {
+  "source": "https://www.icy-veins.com/wotlk-classic/unholy-death-knight-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc / Troll (Horde) o Human (Alliance), 17/0/54 2H Unholy con Shadowmourne, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Scourgelord Helmet",
+    "Landsoul's Horned Greathelm"
+   ],
+   "neck": [
+    "Ahn'kahar Onyx Neckguard",
+    "Lana'thel's Chain of Flagellation"
+   ],
+   "shoulder": [
+    "Sanctified Scourgelord Shoulderplates",
+    "Raging Behemoth's Shoulderplates"
+   ],
+   "back": [
+    "Winding Sheet",
+    "Might of the Ocean Serpent"
+   ],
+   "chest": [
+    "Sanctified Scourgelord Battleplate",
+    "Gendarme's Cuirass"
+   ],
+   "wrist": [
+    "Polar Bear Claw Bracers",
+    "Taiga Bindings"
+   ],
+   "hands": [
+    "Sanctified Scourgelord Gauntlets",
+    "Fleshrending Gauntlets"
+   ],
+   "waist": [
+    "Coldwraith Links",
+    "Flesh-Shaper's Gurney Strap"
+   ],
+   "legs": [
+    "Scourge Reaver's Legplates",
+    "Sanctified Scourgelord Legplates"
+   ],
+   "feet": [
+    "Blood-Soaked Saronite Stompers",
+    "Bone Drake's Enameled Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Might",
+    "Might of Blight",
+    "Skeleton Lord's Circle"
+   ],
+   "trinket": [
+    "Deathbringer's Will",
+    "Death's Verdict",
+    "Death's Choice"
+   ],
+   "mainhand": [
+    "Shadowmourne",
+    "Glorenzelg, High-Blade of the Silver Hand"
+   ],
+   "ranged": [
+    "Sigil of the Hanged Man",
+    "Sigil of Virulence"
+   ]
+  },
+  "phase": 4
+ },
+ "Druid|Balance": {
+  "source": "https://www.icy-veins.com/wotlk-classic/balance-druid-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Tauren (Horde) / Night Elf (Alliance), 58/0/13 Balance, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Lasherweave Cover",
+    "Geistlord's Punishment Sack"
+   ],
+   "neck": [
+    "Blood Queen's Crimson Choker",
+    "Amulet of the Silent Eulogy"
+   ],
+   "shoulder": [
+    "Sanctified Lasherweave Shoulderpads",
+    "Pauldrons of Trembling Rage"
+   ],
+   "back": [
+    "Frostbinder's Shredded Cape",
+    "Greatcloak of the Turned Champion"
+   ],
+   "chest": [
+    "Sanctified Lasherweave Raiment",
+    "Sanguine Silk Robes"
+   ],
+   "wrist": [
+    "The Lady's Brittle Bracers",
+    "Bracers of Eternal Dreaming"
+   ],
+   "hands": [
+    "Gunship Captain's Mittens",
+    "Sanctified Lasherweave Gloves"
+   ],
+   "waist": [
+    "Crushing Coldwraith Belt",
+    "Professor's Bloodied Smock"
+   ],
+   "legs": [
+    "Sanctified Lasherweave Trousers",
+    "Plaguebringer's Stained Pants"
+   ],
+   "feet": [
+    "Plague Scientist's Boots",
+    "Boots of Unnatural Growth"
+   ],
+   "ring": [
+    "Ashen Band of Endless Destruction",
+    "Ring of Rapid Ascent",
+    "Valanar's Other Signet Ring"
+   ],
+   "trinket": [
+    "Phylactery of the Nameless Lich",
+    "Dislodged Foreign Object",
+    "Reign of the Unliving"
+   ],
+   "mainhand": [
+    "Royal Scepter of Terenas II",
+    "Bloodsurge, Kel'Thuzad's Blade of Agony"
+   ],
+   "offhand": [
+    "Shadow Silk Spindle",
+    "Sundial of Eternal Dusk"
+   ],
+   "ranged": [
+    "Idol of Lunar Fury",
+    "Idol of Steadfast Renewal"
+   ]
+  },
+  "phase": 4
+ },
+ "Druid|Feral DPS": {
+  "source": "https://www.icy-veins.com/wotlk-classic/feral-druid-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Tauren (Horde) / Night Elf (Alliance), 0/55/16 Cat DPS, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Lasherweave Headguard",
+    "Geistlord's Punishment Sack"
+   ],
+   "neck": [
+    "Sindragosa's Cruel Claw",
+    "Collar of Haughty Disdain"
+   ],
+   "shoulder": [
+    "Sanctified Lasherweave Pauldrons",
+    "Cultist's Bloodsoaked Spaulders"
+   ],
+   "back": [
+    "Shadowvault Slayer's Cloak",
+    "Vereesa's Dexterity"
+   ],
+   "chest": [
+    "Sanctified Lasherweave Robes",
+    "Ikfirus's Sack of Wonder"
+   ],
+   "wrist": [
+    "Toskk's Maximized Wristguards",
+    "Vambraces of the Frost Wyrm Queen"
+   ],
+   "hands": [
+    "Aldriana's Gloves of Secrecy",
+    "Sanctified Lasherweave Handgrips"
+   ],
+   "waist": [
+    "Astrylian's Sutured Cinch",
+    "Vengeful Noose"
+   ],
+   "legs": [
+    "Sanctified Lasherweave Legguards",
+    "Gangrenous Leggings"
+   ],
+   "feet": [
+    "Frostbitten Fur Boots",
+    "Footpads of Impending Death"
+   ],
+   "ring": [
+    "Ashen Band of Endless Vengeance",
+    "Band of the Bone Colossus",
+    "Frostbrood Sapphire Ring"
+   ],
+   "trinket": [
+    "Deathbringer's Will",
+    "Whispering Fanged Skull",
+    "Death's Verdict"
+   ],
+   "mainhand": [
+    "Oathbinder, Charge of the Ranger-General",
+    "Hersir's Greatspear"
+   ],
+   "ranged": [
+    "Idol of the Crying Moon",
+    "Idol of Mutilation"
+   ]
+  },
+  "phase": 4
+ },
+ "Druid|Feral Tank": {
+  "source": "https://www.icy-veins.com/wotlk-classic/feral-druid-tank-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Tauren (Horde) / Night Elf (Alliance), 0/58/13 Bear Tank (Survival of the Fittest), 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Lasherweave Headguard",
+    "Geistlord's Punishment Sack"
+   ],
+   "neck": [
+    "Bile-Encrusted Medallion",
+    "Sindragosa's Cruel Claw"
+   ],
+   "shoulder": [
+    "Sanctified Lasherweave Pauldrons",
+    "Cultist's Bloodsoaked Spaulders"
+   ],
+   "back": [
+    "Sentinel's Winter Cloak",
+    "Royal Crimson Cloak"
+   ],
+   "chest": [
+    "Ikfirus's Sack of Wonder",
+    "Sanctified Lasherweave Robes"
+   ],
+   "wrist": [
+    "Toskk's Maximized Wristguards",
+    "Gargoyle Spit Bracers"
+   ],
+   "hands": [
+    "Sanctified Lasherweave Handgrips",
+    "Aldriana's Gloves of Secrecy"
+   ],
+   "waist": [
+    "Astrylian's Sutured Cinch",
+    "Vengeful Noose"
+   ],
+   "legs": [
+    "Sanctified Lasherweave Legguards",
+    "Gangrenous Leggings"
+   ],
+   "feet": [
+    "Frostbitten Fur Boots",
+    "Footpads of Impending Death"
+   ],
+   "ring": [
+    "Ashen Band of Endless Courage",
+    "Devium's Eternally Cold Ring",
+    "Abomination's Bloody Ring"
+   ],
+   "trinket": [
+    "Sindragosa's Flawless Fang",
+    "Corroded Skeleton Key",
+    "Juggernaut's Vitality"
+   ],
+   "mainhand": [
+    "Oathbinder, Charge of the Ranger-General",
+    "Bloodfall"
+   ],
+   "ranged": [
+    "Idol of the Crying Moon",
+    "Idol of Mutilation"
+   ]
+  },
+  "phase": 4
+ },
+ "Druid|Restoration": {
+  "source": "https://www.icy-veins.com/wotlk-classic/restoration-druid-healer-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Tauren (Horde) / Night Elf (Alliance), 11/0/60 Restoration (Celestial Focus), 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Lasherweave Helmet",
+    "Helm of the Elder Moon"
+   ],
+   "neck": [
+    "Bone Sentinel's Amulet",
+    "Blood Queen's Crimson Choker"
+   ],
+   "shoulder": [
+    "Sanctified Lasherweave Pauldrons",
+    "Dual-Bladed Pauldrons"
+   ],
+   "back": [
+    "Greatcloak of the Turned Champion",
+    "Frostbinder's Shredded Cape"
+   ],
+   "chest": [
+    "Sanguine Silk Robes",
+    "Sanctified Lasherweave Robes"
+   ],
+   "wrist": [
+    "Bracers of Eternal Dreaming",
+    "Death Surgeon's Sleeves"
+   ],
+   "hands": [
+    "Sanctified Lasherweave Gauntlets",
+    "Gloves of Ambivalence"
+   ],
+   "waist": [
+    "Professor's Bloodied Smock",
+    "Crushing Coldwraith Belt"
+   ],
+   "legs": [
+    "Sanctified Lasherweave Legplates",
+    "Plaguebringer's Stained Pants"
+   ],
+   "feet": [
+    "Plague Scientist's Boots",
+    "Boots of Unnatural Growth"
+   ],
+   "ring": [
+    "Ashen Band of Endless Wisdom",
+    "Memory of Malygos",
+    "Marrowgar's Frigid Eye"
+   ],
+   "trinket": [
+    "Althor's Abacus",
+    "Solace of the Fallen",
+    "Solace of the Defeated"
+   ],
+   "mainhand": [
+    "Val'anyr, Hammer of Ancient Kings",
+    "Royal Scepter of Terenas II",
+    "Trauma"
+   ],
+   "offhand": [
+    "Sundial of Eternal Dusk",
+    "Shadow Silk Spindle"
+   ],
+   "ranged": [
+    "Idol of the Black Willow",
+    "Idol of Flaring Growth"
+   ]
+  },
+  "phase": 4
+ },
+ "Hunter|Beast Mastery": {
+  "source": "https://www.icy-veins.com/wotlk-classic/beast-mastery-hunter-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc (Horde) / Night Elf or Draenei (Alliance), 53/18/0 Beast Mastery, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Ahn'Kahar Blood Hunter's Headpiece",
+    "Taldron's Short-Sighted Helm"
+   ],
+   "neck": [
+    "Sindragosa's Cruel Claw",
+    "Rimetooth Pendant"
+   ],
+   "shoulder": [
+    "Sanctified Ahn'Kahar Blood Hunter's Spaulders",
+    "Dual-Bladed Pauldrons"
+   ],
+   "back": [
+    "Vereesa's Dexterity",
+    "Sylvanas' Cunning",
+    "Shadowvault Slayer's Cloak"
+   ],
+   "chest": [
+    "Sanctified Ahn'Kahar Blood Hunter's Tunic",
+    "Carapace of Forgotten Kings"
+   ],
+   "wrist": [
+    "Scourge Hunter's Vambraces",
+    "Toskk's Maximized Wristguards"
+   ],
+   "hands": [
+    "Sanctified Ahn'Kahar Blood Hunter's Handguards",
+    "Anub'ar Stalker's Gloves"
+   ],
+   "waist": [
+    "Nerub'ar Stalker's Cord",
+    "Astrylian's Sutured Cinch"
+   ],
+   "legs": [
+    "Leggings of Northern Lights",
+    "Sanctified Ahn'Kahar Blood Hunter's Legguards"
+   ],
+   "feet": [
+    "Returning Footfalls",
+    "Treads of the Wasteland",
+    "Frostbitten Fur Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Vengeance",
+    "Frostbrood Sapphire Ring",
+    "Band of the Bone Colossus"
+   ],
+   "trinket": [
+    "Deathbringer's Will",
+    "Whispering Fanged Skull",
+    "Death's Verdict"
+   ],
+   "mainhand": [
+    "Oathbinder, Charge of the Ranger-General",
+    "Distant Land"
+   ],
+   "ranged": [
+    "Fal'inrush, Defender of Quel'thalas",
+    "Zod's Repeating Longbow"
+   ]
+  },
+  "phase": 4
+ },
+ "Hunter|Marksmanship": {
+  "source": "https://www.icy-veins.com/wotlk-classic/marksmanship-hunter-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc / Troll (Horde) o Night Elf / Draenei (Alliance), 7/57/7 Marksmanship, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Ahn'Kahar Blood Hunter's Headpiece",
+    "Taldron's Short-Sighted Helm"
+   ],
+   "neck": [
+    "Sindragosa's Cruel Claw",
+    "Rimetooth Pendant"
+   ],
+   "shoulder": [
+    "Sanctified Ahn'Kahar Blood Hunter's Spaulders",
+    "Cultist's Bloodsoaked Spaulders"
+   ],
+   "back": [
+    "Vereesa's Dexterity",
+    "Sylvanas' Cunning",
+    "Shadowvault Slayer's Cloak"
+   ],
+   "chest": [
+    "Sanctified Ahn'Kahar Blood Hunter's Tunic",
+    "Carapace of Forgotten Kings"
+   ],
+   "wrist": [
+    "Scourge Hunter's Vambraces",
+    "Toskk's Maximized Wristguards"
+   ],
+   "hands": [
+    "Sanctified Ahn'Kahar Blood Hunter's Handguards",
+    "Anub'ar Stalker's Gloves"
+   ],
+   "waist": [
+    "Nerub'ar Stalker's Cord",
+    "Astrylian's Sutured Cinch"
+   ],
+   "legs": [
+    "Leggings of Northern Lights",
+    "Sanctified Ahn'Kahar Blood Hunter's Legguards"
+   ],
+   "feet": [
+    "Treads of the Wasteland",
+    "Frostbitten Fur Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Vengeance",
+    "Frostbrood Sapphire Ring",
+    "Band of the Bone Colossus"
+   ],
+   "trinket": [
+    "Deathbringer's Will",
+    "Whispering Fanged Skull",
+    "Death's Verdict"
+   ],
+   "mainhand": [
+    "Oathbinder, Charge of the Ranger-General",
+    "Distant Land"
+   ],
+   "ranged": [
+    "Fal'inrush, Defender of Quel'thalas",
+    "Zod's Repeating Longbow"
+   ]
+  },
+  "phase": 4
+ },
+ "Hunter|Survival": {
+  "source": "https://www.icy-veins.com/wotlk-classic/survival-hunter-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc / Troll (Horde) o Night Elf / Draenei (Alliance), 0/15/56 Survival, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Ahn'Kahar Blood Hunter's Headpiece",
+    "Taldron's Short-Sighted Helm"
+   ],
+   "neck": [
+    "Sindragosa's Cruel Claw",
+    "Rimetooth Pendant"
+   ],
+   "shoulder": [
+    "Sanctified Ahn'Kahar Blood Hunter's Spaulders",
+    "Dual-Bladed Pauldrons"
+   ],
+   "back": [
+    "Vereesa's Dexterity",
+    "Sylvanas' Cunning",
+    "Shadowvault Slayer's Cloak"
+   ],
+   "chest": [
+    "Sanctified Ahn'Kahar Blood Hunter's Tunic",
+    "Carapace of Forgotten Kings"
+   ],
+   "wrist": [
+    "Scourge Hunter's Vambraces",
+    "Toskk's Maximized Wristguards"
+   ],
+   "hands": [
+    "Sanctified Ahn'Kahar Blood Hunter's Handguards",
+    "Anub'ar Stalker's Gloves"
+   ],
+   "waist": [
+    "Nerub'ar Stalker's Cord",
+    "Astrylian's Sutured Cinch"
+   ],
+   "legs": [
+    "Leggings of Northern Lights",
+    "Sanctified Ahn'Kahar Blood Hunter's Legguards"
+   ],
+   "feet": [
+    "Treads of the Wasteland",
+    "Frostbitten Fur Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Vengeance",
+    "Frostbrood Sapphire Ring",
+    "Band of the Bone Colossus"
+   ],
+   "trinket": [
+    "Deathbringer's Will",
+    "Whispering Fanged Skull",
+    "Death's Verdict"
+   ],
+   "mainhand": [
+    "Oathbinder, Charge of the Ranger-General",
+    "Distant Land"
+   ],
+   "ranged": [
+    "Fal'inrush, Defender of Quel'thalas",
+    "Zod's Repeating Longbow"
+   ]
+  },
+  "phase": 4
+ },
+ "Mage|Arcane": {
+  "source": "https://www.icy-veins.com/wotlk-classic/arcane-mage-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Troll (Horde) / Gnome or Human (Alliance), 57/3/11 Arcane, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Bloodmage Hood"
+   ],
+   "neck": [
+    "Blood Queen's Crimson Choker"
+   ],
+   "shoulder": [
+    "Sanctified Bloodmage Shoulderpads"
+   ],
+   "back": [
+    "Frostbinder's Shredded Cape"
+   ],
+   "chest": [
+    "Sanctified Bloodmage Robe"
+   ],
+   "wrist": [
+    "The Lady's Brittle Bracers"
+   ],
+   "hands": [
+    "Sanctified Bloodmage Gloves"
+   ],
+   "waist": [
+    "Crushing Coldwraith Belt"
+   ],
+   "legs": [
+    "Plaguebringer's Stained Pants"
+   ],
+   "feet": [
+    "Plague Scientist's Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Destruction",
+    "Ring of Rapid Ascent",
+    "Loop of the Endless Labyrinth"
+   ],
+   "trinket": [
+    "Dislodged Foreign Object",
+    "Reign of the Unliving",
+    "Reign of the Dead"
+   ],
+   "mainhand": [
+    "Bloodsurge, Kel'Thuzad's Blade of Agony"
+   ],
+   "offhand": [
+    "Shadow Silk Spindle"
+   ],
+   "ranged": [
+    "Corpse-Impaling Spike"
+   ]
+  },
+  "phase": 4
+ },
+ "Mage|Fire": {
+  "source": "https://www.icy-veins.com/wotlk-classic/fire-mage-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Troll (Horde) / Gnome or Human (Alliance), 18/53/0 Torment the Weak Fire, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Bloodmage Hood"
+   ],
+   "neck": [
+    "Blood Queen's Crimson Choker"
+   ],
+   "shoulder": [
+    "Sanctified Bloodmage Shoulderpads"
+   ],
+   "back": [
+    "Frostbinder's Shredded Cape"
+   ],
+   "chest": [
+    "Sanctified Bloodmage Robe",
+    "Robe of the Waking Nightmare"
+   ],
+   "wrist": [
+    "The Lady's Brittle Bracers"
+   ],
+   "hands": [
+    "Sanctified Bloodmage Gloves"
+   ],
+   "waist": [
+    "Crushing Coldwraith Belt"
+   ],
+   "legs": [
+    "Plaguebringer's Stained Pants",
+    "Sanctified Bloodmage Leggings"
+   ],
+   "feet": [
+    "Plague Scientist's Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Destruction",
+    "Ring of Rapid Ascent",
+    "Loop of the Endless Labyrinth"
+   ],
+   "trinket": [
+    "Phylactery of the Nameless Lich",
+    "Dislodged Foreign Object",
+    "Spyglass of the Hidden Fleet"
+   ],
+   "mainhand": [
+    "Bloodsurge, Kel'Thuzad's Blade of Agony"
+   ],
+   "offhand": [
+    "Shadow Silk Spindle"
+   ],
+   "ranged": [
+    "Corpse-Impaling Spike"
+   ]
+  },
+  "phase": 4
+ },
+ "Mage|Frost": {
+  "source": "https://www.icy-veins.com/wotlk-classic/frost-mage-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Troll (Horde) / Gnome or Human (Alliance), 18/0/53 Frost PvE, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Bloodmage Hood"
+   ],
+   "neck": [
+    "Blood Queen's Crimson Choker"
+   ],
+   "shoulder": [
+    "Sanctified Bloodmage Shoulderpads"
+   ],
+   "back": [
+    "Frostbinder's Shredded Cape"
+   ],
+   "chest": [
+    "Sanctified Bloodmage Robe"
+   ],
+   "wrist": [
+    "The Lady's Brittle Bracers"
+   ],
+   "hands": [
+    "Sanctified Bloodmage Gloves"
+   ],
+   "waist": [
+    "Crushing Coldwraith Belt"
+   ],
+   "legs": [
+    "Plaguebringer's Stained Pants"
+   ],
+   "feet": [
+    "Plague Scientist's Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Destruction",
+    "Ring of Rapid Ascent",
+    "Loop of the Endless Labyrinth"
+   ],
+   "trinket": [
+    "Dislodged Foreign Object",
+    "Phylactery of the Nameless Lich",
+    "Reign of the Unliving"
+   ],
+   "mainhand": [
+    "Bloodsurge, Kel'Thuzad's Blade of Agony"
+   ],
+   "offhand": [
+    "Shadow Silk Spindle"
+   ],
+   "ranged": [
+    "Corpse-Impaling Spike"
+   ]
+  },
+  "phase": 4
+ },
+ "Paladin|Holy": {
+  "source": "https://www.icy-veins.com/wotlk-classic/holy-paladin-healer-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Blood Elf (Horde) / Human or Dwarf (Alliance), 52/19/0 Holy + Divine Sacrifice, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Lightsworn Headpiece"
+   ],
+   "neck": [
+    "Blood Queen's Crimson Choker",
+    "Bone Sentinel's Amulet"
+   ],
+   "shoulder": [
+    "Sanctified Lightsworn Spaulders",
+    "Pauldrons of Trembling Rage"
+   ],
+   "back": [
+    "Frostbinder's Shredded Cape",
+    "Greatcloak of the Turned Champion"
+   ],
+   "chest": [
+    "Rot-Resistant Breastplate",
+    "Sanctified Lightsworn Tunic"
+   ],
+   "wrist": [
+    "Bloodsunder's Bracers",
+    "Crypt Keeper's Bracers"
+   ],
+   "hands": [
+    "Unclean Surgical Gloves",
+    "Fallen Lord's Handguards"
+   ],
+   "waist": [
+    "Crushing Coldwraith Belt",
+    "Split Shape Belt"
+   ],
+   "legs": [
+    "Plaguebringer's Stained Pants"
+   ],
+   "feet": [
+    "Plague Scientist's Boots",
+    "Earthsoul Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Wisdom",
+    "Ring of Rapid Ascent",
+    "Memory of Malygos"
+   ],
+   "trinket": [
+    "Meteorite Crystal",
+    "Soul Preserver",
+    "Solace of the Fallen"
+   ],
+   "mainhand": [
+    "Val'anyr, Hammer of Ancient Kings",
+    "Bloodsurge, Kel'Thuzad's Blade of Agony",
+    "Royal Scepter of Terenas II"
+   ],
+   "offhand": [
+    "Bulwark of Smouldering Steel",
+    "Bastion of Purity"
+   ],
+   "ranged": [
+    "Libram of Renewal",
+    "Libram of Veracity"
+   ]
+  },
+  "phase": 4
+ },
+ "Paladin|Protection": {
+  "source": "https://www.icy-veins.com/wotlk-classic/protection-paladin-tank-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Blood Elf (Horde) / Dwarf or Human (Alliance), 0/53/18 Protection, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Broken Ram Skull Helm",
+    "Sanctified Lightsworn Faceguard"
+   ],
+   "neck": [
+    "Bile-Encrusted Medallion",
+    "Noose of Malachite"
+   ],
+   "shoulder": [
+    "Sanctified Lightsworn Shoulderguards",
+    "Boneguard Commander's Pauldrons"
+   ],
+   "back": [
+    "Sentinel's Winter Cloak",
+    "Royal Crimson Cloak"
+   ],
+   "chest": [
+    "Blightborne Warplate",
+    "Sanctified Lightsworn Chestguard"
+   ],
+   "wrist": [
+    "Gargoyle Spit Bracers",
+    "Bracers of Dark Reckoning"
+   ],
+   "hands": [
+    "Sanctified Lightsworn Handguards",
+    "Taldaram's Plated Fists"
+   ],
+   "waist": [
+    "Verdigris Chain Belt",
+    "Belt of Broken Bones"
+   ],
+   "legs": [
+    "Pillars of Might",
+    "Legguards of Lost Hope"
+   ],
+   "feet": [
+    "Grinning Skull Greatboots",
+    "Scourge Fanged Stompers"
+   ],
+   "ring": [
+    "Devium's Eternally Cold Ring",
+    "Juggernaut Band",
+    "Ashen Band of Endless Courage"
+   ],
+   "trinket": [
+    "Sindragosa's Flawless Fang",
+    "Corroded Skeleton Key",
+    "Satrina's Impeding Scarab"
+   ],
+   "mainhand": [
+    "Mithrios, Bronzebeard's Legacy",
+    "Bloodvenom Blade"
+   ],
+   "offhand": [
+    "Icecrown Glacial Wall",
+    "Neverending Winter"
+   ],
+   "ranged": [
+    "Libram of the Eternal Tower",
+    "Libram of Valiance"
+   ]
+  },
+  "phase": 4
+ },
+ "Paladin|Retribution": {
+  "source": "https://www.icy-veins.com/wotlk-classic/retribution-paladin-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Blood Elf (Horde) / Human (Alliance), 11/5/55 Retribution con Shadowmourne, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Lightsworn Helmet",
+    "Landsoul's Horned Greathelm"
+   ],
+   "neck": [
+    "Ahn'kahar Onyx Neckguard",
+    "Sindragosa's Cruel Claw"
+   ],
+   "shoulder": [
+    "Sanctified Lightsworn Shoulderplates",
+    "Raging Behemoth's Shoulderplates"
+   ],
+   "back": [
+    "Shadowvault Slayer's Cloak",
+    "Winding Sheet"
+   ],
+   "chest": [
+    "Sanctified Lightsworn Battleplate",
+    "Ikfirus's Sack of Wonder"
+   ],
+   "wrist": [
+    "Umbrage Armbands",
+    "Polar Bear Claw Bracers",
+    "Toskk's Maximized Wristguards"
+   ],
+   "hands": [
+    "Fleshrending Gauntlets",
+    "Sanctified Lightsworn Gauntlets"
+   ],
+   "waist": [
+    "Astrylian's Sutured Cinch",
+    "Coldwraith Links"
+   ],
+   "legs": [
+    "Sanctified Lightsworn Legplates",
+    "Gangrenous Leggings"
+   ],
+   "feet": [
+    "Blood-Soaked Saronite Stompers",
+    "Frostbitten Fur Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Vengeance",
+    "Frostbrood Sapphire Ring",
+    "Band of the Bone Colossus"
+   ],
+   "trinket": [
+    "Tiny Abomination in a Jar",
+    "Death's Verdict",
+    "Death's Choice"
+   ],
+   "mainhand": [
+    "Shadowmourne",
+    "Oathbinder, Charge of the Ranger-General"
+   ],
+   "ranged": [
+    "Libram of Three Truths",
+    "Libram of Valiance"
+   ]
+  },
+  "phase": 4
+ },
+ "Priest|Discipline": {
+  "source": "https://www.icy-veins.com/wotlk-classic/discipline-priest-healer-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Blood Elf / Troll (Horde) o Human / Dwarf (Alliance), 57/14/0 Discipline, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Crimson Acolyte Hood"
+   ],
+   "neck": [
+    "Blood Queen's Crimson Choker",
+    "Bone Sentinel's Amulet"
+   ],
+   "shoulder": [
+    "Sanctified Crimson Acolyte Shoulderpads"
+   ],
+   "back": [
+    "Frostbinder's Shredded Cape",
+    "Greatcloak of the Turned Champion"
+   ],
+   "chest": [
+    "Sanctified Crimson Acolyte Robe",
+    "Sanguine Silk Robes"
+   ],
+   "wrist": [
+    "The Lady's Brittle Bracers",
+    "Death Surgeon's Sleeves"
+   ],
+   "hands": [
+    "Sanctified Crimson Acolyte Gloves",
+    "Sanctified Crimson Acolyte Handwraps"
+   ],
+   "waist": [
+    "Crushing Coldwraith Belt",
+    "Lingering Illness"
+   ],
+   "legs": [
+    "Plaguebringer's Stained Pants",
+    "Sanctified Crimson Acolyte Leggings"
+   ],
+   "feet": [
+    "Plague Scientist's Boots",
+    "Boots of the Mourning Widow"
+   ],
+   "ring": [
+    "Ashen Band of Endless Wisdom",
+    "Ring of Rapid Ascent",
+    "Memory of Malygos"
+   ],
+   "trinket": [
+    "Solace of the Fallen",
+    "Althor's Abacus",
+    "Purified Lunar Dust"
+   ],
+   "mainhand": [
+    "Royal Scepter of Terenas II",
+    "Bloodsurge, Kel'Thuzad's Blade of Agony",
+    "Val'anyr, Hammer of Ancient Kings"
+   ],
+   "offhand": [
+    "Shadow Silk Spindle",
+    "Sundial of Eternal Dusk"
+   ],
+   "ranged": [
+    "Corpse-Impaling Spike"
+   ]
+  },
+  "phase": 4
+ },
+ "Priest|Holy": {
+  "source": "https://www.icy-veins.com/wotlk-classic/holy-priest-healer-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Blood Elf / Troll (Horde) o Human / Draenei (Alliance), 14/57/0 Holy, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Crimson Acolyte Hood"
+   ],
+   "neck": [
+    "Bone Sentinel's Amulet",
+    "Blood Queen's Crimson Choker"
+   ],
+   "shoulder": [
+    "Sanctified Crimson Acolyte Shoulderpads"
+   ],
+   "back": [
+    "Greatcloak of the Turned Champion",
+    "Frostbinder's Shredded Cape"
+   ],
+   "chest": [
+    "Sanguine Silk Robes",
+    "Sanctified Crimson Acolyte Robe"
+   ],
+   "wrist": [
+    "Death Surgeon's Sleeves",
+    "The Lady's Brittle Bracers"
+   ],
+   "hands": [
+    "Sanctified Crimson Acolyte Gloves"
+   ],
+   "waist": [
+    "Crushing Coldwraith Belt",
+    "Circle of Ossus"
+   ],
+   "legs": [
+    "Sanctified Crimson Acolyte Leggings"
+   ],
+   "feet": [
+    "Plague Scientist's Boots",
+    "Sandals of Consecration"
+   ],
+   "ring": [
+    "Ashen Band of Endless Wisdom",
+    "Memory of Malygos",
+    "Marrowgar's Frigid Eye"
+   ],
+   "trinket": [
+    "Solace of the Fallen",
+    "Althor's Abacus",
+    "Purified Lunar Dust"
+   ],
+   "mainhand": [
+    "Royal Scepter of Terenas II",
+    "Val'anyr, Hammer of Ancient Kings",
+    "Trauma"
+   ],
+   "offhand": [
+    "Sundial of Eternal Dusk",
+    "Shadow Silk Spindle"
+   ],
+   "ranged": [
+    "Corpse-Impaling Spike"
+   ]
+  },
+  "phase": 4
+ },
+ "Priest|Shadow": {
+  "source": "https://www.icy-veins.com/wotlk-classic/shadow-priest-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Troll (Horde) / Human or Draenei (Alliance), 13/0/58 Shadow, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Crimson Acolyte Cowl"
+   ],
+   "neck": [
+    "Blood Queen's Crimson Choker",
+    "Amulet of the Silent Eulogy"
+   ],
+   "shoulder": [
+    "Sanctified Crimson Acolyte Mantle"
+   ],
+   "back": [
+    "Frostbinder's Shredded Cape"
+   ],
+   "chest": [
+    "Sanctified Crimson Acolyte Raiments"
+   ],
+   "wrist": [
+    "The Lady's Brittle Bracers"
+   ],
+   "hands": [
+    "Sanctified Crimson Acolyte Handwraps"
+   ],
+   "waist": [
+    "Crushing Coldwraith Belt"
+   ],
+   "legs": [
+    "Plaguebringer's Stained Pants",
+    "Sanctified Crimson Acolyte Pants"
+   ],
+   "feet": [
+    "Plague Scientist's Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Destruction",
+    "Ring of Rapid Ascent",
+    "Valanar's Other Signet Ring"
+   ],
+   "trinket": [
+    "Phylactery of the Nameless Lich",
+    "Dislodged Foreign Object",
+    "Muradin's Spyglass"
+   ],
+   "mainhand": [
+    "Royal Scepter of Terenas II",
+    "Bloodsurge, Kel'Thuzad's Blade of Agony"
+   ],
+   "offhand": [
+    "Shadow Silk Spindle",
+    "Sundial of Eternal Dusk"
+   ],
+   "ranged": [
+    "Corpse-Impaling Spike"
+   ]
+  },
+  "phase": 4
+ },
+ "Rogue|Assassination": {
+  "source": "https://www.icy-veins.com/wotlk-classic/assassination-rogue-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc / Troll (Horde) o Human / Night Elf (Alliance), 51/18/2 Mutilate, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Shadowblade Helmet",
+    "Geistlord's Punishment Sack"
+   ],
+   "neck": [
+    "Sindragosa's Cruel Claw",
+    "Collar of Haughty Disdain"
+   ],
+   "shoulder": [
+    "Sanctified Shadowblade Pauldrons",
+    "Cultist's Bloodsoaked Spaulders"
+   ],
+   "back": [
+    "Shadowvault Slayer's Cloak",
+    "Vereesa's Dexterity",
+    "Sylvanas' Cunning"
+   ],
+   "chest": [
+    "Ikfirus's Sack of Wonder",
+    "Sanctified Shadowblade Breastplate"
+   ],
+   "wrist": [
+    "Toskk's Maximized Wristguards",
+    "Scourge Hunter's Vambraces"
+   ],
+   "hands": [
+    "Aldriana's Gloves of Secrecy",
+    "Sanctified Shadowblade Gauntlets"
+   ],
+   "waist": [
+    "Astrylian's Sutured Cinch",
+    "Vengeful Noose"
+   ],
+   "legs": [
+    "Gangrenous Leggings",
+    "Sanctified Shadowblade Legplates"
+   ],
+   "feet": [
+    "Frostbitten Fur Boots",
+    "Footpads of Impending Death"
+   ],
+   "ring": [
+    "Ashen Band of Endless Vengeance",
+    "Band of the Bone Colossus",
+    "Frostbrood Sapphire Ring"
+   ],
+   "trinket": [
+    "Tiny Abomination in a Jar",
+    "Whispering Fanged Skull",
+    "Herkuml War Token"
+   ],
+   "mainhand": [
+    "Rib Spreader",
+    "Lungbreaker"
+   ],
+   "offhand": [
+    "Lungbreaker",
+    "Heartpierce"
+   ],
+   "ranged": [
+    "Fal'inrush, Defender of Quel'thalas",
+    "Gluth's Fetching Knife"
+   ]
+  },
+  "phase": 4
+ },
+ "Rogue|Combat": {
+  "source": "https://www.icy-veins.com/wotlk-classic/combat-rogue-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc / Troll (Horde) o Human (Alliance), 20/51/0 Combat Hack and Slash, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Shadowblade Helmet",
+    "Geistlord's Punishment Sack"
+   ],
+   "neck": [
+    "Sindragosa's Cruel Claw",
+    "Rimetooth Pendant"
+   ],
+   "shoulder": [
+    "Sanctified Shadowblade Pauldrons",
+    "Cultist's Bloodsoaked Spaulders"
+   ],
+   "back": [
+    "Vereesa's Dexterity",
+    "Sylvanas' Cunning",
+    "Shadowvault Slayer's Cloak"
+   ],
+   "chest": [
+    "Ikfirus's Sack of Wonder",
+    "Sanctified Shadowblade Breastplate"
+   ],
+   "wrist": [
+    "Toskk's Maximized Wristguards",
+    "Vambraces of the Frost Wyrm Queen"
+   ],
+   "hands": [
+    "Aldriana's Gloves of Secrecy",
+    "Sanctified Shadowblade Gauntlets"
+   ],
+   "waist": [
+    "Astrylian's Sutured Cinch",
+    "Vengeful Noose"
+   ],
+   "legs": [
+    "Gangrenous Leggings",
+    "Sanctified Shadowblade Legplates"
+   ],
+   "feet": [
+    "Frostbitten Fur Boots",
+    "Footpads of Impending Death"
+   ],
+   "ring": [
+    "Ashen Band of Endless Vengeance",
+    "Band of the Bone Colossus",
+    "Frostbrood Sapphire Ring"
+   ],
+   "trinket": [
+    "Deathbringer's Will",
+    "Whispering Fanged Skull",
+    "Death's Verdict"
+   ],
+   "mainhand": [
+    "Havoc's Call, Blade of Lordaeron Kings",
+    "Bloodvenom Blade"
+   ],
+   "offhand": [
+    "Scourgeborne Waraxe",
+    "Lungbreaker"
+   ],
+   "ranged": [
+    "Fal'inrush, Defender of Quel'thalas",
+    "Stakethrower"
+   ]
+  },
+  "phase": 4
+ },
+ "Rogue|Subtlety": {
+  "source": "https://www.icy-veins.com/wotlk-classic/subtlety-rogue-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc / Troll (Horde) o Human / Night Elf (Alliance), 16/3/52 Subtlety, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Shadowblade Helmet",
+    "Geistlord's Punishment Sack"
+   ],
+   "neck": [
+    "Sindragosa's Cruel Claw",
+    "Collar of Haughty Disdain"
+   ],
+   "shoulder": [
+    "Sanctified Shadowblade Pauldrons",
+    "Cultist's Bloodsoaked Spaulders"
+   ],
+   "back": [
+    "Shadowvault Slayer's Cloak",
+    "Vereesa's Dexterity"
+   ],
+   "chest": [
+    "Ikfirus's Sack of Wonder",
+    "Sanctified Shadowblade Breastplate"
+   ],
+   "wrist": [
+    "Toskk's Maximized Wristguards",
+    "Vambraces of the Frost Wyrm Queen"
+   ],
+   "hands": [
+    "Aldriana's Gloves of Secrecy",
+    "Sanctified Shadowblade Gauntlets"
+   ],
+   "waist": [
+    "Astrylian's Sutured Cinch",
+    "Vengeful Noose"
+   ],
+   "legs": [
+    "Gangrenous Leggings",
+    "Sanctified Shadowblade Legplates"
+   ],
+   "feet": [
+    "Frostbitten Fur Boots",
+    "Footpads of Impending Death"
+   ],
+   "ring": [
+    "Ashen Band of Endless Vengeance",
+    "Band of the Bone Colossus",
+    "Frostbrood Sapphire Ring"
+   ],
+   "trinket": [
+    "Deathbringer's Will",
+    "Whispering Fanged Skull",
+    "Herkuml War Token"
+   ],
+   "mainhand": [
+    "Rib Spreader",
+    "Heaven's Fall, Kryss of a Thousand Lies"
+   ],
+   "offhand": [
+    "Scourgeborne Waraxe",
+    "Lungbreaker"
+   ],
+   "ranged": [
+    "Fal'inrush, Defender of Quel'thalas",
+    "Stakethrower"
+   ]
+  },
+  "phase": 4
+ },
+ "Shaman|Elemental": {
+  "source": "https://www.icy-veins.com/wotlk-classic/elemental-shaman-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc / Troll (Horde) o Draenei (Alliance), 57/14/0 Elemental, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Frost Witch's Helm",
+    "Helm of Lupine Grace"
+   ],
+   "neck": [
+    "Blood Queen's Crimson Choker",
+    "Amulet of the Silent Eulogy"
+   ],
+   "shoulder": [
+    "Sanctified Frost Witch's Shoulderpads",
+    "Horrific Flesh Epaulets"
+   ],
+   "back": [
+    "Frostbinder's Shredded Cape",
+    "Greatcloak of the Turned Champion"
+   ],
+   "chest": [
+    "Sanctified Frost Witch's Hauberk",
+    "Sanguine Silk Robes"
+   ],
+   "wrist": [
+    "Bloodsunder's Bracers",
+    "The Lady's Brittle Bracers"
+   ],
+   "hands": [
+    "Sanctified Frost Witch's Gloves",
+    "Gunship Captain's Mittens"
+   ],
+   "waist": [
+    "Crushing Coldwraith Belt",
+    "Split Shape Belt"
+   ],
+   "legs": [
+    "Plaguebringer's Stained Pants",
+    "Sanctified Frost Witch's Kilt"
+   ],
+   "feet": [
+    "Plague Scientist's Boots",
+    "Necrophotic Greaves"
+   ],
+   "ring": [
+    "Ashen Band of Endless Destruction",
+    "Ring of Rapid Ascent",
+    "Valanar's Other Signet Ring"
+   ],
+   "trinket": [
+    "Dislodged Foreign Object",
+    "Phylactery of the Nameless Lich",
+    "Reign of the Unliving"
+   ],
+   "mainhand": [
+    "Royal Scepter of Terenas II",
+    "Frozen Bonespike"
+   ],
+   "offhand": [
+    "Bulwark of Smouldering Steel",
+    "Shadow Silk Spindle"
+   ],
+   "ranged": [
+    "Bizuri's Totem of Shattered Ice",
+    "Totem of Electrifying Wind"
+   ]
+  },
+  "phase": 4
+ },
+ "Shaman|Enhancement": {
+  "source": "https://www.icy-veins.com/wotlk-classic/enhancement-shaman-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc / Troll (Horde) o Draenei (Alliance), 19/52/0 Enhancement, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Frost Witch's Faceguard"
+   ],
+   "neck": [
+    "Sindragosa's Cruel Claw",
+    "Amulet of the Silent Eulogy"
+   ],
+   "shoulder": [
+    "Sanctified Frost Witch's Shoulderguards"
+   ],
+   "back": [
+    "Shadowvault Slayer's Cloak",
+    "Frostbinder's Shredded Cape"
+   ],
+   "chest": [
+    "Sanctified Frost Witch's Chestguard",
+    "Carapace of Forgotten Kings"
+   ],
+   "wrist": [
+    "Scourge Hunter's Vambraces",
+    "Bloodsunder's Bracers"
+   ],
+   "hands": [
+    "Anub'ar Stalker's Gloves",
+    "Sanctified Frost Witch's Grips"
+   ],
+   "waist": [
+    "Nerub'ar Stalker's Cord",
+    "Crushing Coldwraith Belt"
+   ],
+   "legs": [
+    "Sanctified Frost Witch's War-Kilt"
+   ],
+   "feet": [
+    "Treads of the Wasteland"
+   ],
+   "ring": [
+    "Band of the Bone Colossus",
+    "Ashen Band of Endless Vengeance",
+    "Ring of Rapid Ascent"
+   ],
+   "trinket": [
+    "Phylactery of the Nameless Lich",
+    "Deathbringer's Will",
+    "Whispering Fanged Skull"
+   ],
+   "mainhand": [
+    "Royal Scepter of Terenas II",
+    "Havoc's Call, Blade of Lordaeron Kings"
+   ],
+   "offhand": [
+    "Havoc's Call, Blade of Lordaeron Kings"
+   ],
+   "ranged": [
+    "Bizuri's Totem of Shattered Ice"
+   ]
+  },
+  "phase": 4
+ },
+ "Shaman|Restoration": {
+  "source": "https://www.icy-veins.com/wotlk-classic/restoration-shaman-healer-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc / Troll (Horde) o Draenei (Alliance), 0/16/55 Restoration, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Frost Witch's Headpiece"
+   ],
+   "neck": [
+    "Blood Queen's Crimson Choker",
+    "Bone Sentinel's Amulet"
+   ],
+   "shoulder": [
+    "Sanctified Frost Witch's Spaulders"
+   ],
+   "back": [
+    "Frostbinder's Shredded Cape",
+    "Greatcloak of the Turned Champion"
+   ],
+   "chest": [
+    "Sanctified Frost Witch's Tunic",
+    "Sanguine Silk Robes"
+   ],
+   "wrist": [
+    "Bloodsunder's Bracers",
+    "The Lady's Brittle Bracers"
+   ],
+   "hands": [
+    "Unclean Surgical Gloves",
+    "Sanctified Frost Witch's Handguards"
+   ],
+   "waist": [
+    "Crushing Coldwraith Belt",
+    "Belt of the Blood Nova"
+   ],
+   "legs": [
+    "Sanctified Frost Witch's Legguards",
+    "Plaguebringer's Stained Pants"
+   ],
+   "feet": [
+    "Plague Scientist's Boots",
+    "Necrophotic Greaves"
+   ],
+   "ring": [
+    "Ashen Band of Endless Wisdom",
+    "Ring of Rapid Ascent",
+    "Memory of Malygos"
+   ],
+   "trinket": [
+    "Solace of the Fallen",
+    "Althor's Abacus",
+    "Glowing Twilight Scale"
+   ],
+   "mainhand": [
+    "Val'anyr, Hammer of Ancient Kings",
+    "Royal Scepter of Terenas II",
+    "Trauma"
+   ],
+   "offhand": [
+    "Bulwark of Smouldering Steel",
+    "Bastion of Purity"
+   ],
+   "ranged": [
+    "Totem of Calming Tides",
+    "Bizuri's Totem of Shattered Ice"
+   ]
+  },
+  "phase": 4
+ },
+ "Warlock|Affliction": {
+  "source": "https://www.icy-veins.com/wotlk-classic/affliction-warlock-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc (Horde) / Human or Gnome (Alliance), 56/0/15 Affliction, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Dark Coven Hood"
+   ],
+   "neck": [
+    "Blood Queen's Crimson Choker",
+    "Amulet of the Silent Eulogy"
+   ],
+   "shoulder": [
+    "Sanctified Dark Coven Shoulderpads"
+   ],
+   "back": [
+    "Frostbinder's Shredded Cape",
+    "Greatcloak of the Turned Champion"
+   ],
+   "chest": [
+    "Sanctified Dark Coven Robe"
+   ],
+   "wrist": [
+    "The Lady's Brittle Bracers",
+    "Ether-Soaked Bracers"
+   ],
+   "hands": [
+    "Sanctified Dark Coven Gloves"
+   ],
+   "waist": [
+    "Crushing Coldwraith Belt"
+   ],
+   "legs": [
+    "Plaguebringer's Stained Pants"
+   ],
+   "feet": [
+    "Plague Scientist's Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Destruction",
+    "Ring of Rapid Ascent",
+    "Valanar's Other Signet Ring"
+   ],
+   "trinket": [
+    "Phylactery of the Nameless Lich",
+    "Dislodged Foreign Object",
+    "Nevermelting Ice Crystal"
+   ],
+   "mainhand": [
+    "Bloodsurge, Kel'Thuzad's Blade of Agony",
+    "Rigormortis"
+   ],
+   "offhand": [
+    "Shadow Silk Spindle",
+    "Sundial of Eternal Dusk"
+   ],
+   "ranged": [
+    "Corpse-Impaling Spike"
+   ]
+  },
+  "phase": 4
+ },
+ "Warlock|Demonology": {
+  "source": "https://www.icy-veins.com/wotlk-classic/demonology-warlock-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc (Horde) / Human or Gnome (Alliance), 0/56/15 Demonology (Demonic Pact), 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Dark Coven Hood"
+   ],
+   "neck": [
+    "Blood Queen's Crimson Choker",
+    "Amulet of the Silent Eulogy"
+   ],
+   "shoulder": [
+    "Sanctified Dark Coven Shoulderpads"
+   ],
+   "back": [
+    "Frostbinder's Shredded Cape",
+    "Greatcloak of the Turned Champion"
+   ],
+   "chest": [
+    "Sanctified Dark Coven Robe"
+   ],
+   "wrist": [
+    "The Lady's Brittle Bracers",
+    "Ether-Soaked Bracers"
+   ],
+   "hands": [
+    "Sanctified Dark Coven Gloves"
+   ],
+   "waist": [
+    "Crushing Coldwraith Belt"
+   ],
+   "legs": [
+    "Plaguebringer's Stained Pants"
+   ],
+   "feet": [
+    "Plague Scientist's Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Destruction",
+    "Memory of Malygos",
+    "Ring of Rapid Ascent"
+   ],
+   "trinket": [
+    "Phylactery of the Nameless Lich",
+    "Dislodged Foreign Object",
+    "Muradin's Spyglass"
+   ],
+   "mainhand": [
+    "Bloodsurge, Kel'Thuzad's Blade of Agony",
+    "Rigormortis"
+   ],
+   "offhand": [
+    "Shadow Silk Spindle",
+    "Sundial of Eternal Dusk"
+   ],
+   "ranged": [
+    "Corpse-Impaling Spike"
+   ]
+  },
+  "phase": 4
+ },
+ "Warlock|Destruction": {
+  "source": "https://www.icy-veins.com/wotlk-classic/destruction-warlock-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc (Horde) / Human or Gnome (Alliance), 3/13/55 Destruction, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Dark Coven Hood"
+   ],
+   "neck": [
+    "Blood Queen's Crimson Choker",
+    "Amulet of the Silent Eulogy"
+   ],
+   "shoulder": [
+    "Sanctified Dark Coven Shoulderpads"
+   ],
+   "back": [
+    "Frostbinder's Shredded Cape",
+    "Greatcloak of the Turned Champion"
+   ],
+   "chest": [
+    "Sanctified Dark Coven Robe"
+   ],
+   "wrist": [
+    "The Lady's Brittle Bracers",
+    "Ether-Soaked Bracers"
+   ],
+   "hands": [
+    "Sanctified Dark Coven Gloves"
+   ],
+   "waist": [
+    "Crushing Coldwraith Belt"
+   ],
+   "legs": [
+    "Plaguebringer's Stained Pants"
+   ],
+   "feet": [
+    "Plague Scientist's Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Destruction",
+    "Ring of Rapid Ascent",
+    "Valanar's Other Signet Ring"
+   ],
+   "trinket": [
+    "Phylactery of the Nameless Lich",
+    "Dislodged Foreign Object",
+    "Muradin's Spyglass"
+   ],
+   "mainhand": [
+    "Bloodsurge, Kel'Thuzad's Blade of Agony",
+    "Rigormortis"
+   ],
+   "offhand": [
+    "Shadow Silk Spindle",
+    "Sundial of Eternal Dusk"
+   ],
+   "ranged": [
+    "Corpse-Impaling Spike"
+   ]
+  },
+  "phase": 4
+ },
+ "Warrior|Arms": {
+  "source": "https://www.icy-veins.com/wotlk-classic/arms-warrior-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc / Troll (Horde) o Human (Alliance), 54/17/0 Arms con Shadowmourne, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Ymirjar Lord's Helmet",
+    "Landsoul's Horned Greathelm"
+   ],
+   "neck": [
+    "Sindragosa's Cruel Claw",
+    "Lana'thel's Chain of Flagellation"
+   ],
+   "shoulder": [
+    "Sanctified Ymirjar Lord's Shoulderplates",
+    "Raging Behemoth's Shoulderplates"
+   ],
+   "back": [
+    "Vereesa's Dexterity",
+    "Sylvanas' Cunning",
+    "Shadowvault Slayer's Cloak"
+   ],
+   "chest": [
+    "Sanctified Ymirjar Lord's Battleplate",
+    "Castle Breaker's Battleplate"
+   ],
+   "wrist": [
+    "Toskk's Maximized Wristguards",
+    "Polar Bear Claw Bracers"
+   ],
+   "hands": [
+    "Aldriana's Gloves of Secrecy",
+    "Sanctified Ymirjar Lord's Gauntlets"
+   ],
+   "waist": [
+    "Astrylian's Sutured Cinch",
+    "Coldwraith Links"
+   ],
+   "legs": [
+    "Sanctified Ymirjar Lord's Legplates",
+    "Legplates of Painful Death"
+   ],
+   "feet": [
+    "Blood-Soaked Saronite Stompers",
+    "Frostbitten Fur Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Vengeance",
+    "Frostbrood Sapphire Ring",
+    "Might of Blight"
+   ],
+   "trinket": [
+    "Deathbringer's Will",
+    "Whispering Fanged Skull",
+    "Death's Verdict"
+   ],
+   "mainhand": [
+    "Shadowmourne",
+    "Glorenzelg, High-Blade of the Silver Hand",
+    "Cryptmaker"
+   ],
+   "ranged": [
+    "Fal'inrush, Defender of Quel'thalas",
+    "Stakethrower"
+   ]
+  },
+  "phase": 4
+ },
+ "Warrior|Fury": {
+  "source": "https://www.icy-veins.com/wotlk-classic/fury-warrior-dps-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Orc / Troll (Horde) o Human (Alliance), 18/53/0 Titan's Grip Fury con Shadowmourne, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Ymirjar Lord's Helmet",
+    "Landsoul's Horned Greathelm"
+   ],
+   "neck": [
+    "Sindragosa's Cruel Claw",
+    "Ahn'kahar Onyx Neckguard"
+   ],
+   "shoulder": [
+    "Sanctified Ymirjar Lord's Shoulderplates",
+    "Raging Behemoth's Shoulderplates"
+   ],
+   "back": [
+    "Vereesa's Dexterity",
+    "Sylvanas' Cunning",
+    "Shadowvault Slayer's Cloak"
+   ],
+   "chest": [
+    "Sanctified Ymirjar Lord's Battleplate",
+    "Castle Breaker's Battleplate"
+   ],
+   "wrist": [
+    "Toskk's Maximized Wristguards",
+    "Polar Bear Claw Bracers"
+   ],
+   "hands": [
+    "Aldriana's Gloves of Secrecy",
+    "Sanctified Ymirjar Lord's Gauntlets"
+   ],
+   "waist": [
+    "Astrylian's Sutured Cinch",
+    "Coldwraith Links"
+   ],
+   "legs": [
+    "Sanctified Ymirjar Lord's Legplates",
+    "Legplates of Painful Death"
+   ],
+   "feet": [
+    "Blood-Soaked Saronite Stompers",
+    "Frostbitten Fur Boots"
+   ],
+   "ring": [
+    "Ashen Band of Endless Vengeance",
+    "Frostbrood Sapphire Ring",
+    "Might of Blight"
+   ],
+   "trinket": [
+    "Deathbringer's Will",
+    "Whispering Fanged Skull",
+    "Death's Verdict"
+   ],
+   "mainhand": [
+    "Shadowmourne",
+    "Glorenzelg, High-Blade of the Silver Hand"
+   ],
+   "offhand": [
+    "Glorenzelg, High-Blade of the Silver Hand",
+    "Cryptmaker"
+   ],
+   "ranged": [
+    "Fal'inrush, Defender of Quel'thalas",
+    "Stakethrower"
+   ]
+  },
+  "phase": 4
+ },
+ "Warrior|Protection": {
+  "source": "https://www.icy-veins.com/wotlk-classic/protection-warrior-tank-pve-gear-best-in-slot",
+  "level": 80,
+  "faction": "horde",
+  "assumptions": "Tauren / Orc (Horde) o Dwarf / Night Elf (Alliance), 15/3/53 Protection, 25-Man Heroic",
+  "slots": {
+   "head": [
+    "Sanctified Ymirjar Lord's Greathelm",
+    "Broken Ram Skull Helm"
+   ],
+   "neck": [
+    "Bile-Encrusted Medallion",
+    "Noose of Malachite"
+   ],
+   "shoulder": [
+    "Sanctified Ymirjar Lord's Pauldrons",
+    "Boneguard Commander's Pauldrons"
+   ],
+   "back": [
+    "Sentinel's Winter Cloak",
+    "Royal Crimson Cloak"
+   ],
+   "chest": [
+    "Sanctified Ymirjar Lord's Breastplate",
+    "Blightborne Warplate"
+   ],
+   "wrist": [
+    "Gargoyle Spit Bracers",
+    "Bracers of Dark Reckoning"
+   ],
+   "hands": [
+    "Sanctified Ymirjar Lord's Handguards",
+    "Taldaram's Plated Fists"
+   ],
+   "waist": [
+    "Verdigris Chain Belt",
+    "Belt of Broken Bones"
+   ],
+   "legs": [
+    "Legguards of Lost Hope",
+    "Sanctified Ymirjar Lord's Legguards"
+   ],
+   "feet": [
+    "Grinning Skull Greatboots",
+    "Scourge Fanged Stompers"
+   ],
+   "ring": [
+    "Ashen Band of Endless Courage",
+    "Devium's Eternally Cold Ring",
+    "Juggernaut Band"
+   ],
+   "trinket": [
+    "Sindragosa's Flawless Fang",
+    "Corroded Skeleton Key",
+    "Satrina's Impeding Scarab"
+   ],
+   "mainhand": [
+    "Mithrios, Bronzebeard's Legacy",
+    "Bloodvenom Blade",
+    "Last Word"
+   ],
+   "offhand": [
+    "Icecrown Glacial Wall",
+    "Neverending Winter"
+   ],
+   "ranged": [
+    "Dreamhunter's Carbine",
+    "Rowan's Rifle of Silver Bullets"
+   ]
+  },
+  "phase": 4
+ }
 }

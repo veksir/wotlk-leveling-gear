@@ -59,7 +59,9 @@ python tests/spec_weights.py
 - `scripts/fetch_heirloom_stats.py`: estadísticas de reliquias nivel a nivel desde WoWWiki archive y Wowhead.
 - `scripts/build_page.py`: inyecta los datos en la plantilla y escribe `tolltip.html`.
 - `tests/smoke.py`: prueba de humo en navegador.
-- `tests/heirlooms.py`: escalado de reliquias, filtro fuera de especialidad y reglas de mano secundaria con 2H.
+- `tests/check_reference.py`: auditoría de aciertos contra las listas BiS de Icy Veins para las 31 especialidades a nivel 80.
+- `tests/reference_bis.json`: listas BiS de referencia que usa la auditoría.
+- `tests/heirlooms.py`: escalado de reliquias, filtro fuera de especialidad, reglas de mano secundaria con 2H y búsqueda de reliquias.
 - `tests/spec_weights.py`: las 31 especialidades a nivel 80.
 
 **No** edites `tolltip.html` a mano. Es generado. Después de cambiar la plantilla o los datos, vuelve a ejecutar la generación.
@@ -70,6 +72,7 @@ python tests/spec_weights.py
 - Incluye `data/gear_data.json` cuando cambien las recomendaciones.
 - Incluye `data/heirloom_stats.json` cuando cambien las reliquias y `data/spec_weights.json` cuando cambien las prioridades. Cada especialidad conserva su fuente (Icy Veins y, si aplica, WowSims) y su prioridad; `data/reference_spec_stats.json` guarda los valores de calibración en bruto.
 - Mantén las fuentes y la disponibilidad por facción con la mayor precisión posible. Si una fuente es desconocida, usa “Otra fuente” en vez de adivinar.
+- Al actualizar `tests/reference_bis.json`, comprueba que todos los objetos existan en el dataset y pertenezcan al slot que indica la guía.
 - No añadas botín de banda al ranking principal de subida salvo que cambie el alcance del proyecto.
 
 ## Reglas de interfaz

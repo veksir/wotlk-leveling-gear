@@ -59,7 +59,9 @@ python tests/spec_weights.py
 - `scripts/fetch_heirloom_stats.py`: level-by-level heirloom stats from the WoWWiki archive and Wowhead.
 - `scripts/build_page.py`: injects data into the template and writes `tolltip.html`.
 - `tests/smoke.py`: browser smoke test.
-- `tests/heirlooms.py`: heirloom scaling, off-spec filtering, and two-handed off-hand rules.
+- `tests/check_reference.py`: Icy Veins BiS accuracy audit for all 31 level-80 specializations.
+- `tests/reference_bis.json`: reference BiS lists used by the audit.
+- `tests/heirlooms.py`: heirloom scaling, off-spec filtering, two-handed off-hand rules, and relic search.
 - `tests/spec_weights.py`: all 31 level-80 specializations.
 
 Do **not** edit `tolltip.html` by hand. It is generated. After changing the template or data, run the build again.
@@ -70,6 +72,7 @@ Do **not** edit `tolltip.html` by hand. It is generated. After changing the temp
 - Commit the generated `data/gear_data.json` when recommendations change.
 - Commit `data/heirloom_stats.json` when heirloom stats change and `data/spec_weights.json` when priorities change. Every spec entry keeps its source (Icy Veins and, when applicable, WowSims) and priority; `data/reference_spec_stats.json` holds the raw calibration values.
 - Keep item sources and faction availability accurate. If a source is unknown, label it as “Other source” rather than guessing.
+- When updating `tests/reference_bis.json`, make sure every referenced item exists in the dataset and belongs to the slot where the guide lists it.
 - Do not add raid loot to the main leveling ranking unless the project scope changes.
 
 ## Interface rules

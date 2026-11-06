@@ -73,7 +73,7 @@ python tests/heirlooms.py
 python tests/spec_weights.py
 ```
 
-`build_page.py` escribe `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` compara el BiS de Shadow con `tests/reference_bis.json`; `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad y las armas a dos manos; `spec_weights.py` comprueba las 31 especialidades a nivel 80.
+`build_page.py` escribe `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis.json` e informa de aciertos y coincidencias exactas; `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `spec_weights.py` comprueba las 31 especialidades a nivel 80.
 
 ## Estructura del proyecto
 
