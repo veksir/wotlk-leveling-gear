@@ -190,7 +190,7 @@ def main():
     raw_by_id = {str(x["itemId"]): x for x in raw}
     stats_path = ROOT / "data" / "heirloom_stats.json"
     heirloom_stats = json.loads(stats_path.read_text(encoding="utf-8")) if stats_path.exists() else {}
-    heirloom_ids = set(legacy["heirlooms"].keys())
+    heirloom_ids = sorted(legacy["heirlooms"].keys(), key=int)
     heirlooms = {}
     for iid in heirloom_ids:
         raw_item = raw_by_id.get(iid)
