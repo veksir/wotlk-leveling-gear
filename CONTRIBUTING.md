@@ -68,7 +68,7 @@ Do **not** edit `tolltip.html` by hand. It is generated. After changing the temp
 
 - Never commit `data/raw_items.json`, `data/raw_zones.json`, or `data/items.json`. They are ignored on purpose.
 - Commit the generated `data/gear_data.json` when recommendations change.
-- Commit `data/heirloom_stats.json` when heirloom stats change and `data/spec_weights.json` when priorities change. Every spec entry keeps its Icy Veins URL and priority.
+- Commit `data/heirloom_stats.json` when heirloom stats change and `data/spec_weights.json` when priorities change. Every spec entry keeps its source (Icy Veins and, when applicable, WowSims) and priority; `data/reference_spec_stats.json` holds the raw calibration values.
 - Keep item sources and faction availability accurate. If a source is unknown, label it as “Other source” rather than guessing.
 - Do not add raid loot to the main leveling ranking unless the project scope changes.
 

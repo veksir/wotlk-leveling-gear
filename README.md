@@ -37,7 +37,7 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 
 1. `scripts/fetch_raw.py` downloads the raw item and zone data, `scripts/fetch_heirloom_stats.py` adds level-by-level heirloom stats, and `scripts/fetch_atlasloot.py` + `scripts/build_loot.py` add per-boss loot tables for WotLK (Ulduar, Trial of the Crusader, Icecrown Citadel, heroic dungeons, 10/25) from AtlasLootClassic.
 2. `scripts/build_item_db.py` normalizes items, stats (including averaged trinket procs and on-use effects), required levels, armor/weapon metadata, and sources.
-3. `scripts/build_recommendations.py` emits the item database, spec definitions, stat weights, and dungeon list. Level-80 weights follow each spec's Icy Veins priority; below 80 the role weights keep leveling gear sensible. Heirlooms are ranked only when the “already own” toggle is enabled. The ranking itself runs in the browser, so mode, phase, PvP, and faction filters apply instantly.
+3. `scripts/build_recommendations.py` emits the item database, spec definitions, stat weights, and dungeon list. Level-80 weights follow each spec's Icy Veins priority, calibrated with WowSims where available; below 80 the role weights keep leveling gear sensible. Heirlooms are ranked only when the “already own” toggle is enabled. The ranking itself runs in the browser, so mode, phase, PvP, and faction filters apply instantly.
 4. `scripts/build_page.py` injects the generated JSON into `src/template.html` and writes `tolltip.html`.
 
 The ranking is a practical heuristic, not a combat simulator: it sorts by a weighted stat score (item level only breaks ties), uses per-spec priorities at level 80 and role weights while leveling, penalizes armor types that are not ideal for the class, averages trinket procs and on-use effects by duration and cooldown, applies hit/expertise caps at level 80, and compares two-handers against one-hand + off-hand. A two-hander blocks the off-hand slot unless the spec uses Titan's Grip. Epic items with no recorded source at item level 213 or higher are treated as raid loot ("likely raid"). Gems, enchants, set bonuses, and random-enchant items are not scored yet.
@@ -102,7 +102,7 @@ Per-boss loot tables come from [AtlasLootClassic](https://github.com/Hoizame/Atl
 
 Item tooltips and icons are loaded from [EVOWOW](https://wotlk.evowow.com/).
 
-Heirloom stats come from the [WoWWiki archive](https://wowwiki-archive.fandom.com/) level tables and the [Wowhead WotLK tooltip API](https://www.wowhead.com/wotlk). Level-80 stat priorities follow [Icy Veins WotLK Classic](https://www.icy-veins.com/wotlk-classic/); `data/spec_weights.json` records the source and priority for every specialization.
+Heirloom stats come from the [WoWWiki archive](https://wowwiki-archive.fandom.com/) level tables and the [Wowhead WotLK tooltip API](https://www.wowhead.com/wotlk). Level-80 stat priorities follow [Icy Veins WotLK Classic](https://www.icy-veins.com/wotlk-classic/) and, where available, are calibrated with [WowSims](https://wowsims.github.io/wotlk/) EP values; `data/spec_weights.json` records the source and priority for every specialization, and `data/reference_spec_stats.json` keeps the raw reference values.
 
 This project is not affiliated with Blizzard Entertainment. World of Warcraft and Wrath of the Lich King are trademarks of Blizzard Entertainment.
 
@@ -110,7 +110,7 @@ This project is not affiliated with Blizzard Entertainment. World of Warcraft an
 
 - The dataset is based on WotLK Classic; a few original 3.3.5 sources may be missing or labeled as “Other source”.
 - "No raids" excludes raid loot and raid quest chains; "With raids" includes them.
-- Stat weights are role-based while leveling and follow Icy Veins priorities at level 80. They are designed to be useful, not to replace a full BiS simulator; haste soft caps, set bonuses, and talent interactions are not modeled.
+- Stat weights are role-based while leveling and follow Icy Veins priorities, calibrated with WowSims where available, at level 80. They are designed to be useful, not to replace a full BiS simulator; haste soft caps, set bonuses, and talent interactions are not modeled.
 - Off-spec loot is hidden by default. The toggle reveals it faded so you can judge cross-spec upgrades without mixing it into the recommendation.
 - Heirlooms are not recommended by default: Emblems of Heroism and Wintergrasp Marks are earned at level 80. Enable “Include heirlooms I already own” only if you actually have them.
 - Some very low-level slots may legitimately have no item with known stats.

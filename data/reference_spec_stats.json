@@ -1,0 +1,775 @@
+{
+ "Death Knight|Blood Tank": {
+  "caps": {
+   "defense_rating": 689,
+   "hit_rating": 263,
+   "spell_hit_rating_with_virulence": 210,
+   "expertise_rating_soft": 214,
+   "expertise_rating_hard": 460
+  },
+  "stat_priority": [
+   "Defense Rating (hasta 540 Defense / 689 Defense Rating para inmunidad a críticos)",
+   "Stamina",
+   "Spell Hit Rating (hasta 8% con Virulence = 210 Hit Rating para Icy Touch / Taunt)",
+   "Expertise Rating (hasta 26 Expertise = 214 Rating para evitar esquivas en Death Strike)",
+   "Armor",
+   "Agility / Dodge Rating / Parry Rating"
+  ],
+  "weights": {
+   "stamina": 2.5,
+   "armor": 0.15,
+   "defense_rating": 1.4,
+   "dodge_rating": 1.1,
+   "parry_rating": 1.05,
+   "expertise_rating": 1.2,
+   "hit_rating": 1.3,
+   "strength": 0.6,
+   "agility": 0.9
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/tank_deathknight/",
+  "set_pieces": "4 piezas T10 (Sanctified Scourgelord Plate: Head, Shoulder, Chest, Hands; Legs como alternativa según balance de pericia/defensa)"
+ },
+ "Death Knight|Frost DPS": {
+  "caps": {
+   "hit_rating_with_nerves_of_cold_steel": 164,
+   "expertise_rating_with_tundra_stalker": 156,
+   "armor_penetration_rating": 1400
+  },
+  "stat_priority": [
+   "Hit Rating (hasta 5% con Nerves of Cold Steel = 164 Hit Rating)",
+   "Expertise Rating (hasta 26 Expertise = 156 Rating tras Tundra Stalker, o 115 con racial Orc/Human)",
+   "Strength",
+   "Armor Penetration Rating (hasta 1400 rating)",
+   "Haste Rating",
+   "Critical Strike Rating"
+  ],
+  "weights": {
+   "strength": 2.91,
+   "attack_power": 1.0,
+   "hit_rating": 2.65,
+   "expertise_rating": 2.55,
+   "armor_penetration_rating": 2.48,
+   "crit_rating": 1.72,
+   "haste_rating": 1.68
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/deathknight/",
+  "set_pieces": "4 piezas T10 (Sanctified Scourgelord Battlegear: Head, Shoulder, Chest, Hands)"
+ },
+ "Death Knight|Unholy DPS": {
+  "caps": {
+   "hit_rating_melee": 263,
+   "spell_hit_rating_with_virulence_and_debuff": 289,
+   "expertise_rating": 214
+  },
+  "stat_priority": [
+   "Hit Rating (hasta 8% melee = 263 Hit Rating; ~289 Hit Rating para cap de hechizos con Virulence + Misery/Faerie Fire)",
+   "Strength",
+   "Haste Rating",
+   "Critical Strike Rating",
+   "Armor Penetration Rating",
+   "Expertise Rating (bajo valor en 2H Unholy por uso de Runes/Spells)"
+  ],
+  "weights": {
+   "strength": 2.96,
+   "attack_power": 1.0,
+   "hit_rating": 2.75,
+   "haste_rating": 2.05,
+   "crit_rating": 1.85,
+   "armor_penetration_rating": 1.62,
+   "expertise_rating": 1.15
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/deathknight/",
+  "set_pieces": "4 piezas T10 (Sanctified Scourgelord Battlegear: Head, Shoulder, Chest, Hands)"
+ },
+ "Druid|Balance": {
+  "caps": {
+   "hit_rating": 263,
+   "hit_rating_draenei": 237,
+   "haste_rating_soft": 401
+  },
+  "stat_priority": [
+   "Spell Hit Rating (hasta 10% con Balance of Power + Improved Faerie Fire = 263 Hit Rating; 237 con Draenei)",
+   "Spell Power",
+   "Haste Rating (soft cap de GCD/Nature's Grace en ~401 Haste Rating, sigue escalando para Starfire)",
+   "Critical Strike Rating (soft cap de Starfire en Lunar Eclipse ~45.3% crit en personaje = ~1300 Crit Rating)",
+   "Spirit",
+   "Intellect"
+  ],
+  "weights": {
+   "spell_power": 1.0,
+   "hit_rating": 1.65,
+   "crit_rating": 0.72,
+   "haste_rating": 0.7,
+   "intellect": 0.36,
+   "spirit": 0.33
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/balance_druid/",
+  "set_pieces": "4 piezas T10 (Sanctified Lasherweave Regalia: Head, Shoulder, Chest, Legs; o Hands cambiando Legs por Plaguebringer's Stained Pants)"
+ },
+ "Druid|Feral DPS": {
+  "caps": {
+   "hit_rating": 263,
+   "expertise_rating_with_primal_precision": 132,
+   "expertise_rating_without_primal_precision": 214,
+   "armor_penetration_rating": 1400
+  },
+  "stat_priority": [
+   "Armor Penetration Rating (hasta 1400 rating hard cap)",
+   "Hit Rating (hasta 8% = 263 Hit Rating)",
+   "Expertise Rating (hasta 26 Expertise = 132 Rating con 2/2 Primal Precision, o 214 sin Primal Precision)",
+   "Strength / Feral Attack Power",
+   "Agility / Critical Strike Rating (hasta soft cap de crit de ataques blancos ~76.8%)",
+   "Haste Rating (supera a Crit una vez alcanzado el crit cap)"
+  ],
+  "weights": {
+   "strength": 2.42,
+   "agility": 2.38,
+   "attack_power": 1.0,
+   "feral_attack_power": 1.1,
+   "armor_penetration_rating": 2.65,
+   "hit_rating": 2.35,
+   "expertise_rating": 2.3,
+   "crit_rating": 1.55,
+   "haste_rating": 1.78
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/feral_druid/",
+  "set_pieces": "4 piezas T10 (Sanctified Lasherweave Battlegear: Head, Shoulder, Chest, Legs)"
+ },
+ "Druid|Feral Tank": {
+  "caps": {
+   "defense_rating": 0,
+   "hit_rating": 263,
+   "expertise_rating_dodge_with_primal_precision": 132,
+   "expertise_rating_parry_haste_with_primal_precision": 378
+  },
+  "stat_priority": [
+   "Critical Strike Immunity (cubierto pasivamente por 3/3 Survival of the Fittest = 6% reducción de crítico)",
+   "Stamina",
+   "Armor (especialmente en piezas de cuero multiplicadas por Dire Bear Form y Thick Hide)",
+   "Agility (otorga Dodge, Armor y Crit)",
+   "Expertise Rating (hasta 26 Expertise dodge cap = 132 Rating con Primal Precision, hasta 56 parry haste cap = 378 Rating)",
+   "Hit Rating (hasta 8% = 263 Hit Rating)",
+   "Defense Rating / Dodge Rating"
+  ],
+  "weights": {
+   "stamina": 2.8,
+   "agility": 1.65,
+   "armor": 0.35,
+   "dodge_rating": 1.15,
+   "defense_rating": 0.95,
+   "expertise_rating": 1.45,
+   "hit_rating": 1.35,
+   "strength": 0.75
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/feral_tank_druid/",
+  "set_pieces": "4 piezas T10 (Sanctified Lasherweave Battlegear: Head, Shoulder, Hands, Legs; o Chest)"
+ },
+ "Druid|Restoration": {
+  "caps": {
+   "haste_rating_with_celestial_focus": 735,
+   "haste_rating_without_celestial_focus": 856
+  },
+  "stat_priority": [
+   "Haste Rating (hasta el cap de GCD de 1.0s en Rejuvenation: 735 Haste Rating con Celestial Focus 3/3 + Gift of the Earthmother 5/5 + Wrath of Air + Swift Retribution/Improved Moonkin; 856 Haste Rating sin Celestial Focus)",
+   "Spell Power",
+   "Spirit",
+   "Intellect",
+   "Critical Strike Rating"
+  ],
+  "weights": "NO ENCONTRADO",
+  "weights_source": "https://www.icy-veins.com/wotlk-classic/restoration-druid-healer-pve-stat-priority",
+  "set_pieces": "4 piezas T10 (Sanctified Lasherweave Garb: Head, Shoulder, Hands, Legs)"
+ },
+ "Hunter|Beast Mastery": {
+  "caps": {
+   "hit_rating_base": 263,
+   "hit_rating_with_3_focused_aim": 164,
+   "armor_penetration_rating": 1400
+  },
+  "stat_priority": [
+   "Hit Rating (hasta 8% = 263 Hit Rating; o 5% = 164 Hit Rating con 3/3 Focused Aim)",
+   "Armor Penetration Rating (hasta 1400 rating)",
+   "Agility",
+   "Critical Strike Rating",
+   "Attack Power",
+   "Intellect",
+   "Haste Rating"
+  ],
+  "weights": {
+   "ranged_dps": 2.95,
+   "agility": 2.25,
+   "attack_power": 1.0,
+   "hit_rating": 2.8,
+   "armor_penetration_rating": 2.35,
+   "crit_rating": 1.72,
+   "intellect": 1.05,
+   "haste_rating": 0.95
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/hunter/",
+  "set_pieces": "4 piezas T10 (Sanctified Ahn'Kahar Blood Hunter's Battlegear: Head, Shoulder, Chest, Hands)"
+ },
+ "Hunter|Marksmanship": {
+  "caps": {
+   "hit_rating_base": 263,
+   "hit_rating_with_3_focused_aim": 164,
+   "armor_penetration_rating": 1400
+  },
+  "stat_priority": [
+   "Hit Rating (hasta 8% = 263 Hit Rating; o 164 con 3/3 Focused Aim)",
+   "Armor Penetration Rating (hasta 1400 rating)",
+   "Agility",
+   "Critical Strike Rating",
+   "Attack Power",
+   "Intellect",
+   "Haste Rating"
+  ],
+  "weights": {
+   "ranged_dps": 3.45,
+   "armor_penetration_rating": 2.68,
+   "agility": 2.48,
+   "hit_rating": 2.95,
+   "crit_rating": 1.92,
+   "attack_power": 1.0,
+   "intellect": 1.12,
+   "haste_rating": 0.98
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/hunter/",
+  "set_pieces": "4 piezas T10 (Sanctified Ahn'Kahar Blood Hunter's Battlegear: Head, Shoulder, Chest, Hands)"
+ },
+ "Hunter|Survival": {
+  "caps": {
+   "hit_rating_base": 263,
+   "hit_rating_with_3_focused_aim": 164,
+   "armor_penetration_rating": 1400
+  },
+  "stat_priority": [
+   "Hit Rating (hasta 8% = 263 Hit Rating; o 164 con 3/3 Focused Aim)",
+   "Agility (incrementada 15% por Lightning Reflexes y escala con Expose Weakness)",
+   "Critical Strike Rating",
+   "Armor Penetration Rating",
+   "Attack Power",
+   "Intellect",
+   "Haste Rating"
+  ],
+  "weights": {
+   "ranged_dps": 2.65,
+   "agility": 2.75,
+   "hit_rating": 2.85,
+   "crit_rating": 1.88,
+   "armor_penetration_rating": 1.72,
+   "attack_power": 1.0,
+   "intellect": 1.08,
+   "haste_rating": 0.92
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/hunter/",
+  "set_pieces": "4 piezas T10 (Sanctified Ahn'Kahar Blood Hunter's Battlegear: Head, Shoulder, Chest, Hands)"
+ },
+ "Mage|Arcane": {
+  "caps": {
+   "hit_rating_with_talents_and_debuff": 210,
+   "hit_rating_draenei": 184
+  },
+  "stat_priority": [
+   "Spell Hit Rating (hasta 8% con Precision + Arcane Focus + Misery/Faerie Fire = 210 Hit Rating; 184 con Draenei)",
+   "Spell Power",
+   "Haste Rating",
+   "Critical Strike Rating",
+   "Intellect",
+   "Spirit"
+  ],
+  "weights": {
+   "spell_power": 1.0,
+   "hit_rating": 1.55,
+   "haste_rating": 0.92,
+   "crit_rating": 0.62,
+   "intellect": 0.48,
+   "spirit": 0.28
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/mage/",
+  "set_pieces": "4 piezas T10 (Sanctified Bloodmage Regalia: Head, Shoulder, Chest, Hands)"
+ },
+ "Mage|Fire": {
+  "caps": {
+   "hit_rating_ttw_fire": 368,
+   "hit_rating_ttw_fire_draenei": 342,
+   "hit_rating_ffb_with_precision": 289
+  },
+  "stat_priority": [
+   "Spell Hit Rating (hasta 14% con Misery/Faerie Fire en 18/53/0 = 368 Hit Rating; 342 con Draenei)",
+   "Spell Power",
+   "Critical Strike Rating",
+   "Haste Rating",
+   "Spirit",
+   "Intellect"
+  ],
+  "weights": {
+   "spell_power": 1.0,
+   "hit_rating": 1.78,
+   "crit_rating": 0.89,
+   "haste_rating": 0.84,
+   "spirit": 0.34,
+   "intellect": 0.32
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/mage/",
+  "set_pieces": "4 piezas T10 (Sanctified Bloodmage Regalia: Head, Shoulder, Chest, Hands)"
+ },
+ "Mage|Frost": {
+  "caps": {
+   "hit_rating_with_precision_and_debuff": 289,
+   "hit_rating_draenei": 263
+  },
+  "stat_priority": [
+   "Spell Hit Rating (hasta 11% con 3/3 Precision + Misery/Faerie Fire = 289 Hit Rating; 263 con Draenei)",
+   "Spell Power",
+   "Haste Rating",
+   "Critical Strike Rating (soft cap de Shatter en 33.34% raid-buffed)",
+   "Spirit",
+   "Intellect"
+  ],
+  "weights": {
+   "spell_power": 1.0,
+   "hit_rating": 1.5,
+   "haste_rating": 0.88,
+   "crit_rating": 0.52,
+   "spirit": 0.31,
+   "intellect": 0.28
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/mage/",
+  "set_pieces": "4 piezas T10 (Sanctified Bloodmage Regalia: Head, Shoulder, Chest, Hands)"
+ },
+ "Paladin|Holy": {
+  "caps": {
+   "hit_rating": 0,
+   "haste_rating_soft_gcd": 676
+  },
+  "stat_priority": [
+   "Intellect",
+   "Haste Rating",
+   "Mana per 5 Seconds (Mp5)",
+   "Critical Strike Rating",
+   "Spell Power"
+  ],
+  "weights": "NO ENCONTRADO",
+  "weights_source": "https://www.icy-veins.com/wotlk-classic/holy-paladin-healer-pve-stat-priority",
+  "set_pieces": "2 piezas T10 (Sanctified Lightsworn Garb: Head, Shoulder)"
+ },
+ "Paladin|Protection": {
+  "caps": {
+   "defense_rating": 689,
+   "hit_rating": 263,
+   "expertise_rating_with_glyph_and_talent": 82,
+   "expertise_rating_base": 214
+  },
+  "stat_priority": [
+   "Defense Rating (hasta 540 Defense = 689 Defense Rating para inmunidad a críticos)",
+   "Stamina",
+   "Armor",
+   "Expertise Rating (hasta 26 Expertise dodge cap = 132 Rating con Glyph of Seal of Vengeance + 6/6 Combat Expertise; hasta 56 parry haste cap)",
+   "Hit Rating (hasta 8% = 263 Hit Rating)",
+   "Block Value / Dodge Rating / Parry Rating"
+  ],
+  "weights": {
+   "stamina": 2.4,
+   "armor": 0.16,
+   "defense_rating": 1.35,
+   "dodge_rating": 1.1,
+   "parry_rating": 1.05,
+   "expertise_rating": 1.25,
+   "hit_rating": 1.15,
+   "strength": 0.7,
+   "agility": 0.95
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/protection_paladin/",
+  "set_pieces": "2 piezas T10 (Sanctified Lightsworn Plate: Shoulder, Hands; opcional 4 piezas en encuentros de bajo daño físico)"
+ },
+ "Paladin|Retribution": {
+  "caps": {
+   "hit_rating": 263,
+   "hit_rating_draenei": 230,
+   "expertise_rating_base": 214,
+   "expertise_rating_with_glyph": 132
+  },
+  "stat_priority": [
+   "Hit Rating (hasta 8% melee = 263 Hit Rating; 230 con Draenei)",
+   "Expertise Rating (hasta 26 Expertise = 214 Rating; 132 con Glyph of Seal of Vengeance; 107 con Glyph + racial Human)",
+   "Strength",
+   "Critical Strike Rating / Agility",
+   "Haste Rating",
+   "Armor Penetration Rating"
+  ],
+  "weights": {
+   "strength": 2.38,
+   "attack_power": 1.0,
+   "hit_rating": 2.45,
+   "expertise_rating": 2.3,
+   "crit_rating": 1.76,
+   "agility": 1.72,
+   "haste_rating": 1.65,
+   "armor_penetration_rating": 1.48
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/retribution_paladin/",
+  "set_pieces": "4 piezas T10 (Sanctified Lightsworn Battlegear: Head, Shoulder, Chest, Legs; o Hands)"
+ },
+ "Priest|Discipline": {
+  "caps": {
+   "haste_rating_borrowed_time_raid_buffed": 155,
+   "haste_rating_without_borrowed_time": 439
+  },
+  "stat_priority": [
+   "Haste Rating (hasta soft cap de Borrowed Time: 155 Haste Rating con Wrath of Air + Swift Retribution; hasta 439 Haste Rating sin Borrowed Time)",
+   "Spell Power (escala directamente con Power Word: Shield)",
+   "Critical Strike Rating (activa Divine Aegis)",
+   "Intellect",
+   "Spirit / Mp5"
+  ],
+  "weights": "NO ENCONTRADO",
+  "weights_source": "https://www.icy-veins.com/wotlk-classic/discipline-priest-healer-pve-stat-priority",
+  "set_pieces": "4 piezas T10 (Sanctified Crimson Acolyte Raiment: Head, Shoulder, Chest, Hands)"
+ },
+ "Priest|Holy": {
+  "caps": {
+   "haste_rating_soft_gcd": 1269
+  },
+  "stat_priority": [
+   "Intellect",
+   "Spell Power",
+   "Haste Rating",
+   "Spirit",
+   "Critical Strike Rating (para procs de Surge of Light e Inspiration)",
+   "Mp5"
+  ],
+  "weights": "NO ENCONTRADO",
+  "weights_source": "https://www.icy-veins.com/wotlk-classic/holy-priest-healer-pve-stat-priority",
+  "set_pieces": "4 piezas T10 (Sanctified Crimson Acolyte Raiment: Head, Shoulder, Hands, Legs)"
+ },
+ "Priest|Shadow": {
+  "caps": {
+   "hit_rating_with_shadow_focus_and_misery": 289,
+   "hit_rating_draenei": 263
+  },
+  "stat_priority": [
+   "Spell Hit Rating (hasta 11% con 3/3 Shadow Focus + 3/3 Misery = 289 Hit Rating; 263 con Draenei)",
+   "Spell Power",
+   "Haste Rating",
+   "Critical Strike Rating",
+   "Spirit",
+   "Intellect"
+  ],
+  "weights": {
+   "spell_power": 1.0,
+   "hit_rating": 1.68,
+   "haste_rating": 0.98,
+   "crit_rating": 0.76,
+   "spirit": 0.59,
+   "intellect": 0.22
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/shadow_priest/",
+  "set_pieces": "4 piezas T10 (Sanctified Crimson Acolyte Regalia: Head, Shoulder, Chest, Hands)"
+ },
+ "Rogue|Assassination": {
+  "caps": {
+   "special_hit_rating_with_precision": 99,
+   "poison_hit_rating_with_precision_and_debuff": 237,
+   "poison_hit_rating_with_precision_no_debuff": 315,
+   "expertise_rating": 214
+  },
+  "stat_priority": [
+   "Hit Rating hasta Poison Hit Cap (9% con 5/5 Precision + Misery/Faerie Fire = 237 Hit Rating; 315 sin debuff de spell hit)",
+   "Expertise Rating (hasta 26 Expertise = 214 Rating)",
+   "Haste Rating",
+   "Agility / Attack Power",
+   "Critical Strike Rating",
+   "Armor Penetration Rating",
+   "White Hit Rating (hasta 722 rating)"
+  ],
+  "weights": {
+   "attack_power": 1.0,
+   "agility": 2.05,
+   "hit_rating": 2.45,
+   "expertise_rating": 2.15,
+   "haste_rating": 1.95,
+   "crit_rating": 1.62,
+   "armor_penetration_rating": 1.35
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/rogue/",
+  "set_pieces": "2 piezas T10 (Sanctified Shadowblade Battlegear: Head, Shoulder)"
+ },
+ "Rogue|Combat": {
+  "caps": {
+   "special_hit_rating_with_precision": 99,
+   "poison_hit_rating_with_precision_and_debuff": 237,
+   "expertise_rating_with_weapon_expertise": 132,
+   "armor_penetration_rating": 1400
+  },
+  "stat_priority": [
+   "Expertise Rating (hasta 26 Expertise con 2/2 Weapon Expertise = 132 Rating; 91 con racial Orc/Human)",
+   "Hit Rating hasta Poison Hit Cap (237 Hit Rating con 5/5 Precision + Misery/Faerie Fire)",
+   "Armor Penetration Rating (hasta 1400 rating hard cap)",
+   "Agility",
+   "Haste Rating",
+   "Critical Strike Rating (hasta soft cap de crit de ataques blancos)",
+   "Attack Power"
+  ],
+  "weights": {
+   "attack_power": 1.0,
+   "armor_penetration_rating": 2.45,
+   "agility": 2.18,
+   "expertise_rating": 2.35,
+   "hit_rating": 2.25,
+   "haste_rating": 1.85,
+   "crit_rating": 1.65
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/rogue/",
+  "set_pieces": "2 piezas T10 (Sanctified Shadowblade Battlegear: Head, Shoulder)"
+ },
+ "Rogue|Subtlety": {
+  "caps": {
+   "hit_rating_base": 263,
+   "expertise_rating": 214,
+   "armor_penetration_rating": 1400
+  },
+  "stat_priority": [
+   "Hit Rating (hasta 8% special cap = 263 Hit Rating, o 197 con 2/5 Precision)",
+   "Expertise Rating (hasta 26 Expertise = 214 Rating)",
+   "Armor Penetration Rating (hasta 1400 rating)",
+   "Agility (incrementada 15% por Sinister Calling)",
+   "Haste Rating",
+   "Critical Strike Rating",
+   "Attack Power"
+  ],
+  "weights": {
+   "attack_power": 1.0,
+   "agility": 2.4,
+   "armor_penetration_rating": 2.32,
+   "hit_rating": 2.38,
+   "expertise_rating": 2.25,
+   "haste_rating": 1.78,
+   "crit_rating": 1.62
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/rogue/",
+  "set_pieces": "2 piezas T10 (Sanctified Shadowblade Battlegear: Head, Shoulder)"
+ },
+ "Shaman|Elemental": {
+  "caps": {
+   "hit_rating_horde": 289,
+   "hit_rating_alliance_draenei": 263
+  },
+  "stat_priority": [
+   "Spell Hit Rating (hasta 11% con 3/3 Elemental Precision + Misery/Faerie Fire = 289 Hit Rating; 263 con Draenei)",
+   "Spell Power",
+   "Haste Rating",
+   "Critical Strike Rating",
+   "Intellect"
+  ],
+  "weights": {
+   "spell_power": 1.0,
+   "hit_rating": 1.62,
+   "haste_rating": 0.96,
+   "crit_rating": 0.65,
+   "intellect": 0.29
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/elemental_shaman/",
+  "set_pieces": "4 piezas T10 (Sanctified Frost Witch's Regalia: Head, Shoulder, Chest, Hands)"
+ },
+ "Shaman|Enhancement": {
+  "caps": {
+   "melee_special_hit_rating_with_dual_wield_spec": 66,
+   "spell_hit_rating_with_debuff": 368,
+   "spell_hit_rating_draenei": 342,
+   "expertise_rating_with_unleashed_rage": 140
+  },
+  "stat_priority": [
+   "Spell Hit Rating (hasta 14% con Misery/Faerie Fire = 368 Hit Rating; 342 con Draenei)",
+   "Expertise Rating (hasta 26 Expertise con 3/3 Unleashed Rage = 140 Rating; 99 con racial Orc)",
+   "Attack Power / Spell Power",
+   "Haste Rating",
+   "Agility / Critical Strike Rating (hasta soft cap de crit de ataques blancos)",
+   "Intellect",
+   "Armor Penetration Rating"
+  ],
+  "weights": {
+   "attack_power": 1.0,
+   "spell_power": 0.85,
+   "hit_rating": 2.45,
+   "expertise_rating": 2.28,
+   "haste_rating": 2.02,
+   "agility": 1.72,
+   "crit_rating": 1.58,
+   "intellect": 1.15,
+   "armor_penetration_rating": 1.25
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/enhancement_shaman/",
+  "set_pieces": "4 piezas T10 (Sanctified Frost Witch's Battlegear: Head, Shoulder, Chest, Legs)"
+ },
+ "Shaman|Restoration": {
+  "caps": {
+   "haste_rating_soft_gcd": 1269
+  },
+  "stat_priority": [
+   "Haste Rating (hasta ~1269 Haste Rating para GCD de 1.0s y Chain Heal rápido)",
+   "Spell Power",
+   "Mp5 / Intellect",
+   "Critical Strike Rating"
+  ],
+  "weights": "NO ENCONTRADO",
+  "weights_source": "https://www.icy-veins.com/wotlk-classic/restoration-shaman-healer-pve-stat-priority",
+  "set_pieces": "4 piezas T10 (Sanctified Frost Witch's Garb: Head, Shoulder, Chest, Legs)"
+ },
+ "Warlock|Affliction": {
+  "caps": {
+   "hit_rating_with_suppression_and_debuff": 289,
+   "hit_rating_draenei": 263
+  },
+  "stat_priority": [
+   "Spell Hit Rating (hasta 11% con 3/3 Suppression + Misery/Faerie Fire = 289 Hit Rating; 263 con Draenei)",
+   "Spell Power",
+   "Haste Rating",
+   "Critical Strike Rating",
+   "Spirit",
+   "Intellect"
+  ],
+  "weights": {
+   "spell_power": 1.0,
+   "hit_rating": 1.65,
+   "haste_rating": 0.94,
+   "crit_rating": 0.72,
+   "spirit": 0.58,
+   "intellect": 0.25
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/warlock/",
+  "set_pieces": "4 piezas T10 (Sanctified Dark Coven Regalia: Head, Shoulder, Chest, Hands)"
+ },
+ "Warlock|Demonology": {
+  "caps": {
+   "hit_rating_without_suppression": 368,
+   "hit_rating_with_suppression": 289
+  },
+  "stat_priority": [
+   "Spell Hit Rating (hasta 14% con Misery/Faerie Fire = 368 Hit Rating; o 289 con 3/3 Suppression)",
+   "Spell Power (prioridad máxima para maximizar el aporte de Demonic Pact a la banda)",
+   "Haste Rating",
+   "Critical Strike Rating",
+   "Spirit (convierte 30% + 20% con Glyph of Life Tap a Spell Power)",
+   "Intellect"
+  ],
+  "weights": {
+   "spell_power": 1.0,
+   "hit_rating": 1.58,
+   "haste_rating": 0.89,
+   "crit_rating": 0.71,
+   "spirit": 0.66,
+   "intellect": 0.28
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/warlock/",
+  "set_pieces": "4 piezas T10 (Sanctified Dark Coven Regalia: Head, Shoulder, Chest, Hands)"
+ },
+ "Warlock|Destruction": {
+  "caps": {
+   "hit_rating_with_suppression": 289,
+   "hit_rating_without_suppression": 368
+  },
+  "stat_priority": [
+   "Spell Hit Rating (hasta 11% con 3/3 Suppression + Misery/Faerie Fire = 289 Hit Rating; 368 sin Suppression)",
+   "Spell Power",
+   "Haste Rating",
+   "Critical Strike Rating",
+   "Spirit",
+   "Intellect"
+  ],
+  "weights": {
+   "spell_power": 1.0,
+   "hit_rating": 1.62,
+   "haste_rating": 0.91,
+   "crit_rating": 0.78,
+   "spirit": 0.55,
+   "intellect": 0.26
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/warlock/",
+  "set_pieces": "4 piezas T10 (Sanctified Dark Coven Regalia: Head, Shoulder, Chest, Hands)"
+ },
+ "Warrior|Arms": {
+  "caps": {
+   "hit_rating": 263,
+   "expertise_rating_with_weapon_mastery": 148,
+   "armor_penetration_rating_battle_stance": 1260
+  },
+  "stat_priority": [
+   "Hit Rating (hasta 8% = 263 Hit Rating; 230 con Draenei)",
+   "Armor Penetration Rating (hasta 1400 rating; 1050 con Battle Stance 10% + Mace Spec 15%, o 1260 con Battle Stance 10% + Axe/Poleaxe Spec)",
+   "Expertise Rating (hasta 18 Expertise con 2/2 Weapon Mastery = 148 Rating)",
+   "Strength",
+   "Critical Strike Rating / Agility",
+   "Haste Rating"
+  ],
+  "weights": {
+   "strength": 2.45,
+   "attack_power": 1.0,
+   "armor_penetration_rating": 2.65,
+   "hit_rating": 2.55,
+   "expertise_rating": 2.15,
+   "crit_rating": 1.88,
+   "agility": 1.75,
+   "haste_rating": 1.12
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/warrior/",
+  "set_pieces": "4 piezas T10 (Sanctified Ymirjar Lord's Battlegear: Head, Shoulder, Chest, Legs)"
+ },
+ "Warrior|Fury": {
+  "caps": {
+   "hit_rating_with_precision": 164,
+   "hit_rating_with_precision_draenei": 132,
+   "expertise_rating": 214,
+   "armor_penetration_rating": 1400
+  },
+  "stat_priority": [
+   "Hit Rating (hasta 5% con 3/3 Precision = 164 Hit Rating; 132 con Draenei)",
+   "Expertise Rating (hasta 26 Expertise = 214 Rating; 173 con racial Human/Orc)",
+   "Armor Penetration Rating (hasta 1400 rating hard cap)",
+   "Strength",
+   "Critical Strike Rating / Agility",
+   "Haste Rating"
+  ],
+  "weights": {
+   "strength": 2.68,
+   "attack_power": 1.0,
+   "armor_penetration_rating": 2.95,
+   "expertise_rating": 2.62,
+   "hit_rating": 2.75,
+   "crit_rating": 2.02,
+   "agility": 1.88,
+   "haste_rating": 1.64
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/warrior/",
+  "set_pieces": "4 piezas T10 (Sanctified Ymirjar Lord's Battlegear: Head, Shoulder, Chest, Legs)"
+ },
+ "Warrior|Protection": {
+  "caps": {
+   "defense_rating": 689,
+   "hit_rating": 263,
+   "expertise_rating_with_vitality": 165,
+   "expertise_rating_parry_haste": 412
+  },
+  "stat_priority": [
+   "Defense Rating (hasta 540 Defense = 689 Defense Rating para inmunidad a críticos)",
+   "Stamina",
+   "Armor",
+   "Expertise Rating (hasta 26 Expertise = 165 Rating tras 3/3 Vitality; hasta 56 Expertise para parry-haste cap)",
+   "Hit Rating (hasta 8% = 263 Hit Rating)",
+   "Block Value / Block Rating / Dodge Rating / Parry Rating"
+  ],
+  "weights": {
+   "stamina": 2.45,
+   "armor": 0.16,
+   "defense_rating": 1.38,
+   "dodge_rating": 1.12,
+   "parry_rating": 1.08,
+   "block_value": 0.85,
+   "expertise_rating": 1.42,
+   "hit_rating": 1.32,
+   "strength": 0.82,
+   "agility": 0.96
+  },
+  "weights_source": "https://wowsims.github.io/wotlk/protection_warrior/",
+  "set_pieces": "4 piezas T10 (Sanctified Ymirjar Lord's Plate: Head, Shoulder, Chest, Hands)"
+ }
+}

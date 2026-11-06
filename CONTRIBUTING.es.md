@@ -68,7 +68,7 @@ python tests/spec_weights.py
 
 - No subas `data/raw_items.json`, `data/raw_zones.json` ni `data/items.json`. Están ignorados a propósito.
 - Incluye `data/gear_data.json` cuando cambien las recomendaciones.
-- Incluye `data/heirloom_stats.json` cuando cambien las reliquias y `data/spec_weights.json` cuando cambien las prioridades. Cada especialidad conserva su URL de Icy Veins y su prioridad.
+- Incluye `data/heirloom_stats.json` cuando cambien las reliquias y `data/spec_weights.json` cuando cambien las prioridades. Cada especialidad conserva su fuente (Icy Veins y, si aplica, WowSims) y su prioridad; `data/reference_spec_stats.json` guarda los valores de calibración en bruto.
 - Mantén las fuentes y la disponibilidad por facción con la mayor precisión posible. Si una fuente es desconocida, usa “Otra fuente” en vez de adivinar.
 - No añadas botín de banda al ranking principal de subida salvo que cambie el alcance del proyecto.
 

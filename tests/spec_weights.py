@@ -30,9 +30,11 @@ def main():
         # Los pesos de especialidad solo se aplican a nivel 80; por debajo manda el rol.
         levels = page.evaluate("""() => {
           const s = DATA.specs["Mage|Fire"];
-          return { low: weightsFor(s, false, 79).crit, cap: weightsFor(s, false, 80).crit };
+          return { low: weightsFor(s, false, 79).crit, cap: weightsFor(s, false, 80).crit,
+                   role: DATA.engine.weights.caster.crit, spec: DATA.engine.specWeights["Mage|Fire"].crit };
         }""")
-        assert levels["low"] == 0.5 and levels["cap"] == 0.8, levels
+        # Por debajo de 80 manda el peso del rol; a 80, el de la especialidad (el valor concreto se calibra con las guías).
+        assert levels["low"] == levels["role"] and levels["cap"] == levels["spec"] and levels["cap"] != levels["low"], levels
 
         # Todas las especialidades producen un set completo a nivel 80 con bandas.
         incomplete = page.evaluate("""() => Object.entries(DATA.specs).filter(([k, spec]) => {
