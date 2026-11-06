@@ -40,7 +40,7 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 3. `scripts/build_recommendations.py` genera la base de objetos, las definiciones de especialidad, los pesos de estadísticas y la lista de mazmorras. A nivel 80 se usa la prioridad de Icy Veins de cada especialidad; por debajo de 80, los pesos por rol mantienen el equipo de subida coherente. Las reliquias solo se rankean si activas «Incluir reliquias que ya tengo». El ranking se calcula en el navegador, así que los filtros de modo, fase, PvP y facción se aplican al instante.
 4. `scripts/build_page.py` inyecta el JSON generado en `src/template.html` y escribe `tolltip.html`.
 
-El ranking es una heurística práctica, no un simulador de combate: ordena por una puntuación ponderada de estadísticas (el nivel de objeto solo desempata), usa prioridades por especialidad a nivel 80 y pesos por rol durante la subida, penaliza los tipos de armadura que no son ideales para la clase, promedia los procs y efectos de uso de los abalorios según duración y enfriamiento, aplica los topes de golpe/pericia a nivel 80 y compara dos manos contra una mano + secundaria. Un arma a dos manos también bloquea la mano secundaria. Los épicos sin fuente registrada de nivel de objeto 213 o más se tratan como botín de banda («banda probable»). Aún no se puntúan gemas, encantamientos, bonificaciones de set ni objetos con encantamiento aleatorio.
+El ranking es una heurística práctica, no un simulador de combate: ordena por una puntuación ponderada de estadísticas (el nivel de objeto solo desempata), usa prioridades por especialidad a nivel 80 y pesos por rol durante la subida, penaliza los tipos de armadura que no son ideales para la clase, promedia los procs y efectos de uso de los abalorios según duración y enfriamiento, aplica los topes de golpe/pericia a nivel 80 y compara dos manos contra una mano + secundaria. Un arma a dos manos bloquea la mano secundaria salvo en especialidades con Titan's Grip. Los épicos sin fuente registrada de nivel de objeto 213 o más se tratan como botín de banda («banda probable»). Aún no se puntúan gemas, encantamientos, bonificaciones de set ni objetos con encantamiento aleatorio.
 
 ## Inicio rápido
 
@@ -116,7 +116,7 @@ Este proyecto no está afiliado a Blizzard Entertainment. World of Warcraft y Wr
 - Las reliquias no se recomiendan por defecto: los Emblemas de Heroísmo y las Marcas de la Conquista del Invierno se obtienen a nivel 80. Activa «Incluir reliquias que ya tengo» solo si realmente las tienes.
 - Algunos slots de niveles muy bajos pueden no tener objetos con estadísticas conocidas.
 - La página muestra el mejor objeto y alternativas por slot, no todos los objetos. Un legendario solo aparece si puntúa para la especialidad, nivel, facción, modo, fase y filtro PvP seleccionados. Los legendarios de nivel bajo o que dependen de una combinación no modelada pueden no aparecer.
-- Las combinaciones de armas están simplificadas: algunos setups especiales, como Titan's Grip de Fury, todavía no se modelan, así que ciertos objetos BiS o legendarios pueden faltar.
+- Las combinaciones de armas cubren Frost Death Knight con dos armas de una mano y Titan's Grip de Fury (dos armas a dos manos). Otros setups especiales siguen simplificados, así que aún pueden faltar algunos objetos BiS.
 - La página final incluye los datos incrustados, así que `tolltip.html` pesa alrededor de 5,1 MB.
 
 ## Contribuir

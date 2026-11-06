@@ -49,7 +49,7 @@ CLASS_WEAPONS = {
 
 SPECS = [
     ("Death Knight", "Blood Tank", "tank", "str", "2h", None, None, "Sigil"),
-    ("Death Knight", "Frost DPS", "str", "str", "2h", None, None, "Sigil"),
+    ("Death Knight", "Frost DPS", "str", "str", "1h", "dw", None, "Sigil"),
     ("Death Knight", "Unholy DPS", "str", "str", "2h", None, None, "Sigil"),
     ("Druid", "Balance", "caster", "int", "any", "held", None, "Idol"),
     ("Druid", "Feral DPS", "agi", "agi", "2h", None, None, "Idol"),
@@ -77,7 +77,7 @@ SPECS = [
     ("Warlock", "Demonology", "caster", "int", "any", "held", "wand", None),
     ("Warlock", "Destruction", "caster", "int", "any", "held", "wand", None),
     ("Warrior", "Arms", "str", "str", "2h", None, "thrown", None),
-    ("Warrior", "Fury", "str", "str", "1h", "dw", "thrown", None),
+    ("Warrior", "Fury", "str", "str", "tg", "dw", "thrown", None),
     ("Warrior", "Protection", "tank", "str", "1h", "shield", "thrown", None),
 ]
 

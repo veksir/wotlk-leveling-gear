@@ -59,13 +59,41 @@ def main():
           return Object.values(g.slots).flatMap((s) => s.list.map((e) => ({ n: e.it.n, raid: !!e.it.raid, pvp: !!e.it.pvp, ph: e.it.ph || 0, rp: !!e.it.src && e.it.src.t === 'RaidProb' })));
         }"""
         base = {"level": 80, "faction": "horde", "phase": 0, "pvp": False}
-        for spec in ("Warrior|Arms", "Death Knight|Frost DPS"):
+        for spec in ("Warrior|Arms", "Death Knight|Unholy DPS"):
             raid = page.evaluate(gear, {"spec": spec, "opts": {**base, "scope": "raid"}})
             plain = page.evaluate(gear, {"spec": spec, "opts": {**base, "scope": "noraid"}})
             assert any(x["n"] == "Shadowmourne" for x in raid), spec + ": Shadowmourne debe aparecer con bandas"
             assert not any(x["n"] == "Shadowmourne" for x in plain), spec + ": no debe aparecer sin bandas"
             assert not any(x["raid"] or x["rp"] for x in plain), "sin bandas no admite objetos de banda (ni probables)"
         assert not any(x["n"] == "Shadowmourne" for x in page.evaluate(gear, {"spec": "Paladin|Retribution", "opts": {**base, "scope": "raid"}}))
+        dw = page.evaluate("""() => {
+          const pick = (g, slot) => g.slots[slot].list[0] && g.slots[slot].list[0].it;
+          const frost = computeGear(DATA.specs["Death Knight|Frost DPS"], {level: 80, faction: "horde", scope: "raid", phase: 0, pvp: false});
+          const fury = computeGear(DATA.specs["Warrior|Fury"], {level: 80, faction: "horde", scope: "raid", phase: 4, pvp: false});
+          const low = computeGear(DATA.specs["Warrior|Fury"], {level: 40, faction: "horde", scope: "noraid", phase: 0, pvp: false});
+          const fh = pick(frost, "mainhand"), fo = pick(frost, "offhand");
+          const mh = pick(fury, "mainhand"), oh = pick(fury, "offhand");
+          const lm = pick(low, "mainhand"), lo = pick(low, "offhand");
+          return {frost: [itemHands(fh), itemHands(fo)], fury: [itemHands(mh), itemHands(oh)],
+                  names: [mh && mh.n, oh && oh.n], low: [itemHands(lm), itemHands(lo)]};
+        }""")
+        assert dw["frost"] == [1, 1], dw
+        assert dw["fury"] == [2, 2] and dw["names"][0] != dw["names"][1], dw
+        assert dw["low"] == [1, 1], dw
+        page.evaluate("""() => { state.cls = "Warrior"; state.spec = "Fury"; state.level = 80; state.gear = {}; render(); }""")
+        page.wait_for_timeout(200)
+        page.evaluate("""() => setEquipped("mainhand", "49623")""")
+        page.wait_for_timeout(200)
+        assert not page.locator("#eq-offhand").is_disabled(), "Titan's Grip no debe bloquear la mano secundaria"
+        page.evaluate("""() => setEquipped("offhand", "50070")""")
+        page.wait_for_timeout(200)
+        assert page.locator("#eq-offhand").input_value().startswith("Glorenzelg")
+        page.evaluate("""() => { state.level = 40; state.gear = {}; render(); }""")
+        page.wait_for_timeout(200)
+        page.evaluate("""() => setEquipped("mainhand", "49623")""")
+        page.wait_for_timeout(200)
+        assert page.locator("#eq-offhand").is_disabled(), "sin Titan's Grip la mano secundaria debe bloquearse"
+        page.evaluate("""() => { state.gear = {}; }""")
         assert not any(x["pvp"] for x in page.evaluate(gear, {"spec": "Warrior|Arms", "opts": {**base, "scope": "raid"}})), "PvP excluido por defecto"
         pvp_only = page.evaluate(gear, {"spec": "Warrior|Arms", "opts": {**base, "scope": "raid", "pvp": True}})
         assert len(pvp_only) > 10 and all(x["pvp"] for x in pvp_only), "el modo PvP muestra solo equipo PvP"

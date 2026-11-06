@@ -929,7 +929,7 @@ function availableLevel(it, spec) {
   if (it.at) lv = Math.max(lv, armorUnlock(spec.cls, it.at));
   return lv <= 80 ? lv : null;
 }
-function poolsFor(it, spec) {
+function poolsFor(it, spec, level) {
   const { cls, off, ranged, relic, mode } = spec;
   const slot = it.s, sub = it.sub, at = it.at, hands = itemHands(it);
   if (ARMOR_KEYS.includes(slot)) {
@@ -941,8 +941,13 @@ function poolsFor(it, spec) {
   if (["twohand", "onehand", "mainhand", "offhand"].includes(slot)) {
     if (!ENG.classWeapons[cls].includes(sub)) return [];
     if (!((ENG.weaponHands[cls] || {})[sub] || []).includes(hands)) return [];
-    if (mode === "2h" && hands !== 2) return [];
-    if (mode === "1h" && hands !== 1) return [];
+    if (mode === "tg") {
+      if (level >= 60) return hands === 2 ? ["mainhand", "offhand"] : [];
+      if (hands !== 1) return [];
+    } else {
+      if (mode === "2h" && hands !== 2) return [];
+      if (mode === "1h" && hands !== 1) return [];
+    }
     return off === "dw" && hands === 1 ? ["mainhand", "offhand"] : ["mainhand"];
   }
   if (slot === "held" && off === "held") return ["offhand"];
@@ -964,7 +969,7 @@ function evalItem(it, spec, w, o, cap) {
   if (it.cl && !it.cl.includes(spec.cls)) return null;
   const fs = itemFactions(it);
   if (!(fs.has("both") || fs.has(o.faction))) return null;
-  const pk = poolsFor(it, spec);
+  const pk = poolsFor(it, spec, o.level);
   if (!pk.length) return null;
   const al = availableLevel(it, spec);
   if (al === null || (cap && al > o.level)) return null;
@@ -1014,10 +1019,11 @@ function computeGear(spec, o) {
     const out = {};
     const mainBest = (pools.mainhand || [])[0];
     const twoHandMain = !!mainBest && itemHands(mainBest.it) === 2;
+    const tg = titanGrip(spec, o.level);
     specSlots(spec).forEach((slot) => {
       const src = poolOfSlot(slot);
       let pool = pools[src] || [];
-      if (slot === "offhand" && twoHandMain) pool = [];
+      if (slot === "offhand" && twoHandMain && !tg) pool = [];
       if (slot === "offhand" && spec.off === "dw" && mainBest) pool = pool.filter((e) => e.it.n !== mainBest.it.n);
       let list = pool;
       if (slot === "ring1" || slot === "trinket1") list = [pool[0]].concat(pool.slice(2)).filter(Boolean);
@@ -1088,9 +1094,15 @@ function computeGear(spec, o) {
 const poolOfSlot = (s) => (s.startsWith("ring") ? "ring" : s.startsWith("trinket") ? "trinket" : s);
 const gearKey = () => state.cls + "|" + state.spec;
 const equippedMap = () => state.gear[gearKey()] || {};
-function equippedMainTwoHand() {
+function currentSpec() {
+  return DATA.specs[state.cls + "|" + state.spec];
+}
+function titanGrip(spec, level) {
+  return !!spec && spec.mode === "tg" && level >= 60;
+}
+function equippedMainTwoHand(spec) {
   const id = equippedMap().mainhand, it = id && gearItem(id);
-  return !!(it && itemHands(it) === 2);
+  return !!(it && itemHands(it) === 2 && !titanGrip(spec || currentSpec(), state.level));
 }
 /* El equipo que ya llevas puesto puede ser cualquier cosa que tu clase pueda equipar,
    aunque no sea ideal para la especialidad (armas de dos manos, otro tipo de armadura, etc.). */
@@ -1098,7 +1110,7 @@ const SHIELD_CLASSES = ["Warrior", "Paladin", "Shaman"];
 const DW_CLASSES = ["Rogue", "Warrior", "Death Knight", "Hunter", "Shaman"];
 const CLASS_RELIC = {}, CLASS_RANGED = {};
 Object.values(DATA.specs).forEach((sp) => { if (sp.relic) CLASS_RELIC[sp.cls] = sp.relic; if (sp.ranged) CLASS_RANGED[sp.cls] = sp.ranged; });
-function equipPools(it, spec) {
+function equipPools(it, spec, level) {
   const cls = spec.cls, slot = it.s, sub = it.sub;
   if (ARMOR_KEYS.includes(slot)) {
     if (slot === "back") return ["back"];
@@ -1111,6 +1123,7 @@ function equipPools(it, spec) {
     if (!(ENG.classWeapons[cls] || []).includes(sub)) return [];
     const hands = itemHands(it);
     if (!((ENG.weaponHands[cls] || {})[sub] || []).includes(hands)) return [];
+    if (hands === 2) return titanGrip(spec, level) && cls === "Warrior" ? ["mainhand", "offhand"] : ["mainhand"];
     return hands === 1 && (spec.off === "dw" || DW_CLASSES.includes(cls)) ? ["mainhand", "offhand"] : ["mainhand"];
   }
   if ((slot === "ranged" || slot === "thrown") && CLASS_RANGED[cls]) {
@@ -1127,7 +1140,7 @@ function evalEquip(it, spec, w, o) {
   if (it.cl && !it.cl.includes(spec.cls)) return null;
   const fs = itemFactions(it);
   if (!(fs.has("both") || fs.has(o.faction))) return null;
-  const pk = equipPools(it, spec);
+  const pk = equipPools(it, spec, o.level);
   if (!pk.length) return null;
   const al = availableLevel(it, spec);
   if (al === null) return null;
@@ -1161,12 +1174,12 @@ function equippedEntry(spec, slot) {
   return { id, it, score: r ? r.score : 0 };
 }
 function setEquipped(slot, id) {
-  const g = (state.gear[gearKey()] = state.gear[gearKey()] || {});
-  if (slot === "offhand" && equippedMainTwoHand()) return;
+  const g = (state.gear[gearKey()] = state.gear[gearKey()] || {}), spec = currentSpec();
+  if (slot === "offhand" && equippedMainTwoHand(spec)) return;
   if (id) g[slot] = id; else delete g[slot];
   if (slot === "mainhand") {
     const it = id && gearItem(id);
-    if (it && itemHands(it) === 2) delete g.offhand;
+    if (it && itemHands(it) === 2 && !titanGrip(spec, state.level)) delete g.offhand;
   }
   persist();
   render();
@@ -1175,7 +1188,7 @@ function renderEquip(spec) {
   const grid = $("eqGrid"), pools = candidates(spec);
   const labels = SLOT_LABEL[state.lang] || SLOT_LABEL.es;
   grid.innerHTML = specSlots(spec).map((slot) => {
-    const blocked = slot === "offhand" && equippedMainTwoHand();
+    const blocked = slot === "offhand" && equippedMainTwoHand(spec);
     const cur = blocked ? null : equippedEntry(spec, slot);
     const ph = blocked ? t("offhandBlocked") : t("eqPlaceholder");
     return '<div class="eq-slot"><label for="eq-' + slot + '">' + (labels[slot] || slot) + '</label><div class="eq-field"><input id="eq-' + slot +
@@ -1310,7 +1323,7 @@ function renderLoot(spec) {
     if (state.phase && it.ph > state.phase) continue;
     const r = evalItem(it, spec, w, { level, faction: state.faction }, false);
     if (!r) continue;
-    if (equippedMainTwoHand() && r.pk.length === 1 && r.pk[0] === "offhand") continue;
+    if (equippedMainTwoHand(spec) && r.pk.length === 1 && r.pk[0] === "offhand") continue;
     if (!r.rel && !state.showOffspec) { hidden++; continue; }
     const offspec = !r.rel;
     let bestD = -1e9, vs = null;
@@ -1676,7 +1689,7 @@ $("eqUseRec").addEventListener("click", () => {
   const spec = DATA.specs[state.cls + "|" + state.spec], g = {};
   specSlots(spec).forEach((sl) => { const e = lastGear.slots[sl] && lastGear.slots[sl].list[0]; if (e) g[sl] = e.id; });
   const mh = g.mainhand && gearItem(g.mainhand);
-  if (mh && itemHands(mh) === 2) delete g.offhand;
+  if (mh && itemHands(mh) === 2 && !titanGrip(spec, state.level)) delete g.offhand;
   state.gear[gearKey()] = g;
   persist();
   render();

@@ -40,7 +40,7 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 3. `scripts/build_recommendations.py` emits the item database, spec definitions, stat weights, and dungeon list. Level-80 weights follow each spec's Icy Veins priority; below 80 the role weights keep leveling gear sensible. Heirlooms are ranked only when the “already own” toggle is enabled. The ranking itself runs in the browser, so mode, phase, PvP, and faction filters apply instantly.
 4. `scripts/build_page.py` injects the generated JSON into `src/template.html` and writes `tolltip.html`.
 
-The ranking is a practical heuristic, not a combat simulator: it sorts by a weighted stat score (item level only breaks ties), uses per-spec priorities at level 80 and role weights while leveling, penalizes armor types that are not ideal for the class, averages trinket procs and on-use effects by duration and cooldown, applies hit/expertise caps at level 80, and compares two-handers against one-hand + off-hand. A two-hander also blocks the off-hand slot. Epic items with no recorded source at item level 213 or higher are treated as raid loot ("likely raid"). Gems, enchants, set bonuses, and random-enchant items are not scored yet.
+The ranking is a practical heuristic, not a combat simulator: it sorts by a weighted stat score (item level only breaks ties), uses per-spec priorities at level 80 and role weights while leveling, penalizes armor types that are not ideal for the class, averages trinket procs and on-use effects by duration and cooldown, applies hit/expertise caps at level 80, and compares two-handers against one-hand + off-hand. A two-hander blocks the off-hand slot unless the spec uses Titan's Grip. Epic items with no recorded source at item level 213 or higher are treated as raid loot ("likely raid"). Gems, enchants, set bonuses, and random-enchant items are not scored yet.
 
 ## Quick start
 
@@ -115,7 +115,7 @@ This project is not affiliated with Blizzard Entertainment. World of Warcraft an
 - Heirlooms are not recommended by default: Emblems of Heroism and Wintergrasp Marks are earned at level 80. Enable “Include heirlooms I already own” only if you actually have them.
 - Some very low-level slots may legitimately have no item with known stats.
 - The page shows the best item plus alternatives per slot, not every item. A legendary only appears if it ranks for the selected spec, level, faction, mode, phase, and PvP filter. Low-level legendaries or ones that depend on an unmodeled setup may not appear.
-- Weapon combinations are simplified: special setups such as Fury's Titan's Grip are not fully modeled yet, so some BiS or legendary items may be missing.
+- Weapon combinations cover dual-wield Frost Death Knights and Fury's Titan's Grip (two two-handed weapons). Other special setups remain simplified, so some BiS items may still be missing.
 - The generated page embeds the item data, so `tolltip.html` is intentionally large (around 5.1 MB).
 
 ## Contributing
