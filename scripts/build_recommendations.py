@@ -67,18 +67,18 @@ SPECS = [
     ("Priest", "Discipline", "healer", "int", "any", "held", "wand", None),
     ("Priest", "Holy", "healer", "int", "any", "held", "wand", None),
     ("Priest", "Shadow", "caster", "int", "any", "held", "wand", None),
-    ("Rogue", "Assassination", "agi", "agi", "1h", "dw", "thrown", None),
-    ("Rogue", "Combat", "agi", "agi", "1h", "dw", "thrown", None),
-    ("Rogue", "Subtlety", "agi", "agi", "1h", "dw", "thrown", None),
+    ("Rogue", "Assassination", "agi", "agi", "1h", "dw", "anyranged", None),
+    ("Rogue", "Combat", "agi", "agi", "1h", "dw", "anyranged", None),
+    ("Rogue", "Subtlety", "agi", "agi", "1h", "dw", "anyranged", None),
     ("Shaman", "Elemental", "caster", "int", "any", "shield", None, "Totem"),
     ("Shaman", "Enhancement", "agi", "agi", "1h", "dw", None, "Totem"),
     ("Shaman", "Restoration", "healer", "int", "any", "shield", None, "Totem"),
     ("Warlock", "Affliction", "caster", "int", "any", "held", "wand", None),
     ("Warlock", "Demonology", "caster", "int", "any", "held", "wand", None),
     ("Warlock", "Destruction", "caster", "int", "any", "held", "wand", None),
-    ("Warrior", "Arms", "str", "str", "2h", None, "thrown", None),
-    ("Warrior", "Fury", "str", "str", "tg", "dw", "thrown", None),
-    ("Warrior", "Protection", "tank", "str", "1h", "shield", "thrown", None),
+    ("Warrior", "Arms", "str", "str", "2h", None, "anyranged", None),
+    ("Warrior", "Fury", "str", "str", "tg", "dw", "anyranged", None),
+    ("Warrior", "Protection", "tank", "str", "1h", "shield", "anyranged", None),
 ]
 
 ARMOR_TIERS = {
@@ -163,7 +163,7 @@ ROLES = ["str", "agi", "caster", "healer", "tank", "bear", "hunter"]
 def compact(it):
     """Quita campos vacíos y derivables: la página calcula el resto en el navegador."""
     out = {k: it[k] for k in ("n", "i", "q", "ilvl", "req", "s", "sub", "src") if it.get(k) not in (None, "")}
-    for k in ("at", "ar", "dps", "cl", "st", "px"):
+    for k in ("at", "ar", "dps", "cl", "st", "px", "sc", "sb"):
         if it.get(k):
             out[k] = it[k]
     for k in ("raid", "pvp", "ph"):
@@ -181,6 +181,110 @@ HEIRLOOM_SLOTS = {
     "Thrown": "thrown", "Relic": "relic",
 }
 HEIRLOOM_ARMOR = {"Cloth", "Leather", "Mail", "Plate"}
+
+SET_SLOT_ALIASES = {
+    "head": "head", "helm": "head", "helmet": "head", "cabeza": "head",
+    "shoulder": "shoulder", "shoulders": "shoulder", "pauldrons": "shoulder", "hombro": "shoulder", "hombros": "shoulder",
+    "chest": "chest", "torso": "chest", "pecho": "chest",
+    "hand": "hands", "hands": "hands", "gloves": "hands", "gauntlets": "hands", "manos": "hands", "guantes": "hands",
+    "leg": "legs", "legs": "legs", "leggings": "legs", "legplates": "legs", "piernas": "legs",
+}
+
+
+def recommended_set_slots(text):
+    """Ranuras que la guía recomienda llevar del set, p. ej. «2 piezas (Head y Shoulder) + ...»."""
+    m = re.search(r"\(([^)]*)\)", str(text or ""))
+    if not m:
+        return []
+    out = []
+    for token in re.split(r",|/|\by\b", m.group(1).lower()):
+        slot = SET_SLOT_ALIASES.get(token.strip())
+        if slot and slot not in out:
+            out.append(slot)
+    return out
+
+
+def build_set_bonus():
+    """Bonus de set T10 por especialidad, a partir de data/reference_sets.json (guías de Icy Veins/Wowhead).
+    Cada especialidad recibe las piezas recomendadas por la guía, cuántas piezas usa (2 o 4) y el valor
+    aproximado del bonus en % (acotado a 2-8 %; 5 % si la guía no da un número)."""
+    path = ROOT / "data" / "reference_sets.json"
+    if not path.exists():
+        return {}
+
+    def pct(text):
+        t = str(text or "")
+        m = (re.search(r"~\s*([\d.]+)\s*(?:-|–|a)\s*([\d.]+)\s*%", t) or re.search(r"~\s*([\d.]+)\s*%", t)
+             or re.search(r"([\d.]+)\s*(?:-|–)\s*([\d.]+)\s*%", t) or re.search(r"([\d.]+)\s*%", t))
+        if not m:
+            return None
+        vals = [float(x) for x in m.groups() if x]
+        return sum(vals) / len(vals)
+
+    out = {}
+    for cls, cv in json.loads(path.read_text(encoding="utf-8")).items():
+        if cls == "resumen_calidad":
+            continue
+        for var in cv["variants"].values():
+            all_ids = sorted({str(e["id"]) for lst in var["pieces"].values() for e in lst})
+            for spec, rec in var["recommendations_by_spec"].items():
+                need = 2 if re.match(r"\s*2\s*pieza", str(rec.get("recommended_pieces", "")), re.I) else 4
+                slots = recommended_set_slots(rec.get("recommended_pieces"))
+                slots = slots[:need]
+                if slots:
+                    ids = sorted({str(e["id"]) for slot in slots for e in var["pieces"].get(slot, [])})
+                else:
+                    ids = all_ids
+                value = pct(rec.get("approx_value"))
+                out[spec] = {"ids": ids, "need": need, "slots": slots,
+                             "pct": round(min(8.0, max(2.0, value)), 2) if value else 5.0}
+    return out
+
+
+def build_curated():
+    """Abalorios y reliquias recomendados por las guías (data/reference_trinkets.json), en orden.
+    El motor no puede valorar bien sus procs y efectos, así que estas listas mandan en esos dos slots."""
+    path = ROOT / "data" / "reference_trinkets.json"
+    if not path.exists():
+        return {}
+    out = {}
+    for spec, v in json.loads(path.read_text(encoding="utf-8")).items():
+        trinkets = []
+        for e in list(v.get("bis_trinkets") or []) + sorted(v.get("top_6_trinkets") or [], key=lambda x: x.get("rank", 99)):
+            if str(e["id"]) not in trinkets:
+                trinkets.append(str(e["id"]))
+        relic = v.get("relic")
+        out[spec] = {"trinket": trinkets, "relic": [str(relic["id"])] if isinstance(relic, dict) and relic.get("id") else []}
+    return out
+
+
+def build_gems():
+    """Gemas recomendadas por especialidad (data/reference_gems.json) -> estadísticas numéricas por gema."""
+    path = ROOT / "data" / "reference_gems.json"
+    if not path.exists():
+        return {}
+    names = {"spell power": "sp", "attack power": "ap", "strength": "str", "agility": "agi", "intellect": "int", "stamina": "sta",
+             "spirit": "spi", "critical strike rating": "crit", "crit rating": "crit", "haste rating": "haste", "hit rating": "hit",
+             "expertise rating": "exp", "armor penetration rating": "arp", "defense rating": "def", "dodge rating": "dodge",
+             "parry rating": "parry", "resilience rating": "res", "mp5": "mp5", "mana per 5 sec": "mp5"}
+    out = {}
+    for spec, v in json.loads(path.read_text(encoding="utf-8")).items():
+        seen, gems = set(), []
+        for color in ("red_socket", "yellow_socket", "blue_socket"):
+            for g in v.get(color) or []:
+                if g.get("id") in seen:
+                    continue
+                seen.add(g.get("id"))
+                text = re.sub(r"\(.*?\)", "", str(g.get("stats", "")))  # sin las aclaraciones entre paréntesis
+                st = {}
+                for num, stat in re.findall(r"\+(\d+)\s+([A-Za-z0-9 ]+?)(?=\s+and\b|,|\.|$)", text):
+                    key = names.get(stat.strip().lower())
+                    if key:
+                        st[key] = st.get(key, 0) + int(num)
+                if st:
+                    gems.append(st)
+        out[spec] = gems
+    return out
 
 
 def main():
@@ -240,6 +344,9 @@ def main():
 
     engine = {
         "specWeights": SPEC_WEIGHTS,
+        "setBonus": build_set_bonus(),
+        "curated": build_curated(),
+        "gems": build_gems(),
         "caps": CAPS,
         "weights": {role: dict(weights_for(role)) for role in ROLES},
         "armorTiers": ARMOR_TIERS,

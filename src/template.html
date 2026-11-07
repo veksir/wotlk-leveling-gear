@@ -480,7 +480,7 @@ var aowow_tooltips = {
             <div><span class="field-label" id="phaseLabel" data-i18n="phaseLabel">Fase</span><div class="seg" id="phases" role="group" aria-labelledby="phaseLabel"></div></div>
             <div><span class="field-label" id="pvpLabel" data-i18n="pvpLabel">Tipo de equipo</span><div class="seg" id="pvps" role="group" aria-labelledby="pvpLabel"></div></div>
             <div><span class="field-label" id="altsLabel" data-i18n="altsLabel">Alternativas por slot</span><div class="seg" id="alts" role="group" aria-labelledby="altsLabel"></div></div>
-            <label class="opt-check"><input type="checkbox" id="showHeirlooms"> <span data-i18n="showHeirlooms">Incluir reliquias que ya tengo</span></label>
+            <label class="opt-check"><input type="checkbox" id="showHeirlooms"> <span data-i18n="showHeirlooms">Incluir reliquias de subida (heirlooms) que ya tengo</span></label>
           </div>
           <p class="opts-hint" data-i18n="optsHint"></p>
         </div>
@@ -536,7 +536,7 @@ var aowow_tooltips = {
         </section>
 
         <details class="panel" id="heirloomPanel">
-          <summary data-i18n="heirloomTitle">Reliquias de herencia</summary>
+          <summary data-i18n="heirloomTitle">Reliquias de subida (heirlooms)</summary>
           <div id="heirloomList" style="margin-top:8px"></div>
         </details>
 
@@ -582,7 +582,7 @@ const I18N = {
     statusPhase: "Fase de subida", statusArmor: "Armadura", statusNext: "Siguiente hito",
     statusSources: "Fuentes incluidas", sourcesValue: "Misiones, mazmorras, vendedores y drops",
     sheetTitle: "Equipamiento recomendado", statsTitle: "Prioridad de estadísticas",
-    dungeonsTitle: "Mazmorras del tramo", heirloomTitle: "Reliquias de herencia",
+    dungeonsTitle: "Mazmorras del tramo", heirloomTitle: "Reliquias de subida (heirlooms)",
     calcTitle: "Cómo se calcula",
     calcText: "Se puntúa cada objeto según la estadística principal de tu especialidad y se elige el de mayor valor disponible a tu nivel. Se priorizan misiones, mazmorras, vendedores y drops; el equipo PvP y las fuentes no registradas solo se usan si no hay una alternativa de subida. Se excluyen los objetos de banda detectados por la fuente; algunas cadenas de misión de banda pueden aparecer como Misión.",
     footer: "Las ventanas de objeto se cargan desde EVOWOW. Pasa el cursor sobre un objeto para ver su ficha completa.",
@@ -606,7 +606,7 @@ const I18N = {
     statusPhase: "Leveling phase", statusArmor: "Armor", statusNext: "Next milestone",
     statusSources: "Sources included", sourcesValue: "Quests, dungeons, vendors, and drops",
     sheetTitle: "Recommended gear", statsTitle: "Stat priority",
-    dungeonsTitle: "Dungeons in this range", heirloomTitle: "Heirloom pieces",
+    dungeonsTitle: "Dungeons in this range", heirloomTitle: "Leveling heirlooms",
     calcTitle: "How it is calculated",
     calcText: "Each item is scored using your spec's primary stats and the highest-value item available at your level is chosen. Quests, dungeons, vendors, and drops are prioritized; PvP gear and unregistered sources are only used when no leveling alternative exists. Raid items detected by source are excluded; some raid quest chains may still appear as Quest.",
     footer: "Item tooltips load from EVOWOW. Hover over an item to see its full card.",
@@ -624,8 +624,8 @@ const I18N = {
 };
 
 const SLOT_LABEL = {
-  es: { head: "Cabeza", neck: "Cuello", shoulder: "Hombros", back: "Espalda", chest: "Pecho", wrist: "Muñecas", hands: "Manos", waist: "Cintura", legs: "Piernas", feet: "Pies", ring1: "Anillo 1", ring2: "Anillo 2", trinket1: "Abalorio 1", trinket2: "Abalorio 2", mainhand: "Mano principal", offhand: "Mano secundaria", ranged: "A distancia", relic: "Reliquia" },
-  en: { head: "Head", neck: "Neck", shoulder: "Shoulders", back: "Back", chest: "Chest", wrist: "Wrists", hands: "Hands", waist: "Waist", legs: "Legs", feet: "Feet", ring1: "Ring 1", ring2: "Ring 2", trinket1: "Trinket 1", trinket2: "Trinket 2", mainhand: "Main hand", offhand: "Off hand", ranged: "Ranged", relic: "Relic" }
+  es: { head: "Cabeza", neck: "Cuello", shoulder: "Hombros", back: "Espalda", chest: "Pecho", wrist: "Muñecas", hands: "Manos", waist: "Cintura", legs: "Piernas", feet: "Pies", ring1: "Anillo 1", ring2: "Anillo 2", trinket1: "Abalorio 1", trinket2: "Abalorio 2", mainhand: "Mano principal", offhand: "Mano secundaria", ranged: "A distancia", relic: "Reliquia de clase" },
+  en: { head: "Head", neck: "Neck", shoulder: "Shoulders", back: "Back", chest: "Chest", wrist: "Wrists", hands: "Hands", waist: "Waist", legs: "Legs", feet: "Feet", ring1: "Ring 1", ring2: "Ring 2", trinket1: "Trinket 1", trinket2: "Trinket 2", mainhand: "Main hand", offhand: "Off hand", ranged: "Ranged", relic: "Class relic" }
 };
 
 const STAT_LABEL = {
@@ -660,14 +660,14 @@ Object.assign(I18N.es, {
   optsHint: "«Sin bandas» sirve para subir de nivel o jugar sin raid; «Con bandas» muestra el mejor equipo de raid; «Solo PvP» muestra únicamente equipo útil para PvP, sin mezclarlo con el PvE. La fase limita el contenido disponible hasta esa fase del juego.",
   sourcesRaid: "Misiones, mazmorras, vendedores, drops y bandas", sourcesPvp: " + PvP",
   sheetIntro80Raid: "Referencia de nivel 80 con botín de banda incluido.",
-  calcText: "Cada objeto se puntúa con las estadísticas que importan a tu especialidad (más el DPS del arma y la armadura) y se ordena por esa puntuación; el nivel de objeto solo desempata. La armadura de un tipo que no es el ideal para tu clase se penaliza. «Sin bandas» oculta el botín y las cadenas de misión de banda, el equipo PvP se ve aparte en el modo «Solo PvP» (con peso a la resiliencia) y la fase limita el contenido disponible. Los procs y efectos de uso de los abalorios se promedian según su duración y enfriamiento (≈). A nivel 80 el golpe y la pericia por encima del tope valen un 15 %, y para las especialidades de «cualquier arma» se compara dos manos contra una mano + secundaria. Los épicos sin fuente registrada de nivel 213 o más se tratan como de banda. Las reliquias de herencia quedan fuera del ranking salvo que marques «Incluir reliquias que ya tengo». Aún no se calculan gemas, encantamientos, bonificaciones de set ni objetos con encantamiento aleatorio.",
+  calcText: "Cada objeto se puntúa con las estadísticas que importan a tu especialidad (más el DPS del arma y la armadura) y se ordena por esa puntuación; el nivel de objeto solo desempata. La armadura de un tipo que no es el ideal para tu clase se penaliza. «Sin bandas» oculta el botín y las cadenas de misión de banda, el equipo PvP se ve aparte en el modo «Solo PvP» (con peso a la resiliencia) y la fase limita el contenido disponible. Los procs y efectos de uso de los abalorios se promedian según su duración y enfriamiento (≈). Las gemas recomendadas por las guías se valoran por socket y el bonus de socket cuenta la mitad. El bonus de set T10 se reparte solo entre las piezas que recomienda la guía, y los abalorios y reliquias de clase curados mandan en su slot. A nivel 80 el golpe y la pericia por encima del tope valen un 15 %, y para las especialidades de «cualquier arma» se compara dos manos contra una mano + secundaria. Los épicos sin fuente registrada de nivel 213 o más se tratan como de banda. Las reliquias de subida (heirlooms) quedan fuera del ranking salvo que marques «Incluir reliquias de subida (heirlooms) que ya tengo»; las reliquias de clase son equipo normal. Aún no se calculan encantamientos ni objetos con encantamiento aleatorio.",
   whyTitle: "¿Por qué este objeto?", scoreWord: "Puntuación", ilvlTie: "Nivel de objeto (desempate)",
   howTo: "Cómo conseguirlo ↗", moreAlts: "Alternativas",
   lootTitle: "Botín de mazmorra según tu equipo", lootIntro: "Indica lo que llevas puesto y verás qué objetos de cada mazmorra te sirven y cuánto mejoran tu equipo actual.",
   lootPick: "Mazmorra", lootAuto: "Según tu nivel", lootOnlyUp: "Solo mejoras",
   showOffspec: "Mostrar fuera de especialidad", offspecTag: "Off-spec",
-  showHeirlooms: "Incluir reliquias que ya tengo",
-  heirloomNote: "Las reliquias se compran con Emblemas de Heroísmo o Marcas de la Conquista del Invierno, que se obtienen a nivel 80. No entran en las recomendaciones salvo que marques «Incluir reliquias que ya tengo».",
+  showHeirlooms: "Incluir reliquias de subida (heirlooms) que ya tengo",
+  heirloomNote: "Las reliquias de subida (heirlooms) se compran con Emblemas de Heroísmo o Marcas de la Conquista del Invierno, que se obtienen a nivel 80. No entran en las recomendaciones salvo que marques «Incluir reliquias de subida (heirlooms) que ya tengo». Las reliquias de clase (sigilo, tótem, ídolo y libram) son equipo normal y sí entran en el ranking.",
   lootHidden: " fuera de especialidad", offspecGear: "Fuera de especialidad",
   lootEmpty: "Ningún objeto útil para tu especialidad en esta mazmorra.", zoneDrops: "Botín de la zona"
 });
@@ -687,14 +687,14 @@ Object.assign(I18N.en, {
   optsHint: "\"No raids\" is for leveling or playing without raiding; \"With raids\" shows the best raid gear; \"PvP only\" shows only PvP-useful gear, never mixed with PvE. The phase limits content to what is available up to that game phase.",
   sourcesRaid: "Quests, dungeons, vendors, drops, and raids", sourcesPvp: " + PvP",
   sheetIntro80Raid: "Level 80 reference with raid loot included.",
-  calcText: "Each item is scored with the stats that matter to your spec (plus weapon DPS and armor) and sorted by that score; item level only breaks ties. Armor of a type that is not ideal for your class is penalized. \"No raids\" hides raid loot and raid quest chains, PvP gear is shown separately in \"PvP only\" mode (resilience is weighted), and the phase limits available content. Proc and on-use effects of trinkets are averaged by duration and cooldown (≈). At level 80, hit and expertise above the cap count for 15 %, and for \"any weapon\" specs a two-hander is compared against one-hand + off hand. Epics with no recorded source at item level 213 or higher are treated as raid loot. Heirlooms stay out of the ranking unless you check «Include heirlooms I already own». Gems, enchants, set bonuses, and random-enchant items are not scored yet.",
+  calcText: "Each item is scored with the stats that matter to your spec (plus weapon DPS and armor) and sorted by that score; item level only breaks ties. Armor of a type that is not ideal for your class is penalized. \"No raids\" hides raid loot and raid quest chains, PvP gear is shown separately in \"PvP only\" mode (resilience is weighted), and the phase limits available content. Proc and on-use effects of trinkets are averaged by duration and cooldown (≈). Guide-recommended gems are valued per socket and the socket bonus counts for half. The Tier 10 set bonus is shared only among the pieces recommended by the guide, and curated trinkets and class relics rule their slot. At level 80, hit and expertise above the cap count for 15 %, and for \"any weapon\" specs a two-hander is compared against one-hand + off hand. Epics with no recorded source at item level 213 or higher are treated as raid loot. Leveling heirlooms stay out of the ranking unless you check «Include leveling heirlooms I already own»; class relics are normal gear. Enchants and random-enchant items are not scored yet.",
   whyTitle: "Why this item?", scoreWord: "Score", ilvlTie: "Item level (tiebreaker)",
   howTo: "How to get it ↗", moreAlts: "Alternatives",
   lootTitle: "Dungeon loot for your gear", lootIntro: "Tell us what you are wearing and see which dungeon items help you, and by how much over your current gear.",
   lootPick: "Dungeon", lootAuto: "By your level", lootOnlyUp: "Upgrades only",
   showOffspec: "Show off-spec items", offspecTag: "Off-spec",
-  showHeirlooms: "Include heirlooms I already own",
-  heirloomNote: "Heirlooms cost Emblems of Heroism or Wintergrasp Marks, which are earned at level 80. They stay out of recommendations unless you check «Include heirlooms I already own».",
+  showHeirlooms: "Include leveling heirlooms I already own",
+  heirloomNote: "Leveling heirlooms cost Emblems of Heroism or Wintergrasp Marks, which are earned at level 80. They stay out of recommendations unless you check «Include leveling heirlooms I already own». Class relics (sigil, totem, idol, and libram) are normal gear and do appear in the ranking.",
   lootHidden: " off-spec", offspecGear: "Off-spec",
   lootEmpty: "No useful item for your spec in this dungeon.", zoneDrops: "Zone loot"
 });
@@ -888,6 +888,8 @@ function weightsFor(spec, pvp, level) {
   const specW = level === 80 ? (ENG.specWeights || {})[spec.cls + "|" + spec.name] : null;
   const w = Object.assign({}, ENG.weights[spec.role] || {}, specW || {});
   w.hs = w[spec.primary] || 0; // «mejor estadística» de un proc: la principal de la especialidad
+  // Valor de un socket: la mejor de las gemas que recomiendan las guías para esta especialidad (con sus propios pesos).
+  w.gv = Math.max.apply(null, [0].concat(((ENG.gems || {})[spec.cls + "|" + spec.name] || []).map((g) => Object.entries(g).reduce((a, [k, v]) => a + v * (w[k] || 0), 0))));
   if (pvp) w.res = 0.9;
   return w;
 }
@@ -898,6 +900,14 @@ function scoreParts(it, w) {
   add("dps", it.dps || 0, w.dps);
   Object.entries(it.st || {}).forEach(([k, v]) => add(k, v, w[k]));
   Object.entries(it.px || {}).forEach(([k, v]) => add(k, v, w[k], true));
+  // Sockets: cada uno vale una gema recomendada (menos en objetos de menor nivel); el bonus de socket cuenta la mitad.
+  if (it.sc && w.gv) {
+    const scale = Math.min(1, Math.max(0, ((it.ilvl || 0) - 60) / 180));
+    add("gems", it.sc, w.gv * scale);
+    const sb = Object.entries(it.sb || {});
+    const bonus = sb.reduce((a, [k, v]) => a + v * (w[k] || 0) * 0.5, 0);
+    if (bonus > 0) parts.push({ k: "sbonus", v: sb.reduce((a, [, v]) => a + v, 0), c: bonus, fx: false });
+  }
   return { parts, base: parts.reduce((a, p) => a + p.c, 0) + (it.ilvl || 0) * 0.01 };
 }
 // Relevancia: un objeto puede ser equipable por la clase y aun así no aportar nada a la
@@ -954,6 +964,7 @@ function poolsFor(it, spec, level) {
   if ((slot === "ranged" || slot === "thrown") && ranged) {
     let ok = false;
     if (ranged === "ranged") ok = slot === "ranged" && ["Bow", "Gun", "Crossbow"].includes(sub);
+    else if (ranged === "anyranged") ok = (slot === "ranged" && ["Bow", "Gun", "Crossbow"].includes(sub)) || slot === "thrown";
     else if (ranged === "wand") ok = slot === "ranged" && sub === "Wand";
     else if (ranged === "thrown") ok = slot === "thrown" || (slot === "ranged" && sub === "Thrown");
     return ok ? ["ranged"] : [];
@@ -965,7 +976,7 @@ function specSlots(spec) {
   return DATA.slotOrder.filter((s) => (s === "offhand" ? !!spec.off : s === "ranged" ? !!spec.ranged : s === "relic" ? !!spec.relic : true));
 }
 
-function evalItem(it, spec, w, o, cap) {
+function evalItem(it, spec, w, o, cap, curated) {
   if (it.cl && !it.cl.includes(spec.cls)) return null;
   const fs = itemFactions(it);
   if (!(fs.has("both") || fs.has(o.faction))) return null;
@@ -974,12 +985,12 @@ function evalItem(it, spec, w, o, cap) {
   const al = availableLevel(it, spec);
   if (al === null || (cap && al > o.level)) return null;
   const sp = scoreParts(it, w);
-  if (sp.base <= 0) return null;
+  if (sp.base <= 0 && !curated) return null;
   // La penalización de armadura solo aplica a piezas de armadura (no a escudos ni a capas).
   const tiered = it.at && it.s !== "back" && ARMOR_KEYS.includes(it.s);
   const af = tiered ? armorFactor(spec.cls, it.at, o.level) : 1;
   if (af <= 0) return null;
-  return { pk, al, parts: sp.parts, base: sp.base, af, score: sp.base * af, rel: isRelevant(it, spec, w) };
+  return { pk, al, parts: sp.parts, base: sp.base, af, score: sp.base * af, rel: curated || isRelevant(it, spec, w) };
 }
 
 /* opts: { level, faction, scope: "noraid"|"raid", phase: 0 (todas)|1-4, pvp: bool (solo equipo PvP) } */
@@ -987,12 +998,15 @@ function computeGear(spec, o) {
   const w = weightsFor(spec, o.pvp, o.level);
   const caps = o.level === 80 ? (ENG.caps || {})[spec.role] || null : null;
   const capKeys = caps ? Object.keys(caps) : [];
+  const specKey = spec.cls + "|" + spec.name;
+  const cur = (ENG.curated || {})[specKey];
+  const curatedRelic = new Set((cur && cur.relic) || []);
   const pools = {}, info = {};
   for (const id in GEAR_ITEMS) {
     if (!state.showHeirlooms && DATA.heirlooms[id]) continue;
     const it = levelItem(GEAR_ITEMS[id], o.level);
     if (o.pvp && !it.pvp) continue;
-    const r = evalItem(it, spec, w, o, true);
+    const r = evalItem(it, spec, w, o, true, curatedRelic.has(id));
     if (!r || !r.rel) continue;
     const e = { id, it, parts: r.parts, base: r.base, af: r.af, score: r.score, capPen: 0 };
     const reasons = [];
@@ -1009,11 +1023,35 @@ function computeGear(spec, o) {
       else (pools[p] || (pools[p] = [])).push(e);
     });
   }
-  const sortPool = (p) => pools[p].sort((a, b) => b.score - a.score || b.it.ilvl - a.it.ilvl);
+  const sortPool = (p) => pools[p].sort((a, b) => (b.cur || 0) - (a.cur || 0) || b.score - a.score || b.it.ilvl - a.it.ilvl);
   for (const p in pools) {
     sortPool(p);
     const seen = new Set();
     pools[p] = pools[p].filter((e) => (seen.has(e.it.n) ? false : (seen.add(e.it.n), true)));
+  }
+  // Bonus de set T10: el valor del bonus de 2 o 4 piezas (en % del total del equipo) se reparte entre las
+  // piezas que recomienda la guía, no entre todas las piezas del set.
+  const sb = (ENG.setBonus || {})[specKey];
+  if (sb && !o.pvp) {
+    const ids = new Set(sb.ids);
+    let total = 0;
+    for (const p in pools) if (pools[p][0]) total += pools[p][0].score;
+    const piece = (sb.pct / 100) * total / sb.need;
+    for (const p in pools) {
+      pools[p].forEach((e) => { if (ids.has(e.id)) { e.setBonus = piece; e.score += piece; } });
+      sortPool(p);
+    }
+  }
+  // Abalorios y reliquias: mandan las guías (sus procs y efectos no se pueden puntuar bien). Se emparejan por nombre
+  // para que valgan también las versiones normal/heroica del mismo objeto.
+  if (cur && !o.pvp) {
+    ["trinket", "relic"].forEach((p) => {
+      const ranks = {};
+      (cur[p] || []).forEach((id, i) => { const n = DATA.items[id] && DATA.items[id].n; if (n && !(n in ranks)) ranks[n] = { b: cur[p].length - i, r: i + 1 }; });
+      if (!pools[p]) return;
+      pools[p].forEach((e) => { if (e.it.n in ranks) { e.cur = ranks[e.it.n].b; e.curRank = ranks[e.it.n].r; } });
+      sortPool(p);
+    });
   }
   const buildSlots = () => {
     const out = {};
@@ -1057,7 +1095,7 @@ function computeGear(spec, o) {
             pen += excess * (w[k] || 0) * 0.85 * e.af;
           });
           e.capPen = pen;
-          e.score = e.base * e.af - pen;
+          e.score = e.base * e.af - pen + (e.setBonus || 0);
         });
         sortPool(p);
       }
@@ -1129,6 +1167,7 @@ function equipPools(it, spec, level) {
   if ((slot === "ranged" || slot === "thrown") && CLASS_RANGED[cls]) {
     const r = CLASS_RANGED[cls];
     const ok = r === "ranged" ? slot === "ranged" && ["Bow", "Gun", "Crossbow"].includes(sub)
+      : r === "anyranged" ? (slot === "ranged" && ["Bow", "Gun", "Crossbow"].includes(sub)) || slot === "thrown"
       : r === "wand" ? slot === "ranged" && sub === "Wand"
       : slot === "thrown" || (slot === "ranged" && sub === "Thrown");
     return ok ? ["ranged"] : [];
@@ -1222,6 +1261,8 @@ const pctDiff = (a, b) => (b > 0 ? Math.round((a / b - 1) * 100) : 0);
 function partLabel(k) {
   if (k === "armor") return L("Armadura", "Armor");
   if (k === "dps") return L("DPS del arma", "Weapon DPS");
+  if (k === "gems") return L("Gemas (las recomendadas por las guías)", "Gems (guide-recommended)");
+  if (k === "sbonus") return L("Bonus de socket (50 %)", "Socket bonus (50%)");
   if (k === "feralap") return L("Poder de ataque (feral)", "Attack power (feral)");
   return (STAT_LABEL[state.lang] || STAT_LABEL.es)[k] || k;
 }
@@ -1250,6 +1291,8 @@ function whyHtml(e, next, inf) {
     "<tr><td>" + esc(partLabel(p.k)) + " " + (p.k === "armor" || p.k === "dps" ? p.v : (p.fx ? "≈+" : "+") + p.v) + (p.fx ? " " + L("(proc/uso)", "(proc/use)") : "") + "</td><td>" + p.c.toFixed(1) + "</td></tr>").join("") +
     "<tr><td>" + t("ilvlTie") + "</td><td>" + (e.it.ilvl * 0.01).toFixed(1) + "</td></tr>";
   let extra = "";
+  if (e.cur) extra += "<p>" + L("Recomendado por las guías (Icy Veins y Wowhead) para esta especialidad: puesto ", "Recommended by the guides (Icy Veins and Wowhead) for this spec: rank ") + e.curRank + L(" de su lista, que manda en este slot.", " in their list, which rules this slot.") + "</p>";
+  if (e.setBonus > 0.05) extra += "<p>" + L("Bonus de set T10 (valor estimado del bonus repartido entre sus piezas recomendadas): +", "Tier 10 set bonus (estimated bonus value shared among its recommended pieces): +") + e.setBonus.toFixed(1) + "</p>";
   if (e.capPen > 0.05) extra += "<p>" + L("Penalización por exceder el tope de golpe o pericia: −", "Penalty for exceeding the hit or expertise cap: −") + e.capPen.toFixed(1) + "</p>";
   if (e.af < 1) extra += "<p>" + L("Penalización por tipo de armadura (", "Armor type penalty (") + esc(e.it.at) + "): ×" + e.af.toFixed(2) + "</p>";
   if (next) extra += "<p>" + L("Frente a «", "Versus \"") + esc(next.it.n) + L("»: ", "\": ") + (pctDiff(e.score, next.score) >= 0 ? "+" : "") + pctDiff(e.score, next.score) + L("% de puntuación.", "% score.") + "</p>";

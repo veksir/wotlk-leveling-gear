@@ -35,9 +35,9 @@
     "weights": {"sta": 1.697, "exp": 0.879, "agi": 1.0, "hit": 0.818, "armor": 0.212, "str": 0.455, "haste": 0.2, "arp": 0.15, "def": 0.576, "dodge": 0.697, "ap": 0.15}
   },
   "Druid|Restoration": {
-    "source": "https://www.icy-veins.com/wotlk-classic/restoration-druid-healer-pve-stat-priority",
-    "priority": "Spell Power > Haste > Mp5 > Intellect > Spirit > Critical Strike",
-    "weights": {"sp": 1.0, "haste": 1.0, "mp5": 1.2, "int": 0.9, "spi": 0.7, "crit": 0.2}
+    "source": "https://www.icy-veins.com/wotlk-classic/restoration-druid-healer-stat-priority",
+    "priority": "Spell Power > Haste (hasta el breakpoint de GCD de 1.0s: 735 o 856 Rating) > MP5 (o) Spirit (según duración del combate) > Intellect > Critical Strike",
+    "weights": {"sp": 1.0, "haste": 0.9, "mp5": 0.75, "int": 0.6, "spi": 0.75, "crit": 0.45, "heal": 1.0}
   },
   "Hunter|Beast Mastery": {
     "source": "https://www.icy-veins.com/wotlk-classic/beast-mastery-hunter-dps-pve-stat-priority",
@@ -70,9 +70,9 @@
     "weights": {"hit": 1.5, "sp": 1.0, "haste": 0.88, "crit": 0.52, "spi": 0.31, "int": 0.28}
   },
   "Paladin|Holy": {
-    "source": "https://www.icy-veins.com/wotlk-classic/holy-paladin-healer-pve-stat-priority",
-    "priority": "Intellect > Spell Haste > Mp5 > Spell Critical Strike",
-    "weights": {"int": 1.0, "haste": 0.9, "mp5": 0.7, "crit": 0.5, "sp": 0.8, "spi": 0.1}
+    "source": "https://www.icy-veins.com/wotlk-classic/holy-paladin-healer-stat-priority",
+    "priority": "Intellect > Haste > MP5 > Critical Strike (o) Spell Power > Spirit (sin valor en combate)",
+    "weights": {"sp": 0.6, "haste": 0.9, "mp5": 0.75, "int": 1.0, "spi": 0.45, "crit": 0.6, "heal": 0.6}
   },
   "Paladin|Protection": {
     "source": "https://www.icy-veins.com/wotlk-classic/protection-paladin-tank-pve-stat-priority",
@@ -85,14 +85,14 @@
     "weights": {"hit": 1.029, "exp": 0.966, "str": 1.0, "agi": 0.723, "ap": 0.42, "crit": 0.739, "haste": 0.693, "arp": 0.622}
   },
   "Priest|Discipline": {
-    "source": "https://www.icy-veins.com/wotlk-classic/discipline-priest-healer-pve-stat-priority",
-    "priority": "Haste to soft cap > Spell Power > Critical Strike > Intellect > Spirit > Mp5",
-    "weights": {"haste": 1.0, "sp": 1.0, "crit": 0.8, "int": 0.6, "spi": 0.35, "mp5": 0.25}
+    "source": "https://www.icy-veins.com/wotlk-classic/discipline-priest-healer-stat-priority",
+    "priority": "Spell Power > Critical Strike (o) Haste (hasta ~150-400 Rating para casteos sin Borrowed Time) > Intellect > MP5 (o) Spirit",
+    "weights": {"sp": 1.0, "haste": 0.9, "mp5": 0.6, "int": 0.75, "spi": 0.6, "crit": 0.9, "heal": 1.0}
   },
   "Priest|Holy": {
-    "source": "https://www.icy-veins.com/wotlk-classic/holy-priest-healer-pve-stat-priority",
-    "priority": "Haste > Intellect > Spell Power > Spirit > Critical Strike > Mp5",
-    "weights": {"haste": 1.0, "int": 0.9, "sp": 0.85, "spi": 0.6, "crit": 0.5, "mp5": 0.3}
+    "source": "https://www.icy-veins.com/wotlk-classic/holy-priest-healer-stat-priority",
+    "priority": "Spell Power > Haste (o) Intellect > Spirit > Critical Strike > MP5",
+    "weights": {"sp": 1.0, "haste": 0.9, "mp5": 0.45, "int": 0.9, "spi": 0.75, "crit": 0.6, "heal": 1.0}
   },
   "Priest|Shadow": {
     "source": "https://www.icy-veins.com/wotlk-classic/shadow-priest-dps-pve-stat-priority + https://wowsims.github.io/wotlk/shadow_priest/",
@@ -125,9 +125,9 @@
     "weights": {"hit": 0.9, "exp": 0.8, "ap": 0.8, "haste": 0.7, "agi": 0.65, "int": 0.4, "sp": 0.3, "crit": 0.5, "str": 0.15, "arp": 0.1}
   },
   "Shaman|Restoration": {
-    "source": "https://www.icy-veins.com/wotlk-classic/restoration-shaman-healer-pve-stat-priority",
-    "priority": "Spell Power > Haste > Mp5 > Intellect > Critical Strike",
-    "weights": {"sp": 1.0, "haste": 1.1, "mp5": 1.2, "crit": 0.8, "int": 1.0, "spi": 0.2}
+    "source": "https://www.icy-veins.com/wotlk-classic/restoration-shaman-healer-stat-priority",
+    "priority": "Haste (hasta el soft cap de GCD de 1265 Rating) > Spell Power > MP5 (o) Intellect > Critical Strike > Spirit (inútil en combate)",
+    "weights": {"sp": 0.9, "haste": 1.0, "mp5": 0.75, "int": 0.75, "spi": 0.45, "crit": 0.6, "heal": 0.9}
   },
   "Warlock|Affliction": {
     "source": "https://www.icy-veins.com/wotlk-classic/affliction-warlock-dps-pve-stat-priority + https://wowsims.github.io/wotlk/warlock/",
