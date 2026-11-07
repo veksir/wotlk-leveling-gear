@@ -1,4 +1,4 @@
-"""Regresiones de gemas/sockets, bonus de set y reliquias curadas.
+"""Regresiones de gemas/sockets, bonus de set, reliquias curadas y procs sin probabilidad.
 
 Uso: python tests/features.py   (requiere tolltip.html construido y Playwright).
 """
@@ -27,7 +27,9 @@ def main():
           const w = weightsFor(DATA.specs["Paladin|Holy"], false, 80);
           const socketItem = DATA.items["50684"];
           const socketParts = scoreParts(socketItem, w).parts;
-          return {holy, rogue, gems, gv: w.gv, socketItem, socketParts};
+          const trophy = DATA.items["28830"], scale = DATA.items["54571"];
+          return {holy, rogue, gems, gv: w.gv, socketItem, socketParts,
+                  proc: trophy && trophy.px, scale: scale && {px: scale.px, ph: scale.ph, raid: scale.raid}};
         }""")
         assert data["holy"]["slots"] == ["head", "shoulder"], data["holy"]
         assert data["rogue"]["slots"] == ["head", "hands"], data["rogue"]
@@ -37,6 +39,8 @@ def main():
         assert data["socketItem"]["sc"] >= 1 and data["socketItem"]["sb"], data["socketItem"]
         assert any(p["k"] == "gems" and not p["fx"] for p in data["socketParts"]), data["socketParts"]
         assert any(p["k"] == "sbonus" and not p["fx"] for p in data["socketParts"]), data["socketParts"]
+        assert data["proc"] == {"haste": 118}, data["proc"]
+        assert data["scale"] and data["scale"]["px"] == {"dodge": 140} and data["scale"]["ph"] == 5, data["scale"]
 
         gear = page.evaluate("""() => {
           state.showHeirlooms = false;
@@ -59,7 +63,7 @@ def main():
         assert gear["holyTrinket"] == "46051", gear["holyTrinket"]
 
         assert not errors, errors
-        print("features ok: gems, set bonus, curated relic")
+        print("features ok: gems, set bonus, curated relic, proc fallback")
         browser.close()
 
 

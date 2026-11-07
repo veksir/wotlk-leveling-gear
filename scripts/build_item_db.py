@@ -147,10 +147,16 @@ def parse_effects(tooltip):
             uptime = min(1.0, duration / cooldown)
         else:
             pm = re.search(r"proc chance: ([\d.]+)%, ([\d.]+)(m|s) cooldown", low)
-            if not pm:
-                continue
-            chance = float(pm.group(1)) / 100
-            icd = float(pm.group(2)) * (60 if pm.group(3) == "m" else 1)
+            if pm:
+                chance = float(pm.group(1)) / 100
+                icd = float(pm.group(2)) * (60 if pm.group(3) == "m" else 1)
+            else:
+                # "Chance on hit to increase ... for 10 sec. (1m cooldown)": no dice la probabilidad; se supone 20 %
+                cm = re.search(r"\(([\d.]+)\s*(m|min|s|sec)[a-z]*\s*cooldown\)", low)
+                if not cm:
+                    continue
+                chance = 0.2
+                icd = float(cm.group(1)) * (60 if cm.group(2) in ("m", "min") else 1)
             uptime = min(1.0, duration / (icd + PROC_EVENT_SECONDS / max(chance, 0.01)))
         ramp = re.search(r"additional (\d+) every (\d+) sec", low)
         factor = (1 + duration / int(ramp.group(2))) / 2 if ramp else 1.0

@@ -65,7 +65,11 @@ def main():
             assert any(x["n"] == "Shadowmourne" for x in raid), spec + ": Shadowmourne debe aparecer con bandas"
             assert not any(x["n"] == "Shadowmourne" for x in plain), spec + ": no debe aparecer sin bandas"
             assert not any(x["raid"] or x["rp"] for x in plain), "sin bandas no admite objetos de banda (ni probables)"
-        assert not any(x["n"] == "Shadowmourne" for x in page.evaluate(gear, {"spec": "Paladin|Retribution", "opts": {**base, "scope": "raid"}}))
+        # Los paladines sí pueden usar hachas de dos manos (la guía lo recomienda para Retribution)
+        assert any(x["n"] == "Shadowmourne" for x in page.evaluate(gear, {"spec": "Paladin|Retribution", "opts": {**base, "scope": "raid"}}))
+        assert not any(x["n"] == "Shadowmourne" for x in page.evaluate(gear, {"spec": "Paladin|Retribution", "opts": {**base, "scope": "noraid"}}))
+        wpn = page.evaluate("""() => ({paladin: ENG.weaponHands.Paladin.Axe, rogue: ENG.weaponHands.Rogue.Axe, shaman: ENG.weaponHands.Shaman.Axe})""")
+        assert wpn == {"paladin": [1, 2], "rogue": [1], "shaman": [1, 2]}, wpn
         dw = page.evaluate("""() => {
           const pick = (g, slot) => g.slots[slot].list[0] && g.slots[slot].list[0].it;
           const frost = computeGear(DATA.specs["Death Knight|Frost DPS"], {level: 80, faction: "horde", scope: "raid", phase: 0, pvp: false});
