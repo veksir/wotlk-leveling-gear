@@ -1,0 +1,7058 @@
+{
+ "Death Knight|Blood Tank": {
+  "source": "https://www.icy-veins.com/wotlk-classic/blood-death-knight-tank-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/death-knight/blood/tank-bis-gear-pve-phase-4",
+  "loadout": "Two-Handed (Arma de dos manos)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51305",
+     "name": "Sanctified Scourgelord Chestguard"
+    },
+    {
+     "id": "50681",
+     "name": "Blightborne Warplate"
+    },
+    {
+     "id": "50968",
+     "name": "Cataclysmic Chestguard"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51309",
+     "name": "Sanctified Scourgelord Pauldrons"
+    },
+    {
+     "id": "50660",
+     "name": "Boneguard Commander's Pauldrons"
+    },
+    {
+     "id": "51130",
+     "name": "Sanctified Scourgelord Pauldrons"
+    }
+   ],
+   "legs": [
+    {
+     "id": "51308",
+     "name": "Sanctified Scourgelord Legguards"
+    },
+    {
+     "id": "50612",
+     "name": "Legguards of Lost Hope"
+    },
+    {
+     "id": "49904",
+     "name": "Pillars of Might"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50625",
+     "name": "Grinning Skull Greatboots"
+    },
+    {
+     "id": "49907",
+     "name": "Boots of Kingly Upheaval"
+    },
+    {
+     "id": "51816",
+     "name": "Scourge Fanged Stompers"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50462",
+     "name": "Sigil of the Bone Gryphon"
+    },
+    {
+     "id": "40207",
+     "name": "Sigil of Awareness"
+    },
+    {
+     "id": "47672",
+     "name": "Sigil of Insolence"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50682",
+     "name": "Bile-Encrusted Medallion"
+    },
+    {
+     "id": "50627",
+     "name": "Noose of Malachite"
+    },
+    {
+     "id": "51894",
+     "name": "Soulcleave Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50718",
+     "name": "Royal Crimson Cloak"
+    },
+    {
+     "id": "50466",
+     "name": "Sentinel's Winter Cloak"
+    },
+    {
+     "id": "47550",
+     "name": "Cairne's Endurance"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51307",
+     "name": "Sanctified Scourgelord Handguards"
+    },
+    {
+     "id": "50716",
+     "name": "Taldaram's Plated Fists"
+    },
+    {
+     "id": "50978",
+     "name": "Gauntlets of the Kraken"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50730",
+     "name": "Glorenzelg, High-Blade of the Silver Hand"
+    },
+    {
+     "id": "49623",
+     "name": "Shadowmourne"
+    },
+    {
+     "id": "50603",
+     "name": "Cryptmaker"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50691",
+     "name": "Belt of Broken Bones"
+    },
+    {
+     "id": "50991",
+     "name": "Verdigris Chain Belt"
+    },
+    {
+     "id": "51831",
+     "name": "Ironrope Belt of Ymirjar"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50611",
+     "name": "Bracers of Dark Reckoning"
+    },
+    {
+     "id": "51901",
+     "name": "Gargoyle Spit Bracers"
+    },
+    {
+     "id": "49960",
+     "name": "Bracers of Dark Reckoning"
+    }
+   ],
+   "head": [
+    {
+     "id": "50640",
+     "name": "Broken Ram Skull Helm"
+    },
+    {
+     "id": "51306",
+     "name": "Sanctified Scourgelord Faceguard"
+    },
+    {
+     "id": "51133",
+     "name": "Sanctified Scourgelord Faceguard"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50404",
+     "name": "Ashen Band of Endless Courage"
+    },
+    {
+     "id": "50622",
+     "name": "Devium's Eternally Cold Ring"
+    },
+    {
+     "id": "50642",
+     "name": "Juggernaut Band"
+    },
+    {
+     "id": "51900",
+     "name": "Saurfang's Cold-Forged Band"
+    },
+    {
+     "id": "50447",
+     "name": "Harbinger's Bone Band"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50364",
+     "name": "Sindragosa's Flawless Fang"
+    },
+    {
+     "id": "47451",
+     "name": "Juggernaut's Vitality"
+    },
+    {
+     "id": "50361",
+     "name": "Sindragosa's Flawless Fang"
+    },
+    {
+     "id": "50356",
+     "name": "Corroded Skeleton Key"
+    },
+    {
+     "id": "47088",
+     "name": "Satrina's Impeding Scarab"
+    }
+   ]
+  }
+ },
+ "Death Knight|Frost DPS": {
+  "source": "https://www.icy-veins.com/wotlk-classic/frost-death-knight-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/death-knight/frost/dps-bis-gear-pve-phase-4",
+  "loadout": "Dual-Wield (Dos armas de una mano)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51310",
+     "name": "Sanctified Scourgelord Battleplate"
+    },
+    {
+     "id": "50606",
+     "name": "Gendarme's Cuirass"
+    },
+    {
+     "id": "51129",
+     "name": "Sanctified Scourgelord Battleplate"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51314",
+     "name": "Sanctified Scourgelord Shoulderplates"
+    },
+    {
+     "id": "50674",
+     "name": "Raging Behemoth's Shoulderplates"
+    },
+    {
+     "id": "51125",
+     "name": "Sanctified Scourgelord Shoulderplates"
+    }
+   ],
+   "legs": [
+    {
+     "id": "51313",
+     "name": "Sanctified Scourgelord Legplates"
+    },
+    {
+     "id": "50624",
+     "name": "Scourge Reaver's Legplates"
+    },
+    {
+     "id": "49903",
+     "name": "Legplates of Painful Death"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50737",
+     "name": "Havoc's Call, Blade of Lordaeron Kings"
+    },
+    {
+     "id": "50672",
+     "name": "Bloodvenom Blade"
+    },
+    {
+     "id": "50654",
+     "name": "Scourgeborne Waraxe"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50639",
+     "name": "Blood-Soaked Saronite Stompers"
+    },
+    {
+     "id": "50607",
+     "name": "Frostbitten Fur Boots"
+    },
+    {
+     "id": "51915",
+     "name": "Bone Drake's Enameled Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50459",
+     "name": "Sigil of the Hanged Man"
+    },
+    {
+     "id": "47673",
+     "name": "Sigil of Virulence"
+    },
+    {
+     "id": "40207",
+     "name": "Sigil of Awareness"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50647",
+     "name": "Ahn'kahar Onyx Neckguard"
+    },
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    },
+    {
+     "id": "51822",
+     "name": "Rimetooth Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "47546",
+     "name": "Sylvanas' Cunning"
+    },
+    {
+     "id": "47545",
+     "name": "Vereesa's Dexterity"
+    },
+    {
+     "id": "50653",
+     "name": "Shadowvault Slayer's Cloak"
+    }
+   ],
+   "hands": [
+    {
+     "id": "50675",
+     "name": "Aldriana's Gloves of Secrecy"
+    },
+    {
+     "id": "51311",
+     "name": "Sanctified Scourgelord Gauntlets"
+    },
+    {
+     "id": "50690",
+     "name": "Fleshrending Gauntlets"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50737",
+     "name": "Havoc's Call, Blade of Lordaeron Kings"
+    },
+    {
+     "id": "50672",
+     "name": "Bloodvenom Blade"
+    },
+    {
+     "id": "51916",
+     "name": "Frost Giant's Cleaver"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50620",
+     "name": "Coldwraith Links"
+    },
+    {
+     "id": "50707",
+     "name": "Astrylian's Sutured Cinch"
+    },
+    {
+     "id": "51879",
+     "name": "Flesh-Shaper's Gurney Strap"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "50659",
+     "name": "Polar Bear Claw Bracers"
+    },
+    {
+     "id": "51832",
+     "name": "Taiga Bindings"
+    }
+   ],
+   "head": [
+    {
+     "id": "51312",
+     "name": "Sanctified Scourgelord Helmet"
+    },
+    {
+     "id": "50712",
+     "name": "Landsoul's Horned Greathelm"
+    },
+    {
+     "id": "51127",
+     "name": "Sanctified Scourgelord Helmet"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50693",
+     "name": "Might of Blight"
+    },
+    {
+     "id": "50657",
+     "name": "Skeleton Lord's Circle"
+    },
+    {
+     "id": "52572",
+     "name": "Ashen Band of Endless Might"
+    },
+    {
+     "id": "50618",
+     "name": "Frostbrood Sapphire Ring"
+    },
+    {
+     "id": "50604",
+     "name": "Band of the Bone Colossus"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50363",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "47464",
+     "name": "Death's Choice"
+    },
+    {
+     "id": "50362",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "47131",
+     "name": "Death's Verdict"
+    },
+    {
+     "id": "50343",
+     "name": "Whispering Fanged Skull"
+    }
+   ]
+  }
+ },
+ "Death Knight|Unholy DPS": {
+  "source": "https://www.icy-veins.com/wotlk-classic/unholy-death-knight-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/death-knight/unholy/dps-bis-gear-pve-phase-4",
+  "loadout": "Two-Handed (2H con Shadowmourne) o Dual-Wield (Dos armas de 1 mano antes de Shadowmourne)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51310",
+     "name": "Sanctified Scourgelord Battleplate"
+    },
+    {
+     "id": "50606",
+     "name": "Gendarme's Cuirass"
+    },
+    {
+     "id": "51129",
+     "name": "Sanctified Scourgelord Battleplate"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51314",
+     "name": "Sanctified Scourgelord Shoulderplates"
+    },
+    {
+     "id": "50674",
+     "name": "Raging Behemoth's Shoulderplates"
+    },
+    {
+     "id": "51125",
+     "name": "Sanctified Scourgelord Shoulderplates"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50624",
+     "name": "Scourge Reaver's Legplates"
+    },
+    {
+     "id": "51313",
+     "name": "Sanctified Scourgelord Legplates"
+    },
+    {
+     "id": "49903",
+     "name": "Legplates of Painful Death"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50737",
+     "name": "Havoc's Call, Blade of Lordaeron Kings"
+    },
+    {
+     "id": "51893",
+     "name": "Gutbuster"
+    },
+    {
+     "id": "50672",
+     "name": "Bloodvenom Blade"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50639",
+     "name": "Blood-Soaked Saronite Stompers"
+    },
+    {
+     "id": "51915",
+     "name": "Bone Drake's Enameled Boots"
+    },
+    {
+     "id": "49906",
+     "name": "Hellfrozen Bonegrinders"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50459",
+     "name": "Sigil of the Hanged Man"
+    },
+    {
+     "id": "47673",
+     "name": "Sigil of Virulence"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50647",
+     "name": "Ahn'kahar Onyx Neckguard"
+    },
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    },
+    {
+     "id": "51822",
+     "name": "Rimetooth Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50677",
+     "name": "Winding Sheet"
+    },
+    {
+     "id": "47548",
+     "name": "Garrosh's Rage"
+    },
+    {
+     "id": "47547",
+     "name": "Varian's Furor"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51311",
+     "name": "Sanctified Scourgelord Gauntlets"
+    },
+    {
+     "id": "50690",
+     "name": "Fleshrending Gauntlets"
+    },
+    {
+     "id": "51128",
+     "name": "Sanctified Scourgelord Gauntlets"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "49623",
+     "name": "Shadowmourne"
+    },
+    {
+     "id": "50730",
+     "name": "Glorenzelg, High-Blade of the Silver Hand"
+    },
+    {
+     "id": "50737",
+     "name": "Havoc's Call, Blade of Lordaeron Kings"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50620",
+     "name": "Coldwraith Links"
+    },
+    {
+     "id": "51879",
+     "name": "Flesh-Shaper's Gurney Strap"
+    },
+    {
+     "id": "50987",
+     "name": "Malevolent Girdle"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50659",
+     "name": "Polar Bear Claw Bracers"
+    },
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "51832",
+     "name": "Taiga Bindings"
+    }
+   ],
+   "head": [
+    {
+     "id": "51312",
+     "name": "Sanctified Scourgelord Helmet"
+    },
+    {
+     "id": "50712",
+     "name": "Landsoul's Horned Greathelm"
+    },
+    {
+     "id": "51127",
+     "name": "Sanctified Scourgelord Helmet"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50693",
+     "name": "Might of Blight"
+    },
+    {
+     "id": "52572",
+     "name": "Ashen Band of Endless Might"
+    },
+    {
+     "id": "50657",
+     "name": "Skeleton Lord's Circle"
+    },
+    {
+     "id": "50402",
+     "name": "Ashen Band of Endless Vengeance"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50363",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "47464",
+     "name": "Death's Choice"
+    },
+    {
+     "id": "45609",
+     "name": "Comet's Trail"
+    },
+    {
+     "id": "47131",
+     "name": "Death's Verdict"
+    },
+    {
+     "id": "50343",
+     "name": "Whispering Fanged Skull"
+    }
+   ]
+  }
+ },
+ "Druid|Balance": {
+  "source": "https://www.icy-veins.com/wotlk-classic/balance-druid-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/druid/balance/dps-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Off-Hand (Arma de 1 mano + Mano izquierda)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51294",
+     "name": "Sanctified Lasherweave Vestment"
+    },
+    {
+     "id": "50717",
+     "name": "Sanguine Silk Robes"
+    },
+    {
+     "id": "51145",
+     "name": "Sanctified Lasherweave Vestment"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51292",
+     "name": "Sanctified Lasherweave Mantle"
+    },
+    {
+     "id": "51147",
+     "name": "Sanctified Lasherweave Mantle"
+    },
+    {
+     "id": "50643",
+     "name": "Shoulders of Mercy Killing"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    },
+    {
+     "id": "49891",
+     "name": "Leggings of Woven Death"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50719",
+     "name": "Shadow Silk Spindle"
+    },
+    {
+     "id": "50635",
+     "name": "Sundial of Eternal Dusk"
+    },
+    {
+     "id": "51922",
+     "name": "Scourgelord's Baton"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "50665",
+     "name": "Boots of Unnatural Growth"
+    },
+    {
+     "id": "49893",
+     "name": "Sandals of Consecration"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50457",
+     "name": "Idol of the Lunar Eclipse"
+    },
+    {
+     "id": "40321",
+     "name": "Idol of the Shooting Star"
+    },
+    {
+     "id": "47670",
+     "name": "Idol of Lunar Fury"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "50658",
+     "name": "Amulet of the Silent Eulogy"
+    },
+    {
+     "id": "51894",
+     "name": "Soulcleave Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "47551",
+     "name": "Aethas' Intensity"
+    },
+    {
+     "id": "47552",
+     "name": "Jaina's Radiance"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51291",
+     "name": "Sanctified Lasherweave Gloves"
+    },
+    {
+     "id": "50663",
+     "name": "Gunship Captain's Mittens"
+    },
+    {
+     "id": "50722",
+     "name": "San'layn Ritualist Gloves"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50734",
+     "name": "Royal Scepter of Terenas II"
+    },
+    {
+     "id": "50608",
+     "name": "Frozen Bonespike"
+    },
+    {
+     "id": "50731",
+     "name": "Archus, Greatstaff of Antonidas"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    },
+    {
+     "id": "50702",
+     "name": "Lingering Illness"
+    },
+    {
+     "id": "50705",
+     "name": "Professor's Bloodied Smock"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50651",
+     "name": "The Lady's Brittle Bracers"
+    },
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    },
+    {
+     "id": "51872",
+     "name": "Ether-Soaked Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51290",
+     "name": "Sanctified Lasherweave Cover"
+    },
+    {
+     "id": "51149",
+     "name": "Sanctified Lasherweave Cover"
+    },
+    {
+     "id": "50661",
+     "name": "Corp'rethar Ceremonial Crown"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50398",
+     "name": "Ashen Band of Endless Destruction"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50714",
+     "name": "Valanar's Other Signet Ring"
+    },
+    {
+     "id": "50636",
+     "name": "Memory of Malygos"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50365",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "50348",
+     "name": "Dislodged Foreign Object"
+    },
+    {
+     "id": "50360",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "47477",
+     "name": "Reign of the Dead"
+    },
+    {
+     "id": "50345",
+     "name": "Muradin's Spyglass"
+    },
+    {
+     "id": "45518",
+     "name": "Flare of the Heavens"
+    }
+   ]
+  }
+ },
+ "Druid|Feral DPS": {
+  "source": "https://www.icy-veins.com/wotlk-classic/feral-druid-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/druid/feral/dps-bis-gear-pve-phase-4",
+  "loadout": "Two-Handed (Arma de asta, maza de dos manos o bastón)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51298",
+     "name": "Sanctified Lasherweave Raiment"
+    },
+    {
+     "id": "50656",
+     "name": "Ikfirus's Sack of Wonder"
+    },
+    {
+     "id": "51141",
+     "name": "Sanctified Lasherweave Raiment"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51299",
+     "name": "Sanctified Lasherweave Shoulderpads"
+    },
+    {
+     "id": "50646",
+     "name": "Cultist's Bloodsoaked Spaulders"
+    },
+    {
+     "id": "51140",
+     "name": "Sanctified Lasherweave Shoulderpads"
+    }
+   ],
+   "legs": [
+    {
+     "id": "51297",
+     "name": "Sanctified Lasherweave Legguards"
+    },
+    {
+     "id": "50697",
+     "name": "Gangrenous Leggings"
+    },
+    {
+     "id": "49899",
+     "name": "Bladeborn Leggings"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50607",
+     "name": "Frostbitten Fur Boots"
+    },
+    {
+     "id": "49895",
+     "name": "Footpads of Impending Death"
+    },
+    {
+     "id": "51856",
+     "name": "Taldaram's Soft Slippers"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50456",
+     "name": "Idol of the Crying Moon"
+    },
+    {
+     "id": "47668",
+     "name": "Idol of Mutilation"
+    },
+    {
+     "id": "45509",
+     "name": "Idol of the Corruptor"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    },
+    {
+     "id": "51890",
+     "name": "Precious's Putrid Collar"
+    },
+    {
+     "id": "50421",
+     "name": "Sindragosa's Cruel Claw"
+    }
+   ],
+   "back": [
+    {
+     "id": "50653",
+     "name": "Shadowvault Slayer's Cloak"
+    },
+    {
+     "id": "47546",
+     "name": "Sylvanas' Cunning"
+    },
+    {
+     "id": "47545",
+     "name": "Vereesa's Dexterity"
+    }
+   ],
+   "hands": [
+    {
+     "id": "50675",
+     "name": "Aldriana's Gloves of Secrecy"
+    },
+    {
+     "id": "51295",
+     "name": "Sanctified Lasherweave Handgrips"
+    },
+    {
+     "id": "51144",
+     "name": "Sanctified Lasherweave Handgrips"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50735",
+     "name": "Oathbinder, Charge of the Ranger-General"
+    },
+    {
+     "id": "50603",
+     "name": "Cryptmaker"
+    },
+    {
+     "id": "50727",
+     "name": "Bloodfall"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50707",
+     "name": "Astrylian's Sutured Cinch"
+    },
+    {
+     "id": "50995",
+     "name": "Vengeful Noose"
+    },
+    {
+     "id": "51925",
+     "name": "Soulthief's Braided Belt"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "51820",
+     "name": "Vambraces of the Frost Wyrm Queen"
+    },
+    {
+     "id": "50333",
+     "name": "Toskk's Maximized Wristguards"
+    }
+   ],
+   "head": [
+    {
+     "id": "51296",
+     "name": "Sanctified Lasherweave Headguard"
+    },
+    {
+     "id": "50713",
+     "name": "Geistlord's Punishment Sack"
+    },
+    {
+     "id": "51143",
+     "name": "Sanctified Lasherweave Headguard"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50402",
+     "name": "Ashen Band of Endless Vengeance"
+    },
+    {
+     "id": "50618",
+     "name": "Frostbrood Sapphire Ring"
+    },
+    {
+     "id": "50604",
+     "name": "Band of the Bone Colossus"
+    },
+    {
+     "id": "50678",
+     "name": "Seal of Many Mouths"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50363",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "50343",
+     "name": "Whispering Fanged Skull"
+    },
+    {
+     "id": "50362",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "47464",
+     "name": "Death's Choice"
+    },
+    {
+     "id": "47131",
+     "name": "Death's Verdict"
+    }
+   ]
+  }
+ },
+ "Druid|Feral Tank": {
+  "source": "https://www.icy-veins.com/wotlk-classic/feral-druid-tank-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/druid/feral/tank-bis-gear-pve-phase-4",
+  "loadout": "Two-Handed (Arma de asta, maza de dos manos o bastón)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "50656",
+     "name": "Ikfirus's Sack of Wonder"
+    },
+    {
+     "id": "51298",
+     "name": "Sanctified Lasherweave Raiment"
+    },
+    {
+     "id": "51141",
+     "name": "Sanctified Lasherweave Raiment"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51299",
+     "name": "Sanctified Lasherweave Shoulderpads"
+    },
+    {
+     "id": "50646",
+     "name": "Cultist's Bloodsoaked Spaulders"
+    },
+    {
+     "id": "51140",
+     "name": "Sanctified Lasherweave Shoulderpads"
+    }
+   ],
+   "legs": [
+    {
+     "id": "51297",
+     "name": "Sanctified Lasherweave Legguards"
+    },
+    {
+     "id": "50697",
+     "name": "Gangrenous Leggings"
+    },
+    {
+     "id": "49899",
+     "name": "Bladeborn Leggings"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50607",
+     "name": "Frostbitten Fur Boots"
+    },
+    {
+     "id": "49895",
+     "name": "Footpads of Impending Death"
+    },
+    {
+     "id": "51856",
+     "name": "Taldaram's Soft Slippers"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50456",
+     "name": "Idol of the Crying Moon"
+    },
+    {
+     "id": "47668",
+     "name": "Idol of Mutilation"
+    },
+    {
+     "id": "38365",
+     "name": "Idol of Perspicacious Attacks"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50682",
+     "name": "Bile-Encrusted Medallion"
+    },
+    {
+     "id": "50627",
+     "name": "Noose of Malachite"
+    },
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    }
+   ],
+   "back": [
+    {
+     "id": "50718",
+     "name": "Royal Crimson Cloak"
+    },
+    {
+     "id": "50466",
+     "name": "Sentinel's Winter Cloak"
+    },
+    {
+     "id": "47550",
+     "name": "Cairne's Endurance"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51295",
+     "name": "Sanctified Lasherweave Handgrips"
+    },
+    {
+     "id": "50675",
+     "name": "Aldriana's Gloves of Secrecy"
+    },
+    {
+     "id": "51144",
+     "name": "Sanctified Lasherweave Handgrips"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50735",
+     "name": "Oathbinder, Charge of the Ranger-General"
+    },
+    {
+     "id": "50603",
+     "name": "Cryptmaker"
+    },
+    {
+     "id": "50727",
+     "name": "Bloodfall"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50707",
+     "name": "Astrylian's Sutured Cinch"
+    },
+    {
+     "id": "50995",
+     "name": "Vengeful Noose"
+    },
+    {
+     "id": "51925",
+     "name": "Soulthief's Braided Belt"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "51820",
+     "name": "Vambraces of the Frost Wyrm Queen"
+    },
+    {
+     "id": "47582",
+     "name": "Bracers of Swift Death"
+    }
+   ],
+   "head": [
+    {
+     "id": "51296",
+     "name": "Sanctified Lasherweave Headguard"
+    },
+    {
+     "id": "50713",
+     "name": "Geistlord's Punishment Sack"
+    },
+    {
+     "id": "51143",
+     "name": "Sanctified Lasherweave Headguard"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50622",
+     "name": "Devium's Eternally Cold Ring"
+    },
+    {
+     "id": "50642",
+     "name": "Juggernaut Band"
+    },
+    {
+     "id": "50404",
+     "name": "Ashen Band of Endless Courage"
+    },
+    {
+     "id": "50402",
+     "name": "Ashen Band of Endless Vengeance"
+    },
+    {
+     "id": "50447",
+     "name": "Harbinger's Bone Band"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50364",
+     "name": "Sindragosa's Flawless Fang"
+    },
+    {
+     "id": "50356",
+     "name": "Corroded Skeleton Key"
+    },
+    {
+     "id": "47451",
+     "name": "Juggernaut's Vitality"
+    },
+    {
+     "id": "47088",
+     "name": "Satrina's Impeding Scarab"
+    }
+   ]
+  }
+ },
+ "Druid|Restoration": {
+  "source": "https://www.icy-veins.com/wotlk-classic/restoration-druid-healer-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/druid/restoration/healer-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Off-Hand (Arma de 1 mano + Mano izquierda)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "50717",
+     "name": "Sanguine Silk Robes"
+    },
+    {
+     "id": "51300",
+     "name": "Sanctified Lasherweave Robes"
+    },
+    {
+     "id": "51139",
+     "name": "Sanctified Lasherweave Robes"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51304",
+     "name": "Sanctified Lasherweave Pauldrons"
+    },
+    {
+     "id": "51135",
+     "name": "Sanctified Lasherweave Pauldrons"
+    },
+    {
+     "id": "50643",
+     "name": "Shoulders of Mercy Killing"
+    }
+   ],
+   "legs": [
+    {
+     "id": "51303",
+     "name": "Sanctified Lasherweave Legplates"
+    },
+    {
+     "id": "51136",
+     "name": "Sanctified Lasherweave Legplates"
+    },
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50635",
+     "name": "Sundial of Eternal Dusk"
+    },
+    {
+     "id": "50719",
+     "name": "Shadow Silk Spindle"
+    },
+    {
+     "id": "51922",
+     "name": "Scourgelord's Baton"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "50665",
+     "name": "Boots of Unnatural Growth"
+    },
+    {
+     "id": "49893",
+     "name": "Sandals of Consecration"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50454",
+     "name": "Idol of the Black Willow"
+    },
+    {
+     "id": "47671",
+     "name": "Idol of Flaring Growth"
+    },
+    {
+     "id": "40342",
+     "name": "Idol of Awakening"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "50609",
+     "name": "Bone Sentinel's Amulet"
+    },
+    {
+     "id": "51871",
+     "name": "Choker of Filthy Diamonds"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "50668",
+     "name": "Greatcloak of the Turned Champion"
+    },
+    {
+     "id": "47554",
+     "name": "Lady Liadrin's Conviction"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51301",
+     "name": "Sanctified Lasherweave Gauntlets"
+    },
+    {
+     "id": "50722",
+     "name": "San'layn Ritualist Gloves"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "46017",
+     "name": "Val'anyr, Hammer of Ancient Kings"
+    },
+    {
+     "id": "50685",
+     "name": "Trauma"
+    },
+    {
+     "id": "50734",
+     "name": "Royal Scepter of Terenas II"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50705",
+     "name": "Professor's Bloodied Smock"
+    },
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    },
+    {
+     "id": "50702",
+     "name": "Lingering Illness"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    },
+    {
+     "id": "50630",
+     "name": "Bracers of Eternal Dreaming"
+    },
+    {
+     "id": "50651",
+     "name": "The Lady's Brittle Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51302",
+     "name": "Sanctified Lasherweave Helmet"
+    },
+    {
+     "id": "50661",
+     "name": "Corp'rethar Ceremonial Crown"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50400",
+     "name": "Ashen Band of Endless Wisdom"
+    },
+    {
+     "id": "50636",
+     "name": "Memory of Malygos"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50610",
+     "name": "Marrowgar's Frigid Eye"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50366",
+     "name": "Althor's Abacus"
+    },
+    {
+     "id": "47432",
+     "name": "Solace of the Fallen"
+    },
+    {
+     "id": "50359",
+     "name": "Althor's Abacus"
+    },
+    {
+     "id": "47059",
+     "name": "Solace of the Defeated"
+    },
+    {
+     "id": "50358",
+     "name": "Purified Lunar Dust"
+    }
+   ]
+  }
+ },
+ "Hunter|Beast Mastery": {
+  "source": "https://www.icy-veins.com/wotlk-classic/beast-mastery-hunter-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/hunter/beast-mastery/dps-bis-gear-pve-phase-4",
+  "loadout": "Two-Handed + Ranged (Arma de dos manos + Arma a distancia)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51289",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Tunic"
+    },
+    {
+     "id": "51150",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Tunic"
+    },
+    {
+     "id": "50689",
+     "name": "Carapace of Forgotten Kings"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51288",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Spaulders"
+    },
+    {
+     "id": "51151",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Spaulders"
+    },
+    {
+     "id": "50673",
+     "name": "Dual-Bladed Pauldrons"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50645",
+     "name": "Leggings of Northern Lights"
+    },
+    {
+     "id": "51287",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Legguards"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50607",
+     "name": "Frostbitten Fur Boots"
+    },
+    {
+     "id": "51891",
+     "name": "Taldron's Long Neglected Boots"
+    },
+    {
+     "id": "49897",
+     "name": "Rock-Steady Treads"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50733",
+     "name": "Fal'inrush, Defender of Quel'thalas"
+    },
+    {
+     "id": "50638",
+     "name": "Zod's Repeating Longbow"
+    },
+    {
+     "id": "51845",
+     "name": "Stakethrower"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    },
+    {
+     "id": "51822",
+     "name": "Rimetooth Pendant"
+    },
+    {
+     "id": "51890",
+     "name": "Precious's Putrid Collar"
+    }
+   ],
+   "back": [
+    {
+     "id": "47546",
+     "name": "Sylvanas' Cunning"
+    },
+    {
+     "id": "47545",
+     "name": "Vereesa's Dexterity"
+    },
+    {
+     "id": "50653",
+     "name": "Shadowvault Slayer's Cloak"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51285",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Handguards"
+    },
+    {
+     "id": "50619",
+     "name": "Anub'ar Stalker's Gloves"
+    },
+    {
+     "id": "51154",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Handguards"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50735",
+     "name": "Oathbinder, Charge of the Ranger-General"
+    },
+    {
+     "id": "50695",
+     "name": "Distant Land"
+    },
+    {
+     "id": "51945",
+     "name": "Tainted Twig of Nordrassil"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50688",
+     "name": "Nerub'ar Stalker's Cord"
+    },
+    {
+     "id": "50707",
+     "name": "Astrylian's Sutured Cinch"
+    },
+    {
+     "id": "51853",
+     "name": "Blood-Drinker's Girdle"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50655",
+     "name": "Scourge Hunter's Vambraces"
+    },
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "51914",
+     "name": "Icecrown Rampart Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51286",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Headpiece"
+    },
+    {
+     "id": "51153",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Headpiece"
+    },
+    {
+     "id": "50605",
+     "name": "Snowserpent Mail Helm"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50402",
+     "name": "Ashen Band of Endless Vengeance"
+    },
+    {
+     "id": "50618",
+     "name": "Frostbrood Sapphire Ring"
+    },
+    {
+     "id": "50604",
+     "name": "Band of the Bone Colossus"
+    },
+    {
+     "id": "51843",
+     "name": "Seal of the Twilight Queen"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50363",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "50343",
+     "name": "Whispering Fanged Skull"
+    },
+    {
+     "id": "50362",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "47464",
+     "name": "Death's Choice"
+    },
+    {
+     "id": "47131",
+     "name": "Death's Verdict"
+    }
+   ]
+  }
+ },
+ "Hunter|Marksmanship": {
+  "source": "https://www.icy-veins.com/wotlk-classic/marksmanship-hunter-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/hunter/marksmanship/dps-bis-gear-pve-phase-4",
+  "loadout": "Two-Handed + Ranged (Arma de dos manos + Arma a distancia)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51289",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Tunic"
+    },
+    {
+     "id": "51150",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Tunic"
+    },
+    {
+     "id": "50689",
+     "name": "Carapace of Forgotten Kings"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51288",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Spaulders"
+    },
+    {
+     "id": "51151",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Spaulders"
+    },
+    {
+     "id": "50673",
+     "name": "Dual-Bladed Pauldrons"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50645",
+     "name": "Leggings of Northern Lights"
+    },
+    {
+     "id": "51287",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Legguards"
+    },
+    {
+     "id": "49901",
+     "name": "Draconic Bonesplinter Legguards"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50607",
+     "name": "Frostbitten Fur Boots"
+    },
+    {
+     "id": "51891",
+     "name": "Taldron's Long Neglected Boots"
+    },
+    {
+     "id": "49897",
+     "name": "Rock-Steady Treads"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50733",
+     "name": "Fal'inrush, Defender of Quel'thalas"
+    },
+    {
+     "id": "50638",
+     "name": "Zod's Repeating Longbow"
+    },
+    {
+     "id": "51845",
+     "name": "Stakethrower"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    },
+    {
+     "id": "51822",
+     "name": "Rimetooth Pendant"
+    },
+    {
+     "id": "51890",
+     "name": "Precious's Putrid Collar"
+    }
+   ],
+   "back": [
+    {
+     "id": "47546",
+     "name": "Sylvanas' Cunning"
+    },
+    {
+     "id": "47545",
+     "name": "Vereesa's Dexterity"
+    },
+    {
+     "id": "50653",
+     "name": "Shadowvault Slayer's Cloak"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51285",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Handguards"
+    },
+    {
+     "id": "50619",
+     "name": "Anub'ar Stalker's Gloves"
+    },
+    {
+     "id": "51154",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Handguards"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50735",
+     "name": "Oathbinder, Charge of the Ranger-General"
+    },
+    {
+     "id": "50695",
+     "name": "Distant Land"
+    },
+    {
+     "id": "51945",
+     "name": "Tainted Twig of Nordrassil"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50688",
+     "name": "Nerub'ar Stalker's Cord"
+    },
+    {
+     "id": "50707",
+     "name": "Astrylian's Sutured Cinch"
+    },
+    {
+     "id": "51853",
+     "name": "Blood-Drinker's Girdle"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50655",
+     "name": "Scourge Hunter's Vambraces"
+    },
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "51914",
+     "name": "Icecrown Rampart Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51286",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Headpiece"
+    },
+    {
+     "id": "51153",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Headpiece"
+    },
+    {
+     "id": "50605",
+     "name": "Snowserpent Mail Helm"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50402",
+     "name": "Ashen Band of Endless Vengeance"
+    },
+    {
+     "id": "50618",
+     "name": "Frostbrood Sapphire Ring"
+    },
+    {
+     "id": "50604",
+     "name": "Band of the Bone Colossus"
+    },
+    {
+     "id": "51843",
+     "name": "Seal of the Twilight Queen"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50363",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "50343",
+     "name": "Whispering Fanged Skull"
+    },
+    {
+     "id": "50362",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "47464",
+     "name": "Death's Choice"
+    },
+    {
+     "id": "47131",
+     "name": "Death's Verdict"
+    }
+   ]
+  }
+ },
+ "Hunter|Survival": {
+  "source": "https://www.icy-veins.com/wotlk-classic/survival-hunter-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/hunter/survival/dps-bis-gear-pve-phase-4",
+  "loadout": "Two-Handed + Ranged (Arma de dos manos + Arma a distancia)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51289",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Tunic"
+    },
+    {
+     "id": "51150",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Tunic"
+    },
+    {
+     "id": "50689",
+     "name": "Carapace of Forgotten Kings"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51288",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Spaulders"
+    },
+    {
+     "id": "51151",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Spaulders"
+    },
+    {
+     "id": "50673",
+     "name": "Dual-Bladed Pauldrons"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50645",
+     "name": "Leggings of Northern Lights"
+    },
+    {
+     "id": "51287",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Legguards"
+    },
+    {
+     "id": "49901",
+     "name": "Draconic Bonesplinter Legguards"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50607",
+     "name": "Frostbitten Fur Boots"
+    },
+    {
+     "id": "51891",
+     "name": "Taldron's Long Neglected Boots"
+    },
+    {
+     "id": "49897",
+     "name": "Rock-Steady Treads"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50733",
+     "name": "Fal'inrush, Defender of Quel'thalas"
+    },
+    {
+     "id": "50638",
+     "name": "Zod's Repeating Longbow"
+    },
+    {
+     "id": "51845",
+     "name": "Stakethrower"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    },
+    {
+     "id": "51822",
+     "name": "Rimetooth Pendant"
+    },
+    {
+     "id": "51890",
+     "name": "Precious's Putrid Collar"
+    }
+   ],
+   "back": [
+    {
+     "id": "47546",
+     "name": "Sylvanas' Cunning"
+    },
+    {
+     "id": "47545",
+     "name": "Vereesa's Dexterity"
+    },
+    {
+     "id": "50653",
+     "name": "Shadowvault Slayer's Cloak"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51285",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Handguards"
+    },
+    {
+     "id": "50619",
+     "name": "Anub'ar Stalker's Gloves"
+    },
+    {
+     "id": "51154",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Handguards"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50735",
+     "name": "Oathbinder, Charge of the Ranger-General"
+    },
+    {
+     "id": "50695",
+     "name": "Distant Land"
+    },
+    {
+     "id": "51945",
+     "name": "Tainted Twig of Nordrassil"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50688",
+     "name": "Nerub'ar Stalker's Cord"
+    },
+    {
+     "id": "50707",
+     "name": "Astrylian's Sutured Cinch"
+    },
+    {
+     "id": "51853",
+     "name": "Blood-Drinker's Girdle"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50655",
+     "name": "Scourge Hunter's Vambraces"
+    },
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "51914",
+     "name": "Icecrown Rampart Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51286",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Headpiece"
+    },
+    {
+     "id": "51153",
+     "name": "Sanctified Ahn'Kahar Blood Hunter's Headpiece"
+    },
+    {
+     "id": "50605",
+     "name": "Snowserpent Mail Helm"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50402",
+     "name": "Ashen Band of Endless Vengeance"
+    },
+    {
+     "id": "50618",
+     "name": "Frostbrood Sapphire Ring"
+    },
+    {
+     "id": "50604",
+     "name": "Band of the Bone Colossus"
+    },
+    {
+     "id": "51843",
+     "name": "Seal of the Twilight Queen"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50363",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "50343",
+     "name": "Whispering Fanged Skull"
+    },
+    {
+     "id": "50362",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "47464",
+     "name": "Death's Choice"
+    },
+    {
+     "id": "47131",
+     "name": "Death's Verdict"
+    }
+   ]
+  }
+ },
+ "Mage|Arcane": {
+  "source": "https://www.icy-veins.com/wotlk-classic/arcane-mage-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/mage/arcane/dps-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Off-Hand (Arma de 1 mano + Mano izquierda)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51283",
+     "name": "Sanctified Bloodmage Robe"
+    },
+    {
+     "id": "50717",
+     "name": "Sanguine Silk Robes"
+    },
+    {
+     "id": "50629",
+     "name": "Robe of the Waking Nightmare"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51284",
+     "name": "Sanctified Bloodmage Shoulderpads"
+    },
+    {
+     "id": "51155",
+     "name": "Sanctified Bloodmage Shoulderpads"
+    },
+    {
+     "id": "50643",
+     "name": "Shoulders of Mercy Killing"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    },
+    {
+     "id": "51282",
+     "name": "Sanctified Bloodmage Leggings"
+    },
+    {
+     "id": "49891",
+     "name": "Leggings of Woven Death"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50719",
+     "name": "Shadow Silk Spindle"
+    },
+    {
+     "id": "50635",
+     "name": "Sundial of Eternal Dusk"
+    },
+    {
+     "id": "51922",
+     "name": "Scourgelord's Baton"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "51850",
+     "name": "Pale Corpse Boots"
+    },
+    {
+     "id": "49890",
+     "name": "Deathfrost Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50684",
+     "name": "Corpse-Impaling Spike"
+    },
+    {
+     "id": "50631",
+     "name": "Nightmare Ender"
+    },
+    {
+     "id": "51838",
+     "name": "Lana'thel's Bloody Nail"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "50658",
+     "name": "Amulet of the Silent Eulogy"
+    },
+    {
+     "id": "51894",
+     "name": "Soulcleave Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "50668",
+     "name": "Greatcloak of the Turned Champion"
+    },
+    {
+     "id": "47551",
+     "name": "Aethas' Intensity"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51280",
+     "name": "Sanctified Bloodmage Gloves"
+    },
+    {
+     "id": "50722",
+     "name": "San'layn Ritualist Gloves"
+    },
+    {
+     "id": "50663",
+     "name": "Gunship Captain's Mittens"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50732",
+     "name": "Bloodsurge, Kel'Thuzad's Blade of Agony"
+    },
+    {
+     "id": "50608",
+     "name": "Frozen Bonespike"
+    },
+    {
+     "id": "50731",
+     "name": "Archus, Greatstaff of Antonidas"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    },
+    {
+     "id": "50702",
+     "name": "Lingering Illness"
+    },
+    {
+     "id": "51930",
+     "name": "Cord of the Patronizing Practitioner"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50651",
+     "name": "The Lady's Brittle Bracers"
+    },
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    },
+    {
+     "id": "51872",
+     "name": "Ether-Soaked Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51281",
+     "name": "Sanctified Bloodmage Hood"
+    },
+    {
+     "id": "51158",
+     "name": "Sanctified Bloodmage Hood"
+    },
+    {
+     "id": "50661",
+     "name": "Corp'rethar Ceremonial Crown"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50398",
+     "name": "Ashen Band of Endless Destruction"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50636",
+     "name": "Memory of Malygos"
+    },
+    {
+     "id": "51849",
+     "name": "Cerise Coiled Ring"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50348",
+     "name": "Dislodged Foreign Object"
+    },
+    {
+     "id": "50365",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "50353",
+     "name": "Dislodged Foreign Object"
+    },
+    {
+     "id": "47477",
+     "name": "Reign of the Dead"
+    },
+    {
+     "id": "47188",
+     "name": "Reign of the Unliving"
+    }
+   ]
+  }
+ },
+ "Mage|Fire": {
+  "source": "https://www.icy-veins.com/wotlk-classic/fire-mage-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/mage/fire/dps-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Off-Hand (Arma de 1 mano + Mano izquierda)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51283",
+     "name": "Sanctified Bloodmage Robe"
+    },
+    {
+     "id": "50629",
+     "name": "Robe of the Waking Nightmare"
+    },
+    {
+     "id": "51156",
+     "name": "Sanctified Bloodmage Robe"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51284",
+     "name": "Sanctified Bloodmage Shoulderpads"
+    },
+    {
+     "id": "51155",
+     "name": "Sanctified Bloodmage Shoulderpads"
+    },
+    {
+     "id": "50643",
+     "name": "Shoulders of Mercy Killing"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    },
+    {
+     "id": "51282",
+     "name": "Sanctified Bloodmage Leggings"
+    },
+    {
+     "id": "49891",
+     "name": "Leggings of Woven Death"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50719",
+     "name": "Shadow Silk Spindle"
+    },
+    {
+     "id": "50635",
+     "name": "Sundial of Eternal Dusk"
+    },
+    {
+     "id": "51922",
+     "name": "Scourgelord's Baton"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "51850",
+     "name": "Pale Corpse Boots"
+    },
+    {
+     "id": "49890",
+     "name": "Deathfrost Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50684",
+     "name": "Corpse-Impaling Spike"
+    },
+    {
+     "id": "50631",
+     "name": "Nightmare Ender"
+    },
+    {
+     "id": "51838",
+     "name": "Lana'thel's Bloody Nail"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "50658",
+     "name": "Amulet of the Silent Eulogy"
+    },
+    {
+     "id": "51894",
+     "name": "Soulcleave Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "47551",
+     "name": "Aethas' Intensity"
+    },
+    {
+     "id": "47552",
+     "name": "Jaina's Radiance"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51280",
+     "name": "Sanctified Bloodmage Gloves"
+    },
+    {
+     "id": "50663",
+     "name": "Gunship Captain's Mittens"
+    },
+    {
+     "id": "51159",
+     "name": "Sanctified Bloodmage Gloves"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50732",
+     "name": "Bloodsurge, Kel'Thuzad's Blade of Agony"
+    },
+    {
+     "id": "50608",
+     "name": "Frozen Bonespike"
+    },
+    {
+     "id": "50731",
+     "name": "Archus, Greatstaff of Antonidas"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    },
+    {
+     "id": "50702",
+     "name": "Lingering Illness"
+    },
+    {
+     "id": "51930",
+     "name": "Cord of the Patronizing Practitioner"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50651",
+     "name": "The Lady's Brittle Bracers"
+    },
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    },
+    {
+     "id": "51872",
+     "name": "Ether-Soaked Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51281",
+     "name": "Sanctified Bloodmage Hood"
+    },
+    {
+     "id": "51158",
+     "name": "Sanctified Bloodmage Hood"
+    },
+    {
+     "id": "50661",
+     "name": "Corp'rethar Ceremonial Crown"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50398",
+     "name": "Ashen Band of Endless Destruction"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50714",
+     "name": "Valanar's Other Signet Ring"
+    },
+    {
+     "id": "50644",
+     "name": "Ring of Maddening Whispers"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50365",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "50348",
+     "name": "Dislodged Foreign Object"
+    },
+    {
+     "id": "50360",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "50345",
+     "name": "Muradin's Spyglass"
+    },
+    {
+     "id": "47477",
+     "name": "Reign of the Dead"
+    }
+   ]
+  }
+ },
+ "Mage|Frost": {
+  "source": "https://www.icy-veins.com/wotlk-classic/frost-mage-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/mage/frost/dps-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Off-Hand (Arma de 1 mano + Mano izquierda)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51283",
+     "name": "Sanctified Bloodmage Robe"
+    },
+    {
+     "id": "50717",
+     "name": "Sanguine Silk Robes"
+    },
+    {
+     "id": "51156",
+     "name": "Sanctified Bloodmage Robe"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51284",
+     "name": "Sanctified Bloodmage Shoulderpads"
+    },
+    {
+     "id": "51155",
+     "name": "Sanctified Bloodmage Shoulderpads"
+    },
+    {
+     "id": "50643",
+     "name": "Shoulders of Mercy Killing"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    },
+    {
+     "id": "51282",
+     "name": "Sanctified Bloodmage Leggings"
+    },
+    {
+     "id": "49891",
+     "name": "Leggings of Woven Death"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50719",
+     "name": "Shadow Silk Spindle"
+    },
+    {
+     "id": "50635",
+     "name": "Sundial of Eternal Dusk"
+    },
+    {
+     "id": "51922",
+     "name": "Scourgelord's Baton"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "51850",
+     "name": "Pale Corpse Boots"
+    },
+    {
+     "id": "49890",
+     "name": "Deathfrost Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50684",
+     "name": "Corpse-Impaling Spike"
+    },
+    {
+     "id": "50631",
+     "name": "Nightmare Ender"
+    },
+    {
+     "id": "51838",
+     "name": "Lana'thel's Bloody Nail"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "50658",
+     "name": "Amulet of the Silent Eulogy"
+    },
+    {
+     "id": "51894",
+     "name": "Soulcleave Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "50668",
+     "name": "Greatcloak of the Turned Champion"
+    },
+    {
+     "id": "47551",
+     "name": "Aethas' Intensity"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51280",
+     "name": "Sanctified Bloodmage Gloves"
+    },
+    {
+     "id": "50722",
+     "name": "San'layn Ritualist Gloves"
+    },
+    {
+     "id": "50663",
+     "name": "Gunship Captain's Mittens"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50732",
+     "name": "Bloodsurge, Kel'Thuzad's Blade of Agony"
+    },
+    {
+     "id": "50608",
+     "name": "Frozen Bonespike"
+    },
+    {
+     "id": "50731",
+     "name": "Archus, Greatstaff of Antonidas"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    },
+    {
+     "id": "50702",
+     "name": "Lingering Illness"
+    },
+    {
+     "id": "51930",
+     "name": "Cord of the Patronizing Practitioner"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50651",
+     "name": "The Lady's Brittle Bracers"
+    },
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    },
+    {
+     "id": "51872",
+     "name": "Ether-Soaked Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51281",
+     "name": "Sanctified Bloodmage Hood"
+    },
+    {
+     "id": "51158",
+     "name": "Sanctified Bloodmage Hood"
+    },
+    {
+     "id": "50661",
+     "name": "Corp'rethar Ceremonial Crown"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50398",
+     "name": "Ashen Band of Endless Destruction"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50636",
+     "name": "Memory of Malygos"
+    },
+    {
+     "id": "51849",
+     "name": "Cerise Coiled Ring"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50348",
+     "name": "Dislodged Foreign Object"
+    },
+    {
+     "id": "50365",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "50353",
+     "name": "Dislodged Foreign Object"
+    },
+    {
+     "id": "50345",
+     "name": "Muradin's Spyglass"
+    },
+    {
+     "id": "47477",
+     "name": "Reign of the Dead"
+    }
+   ]
+  }
+ },
+ "Paladin|Holy": {
+  "source": "https://www.icy-veins.com/wotlk-classic/holy-paladin-healer-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/paladin/holy/healer-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Shield (Arma de 1 mano + Escudo)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "50680",
+     "name": "Rot-Resistant Breastplate"
+    },
+    {
+     "id": "50723",
+     "name": "Mail of Crimson Coins"
+    },
+    {
+     "id": "51274",
+     "name": "Sanctified Lightsworn Tunic"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51273",
+     "name": "Sanctified Lightsworn Spaulders"
+    },
+    {
+     "id": "51166",
+     "name": "Sanctified Lightsworn Spaulders"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    },
+    {
+     "id": "51271",
+     "name": "Sanctified Lightsworn Greaves"
+    },
+    {
+     "id": "49900",
+     "name": "Lightning-Infused Leggings"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50616",
+     "name": "Bulwark of Smouldering Steel"
+    },
+    {
+     "id": "51812",
+     "name": "Lost Pavise of the Blue Flight"
+    },
+    {
+     "id": "47085",
+     "name": "Bastion of Purity"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "50652",
+     "name": "Necrophotic Greaves"
+    },
+    {
+     "id": "49905",
+     "name": "Protectors of Life"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50460",
+     "name": "Libram of Blinding Light"
+    },
+    {
+     "id": "40191",
+     "name": "Libram of Radiance"
+    },
+    {
+     "id": "45436",
+     "name": "Libram of the Resolute"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "50609",
+     "name": "Bone Sentinel's Amulet"
+    },
+    {
+     "id": "51871",
+     "name": "Choker of Filthy Diamonds"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "50668",
+     "name": "Greatcloak of the Turned Champion"
+    },
+    {
+     "id": "47554",
+     "name": "Lady Liadrin's Conviction"
+    }
+   ],
+   "hands": [
+    {
+     "id": "50650",
+     "name": "Fallen Lord's Handguards"
+    },
+    {
+     "id": "50703",
+     "name": "Unclean Surgical Gloves"
+    },
+    {
+     "id": "51270",
+     "name": "Sanctified Lightsworn Gloves"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "46017",
+     "name": "Val'anyr, Hammer of Ancient Kings"
+    },
+    {
+     "id": "50732",
+     "name": "Bloodsurge, Kel'Thuzad's Blade of Agony"
+    },
+    {
+     "id": "50734",
+     "name": "Royal Scepter of Terenas II"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50671",
+     "name": "Belt of the Blood Nova"
+    },
+    {
+     "id": "50667",
+     "name": "Waistband of Righteous Fury"
+    },
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    },
+    {
+     "id": "50630",
+     "name": "Bracers of Eternal Dreaming"
+    }
+   ],
+   "head": [
+    {
+     "id": "51272",
+     "name": "Sanctified Lightsworn Headpiece"
+    },
+    {
+     "id": "51167",
+     "name": "Sanctified Lightsworn Headpiece"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50400",
+     "name": "Ashen Band of Endless Wisdom"
+    },
+    {
+     "id": "50636",
+     "name": "Memory of Malygos"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50610",
+     "name": "Marrowgar's Frigid Eye"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "46051",
+     "name": "Meteorite Crystal"
+    },
+    {
+     "id": "47432",
+     "name": "Solace of the Fallen"
+    },
+    {
+     "id": "48724",
+     "name": "Talisman of Resurgence"
+    },
+    {
+     "id": "47059",
+     "name": "Solace of the Defeated"
+    },
+    {
+     "id": "50366",
+     "name": "Althor's Abacus"
+    }
+   ]
+  }
+ },
+ "Paladin|Protection": {
+  "source": "https://www.icy-veins.com/wotlk-classic/protection-paladin-tank-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/paladin/protection/tank-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Shield (Arma de 1 mano + Escudo)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "50681",
+     "name": "Blightborne Warplate"
+    },
+    {
+     "id": "51265",
+     "name": "Sanctified Lightsworn Chestguard"
+    },
+    {
+     "id": "50968",
+     "name": "Cataclysmic Chestguard"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51269",
+     "name": "Sanctified Lightsworn Shoulderguards"
+    },
+    {
+     "id": "50660",
+     "name": "Boneguard Commander's Pauldrons"
+    },
+    {
+     "id": "51170",
+     "name": "Sanctified Lightsworn Shoulderguards"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50612",
+     "name": "Legguards of Lost Hope"
+    },
+    {
+     "id": "51268",
+     "name": "Sanctified Lightsworn Legguards"
+    },
+    {
+     "id": "49904",
+     "name": "Pillars of Might"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50729",
+     "name": "Icecrown Glacial Wall"
+    },
+    {
+     "id": "50065",
+     "name": "Icecrown Glacial Wall"
+    },
+    {
+     "id": "51909",
+     "name": "Neverending Winter"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50625",
+     "name": "Grinning Skull Greatboots"
+    },
+    {
+     "id": "49907",
+     "name": "Boots of Kingly Upheaval"
+    },
+    {
+     "id": "51816",
+     "name": "Scourge Fanged Stompers"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50461",
+     "name": "Libram of the Eternal Tower"
+    },
+    {
+     "id": "47664",
+     "name": "Libram of Defiance"
+    },
+    {
+     "id": "45145",
+     "name": "Libram of the Sacred Shield"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50682",
+     "name": "Bile-Encrusted Medallion"
+    },
+    {
+     "id": "50627",
+     "name": "Noose of Malachite"
+    },
+    {
+     "id": "51894",
+     "name": "Soulcleave Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50718",
+     "name": "Royal Crimson Cloak"
+    },
+    {
+     "id": "50466",
+     "name": "Sentinel's Winter Cloak"
+    },
+    {
+     "id": "47550",
+     "name": "Cairne's Endurance"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51267",
+     "name": "Sanctified Lightsworn Handguards"
+    },
+    {
+     "id": "50716",
+     "name": "Taldaram's Plated Fists"
+    },
+    {
+     "id": "50978",
+     "name": "Gauntlets of the Kraken"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50738",
+     "name": "Mithrios, Bronzebeard's Legacy"
+    },
+    {
+     "id": "50672",
+     "name": "Bloodvenom Blade"
+    },
+    {
+     "id": "51937",
+     "name": "Bonebreaker Scepter"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50691",
+     "name": "Belt of Broken Bones"
+    },
+    {
+     "id": "50991",
+     "name": "Verdigris Chain Belt"
+    },
+    {
+     "id": "51831",
+     "name": "Ironrope Belt of Ymirjar"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50611",
+     "name": "Bracers of Dark Reckoning"
+    },
+    {
+     "id": "51901",
+     "name": "Gargoyle Spit Bracers"
+    },
+    {
+     "id": "49960",
+     "name": "Bracers of Dark Reckoning"
+    }
+   ],
+   "head": [
+    {
+     "id": "50640",
+     "name": "Broken Ram Skull Helm"
+    },
+    {
+     "id": "51266",
+     "name": "Sanctified Lightsworn Faceguard"
+    },
+    {
+     "id": "51173",
+     "name": "Sanctified Lightsworn Faceguard"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50404",
+     "name": "Ashen Band of Endless Courage"
+    },
+    {
+     "id": "50622",
+     "name": "Devium's Eternally Cold Ring"
+    },
+    {
+     "id": "50642",
+     "name": "Juggernaut Band"
+    },
+    {
+     "id": "51900",
+     "name": "Saurfang's Cold-Forged Band"
+    },
+    {
+     "id": "50447",
+     "name": "Harbinger's Bone Band"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50364",
+     "name": "Sindragosa's Flawless Fang"
+    },
+    {
+     "id": "47451",
+     "name": "Juggernaut's Vitality"
+    },
+    {
+     "id": "50361",
+     "name": "Sindragosa's Flawless Fang"
+    },
+    {
+     "id": "50356",
+     "name": "Corroded Skeleton Key"
+    },
+    {
+     "id": "47088",
+     "name": "Satrina's Impeding Scarab"
+    }
+   ]
+  }
+ },
+ "Paladin|Retribution": {
+  "source": "https://www.icy-veins.com/wotlk-classic/retribution-paladin-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/paladin/retribution/dps-bis-gear-pve-phase-4",
+  "loadout": "Two-Handed (Arma de dos manos)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51275",
+     "name": "Sanctified Lightsworn Battleplate"
+    },
+    {
+     "id": "51164",
+     "name": "Sanctified Lightsworn Battleplate"
+    },
+    {
+     "id": "50606",
+     "name": "Gendarme's Cuirass"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51279",
+     "name": "Sanctified Lightsworn Shoulderplates"
+    },
+    {
+     "id": "51160",
+     "name": "Sanctified Lightsworn Shoulderplates"
+    },
+    {
+     "id": "50674",
+     "name": "Raging Behemoth's Shoulderplates"
+    }
+   ],
+   "legs": [
+    {
+     "id": "51278",
+     "name": "Sanctified Lightsworn Legplates"
+    },
+    {
+     "id": "51161",
+     "name": "Sanctified Lightsworn Legplates"
+    },
+    {
+     "id": "50624",
+     "name": "Scourge Reaver's Legplates"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50639",
+     "name": "Blood-Soaked Saronite Stompers"
+    },
+    {
+     "id": "50607",
+     "name": "Frostbitten Fur Boots"
+    },
+    {
+     "id": "51915",
+     "name": "Bone Drake's Enameled Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50455",
+     "name": "Libram of Three Truths"
+    },
+    {
+     "id": "47661",
+     "name": "Libram of Valiance"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    },
+    {
+     "id": "50647",
+     "name": "Ahn'kahar Onyx Neckguard"
+    },
+    {
+     "id": "51890",
+     "name": "Precious's Putrid Collar"
+    }
+   ],
+   "back": [
+    {
+     "id": "50653",
+     "name": "Shadowvault Slayer's Cloak"
+    },
+    {
+     "id": "50677",
+     "name": "Winding Sheet"
+    },
+    {
+     "id": "47546",
+     "name": "Sylvanas' Cunning"
+    }
+   ],
+   "hands": [
+    {
+     "id": "50690",
+     "name": "Fleshrending Gauntlets"
+    },
+    {
+     "id": "50675",
+     "name": "Aldriana's Gloves of Secrecy"
+    },
+    {
+     "id": "51276",
+     "name": "Sanctified Lightsworn Gauntlets"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "49623",
+     "name": "Shadowmourne"
+    },
+    {
+     "id": "50735",
+     "name": "Oathbinder, Charge of the Ranger-General"
+    },
+    {
+     "id": "50709",
+     "name": "Bryntroll, the Bone Arbiter"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50707",
+     "name": "Astrylian's Sutured Cinch"
+    },
+    {
+     "id": "50620",
+     "name": "Coldwraith Links"
+    },
+    {
+     "id": "51879",
+     "name": "Flesh-Shaper's Gurney Strap"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50659",
+     "name": "Polar Bear Claw Bracers"
+    },
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "51832",
+     "name": "Taiga Bindings"
+    }
+   ],
+   "head": [
+    {
+     "id": "51277",
+     "name": "Sanctified Lightsworn Helmet"
+    },
+    {
+     "id": "51162",
+     "name": "Sanctified Lightsworn Helmet"
+    },
+    {
+     "id": "50712",
+     "name": "Landsoul's Horned Greathelm"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50402",
+     "name": "Ashen Band of Endless Vengeance"
+    },
+    {
+     "id": "50604",
+     "name": "Band of the Bone Colossus"
+    },
+    {
+     "id": "52572",
+     "name": "Ashen Band of Endless Might"
+    },
+    {
+     "id": "50678",
+     "name": "Seal of Many Mouths"
+    },
+    {
+     "id": "50657",
+     "name": "Skeleton Lord's Circle"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50706",
+     "name": "Tiny Abomination in a Jar"
+    },
+    {
+     "id": "47464",
+     "name": "Death's Choice"
+    },
+    {
+     "id": "50351",
+     "name": "Tiny Abomination in a Jar"
+    },
+    {
+     "id": "47131",
+     "name": "Death's Verdict"
+    },
+    {
+     "id": "50343",
+     "name": "Whispering Fanged Skull"
+    }
+   ]
+  }
+ },
+ "Priest|Discipline": {
+  "source": "https://www.icy-veins.com/wotlk-classic/discipline-priest-healer-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/priest/discipline/healer-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Off-Hand (Arma de 1 mano + Mano izquierda)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51263",
+     "name": "Sanctified Crimson Acolyte Robe"
+    },
+    {
+     "id": "50717",
+     "name": "Sanguine Silk Robes"
+    },
+    {
+     "id": "51176",
+     "name": "Sanctified Crimson Acolyte Robe"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51264",
+     "name": "Sanctified Crimson Acolyte Shoulderpads"
+    },
+    {
+     "id": "51175",
+     "name": "Sanctified Crimson Acolyte Shoulderpads"
+    },
+    {
+     "id": "50643",
+     "name": "Shoulders of Mercy Killing"
+    }
+   ],
+   "legs": [
+    {
+     "id": "51262",
+     "name": "Sanctified Crimson Acolyte Leggings"
+    },
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    },
+    {
+     "id": "49891",
+     "name": "Leggings of Woven Death"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50719",
+     "name": "Shadow Silk Spindle"
+    },
+    {
+     "id": "50635",
+     "name": "Sundial of Eternal Dusk"
+    },
+    {
+     "id": "51922",
+     "name": "Scourgelord's Baton"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "51850",
+     "name": "Pale Corpse Boots"
+    },
+    {
+     "id": "49890",
+     "name": "Deathfrost Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50684",
+     "name": "Corpse-Impaling Spike"
+    },
+    {
+     "id": "50631",
+     "name": "Nightmare Ender"
+    },
+    {
+     "id": "51838",
+     "name": "Lana'thel's Bloody Nail"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "50609",
+     "name": "Bone Sentinel's Amulet"
+    },
+    {
+     "id": "51894",
+     "name": "Soulcleave Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "50668",
+     "name": "Greatcloak of the Turned Champion"
+    },
+    {
+     "id": "47554",
+     "name": "Lady Liadrin's Conviction"
+    }
+   ],
+   "hands": [
+    {
+     "id": "50722",
+     "name": "San'layn Ritualist Gloves"
+    },
+    {
+     "id": "51260",
+     "name": "Sanctified Crimson Acolyte Gloves"
+    },
+    {
+     "id": "50663",
+     "name": "Gunship Captain's Mittens"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50734",
+     "name": "Royal Scepter of Terenas II"
+    },
+    {
+     "id": "46017",
+     "name": "Val'anyr, Hammer of Ancient Kings"
+    },
+    {
+     "id": "50608",
+     "name": "Frozen Bonespike"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    },
+    {
+     "id": "50702",
+     "name": "Lingering Illness"
+    },
+    {
+     "id": "51930",
+     "name": "Cord of the Patronizing Practitioner"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    },
+    {
+     "id": "50651",
+     "name": "The Lady's Brittle Bracers"
+    },
+    {
+     "id": "51872",
+     "name": "Ether-Soaked Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51261",
+     "name": "Sanctified Crimson Acolyte Hood"
+    },
+    {
+     "id": "51178",
+     "name": "Sanctified Crimson Acolyte Hood"
+    },
+    {
+     "id": "50661",
+     "name": "Corp'rethar Ceremonial Crown"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50400",
+     "name": "Ashen Band of Endless Wisdom"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50636",
+     "name": "Memory of Malygos"
+    },
+    {
+     "id": "50610",
+     "name": "Marrowgar's Frigid Eye"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50366",
+     "name": "Althor's Abacus"
+    },
+    {
+     "id": "47432",
+     "name": "Solace of the Fallen"
+    },
+    {
+     "id": "50359",
+     "name": "Althor's Abacus"
+    },
+    {
+     "id": "47059",
+     "name": "Solace of the Defeated"
+    },
+    {
+     "id": "50358",
+     "name": "Purified Lunar Dust"
+    }
+   ]
+  }
+ },
+ "Priest|Holy": {
+  "source": "https://www.icy-veins.com/wotlk-classic/holy-priest-healer-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/priest/holy/healer-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Off-Hand (Arma de 1 mano + Mano izquierda)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "50717",
+     "name": "Sanguine Silk Robes"
+    },
+    {
+     "id": "51263",
+     "name": "Sanctified Crimson Acolyte Robe"
+    },
+    {
+     "id": "51176",
+     "name": "Sanctified Crimson Acolyte Robe"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51264",
+     "name": "Sanctified Crimson Acolyte Shoulderpads"
+    },
+    {
+     "id": "51175",
+     "name": "Sanctified Crimson Acolyte Shoulderpads"
+    },
+    {
+     "id": "50643",
+     "name": "Shoulders of Mercy Killing"
+    }
+   ],
+   "legs": [
+    {
+     "id": "51262",
+     "name": "Sanctified Crimson Acolyte Leggings"
+    },
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    },
+    {
+     "id": "49891",
+     "name": "Leggings of Woven Death"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50635",
+     "name": "Sundial of Eternal Dusk"
+    },
+    {
+     "id": "50719",
+     "name": "Shadow Silk Spindle"
+    },
+    {
+     "id": "51922",
+     "name": "Scourgelord's Baton"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "51850",
+     "name": "Pale Corpse Boots"
+    },
+    {
+     "id": "49890",
+     "name": "Deathfrost Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50631",
+     "name": "Nightmare Ender"
+    },
+    {
+     "id": "50684",
+     "name": "Corpse-Impaling Spike"
+    },
+    {
+     "id": "51838",
+     "name": "Lana'thel's Bloody Nail"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "50609",
+     "name": "Bone Sentinel's Amulet"
+    },
+    {
+     "id": "51871",
+     "name": "Choker of Filthy Diamonds"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "50668",
+     "name": "Greatcloak of the Turned Champion"
+    },
+    {
+     "id": "47554",
+     "name": "Lady Liadrin's Conviction"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51260",
+     "name": "Sanctified Crimson Acolyte Gloves"
+    },
+    {
+     "id": "50722",
+     "name": "San'layn Ritualist Gloves"
+    },
+    {
+     "id": "51179",
+     "name": "Sanctified Crimson Acolyte Gloves"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "46017",
+     "name": "Val'anyr, Hammer of Ancient Kings"
+    },
+    {
+     "id": "50685",
+     "name": "Trauma"
+    },
+    {
+     "id": "50734",
+     "name": "Royal Scepter of Terenas II"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50702",
+     "name": "Lingering Illness"
+    },
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    },
+    {
+     "id": "51930",
+     "name": "Cord of the Patronizing Practitioner"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    },
+    {
+     "id": "50651",
+     "name": "The Lady's Brittle Bracers"
+    },
+    {
+     "id": "51872",
+     "name": "Ether-Soaked Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51261",
+     "name": "Sanctified Crimson Acolyte Hood"
+    },
+    {
+     "id": "51178",
+     "name": "Sanctified Crimson Acolyte Hood"
+    },
+    {
+     "id": "50661",
+     "name": "Corp'rethar Ceremonial Crown"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50400",
+     "name": "Ashen Band of Endless Wisdom"
+    },
+    {
+     "id": "50636",
+     "name": "Memory of Malygos"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50610",
+     "name": "Marrowgar's Frigid Eye"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50366",
+     "name": "Althor's Abacus"
+    },
+    {
+     "id": "47432",
+     "name": "Solace of the Fallen"
+    },
+    {
+     "id": "50359",
+     "name": "Althor's Abacus"
+    },
+    {
+     "id": "47059",
+     "name": "Solace of the Defeated"
+    },
+    {
+     "id": "50358",
+     "name": "Purified Lunar Dust"
+    }
+   ]
+  }
+ },
+ "Priest|Shadow": {
+  "source": "https://www.icy-veins.com/wotlk-classic/shadow-priest-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/priest/shadow/dps-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Off-Hand (Arma de 1 mano + Mano izquierda)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51259",
+     "name": "Sanctified Crimson Acolyte Raiments"
+    },
+    {
+     "id": "50717",
+     "name": "Sanguine Silk Robes"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51257",
+     "name": "Sanctified Crimson Acolyte Mantle"
+    },
+    {
+     "id": "51182",
+     "name": "Sanctified Crimson Acolyte Mantle"
+    },
+    {
+     "id": "50643",
+     "name": "Shoulders of Mercy Killing"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    },
+    {
+     "id": "51258",
+     "name": "Sanctified Crimson Acolyte Pants"
+    },
+    {
+     "id": "49891",
+     "name": "Leggings of Woven Death"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50719",
+     "name": "Shadow Silk Spindle"
+    },
+    {
+     "id": "50635",
+     "name": "Sundial of Eternal Dusk"
+    },
+    {
+     "id": "51922",
+     "name": "Scourgelord's Baton"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "51850",
+     "name": "Pale Corpse Boots"
+    },
+    {
+     "id": "49890",
+     "name": "Deathfrost Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50684",
+     "name": "Corpse-Impaling Spike"
+    },
+    {
+     "id": "50631",
+     "name": "Nightmare Ender"
+    },
+    {
+     "id": "51838",
+     "name": "Lana'thel's Bloody Nail"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50658",
+     "name": "Amulet of the Silent Eulogy"
+    },
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "51894",
+     "name": "Soulcleave Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "47551",
+     "name": "Aethas' Intensity"
+    },
+    {
+     "id": "47552",
+     "name": "Jaina's Radiance"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51256",
+     "name": "Sanctified Crimson Acolyte Handwraps"
+    },
+    {
+     "id": "50722",
+     "name": "San'layn Ritualist Gloves"
+    },
+    {
+     "id": "50663",
+     "name": "Gunship Captain's Mittens"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50734",
+     "name": "Royal Scepter of Terenas II"
+    },
+    {
+     "id": "50608",
+     "name": "Frozen Bonespike"
+    },
+    {
+     "id": "50731",
+     "name": "Archus, Greatstaff of Antonidas"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    },
+    {
+     "id": "50702",
+     "name": "Lingering Illness"
+    },
+    {
+     "id": "51930",
+     "name": "Cord of the Patronizing Practitioner"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50651",
+     "name": "The Lady's Brittle Bracers"
+    },
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    },
+    {
+     "id": "51872",
+     "name": "Ether-Soaked Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51255",
+     "name": "Sanctified Crimson Acolyte Cowl"
+    },
+    {
+     "id": "51184",
+     "name": "Sanctified Crimson Acolyte Cowl"
+    },
+    {
+     "id": "50661",
+     "name": "Corp'rethar Ceremonial Crown"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50398",
+     "name": "Ashen Band of Endless Destruction"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50714",
+     "name": "Valanar's Other Signet Ring"
+    },
+    {
+     "id": "50636",
+     "name": "Memory of Malygos"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50365",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "50348",
+     "name": "Dislodged Foreign Object"
+    },
+    {
+     "id": "50360",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "50345",
+     "name": "Muradin's Spyglass"
+    },
+    {
+     "id": "47477",
+     "name": "Reign of the Dead"
+    }
+   ]
+  }
+ },
+ "Rogue|Assassination": {
+  "source": "https://www.icy-veins.com/wotlk-classic/assassination-rogue-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/rogue/assassination/dps-bis-gear-pve-phase-4",
+  "loadout": "Dual-Wield Daggers (Dos dagas)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "50656",
+     "name": "Ikfirus's Sack of Wonder"
+    },
+    {
+     "id": "51250",
+     "name": "Sanctified Shadowblade Breastplate"
+    },
+    {
+     "id": "51189",
+     "name": "Sanctified Shadowblade Breastplate"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "50646",
+     "name": "Cultist's Bloodsoaked Spaulders"
+    },
+    {
+     "id": "51254",
+     "name": "Sanctified Shadowblade Pauldrons"
+    },
+    {
+     "id": "51830",
+     "name": "Skinned Whelp Shoulders"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50697",
+     "name": "Gangrenous Leggings"
+    },
+    {
+     "id": "51253",
+     "name": "Sanctified Shadowblade Legplates"
+    },
+    {
+     "id": "49899",
+     "name": "Bladeborn Leggings"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50621",
+     "name": "Lungbreaker"
+    },
+    {
+     "id": "51846",
+     "name": "Bloodsipper"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50607",
+     "name": "Frostbitten Fur Boots"
+    },
+    {
+     "id": "51856",
+     "name": "Taldaram's Soft Slippers"
+    },
+    {
+     "id": "49895",
+     "name": "Footpads of Impending Death"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50733",
+     "name": "Fal'inrush, Defender of Quel'thalas"
+    },
+    {
+     "id": "51845",
+     "name": "Stakethrower"
+    },
+    {
+     "id": "51927",
+     "name": "Njorndar Bone Bow"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    },
+    {
+     "id": "51890",
+     "name": "Precious's Putrid Collar"
+    },
+    {
+     "id": "50452",
+     "name": "Wodin's Lucky Necklace"
+    }
+   ],
+   "back": [
+    {
+     "id": "50653",
+     "name": "Shadowvault Slayer's Cloak"
+    },
+    {
+     "id": "47546",
+     "name": "Sylvanas' Cunning"
+    },
+    {
+     "id": "47545",
+     "name": "Vereesa's Dexterity"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51251",
+     "name": "Sanctified Shadowblade Gauntlets"
+    },
+    {
+     "id": "50675",
+     "name": "Aldriana's Gloves of Secrecy"
+    },
+    {
+     "id": "51188",
+     "name": "Sanctified Shadowblade Gauntlets"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50736",
+     "name": "Heaven's Fall, Kryss of a Thousand Lies"
+    },
+    {
+     "id": "50676",
+     "name": "Rib Spreader"
+    },
+    {
+     "id": "50641",
+     "name": "Heartpierce"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50707",
+     "name": "Astrylian's Sutured Cinch"
+    },
+    {
+     "id": "51925",
+     "name": "Soulthief's Braided Belt"
+    },
+    {
+     "id": "50995",
+     "name": "Vengeful Noose"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "51820",
+     "name": "Vambraces of the Frost Wyrm Queen"
+    },
+    {
+     "id": "50333",
+     "name": "Toskk's Maximized Wristguards"
+    }
+   ],
+   "head": [
+    {
+     "id": "51252",
+     "name": "Sanctified Shadowblade Helmet"
+    },
+    {
+     "id": "50713",
+     "name": "Geistlord's Punishment Sack"
+    },
+    {
+     "id": "51187",
+     "name": "Sanctified Shadowblade Helmet"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50402",
+     "name": "Ashen Band of Endless Vengeance"
+    },
+    {
+     "id": "50604",
+     "name": "Band of the Bone Colossus"
+    },
+    {
+     "id": "50678",
+     "name": "Seal of Many Mouths"
+    },
+    {
+     "id": "50618",
+     "name": "Frostbrood Sapphire Ring"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50706",
+     "name": "Tiny Abomination in a Jar"
+    },
+    {
+     "id": "50343",
+     "name": "Whispering Fanged Skull"
+    },
+    {
+     "id": "50355",
+     "name": "Herkuml War Token"
+    },
+    {
+     "id": "45609",
+     "name": "Comet's Trail"
+    },
+    {
+     "id": "47464",
+     "name": "Death's Choice"
+    }
+   ]
+  }
+ },
+ "Rogue|Combat": {
+  "source": "https://www.icy-veins.com/wotlk-classic/combat-rogue-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/rogue/combat/dps-bis-gear-pve-phase-4",
+  "loadout": "Dual-Wield (Arma lenta en mano principal + Arma rápida en mano secundaria)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "50656",
+     "name": "Ikfirus's Sack of Wonder"
+    },
+    {
+     "id": "51250",
+     "name": "Sanctified Shadowblade Breastplate"
+    },
+    {
+     "id": "51189",
+     "name": "Sanctified Shadowblade Breastplate"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51254",
+     "name": "Sanctified Shadowblade Pauldrons"
+    },
+    {
+     "id": "50646",
+     "name": "Cultist's Bloodsoaked Spaulders"
+    },
+    {
+     "id": "51185",
+     "name": "Sanctified Shadowblade Pauldrons"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50697",
+     "name": "Gangrenous Leggings"
+    },
+    {
+     "id": "51253",
+     "name": "Sanctified Shadowblade Legplates"
+    },
+    {
+     "id": "49899",
+     "name": "Bladeborn Leggings"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50654",
+     "name": "Scourgeborne Waraxe"
+    },
+    {
+     "id": "50621",
+     "name": "Lungbreaker"
+    },
+    {
+     "id": "50710",
+     "name": "Keleseth's Seducer"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50607",
+     "name": "Frostbitten Fur Boots"
+    },
+    {
+     "id": "49895",
+     "name": "Footpads of Impending Death"
+    },
+    {
+     "id": "51856",
+     "name": "Taldaram's Soft Slippers"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50733",
+     "name": "Fal'inrush, Defender of Quel'thalas"
+    },
+    {
+     "id": "51845",
+     "name": "Stakethrower"
+    },
+    {
+     "id": "51927",
+     "name": "Njorndar Bone Bow"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    },
+    {
+     "id": "51890",
+     "name": "Precious's Putrid Collar"
+    },
+    {
+     "id": "50452",
+     "name": "Wodin's Lucky Necklace"
+    }
+   ],
+   "back": [
+    {
+     "id": "47546",
+     "name": "Sylvanas' Cunning"
+    },
+    {
+     "id": "47545",
+     "name": "Vereesa's Dexterity"
+    },
+    {
+     "id": "50653",
+     "name": "Shadowvault Slayer's Cloak"
+    }
+   ],
+   "hands": [
+    {
+     "id": "50675",
+     "name": "Aldriana's Gloves of Secrecy"
+    },
+    {
+     "id": "51251",
+     "name": "Sanctified Shadowblade Gauntlets"
+    },
+    {
+     "id": "51188",
+     "name": "Sanctified Shadowblade Gauntlets"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50737",
+     "name": "Havoc's Call, Blade of Lordaeron Kings"
+    },
+    {
+     "id": "50672",
+     "name": "Bloodvenom Blade"
+    },
+    {
+     "id": "50692",
+     "name": "Black Bruise"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50707",
+     "name": "Astrylian's Sutured Cinch"
+    },
+    {
+     "id": "50995",
+     "name": "Vengeful Noose"
+    },
+    {
+     "id": "51925",
+     "name": "Soulthief's Braided Belt"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "51820",
+     "name": "Vambraces of the Frost Wyrm Queen"
+    },
+    {
+     "id": "50333",
+     "name": "Toskk's Maximized Wristguards"
+    }
+   ],
+   "head": [
+    {
+     "id": "51252",
+     "name": "Sanctified Shadowblade Helmet"
+    },
+    {
+     "id": "50713",
+     "name": "Geistlord's Punishment Sack"
+    },
+    {
+     "id": "51187",
+     "name": "Sanctified Shadowblade Helmet"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50402",
+     "name": "Ashen Band of Endless Vengeance"
+    },
+    {
+     "id": "50618",
+     "name": "Frostbrood Sapphire Ring"
+    },
+    {
+     "id": "50604",
+     "name": "Band of the Bone Colossus"
+    },
+    {
+     "id": "50678",
+     "name": "Seal of Many Mouths"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50363",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "50343",
+     "name": "Whispering Fanged Skull"
+    },
+    {
+     "id": "50362",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "47464",
+     "name": "Death's Choice"
+    },
+    {
+     "id": "47131",
+     "name": "Death's Verdict"
+    }
+   ]
+  }
+ },
+ "Rogue|Subtlety": {
+  "source": "https://www.icy-veins.com/wotlk-classic/subtlety-rogue-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/rogue/subtlety/dps-bis-gear-pve-phase-4",
+  "loadout": "Dual-Wield (Dos armas de 1 mano; daga en mano principal para Backstab o arma lenta para Hemorrhage)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "50656",
+     "name": "Ikfirus's Sack of Wonder"
+    },
+    {
+     "id": "51250",
+     "name": "Sanctified Shadowblade Breastplate"
+    },
+    {
+     "id": "51189",
+     "name": "Sanctified Shadowblade Breastplate"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "50646",
+     "name": "Cultist's Bloodsoaked Spaulders"
+    },
+    {
+     "id": "51254",
+     "name": "Sanctified Shadowblade Pauldrons"
+    },
+    {
+     "id": "51185",
+     "name": "Sanctified Shadowblade Pauldrons"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50697",
+     "name": "Gangrenous Leggings"
+    },
+    {
+     "id": "51253",
+     "name": "Sanctified Shadowblade Legplates"
+    },
+    {
+     "id": "49899",
+     "name": "Bladeborn Leggings"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50621",
+     "name": "Lungbreaker"
+    },
+    {
+     "id": "50654",
+     "name": "Scourgeborne Waraxe"
+    },
+    {
+     "id": "51846",
+     "name": "Bloodsipper"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50607",
+     "name": "Frostbitten Fur Boots"
+    },
+    {
+     "id": "49895",
+     "name": "Footpads of Impending Death"
+    },
+    {
+     "id": "51856",
+     "name": "Taldaram's Soft Slippers"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50733",
+     "name": "Fal'inrush, Defender of Quel'thalas"
+    },
+    {
+     "id": "51845",
+     "name": "Stakethrower"
+    },
+    {
+     "id": "51927",
+     "name": "Njorndar Bone Bow"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    },
+    {
+     "id": "51890",
+     "name": "Precious's Putrid Collar"
+    },
+    {
+     "id": "50452",
+     "name": "Wodin's Lucky Necklace"
+    }
+   ],
+   "back": [
+    {
+     "id": "50653",
+     "name": "Shadowvault Slayer's Cloak"
+    },
+    {
+     "id": "47546",
+     "name": "Sylvanas' Cunning"
+    },
+    {
+     "id": "47545",
+     "name": "Vereesa's Dexterity"
+    }
+   ],
+   "hands": [
+    {
+     "id": "50675",
+     "name": "Aldriana's Gloves of Secrecy"
+    },
+    {
+     "id": "51251",
+     "name": "Sanctified Shadowblade Gauntlets"
+    },
+    {
+     "id": "51188",
+     "name": "Sanctified Shadowblade Gauntlets"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50736",
+     "name": "Heaven's Fall, Kryss of a Thousand Lies"
+    },
+    {
+     "id": "50737",
+     "name": "Havoc's Call, Blade of Lordaeron Kings"
+    },
+    {
+     "id": "50676",
+     "name": "Rib Spreader"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50707",
+     "name": "Astrylian's Sutured Cinch"
+    },
+    {
+     "id": "50995",
+     "name": "Vengeful Noose"
+    },
+    {
+     "id": "51925",
+     "name": "Soulthief's Braided Belt"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "51820",
+     "name": "Vambraces of the Frost Wyrm Queen"
+    },
+    {
+     "id": "50333",
+     "name": "Toskk's Maximized Wristguards"
+    }
+   ],
+   "head": [
+    {
+     "id": "51252",
+     "name": "Sanctified Shadowblade Helmet"
+    },
+    {
+     "id": "51187",
+     "name": "Sanctified Shadowblade Helmet"
+    },
+    {
+     "id": "50713",
+     "name": "Geistlord's Punishment Sack"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50402",
+     "name": "Ashen Band of Endless Vengeance"
+    },
+    {
+     "id": "50618",
+     "name": "Frostbrood Sapphire Ring"
+    },
+    {
+     "id": "50604",
+     "name": "Band of the Bone Colossus"
+    },
+    {
+     "id": "50678",
+     "name": "Seal of Many Mouths"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50363",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "50343",
+     "name": "Whispering Fanged Skull"
+    },
+    {
+     "id": "50362",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "47464",
+     "name": "Death's Choice"
+    },
+    {
+     "id": "47131",
+     "name": "Death's Verdict"
+    }
+   ]
+  }
+ },
+ "Shaman|Elemental": {
+  "source": "https://www.icy-veins.com/wotlk-classic/elemental-shaman-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/shaman/elemental/dps-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Shield (Arma de 1 mano + Escudo)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51239",
+     "name": "Sanctified Frost Witch's Hauberk"
+    },
+    {
+     "id": "50717",
+     "name": "Sanguine Silk Robes"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51235",
+     "name": "Sanctified Frost Witch's Shoulderpads"
+    },
+    {
+     "id": "51204",
+     "name": "Sanctified Frost Witch's Shoulderpads"
+    },
+    {
+     "id": "50698",
+     "name": "Horrific Flesh Epaulets"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    },
+    {
+     "id": "51236",
+     "name": "Sanctified Frost Witch's Kilt"
+    },
+    {
+     "id": "49900",
+     "name": "Lightning-Infused Leggings"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50616",
+     "name": "Bulwark of Smouldering Steel"
+    },
+    {
+     "id": "50719",
+     "name": "Shadow Silk Spindle"
+    },
+    {
+     "id": "51812",
+     "name": "Lost Pavise of the Blue Flight"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "50652",
+     "name": "Necrophotic Greaves"
+    },
+    {
+     "id": "49896",
+     "name": "Earthsoul Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50458",
+     "name": "Bizuri's Totem of Shattered Ice"
+    },
+    {
+     "id": "47666",
+     "name": "Totem of Electrifying Wind"
+    },
+    {
+     "id": "40267",
+     "name": "Totem of Hex"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "50658",
+     "name": "Amulet of the Silent Eulogy"
+    },
+    {
+     "id": "51894",
+     "name": "Soulcleave Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "47551",
+     "name": "Aethas' Intensity"
+    },
+    {
+     "id": "47552",
+     "name": "Jaina's Radiance"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51238",
+     "name": "Sanctified Frost Witch's Gloves"
+    },
+    {
+     "id": "50663",
+     "name": "Gunship Captain's Mittens"
+    },
+    {
+     "id": "50703",
+     "name": "Unclean Surgical Gloves"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50734",
+     "name": "Royal Scepter of Terenas II"
+    },
+    {
+     "id": "50608",
+     "name": "Frozen Bonespike"
+    },
+    {
+     "id": "51939",
+     "name": "Tel'thas, Dagger of the Blood King"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    },
+    {
+     "id": "50671",
+     "name": "Belt of the Blood Nova"
+    },
+    {
+     "id": "50702",
+     "name": "Lingering Illness"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50687",
+     "name": "Bloodsunder's Bracers"
+    },
+    {
+     "id": "50651",
+     "name": "The Lady's Brittle Bracers"
+    },
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    }
+   ],
+   "head": [
+    {
+     "id": "51237",
+     "name": "Sanctified Frost Witch's Helm"
+    },
+    {
+     "id": "51202",
+     "name": "Sanctified Frost Witch's Helm"
+    },
+    {
+     "id": "50661",
+     "name": "Corp'rethar Ceremonial Crown"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50398",
+     "name": "Ashen Band of Endless Destruction"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50714",
+     "name": "Valanar's Other Signet Ring"
+    },
+    {
+     "id": "50636",
+     "name": "Memory of Malygos"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50365",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "50348",
+     "name": "Dislodged Foreign Object"
+    },
+    {
+     "id": "50360",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "47477",
+     "name": "Reign of the Dead"
+    },
+    {
+     "id": "50345",
+     "name": "Muradin's Spyglass"
+    }
+   ]
+  }
+ },
+ "Shaman|Enhancement": {
+  "source": "https://www.icy-veins.com/wotlk-classic/enhancement-shaman-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/shaman/enhancement/dps-bis-gear-pve-phase-4",
+  "loadout": "Dual-Wield Slow Weapons (Dos armas lentas de 1 mano 2.60s)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "50656",
+     "name": "Ikfirus's Sack of Wonder"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51240",
+     "name": "Sanctified Frost Witch's Shoulderguards"
+    },
+    {
+     "id": "51199",
+     "name": "Sanctified Frost Witch's Shoulderguards"
+    },
+    {
+     "id": "50673",
+     "name": "Dual-Bladed Pauldrons"
+    }
+   ],
+   "legs": [
+    {
+     "id": "51241",
+     "name": "Sanctified Frost Witch's War-Kilt"
+    },
+    {
+     "id": "50645",
+     "name": "Leggings of Northern Lights"
+    },
+    {
+     "id": "51198",
+     "name": "Sanctified Frost Witch's War-Kilt"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50737",
+     "name": "Havoc's Call, Blade of Lordaeron Kings"
+    },
+    {
+     "id": "50710",
+     "name": "Keleseth's Seducer"
+    },
+    {
+     "id": "51893",
+     "name": "Gutbuster"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50607",
+     "name": "Frostbitten Fur Boots"
+    },
+    {
+     "id": "51856",
+     "name": "Taldaram's Soft Slippers"
+    },
+    {
+     "id": "49895",
+     "name": "Footpads of Impending Death"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50463",
+     "name": "Totem of the Avalanche"
+    },
+    {
+     "id": "47667",
+     "name": "Totem of Quaking Earth"
+    },
+    {
+     "id": "42608",
+     "name": "Furious Gladiator's Totem of Indomitability"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    },
+    {
+     "id": "51890",
+     "name": "Precious's Putrid Collar"
+    },
+    {
+     "id": "50658",
+     "name": "Amulet of the Silent Eulogy"
+    }
+   ],
+   "back": [
+    {
+     "id": "50653",
+     "name": "Shadowvault Slayer's Cloak"
+    },
+    {
+     "id": "47546",
+     "name": "Sylvanas' Cunning"
+    },
+    {
+     "id": "47545",
+     "name": "Vereesa's Dexterity"
+    }
+   ],
+   "hands": [
+    {
+     "id": "50619",
+     "name": "Anub'ar Stalker's Gloves"
+    },
+    {
+     "id": "51243",
+     "name": "Sanctified Frost Witch's Grips"
+    },
+    {
+     "id": "50675",
+     "name": "Aldriana's Gloves of Secrecy"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50737",
+     "name": "Havoc's Call, Blade of Lordaeron Kings"
+    },
+    {
+     "id": "50692",
+     "name": "Black Bruise"
+    },
+    {
+     "id": "51916",
+     "name": "Frost Giant's Cleaver"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50688",
+     "name": "Nerub'ar Stalker's Cord"
+    },
+    {
+     "id": "50707",
+     "name": "Astrylian's Sutured Cinch"
+    },
+    {
+     "id": "51853",
+     "name": "Blood-Drinker's Girdle"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50655",
+     "name": "Scourge Hunter's Vambraces"
+    },
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "51820",
+     "name": "Vambraces of the Frost Wyrm Queen"
+    }
+   ],
+   "head": [
+    {
+     "id": "51242",
+     "name": "Sanctified Frost Witch's Faceguard"
+    },
+    {
+     "id": "51197",
+     "name": "Sanctified Frost Witch's Faceguard"
+    },
+    {
+     "id": "50605",
+     "name": "Snowserpent Mail Helm"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50402",
+     "name": "Ashen Band of Endless Vengeance"
+    },
+    {
+     "id": "50604",
+     "name": "Band of the Bone Colossus"
+    },
+    {
+     "id": "50678",
+     "name": "Seal of Many Mouths"
+    },
+    {
+     "id": "50618",
+     "name": "Frostbrood Sapphire Ring"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50355",
+     "name": "Herkuml War Token"
+    },
+    {
+     "id": "50706",
+     "name": "Tiny Abomination in a Jar"
+    },
+    {
+     "id": "45609",
+     "name": "Comet's Trail"
+    },
+    {
+     "id": "50363",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "50343",
+     "name": "Whispering Fanged Skull"
+    }
+   ]
+  }
+ },
+ "Shaman|Restoration": {
+  "source": "https://www.icy-veins.com/wotlk-classic/restoration-shaman-healer-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/shaman/restoration/healer-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Shield (Arma de 1 mano + Escudo)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51249",
+     "name": "Sanctified Frost Witch's Tunic"
+    },
+    {
+     "id": "51190",
+     "name": "Sanctified Frost Witch's Tunic"
+    },
+    {
+     "id": "50723",
+     "name": "Mail of Crimson Coins"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51245",
+     "name": "Sanctified Frost Witch's Spaulders"
+    },
+    {
+     "id": "51194",
+     "name": "Sanctified Frost Witch's Spaulders"
+    },
+    {
+     "id": "50698",
+     "name": "Horrific Flesh Epaulets"
+    }
+   ],
+   "legs": [
+    {
+     "id": "51246",
+     "name": "Sanctified Frost Witch's Legguards"
+    },
+    {
+     "id": "51193",
+     "name": "Sanctified Frost Witch's Legguards"
+    },
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50616",
+     "name": "Bulwark of Smouldering Steel"
+    },
+    {
+     "id": "51812",
+     "name": "Lost Pavise of the Blue Flight"
+    },
+    {
+     "id": "47085",
+     "name": "Bastion of Purity"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "50652",
+     "name": "Necrophotic Greaves"
+    },
+    {
+     "id": "49896",
+     "name": "Earthsoul Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "47665",
+     "name": "Totem of Calming Tides"
+    },
+    {
+     "id": "50464",
+     "name": "Totem of the Surging Sea"
+    },
+    {
+     "id": "45114",
+     "name": "Steamcaller's Totem"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "50609",
+     "name": "Bone Sentinel's Amulet"
+    },
+    {
+     "id": "51871",
+     "name": "Choker of Filthy Diamonds"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "50668",
+     "name": "Greatcloak of the Turned Champion"
+    },
+    {
+     "id": "47554",
+     "name": "Lady Liadrin's Conviction"
+    }
+   ],
+   "hands": [
+    {
+     "id": "50703",
+     "name": "Unclean Surgical Gloves"
+    },
+    {
+     "id": "51248",
+     "name": "Sanctified Frost Witch's Handguards"
+    },
+    {
+     "id": "51191",
+     "name": "Sanctified Frost Witch's Handguards"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "46017",
+     "name": "Val'anyr, Hammer of Ancient Kings"
+    },
+    {
+     "id": "50685",
+     "name": "Trauma"
+    },
+    {
+     "id": "50734",
+     "name": "Royal Scepter of Terenas II"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50671",
+     "name": "Belt of the Blood Nova"
+    },
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    },
+    {
+     "id": "50993",
+     "name": "Band of the Night Raven"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50687",
+     "name": "Bloodsunder's Bracers"
+    },
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    },
+    {
+     "id": "50630",
+     "name": "Bracers of Eternal Dreaming"
+    }
+   ],
+   "head": [
+    {
+     "id": "51247",
+     "name": "Sanctified Frost Witch's Headpiece"
+    },
+    {
+     "id": "51192",
+     "name": "Sanctified Frost Witch's Headpiece"
+    },
+    {
+     "id": "50661",
+     "name": "Corp'rethar Ceremonial Crown"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50400",
+     "name": "Ashen Band of Endless Wisdom"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50636",
+     "name": "Memory of Malygos"
+    },
+    {
+     "id": "50610",
+     "name": "Marrowgar's Frigid Eye"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "47432",
+     "name": "Solace of the Fallen"
+    },
+    {
+     "id": "50366",
+     "name": "Althor's Abacus"
+    },
+    {
+     "id": "47059",
+     "name": "Solace of the Defeated"
+    },
+    {
+     "id": "50358",
+     "name": "Purified Lunar Dust"
+    },
+    {
+     "id": "50359",
+     "name": "Althor's Abacus"
+    }
+   ]
+  }
+ },
+ "Warlock|Affliction": {
+  "source": "https://www.icy-veins.com/wotlk-classic/affliction-warlock-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/warlock/affliction/dps-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Off-Hand (Arma de 1 mano + Mano izquierda)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51233",
+     "name": "Sanctified Dark Coven Robe"
+    },
+    {
+     "id": "51206",
+     "name": "Sanctified Dark Coven Robe"
+    },
+    {
+     "id": "50717",
+     "name": "Sanguine Silk Robes"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51234",
+     "name": "Sanctified Dark Coven Shoulderpads"
+    },
+    {
+     "id": "51205",
+     "name": "Sanctified Dark Coven Shoulderpads"
+    },
+    {
+     "id": "50643",
+     "name": "Shoulders of Mercy Killing"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    },
+    {
+     "id": "51232",
+     "name": "Sanctified Dark Coven Leggings"
+    },
+    {
+     "id": "49891",
+     "name": "Leggings of Woven Death"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50719",
+     "name": "Shadow Silk Spindle"
+    },
+    {
+     "id": "50635",
+     "name": "Sundial of Eternal Dusk"
+    },
+    {
+     "id": "51922",
+     "name": "Scourgelord's Baton"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "51850",
+     "name": "Pale Corpse Boots"
+    },
+    {
+     "id": "49890",
+     "name": "Deathfrost Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50684",
+     "name": "Corpse-Impaling Spike"
+    },
+    {
+     "id": "50631",
+     "name": "Nightmare Ender"
+    },
+    {
+     "id": "51838",
+     "name": "Lana'thel's Bloody Nail"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "50658",
+     "name": "Amulet of the Silent Eulogy"
+    },
+    {
+     "id": "51894",
+     "name": "Soulcleave Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "47551",
+     "name": "Aethas' Intensity"
+    },
+    {
+     "id": "47552",
+     "name": "Jaina's Radiance"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51230",
+     "name": "Sanctified Dark Coven Gloves"
+    },
+    {
+     "id": "50722",
+     "name": "San'layn Ritualist Gloves"
+    },
+    {
+     "id": "50663",
+     "name": "Gunship Captain's Mittens"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50732",
+     "name": "Bloodsurge, Kel'Thuzad's Blade of Agony"
+    },
+    {
+     "id": "50608",
+     "name": "Frozen Bonespike"
+    },
+    {
+     "id": "50704",
+     "name": "Rigormortis"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    },
+    {
+     "id": "50702",
+     "name": "Lingering Illness"
+    },
+    {
+     "id": "51930",
+     "name": "Cord of the Patronizing Practitioner"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50651",
+     "name": "The Lady's Brittle Bracers"
+    },
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    },
+    {
+     "id": "51872",
+     "name": "Ether-Soaked Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51231",
+     "name": "Sanctified Dark Coven Hood"
+    },
+    {
+     "id": "51208",
+     "name": "Sanctified Dark Coven Hood"
+    },
+    {
+     "id": "50661",
+     "name": "Corp'rethar Ceremonial Crown"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50398",
+     "name": "Ashen Band of Endless Destruction"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50714",
+     "name": "Valanar's Other Signet Ring"
+    },
+    {
+     "id": "50636",
+     "name": "Memory of Malygos"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50365",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "50348",
+     "name": "Dislodged Foreign Object"
+    },
+    {
+     "id": "50360",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "45518",
+     "name": "Flare of the Heavens"
+    },
+    {
+     "id": "50353",
+     "name": "Dislodged Foreign Object"
+    }
+   ]
+  }
+ },
+ "Warlock|Demonology": {
+  "source": "https://www.icy-veins.com/wotlk-classic/demonology-warlock-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/warlock/demonology/dps-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Off-Hand (Arma de 1 mano + Mano izquierda)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51233",
+     "name": "Sanctified Dark Coven Robe"
+    },
+    {
+     "id": "50717",
+     "name": "Sanguine Silk Robes"
+    },
+    {
+     "id": "51206",
+     "name": "Sanctified Dark Coven Robe"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51234",
+     "name": "Sanctified Dark Coven Shoulderpads"
+    },
+    {
+     "id": "51205",
+     "name": "Sanctified Dark Coven Shoulderpads"
+    },
+    {
+     "id": "50643",
+     "name": "Shoulders of Mercy Killing"
+    }
+   ],
+   "legs": [
+    {
+     "id": "51232",
+     "name": "Sanctified Dark Coven Leggings"
+    },
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    },
+    {
+     "id": "51207",
+     "name": "Sanctified Dark Coven Leggings"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50719",
+     "name": "Shadow Silk Spindle"
+    },
+    {
+     "id": "50635",
+     "name": "Sundial of Eternal Dusk"
+    },
+    {
+     "id": "51922",
+     "name": "Scourgelord's Baton"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "51850",
+     "name": "Pale Corpse Boots"
+    },
+    {
+     "id": "49890",
+     "name": "Deathfrost Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50684",
+     "name": "Corpse-Impaling Spike"
+    },
+    {
+     "id": "50631",
+     "name": "Nightmare Ender"
+    },
+    {
+     "id": "51838",
+     "name": "Lana'thel's Bloody Nail"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "50658",
+     "name": "Amulet of the Silent Eulogy"
+    },
+    {
+     "id": "50609",
+     "name": "Bone Sentinel's Amulet"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "50668",
+     "name": "Greatcloak of the Turned Champion"
+    },
+    {
+     "id": "47551",
+     "name": "Aethas' Intensity"
+    }
+   ],
+   "hands": [
+    {
+     "id": "50722",
+     "name": "San'layn Ritualist Gloves"
+    },
+    {
+     "id": "51230",
+     "name": "Sanctified Dark Coven Gloves"
+    },
+    {
+     "id": "50663",
+     "name": "Gunship Captain's Mittens"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50732",
+     "name": "Bloodsurge, Kel'Thuzad's Blade of Agony"
+    },
+    {
+     "id": "50608",
+     "name": "Frozen Bonespike"
+    },
+    {
+     "id": "50704",
+     "name": "Rigormortis"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50702",
+     "name": "Lingering Illness"
+    },
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    },
+    {
+     "id": "51930",
+     "name": "Cord of the Patronizing Practitioner"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    },
+    {
+     "id": "50651",
+     "name": "The Lady's Brittle Bracers"
+    },
+    {
+     "id": "51872",
+     "name": "Ether-Soaked Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51231",
+     "name": "Sanctified Dark Coven Hood"
+    },
+    {
+     "id": "51208",
+     "name": "Sanctified Dark Coven Hood"
+    },
+    {
+     "id": "50661",
+     "name": "Corp'rethar Ceremonial Crown"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50398",
+     "name": "Ashen Band of Endless Destruction"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50636",
+     "name": "Memory of Malygos"
+    },
+    {
+     "id": "50714",
+     "name": "Valanar's Other Signet Ring"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50365",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "50348",
+     "name": "Dislodged Foreign Object"
+    },
+    {
+     "id": "50360",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "45518",
+     "name": "Flare of the Heavens"
+    },
+    {
+     "id": "40255",
+     "name": "Dying Curse"
+    }
+   ]
+  }
+ },
+ "Warlock|Destruction": {
+  "source": "https://www.icy-veins.com/wotlk-classic/destruction-warlock-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/warlock/destruction/dps-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Off-Hand (Arma de 1 mano + Mano izquierda)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51233",
+     "name": "Sanctified Dark Coven Robe"
+    },
+    {
+     "id": "51206",
+     "name": "Sanctified Dark Coven Robe"
+    },
+    {
+     "id": "50717",
+     "name": "Sanguine Silk Robes"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51234",
+     "name": "Sanctified Dark Coven Shoulderpads"
+    },
+    {
+     "id": "51205",
+     "name": "Sanctified Dark Coven Shoulderpads"
+    },
+    {
+     "id": "50643",
+     "name": "Shoulders of Mercy Killing"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50694",
+     "name": "Plaguebringer's Stained Pants"
+    },
+    {
+     "id": "51232",
+     "name": "Sanctified Dark Coven Leggings"
+    },
+    {
+     "id": "49891",
+     "name": "Leggings of Woven Death"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50719",
+     "name": "Shadow Silk Spindle"
+    },
+    {
+     "id": "50635",
+     "name": "Sundial of Eternal Dusk"
+    },
+    {
+     "id": "51922",
+     "name": "Scourgelord's Baton"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50699",
+     "name": "Plague Scientist's Boots"
+    },
+    {
+     "id": "51850",
+     "name": "Pale Corpse Boots"
+    },
+    {
+     "id": "49890",
+     "name": "Deathfrost Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50684",
+     "name": "Corpse-Impaling Spike"
+    },
+    {
+     "id": "50631",
+     "name": "Nightmare Ender"
+    },
+    {
+     "id": "51838",
+     "name": "Lana'thel's Bloody Nail"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50724",
+     "name": "Blood Queen's Crimson Choker"
+    },
+    {
+     "id": "50658",
+     "name": "Amulet of the Silent Eulogy"
+    },
+    {
+     "id": "51894",
+     "name": "Soulcleave Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50628",
+     "name": "Frostbinder's Shredded Cape"
+    },
+    {
+     "id": "47551",
+     "name": "Aethas' Intensity"
+    },
+    {
+     "id": "47552",
+     "name": "Jaina's Radiance"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51230",
+     "name": "Sanctified Dark Coven Gloves"
+    },
+    {
+     "id": "50663",
+     "name": "Gunship Captain's Mittens"
+    },
+    {
+     "id": "50722",
+     "name": "San'layn Ritualist Gloves"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50732",
+     "name": "Bloodsurge, Kel'Thuzad's Blade of Agony"
+    },
+    {
+     "id": "50608",
+     "name": "Frozen Bonespike"
+    },
+    {
+     "id": "50704",
+     "name": "Rigormortis"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50613",
+     "name": "Crushing Coldwraith Belt"
+    },
+    {
+     "id": "50702",
+     "name": "Lingering Illness"
+    },
+    {
+     "id": "51930",
+     "name": "Cord of the Patronizing Practitioner"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50651",
+     "name": "The Lady's Brittle Bracers"
+    },
+    {
+     "id": "50686",
+     "name": "Death Surgeon's Sleeves"
+    },
+    {
+     "id": "51872",
+     "name": "Ether-Soaked Bracers"
+    }
+   ],
+   "head": [
+    {
+     "id": "51231",
+     "name": "Sanctified Dark Coven Hood"
+    },
+    {
+     "id": "51208",
+     "name": "Sanctified Dark Coven Hood"
+    },
+    {
+     "id": "50661",
+     "name": "Corp'rethar Ceremonial Crown"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50398",
+     "name": "Ashen Band of Endless Destruction"
+    },
+    {
+     "id": "50664",
+     "name": "Ring of Rapid Ascent"
+    },
+    {
+     "id": "50714",
+     "name": "Valanar's Other Signet Ring"
+    },
+    {
+     "id": "50636",
+     "name": "Memory of Malygos"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50365",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "50348",
+     "name": "Dislodged Foreign Object"
+    },
+    {
+     "id": "50360",
+     "name": "Phylactery of the Nameless Lich"
+    },
+    {
+     "id": "50345",
+     "name": "Muradin's Spyglass"
+    },
+    {
+     "id": "47477",
+     "name": "Reign of the Dead"
+    }
+   ]
+  }
+ },
+ "Warrior|Arms": {
+  "source": "https://www.icy-veins.com/wotlk-classic/arms-warrior-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/warrior/arms/dps-bis-gear-pve-phase-4",
+  "loadout": "Two-Handed + Ranged (Arma de dos manos + Arma a distancia)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51225",
+     "name": "Sanctified Ymirjar Lord's Battleplate"
+    },
+    {
+     "id": "51214",
+     "name": "Sanctified Ymirjar Lord's Battleplate"
+    },
+    {
+     "id": "50606",
+     "name": "Gendarme's Cuirass"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51229",
+     "name": "Sanctified Ymirjar Lord's Shoulderplates"
+    },
+    {
+     "id": "51210",
+     "name": "Sanctified Ymirjar Lord's Shoulderplates"
+    },
+    {
+     "id": "50674",
+     "name": "Raging Behemoth's Shoulderplates"
+    }
+   ],
+   "legs": [
+    {
+     "id": "51228",
+     "name": "Sanctified Ymirjar Lord's Legplates"
+    },
+    {
+     "id": "50624",
+     "name": "Scourge Reaver's Legplates"
+    },
+    {
+     "id": "49903",
+     "name": "Legplates of Painful Death"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50639",
+     "name": "Blood-Soaked Saronite Stompers"
+    },
+    {
+     "id": "50607",
+     "name": "Frostbitten Fur Boots"
+    },
+    {
+     "id": "51915",
+     "name": "Bone Drake's Enameled Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50733",
+     "name": "Fal'inrush, Defender of Quel'thalas"
+    },
+    {
+     "id": "51845",
+     "name": "Stakethrower"
+    },
+    {
+     "id": "51927",
+     "name": "Njorndar Bone Bow"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    },
+    {
+     "id": "50647",
+     "name": "Ahn'kahar Onyx Neckguard"
+    },
+    {
+     "id": "51822",
+     "name": "Rimetooth Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "47546",
+     "name": "Sylvanas' Cunning"
+    },
+    {
+     "id": "47545",
+     "name": "Vereesa's Dexterity"
+    },
+    {
+     "id": "50653",
+     "name": "Shadowvault Slayer's Cloak"
+    }
+   ],
+   "hands": [
+    {
+     "id": "50675",
+     "name": "Aldriana's Gloves of Secrecy"
+    },
+    {
+     "id": "51226",
+     "name": "Sanctified Ymirjar Lord's Gauntlets"
+    },
+    {
+     "id": "50690",
+     "name": "Fleshrending Gauntlets"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "49623",
+     "name": "Shadowmourne"
+    },
+    {
+     "id": "50730",
+     "name": "Glorenzelg, High-Blade of the Silver Hand"
+    },
+    {
+     "id": "50603",
+     "name": "Cryptmaker"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50707",
+     "name": "Astrylian's Sutured Cinch"
+    },
+    {
+     "id": "50620",
+     "name": "Coldwraith Links"
+    },
+    {
+     "id": "51879",
+     "name": "Flesh-Shaper's Gurney Strap"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "50659",
+     "name": "Polar Bear Claw Bracers"
+    },
+    {
+     "id": "51832",
+     "name": "Taiga Bindings"
+    }
+   ],
+   "head": [
+    {
+     "id": "51227",
+     "name": "Sanctified Ymirjar Lord's Helmet"
+    },
+    {
+     "id": "51212",
+     "name": "Sanctified Ymirjar Lord's Helmet"
+    },
+    {
+     "id": "50712",
+     "name": "Landsoul's Horned Greathelm"
+    }
+   ],
+   "ring": [
+    {
+     "id": "52572",
+     "name": "Ashen Band of Endless Might"
+    },
+    {
+     "id": "50618",
+     "name": "Frostbrood Sapphire Ring"
+    },
+    {
+     "id": "50402",
+     "name": "Ashen Band of Endless Vengeance"
+    },
+    {
+     "id": "50693",
+     "name": "Might of Blight"
+    },
+    {
+     "id": "50657",
+     "name": "Skeleton Lord's Circle"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50363",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "50343",
+     "name": "Whispering Fanged Skull"
+    },
+    {
+     "id": "50362",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "47464",
+     "name": "Death's Choice"
+    },
+    {
+     "id": "47131",
+     "name": "Death's Verdict"
+    }
+   ]
+  }
+ },
+ "Warrior|Fury": {
+  "source": "https://www.icy-veins.com/wotlk-classic/fury-warrior-dps-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/warrior/fury/dps-bis-gear-pve-phase-4",
+  "loadout": "Titan's Grip (Dos armas de dos manos) + Arma a distancia",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51225",
+     "name": "Sanctified Ymirjar Lord's Battleplate"
+    },
+    {
+     "id": "51214",
+     "name": "Sanctified Ymirjar Lord's Battleplate"
+    },
+    {
+     "id": "50606",
+     "name": "Gendarme's Cuirass"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51229",
+     "name": "Sanctified Ymirjar Lord's Shoulderplates"
+    },
+    {
+     "id": "51210",
+     "name": "Sanctified Ymirjar Lord's Shoulderplates"
+    },
+    {
+     "id": "50674",
+     "name": "Raging Behemoth's Shoulderplates"
+    }
+   ],
+   "legs": [
+    {
+     "id": "51228",
+     "name": "Sanctified Ymirjar Lord's Legplates"
+    },
+    {
+     "id": "50624",
+     "name": "Scourge Reaver's Legplates"
+    },
+    {
+     "id": "49903",
+     "name": "Legplates of Painful Death"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50730",
+     "name": "Glorenzelg, High-Blade of the Silver Hand"
+    },
+    {
+     "id": "50603",
+     "name": "Cryptmaker"
+    },
+    {
+     "id": "50727",
+     "name": "Bloodfall"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50639",
+     "name": "Blood-Soaked Saronite Stompers"
+    },
+    {
+     "id": "50607",
+     "name": "Frostbitten Fur Boots"
+    },
+    {
+     "id": "51915",
+     "name": "Bone Drake's Enameled Boots"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "50733",
+     "name": "Fal'inrush, Defender of Quel'thalas"
+    },
+    {
+     "id": "51845",
+     "name": "Stakethrower"
+    },
+    {
+     "id": "51927",
+     "name": "Njorndar Bone Bow"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50633",
+     "name": "Sindragosa's Cruel Claw"
+    },
+    {
+     "id": "50647",
+     "name": "Ahn'kahar Onyx Neckguard"
+    },
+    {
+     "id": "51822",
+     "name": "Rimetooth Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50653",
+     "name": "Shadowvault Slayer's Cloak"
+    },
+    {
+     "id": "47546",
+     "name": "Sylvanas' Cunning"
+    },
+    {
+     "id": "47545",
+     "name": "Vereesa's Dexterity"
+    }
+   ],
+   "hands": [
+    {
+     "id": "50675",
+     "name": "Aldriana's Gloves of Secrecy"
+    },
+    {
+     "id": "51226",
+     "name": "Sanctified Ymirjar Lord's Gauntlets"
+    },
+    {
+     "id": "50690",
+     "name": "Fleshrending Gauntlets"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "49623",
+     "name": "Shadowmourne"
+    },
+    {
+     "id": "50730",
+     "name": "Glorenzelg, High-Blade of the Silver Hand"
+    },
+    {
+     "id": "50603",
+     "name": "Cryptmaker"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50620",
+     "name": "Coldwraith Links"
+    },
+    {
+     "id": "50707",
+     "name": "Astrylian's Sutured Cinch"
+    },
+    {
+     "id": "51879",
+     "name": "Flesh-Shaper's Gurney Strap"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50670",
+     "name": "Toskk's Maximized Wristguards"
+    },
+    {
+     "id": "50659",
+     "name": "Polar Bear Claw Bracers"
+    },
+    {
+     "id": "51832",
+     "name": "Taiga Bindings"
+    }
+   ],
+   "head": [
+    {
+     "id": "51227",
+     "name": "Sanctified Ymirjar Lord's Helmet"
+    },
+    {
+     "id": "51212",
+     "name": "Sanctified Ymirjar Lord's Helmet"
+    },
+    {
+     "id": "50712",
+     "name": "Landsoul's Horned Greathelm"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50402",
+     "name": "Ashen Band of Endless Vengeance"
+    },
+    {
+     "id": "50618",
+     "name": "Frostbrood Sapphire Ring"
+    },
+    {
+     "id": "52572",
+     "name": "Ashen Band of Endless Might"
+    },
+    {
+     "id": "50693",
+     "name": "Might of Blight"
+    },
+    {
+     "id": "50657",
+     "name": "Skeleton Lord's Circle"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50363",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "50343",
+     "name": "Whispering Fanged Skull"
+    },
+    {
+     "id": "50362",
+     "name": "Deathbringer's Will"
+    },
+    {
+     "id": "47464",
+     "name": "Death's Choice"
+    },
+    {
+     "id": "47131",
+     "name": "Death's Verdict"
+    }
+   ]
+  }
+ },
+ "Warrior|Protection": {
+  "source": "https://www.icy-veins.com/wotlk-classic/protection-warrior-tank-gear-best-in-slot",
+  "contrast": "https://www.wowhead.com/wotlk/guide/classes/warrior/protection/tank-bis-gear-pve-phase-4",
+  "loadout": "One-Handed + Shield + Ranged (Arma de 1 mano + Escudo + Arma a distancia)",
+  "level": 80,
+  "faction": "horde",
+  "phase": 4,
+  "slots": {
+   "chest": [
+    {
+     "id": "51220",
+     "name": "Sanctified Ymirjar Lord's Breastplate"
+    },
+    {
+     "id": "50681",
+     "name": "Blightborne Warplate"
+    },
+    {
+     "id": "50968",
+     "name": "Cataclysmic Chestguard"
+    }
+   ],
+   "shoulder": [
+    {
+     "id": "51224",
+     "name": "Sanctified Ymirjar Lord's Pauldrons"
+    },
+    {
+     "id": "50660",
+     "name": "Boneguard Commander's Pauldrons"
+    },
+    {
+     "id": "51215",
+     "name": "Sanctified Ymirjar Lord's Pauldrons"
+    }
+   ],
+   "legs": [
+    {
+     "id": "50612",
+     "name": "Legguards of Lost Hope"
+    },
+    {
+     "id": "51223",
+     "name": "Sanctified Ymirjar Lord's Legguards"
+    },
+    {
+     "id": "49904",
+     "name": "Pillars of Might"
+    }
+   ],
+   "offhand": [
+    {
+     "id": "50729",
+     "name": "Icecrown Glacial Wall"
+    },
+    {
+     "id": "50065",
+     "name": "Icecrown Glacial Wall"
+    },
+    {
+     "id": "51909",
+     "name": "Neverending Winter"
+    }
+   ],
+   "feet": [
+    {
+     "id": "50625",
+     "name": "Grinning Skull Greatboots"
+    },
+    {
+     "id": "49907",
+     "name": "Boots of Kingly Upheaval"
+    },
+    {
+     "id": "51816",
+     "name": "Scourge Fanged Stompers"
+    }
+   ],
+   "ranged": [
+    {
+     "id": "51834",
+     "name": "Dreamhunter's Carbine"
+    },
+    {
+     "id": "47521",
+     "name": "BRK-1000"
+    },
+    {
+     "id": "51880",
+     "name": "Gluth's Fetching Knife"
+    }
+   ],
+   "neck": [
+    {
+     "id": "50682",
+     "name": "Bile-Encrusted Medallion"
+    },
+    {
+     "id": "50627",
+     "name": "Noose of Malachite"
+    },
+    {
+     "id": "51894",
+     "name": "Soulcleave Pendant"
+    }
+   ],
+   "back": [
+    {
+     "id": "50718",
+     "name": "Royal Crimson Cloak"
+    },
+    {
+     "id": "50466",
+     "name": "Sentinel's Winter Cloak"
+    },
+    {
+     "id": "47550",
+     "name": "Cairne's Endurance"
+    }
+   ],
+   "hands": [
+    {
+     "id": "51222",
+     "name": "Sanctified Ymirjar Lord's Handguards"
+    },
+    {
+     "id": "50716",
+     "name": "Taldaram's Plated Fists"
+    },
+    {
+     "id": "50978",
+     "name": "Gauntlets of the Kraken"
+    }
+   ],
+   "mainhand": [
+    {
+     "id": "50738",
+     "name": "Mithrios, Bronzebeard's Legacy"
+    },
+    {
+     "id": "50672",
+     "name": "Bloodvenom Blade"
+    },
+    {
+     "id": "51893",
+     "name": "Gutbuster"
+    }
+   ],
+   "waist": [
+    {
+     "id": "50691",
+     "name": "Belt of Broken Bones"
+    },
+    {
+     "id": "50991",
+     "name": "Verdigris Chain Belt"
+    },
+    {
+     "id": "51831",
+     "name": "Ironrope Belt of Ymirjar"
+    }
+   ],
+   "wrist": [
+    {
+     "id": "50611",
+     "name": "Bracers of Dark Reckoning"
+    },
+    {
+     "id": "51901",
+     "name": "Gargoyle Spit Bracers"
+    },
+    {
+     "id": "49960",
+     "name": "Bracers of Dark Reckoning"
+    }
+   ],
+   "head": [
+    {
+     "id": "50640",
+     "name": "Broken Ram Skull Helm"
+    },
+    {
+     "id": "51221",
+     "name": "Sanctified Ymirjar Lord's Greathelm"
+    },
+    {
+     "id": "51218",
+     "name": "Sanctified Ymirjar Lord's Greathelm"
+    }
+   ],
+   "ring": [
+    {
+     "id": "50622",
+     "name": "Devium's Eternally Cold Ring"
+    },
+    {
+     "id": "50642",
+     "name": "Juggernaut Band"
+    },
+    {
+     "id": "50404",
+     "name": "Ashen Band of Endless Courage"
+    },
+    {
+     "id": "51900",
+     "name": "Saurfang's Cold-Forged Band"
+    },
+    {
+     "id": "50447",
+     "name": "Harbinger's Bone Band"
+    }
+   ],
+   "trinket": [
+    {
+     "id": "50364",
+     "name": "Sindragosa's Flawless Fang"
+    },
+    {
+     "id": "47451",
+     "name": "Juggernaut's Vitality"
+    },
+    {
+     "id": "50361",
+     "name": "Sindragosa's Flawless Fang"
+    },
+    {
+     "id": "50356",
+     "name": "Corroded Skeleton Key"
+    },
+    {
+     "id": "47088",
+     "name": "Satrina's Impeding Scarab"
+    }
+   ]
+  }
+ }
+}

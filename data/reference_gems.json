@@ -1,0 +1,3194 @@
+{
+ "Death Knight|Blood Tank": {
+  "source": "https://www.icy-veins.com/wotlk-classic/blood-death-knight-tank-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/death-knight/blood/tank-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41380,
+   "name": "Austere Earthsiege Diamond",
+   "stats": "+32 Stamina and 2% Increased Armor Value from Items"
+  },
+  "red_socket": [
+   {
+    "id": 40119,
+    "name": "Solid Majestic Zircon",
+    "stats": "+30 Stamina (si se ignora el bonus)"
+   },
+   {
+    "id": 40138,
+    "name": "Regal Dreadstone",
+    "stats": "+10 Dodge Rating and +15 Stamina (para activar meta o bonus >= +9 Stamina)"
+   },
+   {
+    "id": 40141,
+    "name": "Guardian's Dreadstone",
+    "stats": "+10 Expertise Rating and +15 Stamina"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40119,
+    "name": "Solid Majestic Zircon",
+    "stats": "+30 Stamina (si se ignora el bonus)"
+   },
+   {
+    "id": 40166,
+    "name": "Vivid Eye of Zul",
+    "stats": "+10 Hit Rating and +15 Stamina (si falta Hit o bonus >= +9 Stamina)"
+   },
+   {
+    "id": 40167,
+    "name": "Enduring Eye of Zul",
+    "stats": "+10 Defense Rating and +15 Stamina (si falta Defense)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40119,
+    "name": "Solid Majestic Zircon",
+    "stats": "+30 Stamina"
+   }
+  ],
+  "socket_bonus_rule": "Ignorar el bonus de ranura y engemar +30 Stamina puro salvo para activar Austere Earthsiege Diamond (que requiere 2 gemas azules y 1 roja; se puede usar 1 Nightmare Tear 49110 o 1 Regal/Guardian's Dreadstone en una pieza con bonus de +9 o +12 Stamina).",
+  "enchants": {
+   "head": {
+    "id": 44150,
+    "name": "Arcanum of the Stalwart Protector",
+    "stats": "+37 Stamina and +20 Defense Rating"
+   },
+   "shoulder": {
+    "id": 44957,
+    "name": "Greater Inscription of the Gladiator",
+    "stats": "+30 Stamina and +15 Resilience Rating (o Greater Inscription of the Pinnacle ID: 44136, +20 Dodge and +15 Defense)"
+   },
+   "back": {
+    "id": 44494,
+    "name": "Enchant Cloak - Mighty Armor",
+    "stats": "+225 Armor"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats (o +275 Health ID: 44509)"
+   },
+   "wrist": {
+    "id": 44947,
+    "name": "Enchant Bracer - Major Stamina",
+    "stats": "+40 Stamina"
+   },
+   "hands": {
+    "id": 33153,
+    "name": "Glove Reinforcements",
+    "stats": "+240 Armor (o Enchant Gloves - Armsman ID: 44592, +2% Threat and +10 Parry Rating)"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38373,
+    "name": "Frosthide Leg Armor",
+    "stats": "+55 Stamina and +22 Agility"
+   },
+   "feet": {
+    "id": 44508,
+    "name": "Enchant Boots - Tuskarr's Vitality",
+    "stats": "+15 Stamina and Minor Speed Increase (o Greater Fortitude +22 Stamina ID: 44528)"
+   },
+   "mainhand": {
+    "id": 62158,
+    "name": "Rune of the Stoneskin Gargoyle",
+    "stats": "+25 Defense and +2% Stamina"
+   },
+   "offhand": null
+  }
+ },
+ "Death Knight|Frost DPS": {
+  "source": "https://www.icy-veins.com/wotlk-classic/frost-death-knight-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/death-knight/frost/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41285,
+   "name": "Chaotic Skyflare Diamond",
+   "stats": "+21 Critical Strike Rating and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40111,
+    "name": "Bold Cardinal Ruby",
+    "stats": "+20 Strength"
+   },
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating (si se busca el cap de 1400 ArP en BiS Fase 4)"
+   },
+   {
+    "id": 40118,
+    "name": "Precise Cardinal Ruby",
+    "stats": "+20 Expertise Rating (solo si falta Expertise para 26)"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40142,
+    "name": "Inscribed Ametrine",
+    "stats": "+10 Strength and +10 Critical Strike Rating"
+   },
+   {
+    "id": 40143,
+    "name": "Etched Ametrine",
+    "stats": "+10 Strength and +10 Hit Rating (si falta Hit para el cap de 5%)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola para activar parte de la meta)"
+   },
+   {
+    "id": 40129,
+    "name": "Sovereign Dreadstone",
+    "stats": "+10 Strength and +15 Stamina (1 sola para la 2da gema azul de Chaotic Skyflare)"
+   },
+   {
+    "id": 40111,
+    "name": "Bold Cardinal Ruby",
+    "stats": "+20 Strength (en el resto de ranuras azules ignorando el bonus)"
+   }
+  ],
+  "socket_bonus_rule": "Respetar los bonus de ranura amarillos si otorgan +4 Strength o más usando Inscribed/Etched Ametrine; ignorar las ranuras azules tras activar la gema meta (con 1 Nightmare Tear + 1 Sovereign Dreadstone en las piezas con mayor bonus de Strength).",
+  "enchants": {
+   "head": {
+    "id": 44149,
+    "name": "Arcanum of Torment",
+    "stats": "+50 Attack Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44133,
+    "name": "Greater Inscription of the Axe",
+    "stats": "+40 Attack Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 44492,
+    "name": "Enchant Cloak - Major Agility",
+    "stats": "+22 Agility"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44575,
+    "name": "Enchant Bracers - Greater Assault",
+    "stats": "+50 Attack Power"
+   },
+   "hands": {
+    "id": 44513,
+    "name": "Enchant Gloves - Crusher",
+    "stats": "+44 Attack Power (o +20 Hit Rating ID: 44500 si falta golpe)"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38374,
+    "name": "Icescale Leg Armor",
+    "stats": "+75 Attack Power and +22 Critical Strike Rating"
+   },
+   "feet": {
+    "id": 44508,
+    "name": "Enchant Boots - Tuskarr's Vitality",
+    "stats": "+15 Stamina and Minor Speed Increase (o Icewalker ID: 44524, +12 Hit and +12 Crit)"
+   },
+   "mainhand": {
+    "id": 53344,
+    "name": "Rune of the Fallen Crusader",
+    "stats": "Chance to heal for 3% and increase total Strength by 15% for 15 sec"
+   },
+   "offhand": {
+    "id": 53343,
+    "name": "Rune of Razorice",
+    "stats": "2% extra weapon damage as Frost and stacks up to 5% Frost vulnerability"
+   }
+  }
+ },
+ "Death Knight|Unholy DPS": {
+  "source": "https://www.icy-veins.com/wotlk-classic/unholy-death-knight-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/death-knight/unholy/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41285,
+   "name": "Chaotic Skyflare Diamond",
+   "stats": "+21 Critical Strike Rating and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40111,
+    "name": "Bold Cardinal Ruby",
+    "stats": "+20 Strength"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40146,
+    "name": "Fierce Ametrine",
+    "stats": "+10 Strength and +10 Haste Rating"
+   },
+   {
+    "id": 40142,
+    "name": "Inscribed Ametrine",
+    "stats": "+10 Strength and +10 Critical Strike Rating"
+   },
+   {
+    "id": 40143,
+    "name": "Etched Ametrine",
+    "stats": "+10 Strength and +10 Hit Rating (si falta Hit)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola)"
+   },
+   {
+    "id": 40129,
+    "name": "Sovereign Dreadstone",
+    "stats": "+10 Strength and +15 Stamina (1 sola para completar las 2 azules de Chaotic Skyflare)"
+   },
+   {
+    "id": 40111,
+    "name": "Bold Cardinal Ruby",
+    "stats": "+20 Strength (en las demás ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "Respetar los bonus de ranura amarillos si otorgan +4 Strength o más usando Fierce/Inscribed Ametrine; en ranuras azules solo activar Chaotic Skyflare Diamond (1 Nightmare Tear + 1 Sovereign Dreadstone en piezas con bonus de +6/+8 Strength) e ignorar el resto con +20 Strength.",
+  "enchants": {
+   "head": {
+    "id": 44149,
+    "name": "Arcanum of Torment",
+    "stats": "+50 Attack Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44133,
+    "name": "Greater Inscription of the Axe",
+    "stats": "+40 Attack Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating (o Major Agility +22 Agility ID: 44492)"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44575,
+    "name": "Enchant Bracers - Greater Assault",
+    "stats": "+50 Attack Power"
+   },
+   "hands": {
+    "id": 44513,
+    "name": "Enchant Gloves - Crusher",
+    "stats": "+44 Attack Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38374,
+    "name": "Icescale Leg Armor",
+    "stats": "+75 Attack Power and +22 Critical Strike Rating"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating (o Greater Assault +32 Attack Power ID: 44589)"
+   },
+   "mainhand": {
+    "id": 53344,
+    "name": "Rune of the Fallen Crusader",
+    "stats": "Chance to heal for 3% and increase total Strength by 15% for 15 sec"
+   },
+   "offhand": {
+    "id": 53331,
+    "name": "Rune of the Cinderglacier",
+    "stats": "Chance to increase the damage of your next 2 Frost or Shadow attacks by 20% (Solo en variante Dual-Wield; null con Shadowmourne 2H)"
+   }
+  }
+ },
+ "Druid|Balance": {
+  "source": "https://www.icy-veins.com/wotlk-classic/balance-druid-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/druid/balance/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41285,
+   "name": "Chaotic Skyflare Diamond",
+   "stats": "+21 Critical Strike Rating and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40152,
+    "name": "Potent Ametrine",
+    "stats": "+12 Spell Power and +10 Critical Strike Rating (si ya se tiene el soft cap de 401 Haste)"
+   },
+   {
+    "id": 40155,
+    "name": "Reckless Ametrine",
+    "stats": "+12 Spell Power and +10 Haste Rating (si se está por debajo de 401 Haste)"
+   },
+   {
+    "id": 40153,
+    "name": "Veiled Ametrine",
+    "stats": "+12 Spell Power and +10 Hit Rating (si falta Hit para el cap de 263)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40133,
+    "name": "Purified Dreadstone",
+    "stats": "+12 Spell Power and +10 Spirit (2 gemas para activar Chaotic Skyflare y cuando el bonus sea >= +7 Spell Power)"
+   },
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power (en ranuras azules con bonus menor a +7 Spell Power tras activar la meta)"
+   }
+  ],
+  "socket_bonus_rule": "Respetar los bonus de ranura si otorgan +5 Spell Power (por 1 gema no roja) o +7/+9 Spell Power (por 2 gemas no rojas); ignorar cualquier bonus inferior engemando +23 Spell Power una vez cumplidas las 2 gemas azules de la meta.",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44498,
+    "name": "Enchant Bracer - Superior Spellpower",
+    "stats": "+30 Spell Power"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41602,
+    "name": "Brilliant Spellthread",
+    "stats": "+50 Spell Power and +20 Spirit"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating (o Tuskarr's Vitality ID: 44508)"
+   },
+   "mainhand": {
+    "id": 44493,
+    "name": "Enchant Weapon - Mighty Spellpower",
+    "stats": "+63 Spell Power (o Greater Spellpower +81 SP en bastón 2H ID: 45056)"
+   },
+   "offhand": null
+  }
+ },
+ "Druid|Feral DPS": {
+  "source": "https://www.icy-veins.com/wotlk-classic/feral-druid-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/druid/feral/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41398,
+   "name": "Relentless Earthsiege Diamond",
+   "stats": "+21 Agility and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating (hasta el cap de 1400 ArP)"
+   },
+   {
+    "id": 40112,
+    "name": "Delicate Cardinal Ruby",
+    "stats": "+20 Agility (una vez alcanzado el cap de 1400 ArP)"
+   },
+   {
+    "id": 40118,
+    "name": "Precise Cardinal Ruby",
+    "stats": "+20 Expertise Rating (si falta para 132 Rating)"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40148,
+    "name": "Glinting Ametrine",
+    "stats": "+10 Agility and +10 Hit Rating (si falta Hit)"
+   },
+   {
+    "id": 40147,
+    "name": "Deadly Ametrine",
+    "stats": "+10 Agility and +10 Critical Strike Rating (si no se ha superado el crit cap)"
+   },
+   {
+    "id": 40150,
+    "name": "Deft Ametrine",
+    "stats": "+10 Agility and +10 Haste Rating (si ya se alcanzó el crit cap de golpes blancos)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola en la pieza con mejor bonus de Agility para activar Relentless Earthsiege)"
+   },
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating (o Delicate Cardinal Ruby +20 Agility en las demás ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "Usar 1 Nightmare Tear en la ranura azul con el mayor bonus (+6 o +8 Agility) para activar Relentless Earthsiege Diamond. Ignorar el resto de ranuras azules. Respetar ranuras amarillas si el bonus es de al menos +4 Agility.",
+  "enchants": {
+   "head": {
+    "id": 44149,
+    "name": "Arcanum of Torment",
+    "stats": "+50 Attack Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44133,
+    "name": "Greater Inscription of the Axe",
+    "stats": "+40 Attack Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 44492,
+    "name": "Enchant Cloak - Major Agility",
+    "stats": "+22 Agility"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44575,
+    "name": "Enchant Bracers - Greater Assault",
+    "stats": "+50 Attack Power"
+   },
+   "hands": {
+    "id": 25080,
+    "name": "Enchant Gloves - Major Agility",
+    "stats": "+20 Agility (o Crusher +44 Attack Power ID: 44513)"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38374,
+    "name": "Icescale Leg Armor",
+    "stats": "+75 Attack Power and +22 Critical Strike Rating"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating (o Superior Agility +16 Agility ID: 44584)"
+   },
+   "mainhand": {
+    "id": 44497,
+    "name": "Enchant Weapon - Berserking",
+    "stats": "Chance to increase Attack Power by 400 (o Massacre +110 Attack Power ID: 44630)"
+   },
+   "offhand": null
+  }
+ },
+ "Druid|Feral Tank": {
+  "source": "https://www.icy-veins.com/wotlk-classic/feral-druid-tank-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/druid/feral/tank-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41380,
+   "name": "Austere Earthsiege Diamond",
+   "stats": "+32 Stamina and 2% Increased Armor Value from Items"
+  },
+  "red_socket": [
+   {
+    "id": 40130,
+    "name": "Shifting Dreadstone",
+    "stats": "+10 Agility and +15 Stamina (si el bonus es >= +6 Agility o +9 Stamina)"
+   },
+   {
+    "id": 40119,
+    "name": "Solid Majestic Zircon",
+    "stats": "+30 Stamina (para máximo EHP)"
+   },
+   {
+    "id": 40112,
+    "name": "Delicate Cardinal Ruby",
+    "stats": "+20 Agility (en perfil de evasión/amenaza)"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40119,
+    "name": "Solid Majestic Zircon",
+    "stats": "+30 Stamina"
+   },
+   {
+    "id": 40166,
+    "name": "Vivid Eye of Zul",
+    "stats": "+10 Hit Rating and +15 Stamina (si falta Hit y el bonus es bueno)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40119,
+    "name": "Solid Majestic Zircon",
+    "stats": "+30 Stamina"
+   }
+  ],
+  "socket_bonus_rule": "En ICC 25 Heroico se prioriza +30 Stamina (Solid Majestic Zircon) en casi todas las ranuras, usando 1 Shifting Dreadstone (o Nightmare Tear) para cumplir el requisito de 1 gema roja de Austere Earthsiege Diamond en la pieza con mejor bonus de ranura.",
+  "enchants": {
+   "head": {
+    "id": 44150,
+    "name": "Arcanum of the Stalwart Protector",
+    "stats": "+37 Stamina and +20 Defense Rating (o Arcanum of Torment ID: 44149 para amenaza)"
+   },
+   "shoulder": {
+    "id": 44957,
+    "name": "Greater Inscription of the Gladiator",
+    "stats": "+30 Stamina and +15 Resilience Rating (o Greater Inscription of the Pinnacle ID: 44136)"
+   },
+   "back": {
+    "id": 44492,
+    "name": "Enchant Cloak - Major Agility",
+    "stats": "+22 Agility (o Mighty Armor +225 Armor ID: 44494)"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats (o Super Health +275 Health ID: 44509)"
+   },
+   "wrist": {
+    "id": 44947,
+    "name": "Enchant Bracer - Major Stamina",
+    "stats": "+40 Stamina"
+   },
+   "hands": {
+    "id": 25080,
+    "name": "Enchant Gloves - Major Agility",
+    "stats": "+20 Agility (o Glove Reinforcements +240 Armor ID: 33153)"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38373,
+    "name": "Frosthide Leg Armor",
+    "stats": "+55 Stamina and +22 Agility"
+   },
+   "feet": {
+    "id": 44528,
+    "name": "Enchant Boots - Greater Fortitude",
+    "stats": "+22 Stamina (o Tuskarr's Vitality ID: 44508)"
+   },
+   "mainhand": {
+    "id": 38998,
+    "name": "Enchant Weapon - Mongoose",
+    "stats": "Chance to increase Agility by 120 and attack speed by 2% (o Massacre +110 Attack Power ID: 44630)"
+   },
+   "offhand": null
+  }
+ },
+ "Druid|Restoration": {
+  "source": "https://www.icy-veins.com/wotlk-classic/restoration-druid-healer-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/druid/restoration/healer-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41401,
+   "name": "Insightful Earthsiege Diamond",
+   "stats": "+21 Intellect and Chance to restore mana on spellcast (o Revitalizing Skyflare Diamond ID: 41376)"
+  },
+  "red_socket": [
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40155,
+    "name": "Reckless Ametrine",
+    "stats": "+12 Spell Power and +10 Haste Rating (hasta el cap de 735/856 Haste)"
+   },
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power (una vez alcanzado el cap de Haste de 856/735 Rating)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40133,
+    "name": "Purified Dreadstone",
+    "stats": "+12 Spell Power and +10 Spirit (para activar la gema meta o cuando el bonus sea >= +7 Spell Power)"
+   },
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power (en las demás ranuras azules una vez activa la meta)"
+   }
+  ],
+  "socket_bonus_rule": "Una vez activada la gema meta y alcanzado el breakpoint de Haste (735 con Celestial Focus o 856 sin él), engemar +23 Spell Power (Runed Cardinal Ruby) en todas las ranuras salvo donde el bonus de ranura aporte al menos +7 Spell Power.",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating (o Arcanum of Blissful Mending +30 SP y +10 MP5 ID: 44152)"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating (o Greater Inscription of the Crag +24 SP y +8 MP5 ID: 44134)"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44498,
+    "name": "Enchant Bracer - Superior Spellpower",
+    "stats": "+30 Spell Power"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41602,
+    "name": "Brilliant Spellthread",
+    "stats": "+50 Spell Power and +20 Spirit"
+   },
+   "feet": {
+    "id": 44508,
+    "name": "Enchant Boots - Tuskarr's Vitality",
+    "stats": "+15 Stamina and Minor Speed Increase (o Greater Spirit +18 Spirit ID: 44506)"
+   },
+   "mainhand": {
+    "id": 44493,
+    "name": "Enchant Weapon - Mighty Spellpower",
+    "stats": "+63 Spell Power"
+   },
+   "offhand": null
+  }
+ },
+ "Hunter|Beast Mastery": {
+  "source": "https://www.icy-veins.com/wotlk-classic/beast-mastery-hunter-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/hunter/beast-mastery/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41398,
+   "name": "Relentless Earthsiege Diamond",
+   "stats": "+21 Agility and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40112,
+    "name": "Delicate Cardinal Ruby",
+    "stats": "+20 Agility"
+   },
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40147,
+    "name": "Deadly Ametrine",
+    "stats": "+10 Agility and +10 Critical Strike Rating"
+   },
+   {
+    "id": 40148,
+    "name": "Glinting Ametrine",
+    "stats": "+10 Agility and +10 Hit Rating (si falta Hit)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola en la pieza con mejor bonus para activar Relentless Earthsiege)"
+   },
+   {
+    "id": 40112,
+    "name": "Delicate Cardinal Ruby",
+    "stats": "+20 Agility (en el resto de ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "Activar Relentless Earthsiege Diamond con 1 Nightmare Tear en la ranura azul de mayor bonus (+6/+8 Agility). Respetar ranuras amarillas con Deadly/Glinting Ametrine si el bonus es >= +4 Agility; ignorar el resto de ranuras azules.",
+  "enchants": {
+   "head": {
+    "id": 44149,
+    "name": "Arcanum of Torment",
+    "stats": "+50 Attack Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44133,
+    "name": "Greater Inscription of the Axe",
+    "stats": "+40 Attack Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 44492,
+    "name": "Enchant Cloak - Major Agility",
+    "stats": "+22 Agility"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44575,
+    "name": "Enchant Bracers - Greater Assault",
+    "stats": "+50 Attack Power"
+   },
+   "hands": {
+    "id": 25080,
+    "name": "Enchant Gloves - Major Agility",
+    "stats": "+20 Agility (o Crusher +44 Attack Power ID: 44513)"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38374,
+    "name": "Icescale Leg Armor",
+    "stats": "+75 Attack Power and +22 Critical Strike Rating"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating (o Superior Agility +16 Agility ID: 44584)"
+   },
+   "mainhand": {
+    "id": 44630,
+    "name": "Enchant 2H Weapon - Massacre",
+    "stats": "+110 Attack Power"
+   },
+   "offhand": null,
+   "ranged": {
+    "id": 41167,
+    "name": "Heartseeker Scope",
+    "stats": "+40 Ranged Critical Strike Rating"
+   }
+  }
+ },
+ "Hunter|Marksmanship": {
+  "source": "https://www.icy-veins.com/wotlk-classic/marksmanship-hunter-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/hunter/marksmanship/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41398,
+   "name": "Relentless Earthsiege Diamond",
+   "stats": "+21 Agility and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating (hasta alcanzar 1400 ArP)"
+   },
+   {
+    "id": 40112,
+    "name": "Delicate Cardinal Ruby",
+    "stats": "+20 Agility (una vez alcanzado el hard cap de 1400 ArP)"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40147,
+    "name": "Deadly Ametrine",
+    "stats": "+10 Agility and +10 Critical Strike Rating (si el bonus es >= +4 Agility y no impide llegar a 1400 ArP)"
+   },
+   {
+    "id": 40148,
+    "name": "Glinting Ametrine",
+    "stats": "+10 Agility and +10 Hit Rating (si falta Hit para el cap de 263)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola en la pieza con mejor bonus para activar Relentless Earthsiege)"
+   },
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating (o Delicate Cardinal Ruby +20 Agility en las demás ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "Usar únicamente 1 Nightmare Tear para activar Relentless Earthsiege Diamond en la pieza con mejor bonus (+8/+6 Agility). Priorizar alcanzar exactamente 1400 de Armor Penetration con Fractured Cardinal Ruby y luego usar Delicate Cardinal Ruby (+20 Agility) o Deadly Ametrine en ranuras amarillas con bonus >= +4 Agility.",
+  "enchants": {
+   "head": {
+    "id": 44149,
+    "name": "Arcanum of Torment",
+    "stats": "+50 Attack Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44133,
+    "name": "Greater Inscription of the Axe",
+    "stats": "+40 Attack Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 44492,
+    "name": "Enchant Cloak - Major Agility",
+    "stats": "+22 Agility"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44575,
+    "name": "Enchant Bracers - Greater Assault",
+    "stats": "+50 Attack Power"
+   },
+   "hands": {
+    "id": 25080,
+    "name": "Enchant Gloves - Major Agility",
+    "stats": "+20 Agility"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38374,
+    "name": "Icescale Leg Armor",
+    "stats": "+75 Attack Power and +22 Critical Strike Rating"
+   },
+   "feet": {
+    "id": 44584,
+    "name": "Enchant Boots - Superior Agility",
+    "stats": "+16 Agility (o Icewalker ID: 44524 si falta Hit)"
+   },
+   "mainhand": {
+    "id": 44630,
+    "name": "Enchant 2H Weapon - Massacre",
+    "stats": "+110 Attack Power"
+   },
+   "offhand": null,
+   "ranged": {
+    "id": 41167,
+    "name": "Heartseeker Scope",
+    "stats": "+40 Ranged Critical Strike Rating"
+   }
+  }
+ },
+ "Hunter|Survival": {
+  "source": "https://www.icy-veins.com/wotlk-classic/survival-hunter-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/hunter/survival/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41398,
+   "name": "Relentless Earthsiege Diamond",
+   "stats": "+21 Agility and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40112,
+    "name": "Delicate Cardinal Ruby",
+    "stats": "+20 Agility"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40147,
+    "name": "Deadly Ametrine",
+    "stats": "+10 Agility and +10 Critical Strike Rating"
+   },
+   {
+    "id": 40148,
+    "name": "Glinting Ametrine",
+    "stats": "+10 Agility and +10 Hit Rating (si falta Hit)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola en la pieza con mejor bonus de Agility para activar Relentless Earthsiege)"
+   },
+   {
+    "id": 40112,
+    "name": "Delicate Cardinal Ruby",
+    "stats": "+20 Agility (en el resto de ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "Activar Relentless Earthsiege Diamond con 1 Nightmare Tear en la pieza con mejor bonus (+6/+8 Agility). Respetar ranuras amarillas con Deadly/Glinting Ametrine si el bonus es >= +4 Agility; ignorar todas las demás ranuras azules engemando +20 Agility.",
+  "enchants": {
+   "head": {
+    "id": 44149,
+    "name": "Arcanum of Torment",
+    "stats": "+50 Attack Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44133,
+    "name": "Greater Inscription of the Axe",
+    "stats": "+40 Attack Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 44492,
+    "name": "Enchant Cloak - Major Agility",
+    "stats": "+22 Agility"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44575,
+    "name": "Enchant Bracers - Greater Assault",
+    "stats": "+50 Attack Power"
+   },
+   "hands": {
+    "id": 25080,
+    "name": "Enchant Gloves - Major Agility",
+    "stats": "+20 Agility"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38374,
+    "name": "Icescale Leg Armor",
+    "stats": "+75 Attack Power and +22 Critical Strike Rating"
+   },
+   "feet": {
+    "id": 44584,
+    "name": "Enchant Boots - Superior Agility",
+    "stats": "+16 Agility (o Icewalker ID: 44524)"
+   },
+   "mainhand": {
+    "id": 44630,
+    "name": "Enchant 2H Weapon - Massacre",
+    "stats": "+110 Attack Power"
+   },
+   "offhand": null,
+   "ranged": {
+    "id": 41167,
+    "name": "Heartseeker Scope",
+    "stats": "+40 Ranged Critical Strike Rating"
+   }
+  }
+ },
+ "Mage|Arcane": {
+  "source": "https://www.icy-veins.com/wotlk-classic/arcane-mage-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/mage/arcane/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41285,
+   "name": "Chaotic Skyflare Diamond",
+   "stats": "+21 Critical Strike Rating and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40155,
+    "name": "Reckless Ametrine",
+    "stats": "+12 Spell Power and +10 Haste Rating"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40133,
+    "name": "Purified Dreadstone",
+    "stats": "+12 Spell Power and +10 Spirit (2 gemas para activar Chaotic Skyflare en las piezas con mejor bonus)"
+   },
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power (en el resto de ranuras azules si el bonus es < +7 Spell Power)"
+   }
+  ],
+  "socket_bonus_rule": "Respetar ranuras amarillas con Reckless Ametrine si el bonus es >= +5 Spell Power. En ranuras azules, usar 2 Purified Dreadstone en las piezas con mejor bonus (+7/+9 Spell Power) para activar Chaotic Skyflare Diamond e ignorar el resto si dan menos de +7 Spell Power.",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44498,
+    "name": "Enchant Bracer - Superior Spellpower",
+    "stats": "+30 Spell Power"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41602,
+    "name": "Brilliant Spellthread",
+    "stats": "+50 Spell Power and +20 Spirit"
+   },
+   "feet": {
+    "id": 44508,
+    "name": "Enchant Boots - Tuskarr's Vitality",
+    "stats": "+15 Stamina and Minor Speed Increase (o Icewalker ID: 44524)"
+   },
+   "mainhand": {
+    "id": 44493,
+    "name": "Enchant Weapon - Mighty Spellpower",
+    "stats": "+63 Spell Power (o Black Magic ID: 44495, proc de 250 Haste)"
+   },
+   "offhand": null
+  }
+ },
+ "Mage|Fire": {
+  "source": "https://www.icy-veins.com/wotlk-classic/fire-mage-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/mage/fire/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41285,
+   "name": "Chaotic Skyflare Diamond",
+   "stats": "+21 Critical Strike Rating and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40152,
+    "name": "Potent Ametrine",
+    "stats": "+12 Spell Power and +10 Critical Strike Rating"
+   },
+   {
+    "id": 40155,
+    "name": "Reckless Ametrine",
+    "stats": "+12 Spell Power and +10 Haste Rating"
+   },
+   {
+    "id": 40153,
+    "name": "Veiled Ametrine",
+    "stats": "+12 Spell Power and +10 Hit Rating (si falta Hit para los 368 de TTW-Fire)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40133,
+    "name": "Purified Dreadstone",
+    "stats": "+12 Spell Power and +10 Spirit (2 gemas para activar Chaotic Skyflare y cuando el bonus sea >= +5 Spell Power por gema azul)"
+   },
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power (si el bonus es inferior a +5 Spell Power tras activar la meta)"
+   }
+  ],
+  "socket_bonus_rule": "Gracias a Molten Armor glifado (que convierte un 55% del Spirit en Critical Strike Rating con el bonus de 2p T9 o un 35% en T10), Purified Dreadstone es muy competitiva: respetar los bonus de ranura siempre que otorguen +5 Spell Power por 1 gema no roja o +7/+9 Spell Power por 2 gemas no rojas.",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44498,
+    "name": "Enchant Bracer - Superior Spellpower",
+    "stats": "+30 Spell Power"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power (o Precision +20 Hit Rating ID: 44500 si falta golpe)"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41602,
+    "name": "Brilliant Spellthread",
+    "stats": "+50 Spell Power and +20 Spirit"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating"
+   },
+   "mainhand": {
+    "id": 44493,
+    "name": "Enchant Weapon - Mighty Spellpower",
+    "stats": "+63 Spell Power (o Black Magic ID: 44495)"
+   },
+   "offhand": null
+  }
+ },
+ "Mage|Frost": {
+  "source": "https://www.icy-veins.com/wotlk-classic/frost-mage-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/mage/frost/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41285,
+   "name": "Chaotic Skyflare Diamond",
+   "stats": "+21 Critical Strike Rating and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40155,
+    "name": "Reckless Ametrine",
+    "stats": "+12 Spell Power and +10 Haste Rating"
+   },
+   {
+    "id": 40153,
+    "name": "Veiled Ametrine",
+    "stats": "+12 Spell Power and +10 Hit Rating (si falta Hit)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40133,
+    "name": "Purified Dreadstone",
+    "stats": "+12 Spell Power and +10 Spirit (2 gemas para activar Chaotic Skyflare)"
+   },
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power (en el resto de ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "Respetar ranuras amarillas con Reckless Ametrine si el bonus es >= +5 Spell Power; usar solo 2 Purified Dreadstone en las piezas con mayor bonus para activar Chaotic Skyflare Diamond.",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44498,
+    "name": "Enchant Bracer - Superior Spellpower",
+    "stats": "+30 Spell Power"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41602,
+    "name": "Brilliant Spellthread",
+    "stats": "+50 Spell Power and +20 Spirit"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating"
+   },
+   "mainhand": {
+    "id": 44493,
+    "name": "Enchant Weapon - Mighty Spellpower",
+    "stats": "+63 Spell Power"
+   },
+   "offhand": null
+  }
+ },
+ "Paladin|Holy": {
+  "source": "https://www.icy-veins.com/wotlk-classic/holy-paladin-healer-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/paladin/holy/healer-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41401,
+   "name": "Insightful Earthsiege Diamond",
+   "stats": "+21 Intellect and Chance to restore mana on spellcast"
+  },
+  "red_socket": [
+   {
+    "id": 40123,
+    "name": "Brilliant King's Amber",
+    "stats": "+20 Intellect (ignorando el color de la ranura)"
+   },
+   {
+    "id": 40151,
+    "name": "Luminous Ametrine",
+    "stats": "+12 Spell Power and +10 Intellect (1 sola si se necesita gema roja para activar Insightful Earthsiege)"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40123,
+    "name": "Brilliant King's Amber",
+    "stats": "+20 Intellect"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola en una ranura azul para cubrir tanto el requisito rojo como el azul de Insightful Earthsiege)"
+   },
+   {
+    "id": 40123,
+    "name": "Brilliant King's Amber",
+    "stats": "+20 Intellect (en todas las demás ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "Ignorar TODOS los bonus de ranura y engemar +20 Intellect (Brilliant King's Amber, y +34 Intellect Brilliant Dragon's Eye si es Joyero) en todas las ranuras rojas, amarillas y azules, excepto 1 Nightmare Tear (ID: 49110) en la ranura azul con el mejor bonus para activar simultáneamente el requisito de 1 gema roja y 1 azul de Insightful Earthsiege Diamond.",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating (o Arcanum of Blissful Mending ID: 44152)"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating (o Greater Inscription of the Crag ID: 44134)"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats (o Exceptional Mana +250 Mana ID: 38961)"
+   },
+   "wrist": {
+    "id": 38968,
+    "name": "Enchant Bracers - Exceptional Intellect",
+    "stats": "+16 Intellect (o Superior Spellpower +30 SP ID: 44498)"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41604,
+    "name": "Sapphire Spellthread",
+    "stats": "+50 Spell Power and +30 Stamina"
+   },
+   "feet": {
+    "id": 44508,
+    "name": "Enchant Boots - Tuskarr's Vitality",
+    "stats": "+15 Stamina and Minor Speed Increase"
+   },
+   "mainhand": {
+    "id": 38992,
+    "name": "Enchant Weapon - Major Intellect",
+    "stats": "+30 Intellect (o Mighty Spellpower +63 SP ID: 44493)"
+   },
+   "offhand": {
+    "id": 44489,
+    "name": "Enchant Shield - Greater Intellect",
+    "stats": "+25 Intellect"
+   }
+  }
+ },
+ "Paladin|Protection": {
+  "source": "https://www.icy-veins.com/wotlk-classic/protection-paladin-tank-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/paladin/protection/tank-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41380,
+   "name": "Austere Earthsiege Diamond",
+   "stats": "+32 Stamina and 2% Increased Armor Value from Items"
+  },
+  "red_socket": [
+   {
+    "id": 40119,
+    "name": "Solid Majestic Zircon",
+    "stats": "+30 Stamina (si se ignora el bonus)"
+   },
+   {
+    "id": 40138,
+    "name": "Regal Dreadstone",
+    "stats": "+10 Dodge Rating and +15 Stamina (para activar la meta o si el bonus es >= +9 Stamina)"
+   },
+   {
+    "id": 40141,
+    "name": "Guardian's Dreadstone",
+    "stats": "+10 Expertise Rating and +15 Stamina"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40119,
+    "name": "Solid Majestic Zircon",
+    "stats": "+30 Stamina"
+   },
+   {
+    "id": 40167,
+    "name": "Enduring Eye of Zul",
+    "stats": "+10 Defense Rating and +15 Stamina (si falta Defense o bonus >= +9 Stamina)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40119,
+    "name": "Solid Majestic Zircon",
+    "stats": "+30 Stamina"
+   }
+  ],
+  "socket_bonus_rule": "Engemar +30 Stamina (Solid Majestic Zircon) en todas las ranuras, utilizando 1 gema morada (Regal/Guardian's Dreadstone) o 1 Nightmare Tear en una pieza con bonus de +9 o +12 Stamina para activar el requisito de 1 gema roja de Austere Earthsiege Diamond.",
+  "enchants": {
+   "head": {
+    "id": 44150,
+    "name": "Arcanum of the Stalwart Protector",
+    "stats": "+37 Stamina and +20 Defense Rating"
+   },
+   "shoulder": {
+    "id": 44957,
+    "name": "Greater Inscription of the Gladiator",
+    "stats": "+30 Stamina and +15 Resilience Rating (o Greater Inscription of the Pinnacle ID: 44136)"
+   },
+   "back": {
+    "id": 44494,
+    "name": "Enchant Cloak - Mighty Armor",
+    "stats": "+225 Armor"
+   },
+   "chest": {
+    "id": 44509,
+    "name": "Enchant Chest - Super Health",
+    "stats": "+275 Health (o Powerful Stats +10 All Stats ID: 44588)"
+   },
+   "wrist": {
+    "id": 44947,
+    "name": "Enchant Bracer - Major Stamina",
+    "stats": "+40 Stamina"
+   },
+   "hands": {
+    "id": 33153,
+    "name": "Glove Reinforcements",
+    "stats": "+240 Armor (o Armsman +2% Threat and +10 Parry ID: 44592)"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38373,
+    "name": "Frosthide Leg Armor",
+    "stats": "+55 Stamina and +22 Agility"
+   },
+   "feet": {
+    "id": 44508,
+    "name": "Enchant Boots - Tuskarr's Vitality",
+    "stats": "+15 Stamina and Minor Speed Increase (o Greater Fortitude +22 Stamina ID: 44528)"
+   },
+   "mainhand": {
+    "id": 38998,
+    "name": "Enchant Weapon - Mongoose",
+    "stats": "Chance to increase Agility by 120 and attack speed by 2% (o Blade Ward ID: 46026 / Accuracy +25 Hit & +25 Crit ID: 44496)"
+   },
+   "offhand": {
+    "id": 38954,
+    "name": "Enchant Shield - Major Stamina",
+    "stats": "+18 Stamina (o Titanium Plating +81 Block Value ID: 44936)"
+   }
+  }
+ },
+ "Paladin|Retribution": {
+  "source": "https://www.icy-veins.com/wotlk-classic/retribution-paladin-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/paladin/retribution/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41398,
+   "name": "Relentless Earthsiege Diamond",
+   "stats": "+21 Agility and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40111,
+    "name": "Bold Cardinal Ruby",
+    "stats": "+20 Strength"
+   },
+   {
+    "id": 40118,
+    "name": "Precise Cardinal Ruby",
+    "stats": "+20 Expertise Rating (solo si falta para el cap de 26)"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40142,
+    "name": "Inscribed Ametrine",
+    "stats": "+10 Strength and +10 Critical Strike Rating"
+   },
+   {
+    "id": 40143,
+    "name": "Etched Ametrine",
+    "stats": "+10 Strength and +10 Hit Rating (si falta Hit para los 263)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola en la ranura azul con el mayor bonus de Strength para activar Relentless Earthsiege)"
+   },
+   {
+    "id": 40111,
+    "name": "Bold Cardinal Ruby",
+    "stats": "+20 Strength (en todas las demás ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "Se usa Relentless Earthsiege Diamond en lugar de Chaotic Skyflare porque solo exige 1 gema azul (cubierta con 1 Nightmare Tear en la pieza con mejor bonus de +6/+8 Strength). Respetar ranuras amarillas con Inscribed/Etched Ametrine si el bonus es >= +4 Strength; ignorar el resto de ranuras azules con +20 Strength.",
+  "enchants": {
+   "head": {
+    "id": 44149,
+    "name": "Arcanum of Torment",
+    "stats": "+50 Attack Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44133,
+    "name": "Greater Inscription of the Axe",
+    "stats": "+40 Attack Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 44492,
+    "name": "Enchant Cloak - Major Agility",
+    "stats": "+22 Agility"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44575,
+    "name": "Enchant Bracers - Greater Assault",
+    "stats": "+50 Attack Power"
+   },
+   "hands": {
+    "id": 44513,
+    "name": "Enchant Gloves - Crusher",
+    "stats": "+44 Attack Power (o Precision +20 Hit Rating ID: 44500)"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38374,
+    "name": "Icescale Leg Armor",
+    "stats": "+75 Attack Power and +22 Critical Strike Rating"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating (o Greater Assault +32 Attack Power ID: 44589)"
+   },
+   "mainhand": {
+    "id": 44497,
+    "name": "Enchant Weapon - Berserking",
+    "stats": "Chance to increase Attack Power by 400 (o Massacre +110 Attack Power ID: 44630)"
+   },
+   "offhand": null
+  }
+ },
+ "Priest|Discipline": {
+  "source": "https://www.icy-veins.com/wotlk-classic/discipline-priest-healer-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/priest/discipline/healer-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41401,
+   "name": "Insightful Earthsiege Diamond",
+   "stats": "+21 Intellect and Chance to restore mana on spellcast (o Ember Skyflare Diamond ID: 41333, +25 Spell Power and +2% Intellect)"
+  },
+  "red_socket": [
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40151,
+    "name": "Luminous Ametrine",
+    "stats": "+12 Spell Power and +10 Intellect"
+   },
+   {
+    "id": 40152,
+    "name": "Potent Ametrine",
+    "stats": "+12 Spell Power and +10 Critical Strike Rating"
+   },
+   {
+    "id": 40155,
+    "name": "Reckless Ametrine",
+    "stats": "+12 Spell Power and +10 Haste Rating"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40134,
+    "name": "Royal Dreadstone",
+    "stats": "+12 Spell Power and +5 Mana every 5 seconds"
+   },
+   {
+    "id": 40133,
+    "name": "Purified Dreadstone",
+    "stats": "+12 Spell Power and +10 Spirit"
+   },
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola si se usa para activar Insightful Earthsiege Diamond)"
+   }
+  ],
+  "socket_bonus_rule": "Priorizar +23 Spell Power (Runed Cardinal Ruby) en casi todas las ranuras para maximizar la absorción de Power Word: Shield. Respetar los bonus de ranura únicamente si otorgan +7 o +9 Spell Power (o usar las gemas híbridas mínimas necesarias para activar la gema meta).",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating (o Arcanum of Blissful Mending +30 SP y +10 MP5 ID: 44152)"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating (o Greater Inscription of the Crag +24 SP y +8 MP5 ID: 44134)"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44498,
+    "name": "Enchant Bracer - Superior Spellpower",
+    "stats": "+30 Spell Power"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41604,
+    "name": "Sapphire Spellthread",
+    "stats": "+50 Spell Power and +30 Stamina (o Brilliant Spellthread +50 SP y +20 Spirit ID: 41602)"
+   },
+   "feet": {
+    "id": 44508,
+    "name": "Enchant Boots - Tuskarr's Vitality",
+    "stats": "+15 Stamina and Minor Speed Increase"
+   },
+   "mainhand": {
+    "id": 44493,
+    "name": "Enchant Weapon - Mighty Spellpower",
+    "stats": "+63 Spell Power"
+   },
+   "offhand": null
+  }
+ },
+ "Priest|Holy": {
+  "source": "https://www.icy-veins.com/wotlk-classic/holy-priest-healer-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/priest/holy/healer-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41401,
+   "name": "Insightful Earthsiege Diamond",
+   "stats": "+21 Intellect and Chance to restore mana on spellcast"
+  },
+  "red_socket": [
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40155,
+    "name": "Reckless Ametrine",
+    "stats": "+12 Spell Power and +10 Haste Rating"
+   },
+   {
+    "id": 40151,
+    "name": "Luminous Ametrine",
+    "stats": "+12 Spell Power and +10 Intellect"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40133,
+    "name": "Purified Dreadstone",
+    "stats": "+12 Spell Power and +10 Spirit"
+   }
+  ],
+  "socket_bonus_rule": "Gracias al talento Spiritual Guidance (25% del Spirit convertido en Spell Power), Purified Dreadstone (+12 SP / +10 Spirit) aporta casi tanto Spell Power como una gema roja pura además de regeneración; por ello, se recomienda respetar los bonus de ranura siempre que otorguen +5 Spell Power o más.",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating (o Arcanum of Blissful Mending ID: 44152)"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating (o Greater Inscription of the Crag ID: 44134)"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44498,
+    "name": "Enchant Bracer - Superior Spellpower",
+    "stats": "+30 Spell Power"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41602,
+    "name": "Brilliant Spellthread",
+    "stats": "+50 Spell Power and +20 Spirit"
+   },
+   "feet": {
+    "id": 44508,
+    "name": "Enchant Boots - Tuskarr's Vitality",
+    "stats": "+15 Stamina and Minor Speed Increase"
+   },
+   "mainhand": {
+    "id": 44493,
+    "name": "Enchant Weapon - Mighty Spellpower",
+    "stats": "+63 Spell Power"
+   },
+   "offhand": null
+  }
+ },
+ "Priest|Shadow": {
+  "source": "https://www.icy-veins.com/wotlk-classic/shadow-priest-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/priest/shadow/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41285,
+   "name": "Chaotic Skyflare Diamond",
+   "stats": "+21 Critical Strike Rating and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40155,
+    "name": "Reckless Ametrine",
+    "stats": "+12 Spell Power and +10 Haste Rating"
+   },
+   {
+    "id": 40152,
+    "name": "Potent Ametrine",
+    "stats": "+12 Spell Power and +10 Critical Strike Rating"
+   },
+   {
+    "id": 40153,
+    "name": "Veiled Ametrine",
+    "stats": "+12 Spell Power and +10 Hit Rating (si falta Hit para los 289 Rating)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40133,
+    "name": "Purified Dreadstone",
+    "stats": "+12 Spell Power and +10 Spirit (2 gemas en las piezas con mejor bonus para activar Chaotic Skyflare)"
+   },
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power (en ranuras azules con bonus menor a +7 Spell Power tras activar la meta)"
+   }
+  ],
+  "socket_bonus_rule": "Respetar los bonus de ranura amarillos de +5 Spell Power o más usando Reckless Ametrine. En ranuras azules, usar 2 Purified Dreadstone para activar Chaotic Skyflare Diamond y solo respetar ranuras azules adicionales si el bonus es de +7 o +9 Spell Power.",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44498,
+    "name": "Enchant Bracer - Superior Spellpower",
+    "stats": "+30 Spell Power"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41602,
+    "name": "Brilliant Spellthread",
+    "stats": "+50 Spell Power and +20 Spirit"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating (o Tuskarr's Vitality ID: 44508)"
+   },
+   "mainhand": {
+    "id": 44493,
+    "name": "Enchant Weapon - Mighty Spellpower",
+    "stats": "+63 Spell Power (o Black Magic ID: 44495)"
+   },
+   "offhand": null
+  }
+ },
+ "Rogue|Assassination": {
+  "source": "https://www.icy-veins.com/wotlk-classic/assassination-rogue-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/rogue/assassination/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41398,
+   "name": "Relentless Earthsiege Diamond",
+   "stats": "+21 Agility and 3% Increased Critical Damage (o Chaotic Skyflare Diamond ID: 41285)"
+  },
+  "red_socket": [
+   {
+    "id": 40114,
+    "name": "Bright Cardinal Ruby",
+    "stats": "+40 Attack Power"
+   },
+   {
+    "id": 40118,
+    "name": "Precise Cardinal Ruby",
+    "stats": "+20 Expertise Rating (solo si falta para el cap de 214 Rating)"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40159,
+    "name": "Stark Ametrine",
+    "stats": "+20 Attack Power and +10 Haste Rating"
+   },
+   {
+    "id": 40157,
+    "name": "Pristine Ametrine",
+    "stats": "+20 Attack Power and +10 Hit Rating (si falta Hit para el cap de venenos)"
+   },
+   {
+    "id": 40162,
+    "name": "Accurate Ametrine",
+    "stats": "+10 Expertise Rating and +10 Hit Rating"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola en la ranura azul con mejor bonus para activar Relentless Earthsiege)"
+   },
+   {
+    "id": 40114,
+    "name": "Bright Cardinal Ruby",
+    "stats": "+40 Attack Power (en todas las demás ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "Usar Relentless Earthsiege Diamond con 1 sola Nightmare Tear en la pieza con mejor bonus (+6/+8 Agility). Respetar ranuras amarillas con Stark/Pristine Ametrine si el bonus es >= +4 Agility; ignorar todas las demás ranuras azules engemando +40 Attack Power.",
+  "enchants": {
+   "head": {
+    "id": 44149,
+    "name": "Arcanum of Torment",
+    "stats": "+50 Attack Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44133,
+    "name": "Greater Inscription of the Axe",
+    "stats": "+40 Attack Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating (o Major Agility +22 Agility ID: 44492)"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44575,
+    "name": "Enchant Bracers - Greater Assault",
+    "stats": "+50 Attack Power"
+   },
+   "hands": {
+    "id": 44513,
+    "name": "Enchant Gloves - Crusher",
+    "stats": "+44 Attack Power (o Precision +20 Hit Rating ID: 44500)"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38374,
+    "name": "Icescale Leg Armor",
+    "stats": "+75 Attack Power and +22 Critical Strike Rating"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating (o Tuskarr's Vitality ID: 44508)"
+   },
+   "mainhand": {
+    "id": 44497,
+    "name": "Enchant Weapon - Berserking",
+    "stats": "Chance to increase Attack Power by 400"
+   },
+   "offhand": {
+    "id": 44497,
+    "name": "Enchant Weapon - Berserking",
+    "stats": "Chance to increase Attack Power by 400 (o Black Magic ID: 44495)"
+   },
+   "ranged": {
+    "id": 41167,
+    "name": "Heartseeker Scope",
+    "stats": "+40 Ranged Critical Strike Rating"
+   }
+  }
+ },
+ "Rogue|Combat": {
+  "source": "https://www.icy-veins.com/wotlk-classic/combat-rogue-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/rogue/combat/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41398,
+   "name": "Relentless Earthsiege Diamond",
+   "stats": "+21 Agility and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating (hasta alcanzar exactamente 1400 ArP)"
+   },
+   {
+    "id": 40112,
+    "name": "Delicate Cardinal Ruby",
+    "stats": "+20 Agility (o Bright Cardinal Ruby +40 Attack Power ID: 40114 una vez alcanzado 1400 ArP)"
+   },
+   {
+    "id": 40118,
+    "name": "Precise Cardinal Ruby",
+    "stats": "+20 Expertise Rating (solo si falta para el cap de 132 Rating)"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40150,
+    "name": "Deft Ametrine",
+    "stats": "+10 Agility and +10 Haste Rating"
+   },
+   {
+    "id": 40159,
+    "name": "Stark Ametrine",
+    "stats": "+20 Attack Power and +10 Haste Rating"
+   },
+   {
+    "id": 40148,
+    "name": "Glinting Ametrine",
+    "stats": "+10 Agility and +10 Hit Rating (si falta Hit o para subir el white crit cap)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola en la pieza con mejor bonus de Agility para activar Relentless Earthsiege)"
+   },
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating (en las demás ranuras azules hasta llegar a 1400 ArP)"
+   }
+  ],
+  "socket_bonus_rule": "Activar Relentless Earthsiege Diamond con 1 Nightmare Tear en la ranura azul de mayor bonus (+6/+8 Agility). Priorizar alcanzar el hard cap de 1400 Armor Penetration con Fractured Cardinal Ruby; en las ranuras amarillas sobrantes, respetar bonus de >= +4 Agility usando Deft/Stark/Glinting Ametrine.",
+  "enchants": {
+   "head": {
+    "id": 44149,
+    "name": "Arcanum of Torment",
+    "stats": "+50 Attack Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44133,
+    "name": "Greater Inscription of the Axe",
+    "stats": "+40 Attack Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 44492,
+    "name": "Enchant Cloak - Major Agility",
+    "stats": "+22 Agility (o Greater Speed +23 Haste ID: 39003)"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44575,
+    "name": "Enchant Bracers - Greater Assault",
+    "stats": "+50 Attack Power"
+   },
+   "hands": {
+    "id": 44513,
+    "name": "Enchant Gloves - Crusher",
+    "stats": "+44 Attack Power (o Precision +20 Hit Rating ID: 44500)"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38374,
+    "name": "Icescale Leg Armor",
+    "stats": "+75 Attack Power and +22 Critical Strike Rating"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating (o Tuskarr's Vitality ID: 44508)"
+   },
+   "mainhand": {
+    "id": 44497,
+    "name": "Enchant Weapon - Berserking",
+    "stats": "Chance to increase Attack Power by 400"
+   },
+   "offhand": {
+    "id": 44497,
+    "name": "Enchant Weapon - Berserking",
+    "stats": "Chance to increase Attack Power by 400"
+   },
+   "ranged": {
+    "id": 41167,
+    "name": "Heartseeker Scope",
+    "stats": "+40 Ranged Critical Strike Rating"
+   }
+  }
+ },
+ "Rogue|Subtlety": {
+  "source": "https://www.icy-veins.com/wotlk-classic/subtlety-rogue-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/rogue/subtlety/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41398,
+   "name": "Relentless Earthsiege Diamond",
+   "stats": "+21 Agility and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40112,
+    "name": "Delicate Cardinal Ruby",
+    "stats": "+20 Agility"
+   },
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40147,
+    "name": "Deadly Ametrine",
+    "stats": "+10 Agility and +10 Critical Strike Rating"
+   },
+   {
+    "id": 40150,
+    "name": "Deft Ametrine",
+    "stats": "+10 Agility and +10 Haste Rating"
+   },
+   {
+    "id": 40148,
+    "name": "Glinting Ametrine",
+    "stats": "+10 Agility and +10 Hit Rating"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola para activar Relentless Earthsiege)"
+   },
+   {
+    "id": 40112,
+    "name": "Delicate Cardinal Ruby",
+    "stats": "+20 Agility (en el resto de ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "Activar Relentless Earthsiege Diamond con 1 Nightmare Tear en la pieza con mejor bonus (+6/+8 Agility). Respetar ranuras amarillas con bonus >= +4 Agility e ignorar el resto de ranuras azules.",
+  "enchants": {
+   "head": {
+    "id": 44149,
+    "name": "Arcanum of Torment",
+    "stats": "+50 Attack Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44133,
+    "name": "Greater Inscription of the Axe",
+    "stats": "+40 Attack Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 44492,
+    "name": "Enchant Cloak - Major Agility",
+    "stats": "+22 Agility"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44575,
+    "name": "Enchant Bracers - Greater Assault",
+    "stats": "+50 Attack Power"
+   },
+   "hands": {
+    "id": 44513,
+    "name": "Enchant Gloves - Crusher",
+    "stats": "+44 Attack Power (o Major Agility +20 Agility ID: 25080)"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38374,
+    "name": "Icescale Leg Armor",
+    "stats": "+75 Attack Power and +22 Critical Strike Rating"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating"
+   },
+   "mainhand": {
+    "id": 44497,
+    "name": "Enchant Weapon - Berserking",
+    "stats": "Chance to increase Attack Power by 400"
+   },
+   "offhand": {
+    "id": 44497,
+    "name": "Enchant Weapon - Berserking",
+    "stats": "Chance to increase Attack Power by 400"
+   },
+   "ranged": {
+    "id": 41167,
+    "name": "Heartseeker Scope",
+    "stats": "+40 Ranged Critical Strike Rating"
+   }
+  }
+ },
+ "Shaman|Elemental": {
+  "source": "https://www.icy-veins.com/wotlk-classic/elemental-shaman-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/shaman/elemental/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41285,
+   "name": "Chaotic Skyflare Diamond",
+   "stats": "+21 Critical Strike Rating and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40155,
+    "name": "Reckless Ametrine",
+    "stats": "+12 Spell Power and +10 Haste Rating"
+   },
+   {
+    "id": 40153,
+    "name": "Veiled Ametrine",
+    "stats": "+12 Spell Power and +10 Hit Rating (si falta Hit para los 289/263 Rating)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40132,
+    "name": "Glowing Dreadstone",
+    "stats": "+12 Spell Power and +15 Stamina (2 gemas en las piezas con mejor bonus para activar Chaotic Skyflare)"
+   },
+   {
+    "id": 40134,
+    "name": "Royal Dreadstone",
+    "stats": "+12 Spell Power and +5 Mana every 5 seconds (alternativa para activar las 2 azules de la meta)"
+   },
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power (en todas las demás ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "Respetar ranuras amarillas con Reckless Ametrine si el bonus es >= +5 Spell Power. En ranuras azules, usar únicamente las 2 gemas moradas necesarias (Glowing o Royal Dreadstone) en las piezas con el mayor bonus (+7/+9 Spell Power) para activar Chaotic Skyflare Diamond e ignorar el resto con +23 Spell Power.",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44498,
+    "name": "Enchant Bracer - Superior Spellpower",
+    "stats": "+30 Spell Power"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41604,
+    "name": "Sapphire Spellthread",
+    "stats": "+50 Spell Power and +30 Stamina"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating (o Tuskarr's Vitality ID: 44508)"
+   },
+   "mainhand": {
+    "id": 44493,
+    "name": "Enchant Weapon - Mighty Spellpower",
+    "stats": "+63 Spell Power (o Black Magic ID: 44495)"
+   },
+   "offhand": {
+    "id": 44489,
+    "name": "Enchant Shield - Greater Intellect",
+    "stats": "+25 Intellect"
+   }
+  }
+ },
+ "Shaman|Enhancement": {
+  "source": "https://www.icy-veins.com/wotlk-classic/enhancement-shaman-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/shaman/enhancement/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41398,
+   "name": "Relentless Earthsiege Diamond",
+   "stats": "+21 Agility and 3% Increased Critical Damage (o Chaotic Skyflare Diamond ID: 41285)"
+  },
+  "red_socket": [
+   {
+    "id": 40159,
+    "name": "Stark Ametrine",
+    "stats": "+20 Attack Power and +10 Haste Rating (si el bonus es >= +4 Agility / +8 AP)"
+   },
+   {
+    "id": 40128,
+    "name": "Quick King's Amber",
+    "stats": "+20 Haste Rating (si se ignora el bonus en Fase 4 BiS)"
+   },
+   {
+    "id": 40118,
+    "name": "Precise Cardinal Ruby",
+    "stats": "+20 Expertise Rating (si falta para el cap de 140 Rating)"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40128,
+    "name": "Quick King's Amber",
+    "stats": "+20 Haste Rating"
+   },
+   {
+    "id": 40125,
+    "name": "Rigid King's Amber",
+    "stats": "+20 Hit Rating (si falta Hit para el cap de hechizos de 368/342 Rating)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola en la pieza con mejor bonus para activar Relentless Earthsiege)"
+   },
+   {
+    "id": 40128,
+    "name": "Quick King's Amber",
+    "stats": "+20 Haste Rating (en el resto de ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "En Fase 4 (ICC), Haste escala por encima de Attack Power tras cubrir los topes de Spell Hit (368/342) y Expertise (140). Se activa Relentless Earthsiege Diamond con 1 Nightmare Tear, se usan Stark Ametrine en ranuras rojas con buen bonus (+6/+8 Agility o +16 AP) y Quick King's Amber (+20 Haste) en ranuras amarillas y azules restantes.",
+  "enchants": {
+   "head": {
+    "id": 44149,
+    "name": "Arcanum of Torment",
+    "stats": "+50 Attack Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44133,
+    "name": "Greater Inscription of the Axe",
+    "stats": "+40 Attack Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating (o Major Agility +22 Agility ID: 44492)"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44575,
+    "name": "Enchant Bracers - Greater Assault",
+    "stats": "+50 Attack Power"
+   },
+   "hands": {
+    "id": 44513,
+    "name": "Enchant Gloves - Crusher",
+    "stats": "+44 Attack Power (o Precision +20 Hit Rating ID: 44500)"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38374,
+    "name": "Icescale Leg Armor",
+    "stats": "+75 Attack Power and +22 Critical Strike Rating"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating (o Tuskarr's Vitality ID: 44508)"
+   },
+   "mainhand": {
+    "id": 44497,
+    "name": "Enchant Weapon - Berserking",
+    "stats": "Chance to increase Attack Power by 400"
+   },
+   "offhand": {
+    "id": 44497,
+    "name": "Enchant Weapon - Berserking",
+    "stats": "Chance to increase Attack Power by 400 (o Black Magic ID: 44495)"
+   }
+  }
+ },
+ "Shaman|Restoration": {
+  "source": "https://www.icy-veins.com/wotlk-classic/restoration-shaman-healer-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/shaman/restoration/healer-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41401,
+   "name": "Insightful Earthsiege Diamond",
+   "stats": "+21 Intellect and Chance to restore mana on spellcast (o Revitalizing Skyflare Diamond ID: 41376)"
+  },
+  "red_socket": [
+   {
+    "id": 40128,
+    "name": "Quick King's Amber",
+    "stats": "+20 Haste Rating (ignorando bonus débiles hasta alcanzar el soft cap de 1265 Haste)"
+   },
+   {
+    "id": 40155,
+    "name": "Reckless Ametrine",
+    "stats": "+12 Spell Power and +10 Haste Rating (si el bonus es >= +7 Spell Power o para activar la meta)"
+   },
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power (una vez alcanzado el cap de 1265 Haste)"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40128,
+    "name": "Quick King's Amber",
+    "stats": "+20 Haste Rating"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola para cubrir el requisito rojo y azul de Insightful Earthsiege)"
+   },
+   {
+    "id": 40179,
+    "name": "Energized Eye of Zul",
+    "stats": "+10 Haste Rating and +5 Mana every 5 seconds"
+   },
+   {
+    "id": 40128,
+    "name": "Quick King's Amber",
+    "stats": "+20 Haste Rating (ignorando ranuras azules tras activar la meta)"
+   }
+  ],
+  "socket_bonus_rule": "Priorizar alcanzar el soft cap de 1265 Haste Rating engemando Quick King's Amber (+20 Haste, y +34 Haste Quick Dragon's Eye si es Joyero) en casi todas las ranuras, usando 1 Nightmare Tear (o 1 Reckless Ametrine + 1 Energized Eye of Zul) para activar Insightful Earthsiege Diamond.",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating (o Arcanum of Blissful Mending ID: 44152)"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating (o Greater Inscription of the Crag ID: 44134)"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44498,
+    "name": "Enchant Bracer - Superior Spellpower",
+    "stats": "+30 Spell Power"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41604,
+    "name": "Sapphire Spellthread",
+    "stats": "+50 Spell Power and +30 Stamina"
+   },
+   "feet": {
+    "id": 44508,
+    "name": "Enchant Boots - Tuskarr's Vitality",
+    "stats": "+15 Stamina and Minor Speed Increase"
+   },
+   "mainhand": {
+    "id": 44493,
+    "name": "Enchant Weapon - Mighty Spellpower",
+    "stats": "+63 Spell Power"
+   },
+   "offhand": {
+    "id": 44489,
+    "name": "Enchant Shield - Greater Intellect",
+    "stats": "+25 Intellect"
+   }
+  }
+ },
+ "Warlock|Affliction": {
+  "source": "https://www.icy-veins.com/wotlk-classic/affliction-warlock-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/warlock/affliction/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41285,
+   "name": "Chaotic Skyflare Diamond",
+   "stats": "+21 Critical Strike Rating and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40155,
+    "name": "Reckless Ametrine",
+    "stats": "+12 Spell Power and +10 Haste Rating"
+   },
+   {
+    "id": 40153,
+    "name": "Veiled Ametrine",
+    "stats": "+12 Spell Power and +10 Hit Rating (si falta Hit para los 289 Rating)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40133,
+    "name": "Purified Dreadstone",
+    "stats": "+12 Spell Power and +10 Spirit (2 gemas para activar Chaotic Skyflare y cuando el bonus sea >= +5 Spell Power por gema azul)"
+   },
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power (si el bonus es menor a +5 Spell Power tras activar la meta)"
+   }
+  ],
+  "socket_bonus_rule": "Con Fel Armor (30%) y Glyph of Life Tap (20%), 10 de Spirit otorgan +5 de Spell Power base (+5.5 con Blessing of Kings), por lo que Purified Dreadstone equivale a ~17.5 Spell Power. Respetar cualquier bonus de ranura que otorgue +5 Spell Power por 1 gema no roja o +7/+9 Spell Power por 2 gemas no rojas.",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44498,
+    "name": "Enchant Bracer - Superior Spellpower",
+    "stats": "+30 Spell Power"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41602,
+    "name": "Brilliant Spellthread",
+    "stats": "+50 Spell Power and +20 Spirit"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating (o Tuskarr's Vitality ID: 44508)"
+   },
+   "mainhand": {
+    "id": 44493,
+    "name": "Enchant Weapon - Mighty Spellpower",
+    "stats": "+63 Spell Power (o Black Magic ID: 44495)"
+   },
+   "offhand": null
+  }
+ },
+ "Warlock|Demonology": {
+  "source": "https://www.icy-veins.com/wotlk-classic/demonology-warlock-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/warlock/demonology/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41285,
+   "name": "Chaotic Skyflare Diamond",
+   "stats": "+21 Critical Strike Rating and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40155,
+    "name": "Reckless Ametrine",
+    "stats": "+12 Spell Power and +10 Haste Rating"
+   },
+   {
+    "id": 40153,
+    "name": "Veiled Ametrine",
+    "stats": "+12 Spell Power and +10 Hit Rating (si falta Hit)"
+   },
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power (si se busca maximizar únicamente el buff de banda Demonic Pact)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40133,
+    "name": "Purified Dreadstone",
+    "stats": "+12 Spell Power and +10 Spirit"
+   }
+  ],
+  "socket_bonus_rule": "Respetar los bonus de ranura de +5 Spell Power o más usando Purified Dreadstone en azules y Reckless/Veiled Ametrine en amarillas; si el bonus es de solo +5 SP pero exige 2 gemas no rojas (una de ellas amarilla), se puede engemar +23 Spell Power puro para maximizar el aporte de Demonic Pact.",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating (o Wisdom +10 Spirit and 2% reduced threat ID: 44590 para maximizar Demonic Pact)"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats (o Mighty Spirit +15 Spirit ID: 38991)"
+   },
+   "wrist": {
+    "id": 44498,
+    "name": "Enchant Bracer - Superior Spellpower",
+    "stats": "+30 Spell Power"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41602,
+    "name": "Brilliant Spellthread",
+    "stats": "+50 Spell Power and +20 Spirit"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating (o Greater Spirit +18 Spirit ID: 44506)"
+   },
+   "mainhand": {
+    "id": 44493,
+    "name": "Enchant Weapon - Mighty Spellpower",
+    "stats": "+63 Spell Power"
+   },
+   "offhand": null
+  }
+ },
+ "Warlock|Destruction": {
+  "source": "https://www.icy-veins.com/wotlk-classic/destruction-warlock-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/warlock/destruction/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41285,
+   "name": "Chaotic Skyflare Diamond",
+   "stats": "+21 Critical Strike Rating and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40113,
+    "name": "Runed Cardinal Ruby",
+    "stats": "+23 Spell Power"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40155,
+    "name": "Reckless Ametrine",
+    "stats": "+12 Spell Power and +10 Haste Rating"
+   },
+   {
+    "id": 40152,
+    "name": "Potent Ametrine",
+    "stats": "+12 Spell Power and +10 Critical Strike Rating"
+   },
+   {
+    "id": 40153,
+    "name": "Veiled Ametrine",
+    "stats": "+12 Spell Power and +10 Hit Rating (si falta Hit)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40133,
+    "name": "Purified Dreadstone",
+    "stats": "+12 Spell Power and +10 Spirit"
+   }
+  ],
+  "socket_bonus_rule": "Respetar los bonus de ranura que otorguen +5 Spell Power por 1 gema no roja o +7/+9 Spell Power por 2 gemas no rojas usando Reckless/Potent Ametrine y Purified Dreadstone; ignorar el resto con +23 Spell Power.",
+  "enchants": {
+   "head": {
+    "id": 44159,
+    "name": "Arcanum of Burning Mysteries",
+    "stats": "+30 Spell Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44135,
+    "name": "Greater Inscription of the Storm",
+    "stats": "+24 Spell Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 39003,
+    "name": "Enchant Cloak - Greater Speed",
+    "stats": "+23 Haste Rating"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44498,
+    "name": "Enchant Bracer - Superior Spellpower",
+    "stats": "+30 Spell Power"
+   },
+   "hands": {
+    "id": 44506,
+    "name": "Enchant Gloves - Exceptional Spellpower",
+    "stats": "+28 Spell Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 41602,
+    "name": "Brilliant Spellthread",
+    "stats": "+50 Spell Power and +20 Spirit"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating"
+   },
+   "mainhand": {
+    "id": 44493,
+    "name": "Enchant Weapon - Mighty Spellpower",
+    "stats": "+63 Spell Power"
+   },
+   "offhand": null
+  }
+ },
+ "Warrior|Arms": {
+  "source": "https://www.icy-veins.com/wotlk-classic/arms-warrior-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/warrior/arms/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41398,
+   "name": "Relentless Earthsiege Diamond",
+   "stats": "+21 Agility and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating (hasta el cap de 1260 ArP en Battle Stance)"
+   },
+   {
+    "id": 40111,
+    "name": "Bold Cardinal Ruby",
+    "stats": "+20 Strength (una vez alcanzados los 1260 de ArP)"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40142,
+    "name": "Inscribed Ametrine",
+    "stats": "+10 Strength and +10 Critical Strike Rating (si ya se llegó a 1260 ArP y el bonus es >= +4 Strength)"
+   },
+   {
+    "id": 40143,
+    "name": "Etched Ametrine",
+    "stats": "+10 Strength and +10 Hit Rating (si falta Hit para los 263 Rating)"
+   },
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating (si aún falta para 1260 ArP)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola en la pieza con mejor bonus de Strength para activar Relentless Earthsiege)"
+   },
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating (o Bold Cardinal Ruby +20 Strength en el resto de ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "Activar Relentless Earthsiege Diamond con 1 Nightmare Tear en la ranura azul de mayor bonus (+6/+8 Strength). Priorizar llegar a 1260 Armor Penetration Rating (90% + 10% Battle Stance = 100%) y después engemar Bold Cardinal Ruby (+20 Strength) e Inscribed Ametrine en ranuras amarillas con bonus >= +4 Strength.",
+  "enchants": {
+   "head": {
+    "id": 44149,
+    "name": "Arcanum of Torment",
+    "stats": "+50 Attack Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44133,
+    "name": "Greater Inscription of the Axe",
+    "stats": "+40 Attack Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 44492,
+    "name": "Enchant Cloak - Major Agility",
+    "stats": "+22 Agility"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44575,
+    "name": "Enchant Bracers - Greater Assault",
+    "stats": "+50 Attack Power"
+   },
+   "hands": {
+    "id": 44513,
+    "name": "Enchant Gloves - Crusher",
+    "stats": "+44 Attack Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38374,
+    "name": "Icescale Leg Armor",
+    "stats": "+75 Attack Power and +22 Critical Strike Rating"
+   },
+   "feet": {
+    "id": 44524,
+    "name": "Enchant Boots - Icewalker",
+    "stats": "+12 Hit Rating and +12 Critical Strike Rating (o Tuskarr's Vitality ID: 44508 / Greater Assault +32 AP ID: 44589)"
+   },
+   "mainhand": {
+    "id": 44497,
+    "name": "Enchant Weapon - Berserking",
+    "stats": "Chance to increase Attack Power by 400"
+   },
+   "offhand": null,
+   "ranged": {
+    "id": 41167,
+    "name": "Heartseeker Scope",
+    "stats": "+40 Ranged Critical Strike Rating"
+   }
+  }
+ },
+ "Warrior|Fury": {
+  "source": "https://www.icy-veins.com/wotlk-classic/fury-warrior-dps-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/warrior/fury/dps-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41398,
+   "name": "Relentless Earthsiege Diamond",
+   "stats": "+21 Agility and 3% Increased Critical Damage"
+  },
+  "red_socket": [
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating (hasta alcanzar exactamente 1400 ArP)"
+   },
+   {
+    "id": 40111,
+    "name": "Bold Cardinal Ruby",
+    "stats": "+20 Strength (una vez alcanzado el hard cap de 1400 ArP)"
+   },
+   {
+    "id": 40118,
+    "name": "Precise Cardinal Ruby",
+    "stats": "+20 Expertise Rating (solo si falta para el cap de 26 Expertise / 214 Rating)"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40142,
+    "name": "Inscribed Ametrine",
+    "stats": "+10 Strength and +10 Critical Strike Rating (cuando el bonus sea >= +4 Strength y ya se tenga 1400 ArP)"
+   },
+   {
+    "id": 40143,
+    "name": "Etched Ametrine",
+    "stats": "+10 Strength and +10 Hit Rating (si falta Hit para el cap de 164 Rating)"
+   },
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating (si aún falta para 1400 ArP)"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 49110,
+    "name": "Nightmare Tear",
+    "stats": "+10 All Stats (1 sola en la pieza con mejor bonus de Strength para activar Relentless Earthsiege)"
+   },
+   {
+    "id": 40117,
+    "name": "Fractured Cardinal Ruby",
+    "stats": "+20 Armor Penetration Rating (o Bold Cardinal Ruby +20 Strength en el resto de ranuras azules)"
+   }
+  ],
+  "socket_bonus_rule": "Usar Relentless Earthsiege Diamond con 1 sola Nightmare Tear en la pieza con el mayor bonus (+6/+8 Strength). Ignorar el resto de ranuras azules. Alcanzar el hard cap de 1400 Armor Penetration Rating con Fractured Cardinal Ruby y luego usar Bold Cardinal Ruby (+20 Strength) e Inscribed Ametrine en ranuras amarillas con bonus >= +4 Strength.",
+  "enchants": {
+   "head": {
+    "id": 44149,
+    "name": "Arcanum of Torment",
+    "stats": "+50 Attack Power and +20 Critical Strike Rating"
+   },
+   "shoulder": {
+    "id": 44133,
+    "name": "Greater Inscription of the Axe",
+    "stats": "+40 Attack Power and +15 Critical Strike Rating"
+   },
+   "back": {
+    "id": 44492,
+    "name": "Enchant Cloak - Major Agility",
+    "stats": "+22 Agility"
+   },
+   "chest": {
+    "id": 44588,
+    "name": "Enchant Chest - Powerful Stats",
+    "stats": "+10 All Stats"
+   },
+   "wrist": {
+    "id": 44575,
+    "name": "Enchant Bracers - Greater Assault",
+    "stats": "+50 Attack Power"
+   },
+   "hands": {
+    "id": 44513,
+    "name": "Enchant Gloves - Crusher",
+    "stats": "+44 Attack Power"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38374,
+    "name": "Icescale Leg Armor",
+    "stats": "+75 Attack Power and +22 Critical Strike Rating"
+   },
+   "feet": {
+    "id": 44508,
+    "name": "Enchant Boots - Tuskarr's Vitality",
+    "stats": "+15 Stamina and Minor Speed Increase (o Icewalker ID: 44524 / Greater Assault +32 AP ID: 44589)"
+   },
+   "mainhand": {
+    "id": 44497,
+    "name": "Enchant Weapon - Berserking",
+    "stats": "Chance to increase Attack Power by 400"
+   },
+   "offhand": {
+    "id": 44497,
+    "name": "Enchant Weapon - Berserking",
+    "stats": "Chance to increase Attack Power by 400"
+   },
+   "ranged": {
+    "id": 41167,
+    "name": "Heartseeker Scope",
+    "stats": "+40 Ranged Critical Strike Rating"
+   }
+  }
+ },
+ "Warrior|Protection": {
+  "source": "https://www.icy-veins.com/wotlk-classic/protection-warrior-tank-gems-enchants-consumables",
+  "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/warrior/protection/tank-enchants-gems-pve",
+  "meta_gem": {
+   "id": 41380,
+   "name": "Austere Earthsiege Diamond",
+   "stats": "+32 Stamina and 2% Increased Armor Value from Items"
+  },
+  "red_socket": [
+   {
+    "id": 40119,
+    "name": "Solid Majestic Zircon",
+    "stats": "+30 Stamina (si se ignora el bonus)"
+   },
+   {
+    "id": 40130,
+    "name": "Shifting Dreadstone",
+    "stats": "+10 Agility and +15 Stamina (1 sola para activar Austere Earthsiege o si el bonus es >= +9 Stamina)"
+   },
+   {
+    "id": 40141,
+    "name": "Guardian's Dreadstone",
+    "stats": "+10 Expertise Rating and +15 Stamina"
+   }
+  ],
+  "yellow_socket": [
+   {
+    "id": 40119,
+    "name": "Solid Majestic Zircon",
+    "stats": "+30 Stamina"
+   },
+   {
+    "id": 40167,
+    "name": "Enduring Eye of Zul",
+    "stats": "+10 Defense Rating and +15 Stamina (si falta Defense o el bonus es >= +9 Stamina)"
+   },
+   {
+    "id": 40166,
+    "name": "Vivid Eye of Zul",
+    "stats": "+10 Hit Rating and +15 Stamina"
+   }
+  ],
+  "blue_socket": [
+   {
+    "id": 40119,
+    "name": "Solid Majestic Zircon",
+    "stats": "+30 Stamina"
+   }
+  ],
+  "socket_bonus_rule": "Engemar +30 Stamina (Solid Majestic Zircon) en todas las ranuras salvo 1 Shifting/Guardian's Dreadstone (o 1 Nightmare Tear) en una pieza con bonus de +9 o +12 Stamina para cumplir el requisito de 1 gema roja de Austere Earthsiege Diamond.",
+  "enchants": {
+   "head": {
+    "id": 44150,
+    "name": "Arcanum of the Stalwart Protector",
+    "stats": "+37 Stamina and +20 Defense Rating"
+   },
+   "shoulder": {
+    "id": 44957,
+    "name": "Greater Inscription of the Gladiator",
+    "stats": "+30 Stamina and +15 Resilience Rating (o Greater Inscription of the Pinnacle ID: 44136)"
+   },
+   "back": {
+    "id": 44494,
+    "name": "Enchant Cloak - Mighty Armor",
+    "stats": "+225 Armor"
+   },
+   "chest": {
+    "id": 44509,
+    "name": "Enchant Chest - Super Health",
+    "stats": "+275 Health (o Powerful Stats +10 All Stats ID: 44588)"
+   },
+   "wrist": {
+    "id": 44947,
+    "name": "Enchant Bracer - Major Stamina",
+    "stats": "+40 Stamina"
+   },
+   "hands": {
+    "id": 33153,
+    "name": "Glove Reinforcements",
+    "stats": "+240 Armor (o Armsman +2% Threat and +10 Parry ID: 44592)"
+   },
+   "waist": {
+    "id": 41611,
+    "name": "Eternal Belt Buckle",
+    "stats": "Adds a prismatic socket (+1 ranura)"
+   },
+   "legs": {
+    "id": 38373,
+    "name": "Frosthide Leg Armor",
+    "stats": "+55 Stamina and +22 Agility"
+   },
+   "feet": {
+    "id": 44508,
+    "name": "Enchant Boots - Tuskarr's Vitality",
+    "stats": "+15 Stamina and Minor Speed Increase (o Greater Fortitude +22 Stamina ID: 44528)"
+   },
+   "mainhand": {
+    "id": 38998,
+    "name": "Enchant Weapon - Mongoose",
+    "stats": "Chance to increase Agility by 120 and attack speed by 2% (o Accuracy +25 Hit & +25 Crit ID: 44496 / Blade Ward ID: 46026)"
+   },
+   "offhand": {
+    "id": 38954,
+    "name": "Enchant Shield - Major Stamina",
+    "stats": "+18 Stamina (o Titanium Plating +81 Block Value ID: 44936)"
+   },
+   "ranged": {
+    "id": 41167,
+    "name": "Heartseeker Scope",
+    "stats": "+40 Ranged Critical Strike Rating (o Khorium Scope +12 Crit ID: 23766)"
+   }
+  }
+ }
+}

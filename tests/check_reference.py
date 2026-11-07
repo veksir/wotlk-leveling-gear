@@ -5,7 +5,7 @@ Por especialidad, en modo «Con bandas», fase de la referencia (4), nivel 80:
     Para anillos y abalorios (2 slots) cuenta cuántas de las 2 primeras opciones están en la lista.
   - exacto: la primera opción coincide con el BiS que pone la guía en primer lugar.
 Falla si algún objeto de la guía no existe en el dataset (error de datos).
-Uso: python tests/check_reference.py [--verbose] [Clase|Especialidad ...]"""
+Uso: python tests/check_reference.py [--ref=reference_bis_ids.json] [--verbose] [Clase|Especialidad ...]"""
 import json
 import sys
 from pathlib import Path
@@ -17,17 +17,22 @@ JS = """(ref) => {
   const spec = DATA.specs[ref.spec];
   const g = computeGear(spec, { level: ref.level, faction: ref.faction, scope: 'raid', phase: ref.phase || 0, pvp: false, heirlooms: false });
   const norm = (n) => String(n).replace(/\\u2019/g, "'").toLowerCase();
-  const db = new Set(Object.values(DATA.items).map((i) => norm(i.n)));
+  const key = (w) => (typeof w === 'object' ? 'id:' + w.id : norm(w));
+  const db = new Set(Object.values(DATA.items).map((i) => norm(i.n)).concat(Object.keys(DATA.items).map((i) => 'id:' + i)));
   const out = [];
   for (const slot in ref.slots) {
     const want = ref.slots[slot];
     const pairs = slot === 'ring' || slot === 'trinket';
-    const sl = pairs ? [slot + '1', slot + '2'] : [slot];
-    const tops = sl.map((s) => (g.slots[s] && g.slots[s].list[0]) ? g.slots[s].list[0].it.n : null);
-    const wantN = want.map(norm);
-    const hits = tops.filter((n) => n && wantN.slice(0, pairs ? 3 : 4).includes(norm(n))).length;
-    out.push({ slot, want, tops, units: sl.length, hits, exact: pairs ? tops.filter((n) => n && wantN.slice(0, 2).includes(norm(n))).length : (tops[0] && norm(tops[0]) === wantN[0] ? 1 : 0),
-               missing: want.filter((n) => !db.has(norm(n))) });
+    // Para las clases con reliquia, la referencia la lista bajo «ranged»; la herramienta la pone en «relic».
+    const real = slot === 'ranged' && !g.slots.ranged && g.slots.relic ? 'relic' : slot;
+    const sl = pairs ? [slot + '1', slot + '2'] : [real];
+    const topE = sl.map((s) => (g.slots[s] && g.slots[s].list[0]) || null);
+    const tops = topE.map((e) => (e ? e.it.n : null));
+    const same = (e, w) => e && (typeof w === 'object' ? String(e.id) === String(w.id) : norm(e.it.n) === norm(w));
+    const hits = topE.filter((e) => e && want.slice(0, pairs ? 3 : 4).some((w) => same(e, w))).length;
+    out.push({ slot, want: want.map((w) => (typeof w === 'object' ? w.name : w)), tops, units: sl.length, hits,
+               exact: pairs ? topE.filter((e) => e && want.slice(0, 2).some((w) => same(e, w))).length : (topE[0] && same(topE[0], want[0]) ? 1 : 0),
+               missing: want.filter((w) => !db.has(key(w))).map((w) => (typeof w === 'object' ? w.name : w)) });
   }
   return out;
 }"""
@@ -36,7 +41,8 @@ JS = """(ref) => {
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     verbose = "--verbose" in sys.argv
-    refs = json.loads((ROOT / "tests" / "reference_bis.json").read_text(encoding="utf-8"))
+    ref_file = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--ref=")), "reference_bis.json")
+    refs = json.loads((ROOT / "tests" / ref_file).read_text(encoding="utf-8"))
     bad_data = 0
     tot_u = tot_h = tot_e = 0
     with sync_playwright() as p:

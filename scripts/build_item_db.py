@@ -168,6 +168,27 @@ def parse_effects(tooltip):
     return {k: v for k, v in out.items() if v > 0}
 
 
+SOCKET_BONUS_STATS = {
+    "spell power": "sp", "attack power": "ap", "strength": "str", "agility": "agi", "intellect": "int", "stamina": "sta",
+    "spirit": "spi", "critical strike rating": "crit", "haste rating": "haste", "hit rating": "hit",
+    "expertise rating": "exp", "armor penetration rating": "arp", "defense rating": "def", "dodge rating": "dodge",
+    "parry rating": "parry", "resilience rating": "res", "mana per 5 sec": "mp5",
+}
+
+
+def parse_sockets(tooltip):
+    """Cantidad de sockets normales (sin el meta) y la bonificación del socket."""
+    sockets, bonus = 0, {}
+    for t in tooltip:
+        label = (t.get("label") or "").strip()
+        if label.endswith("Socket") and "Meta" not in label and "Bonus" not in label:
+            sockets += 1
+        m = re.match(r"Socket Bonus:\s*\+(\d+)\s+(.+?)\.?$", label, re.I)
+        if m and m.group(2).lower() in SOCKET_BONUS_STATS:
+            bonus[SOCKET_BONUS_STATS[m.group(2).lower()]] = int(m.group(1))
+    return sockets, (bonus if sockets else {})
+
+
 def parse_restrictions(tooltip):
     classes = None
     races = None
@@ -307,6 +328,7 @@ def main():
             continue
         stats, armor, dps, speed = parse_stats(tooltip)
         px = parse_effects(tooltip)
+        sockets, socket_bonus = parse_sockets(tooltip)
         if not stats and not px and dps == 0 and slot != "relic" and not (slot == "offhand" and armor > 0):
             continue
         classes, races = parse_restrictions(tooltip)
@@ -335,6 +357,8 @@ def main():
             "at": armor_type,
             "st": stats,
             "px": px,
+            "sc": sockets,
+            "sb": socket_bonus,
             "ar": armor,
             "dps": round(dps, 1),
             "spd": speed,
