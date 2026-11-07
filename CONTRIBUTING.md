@@ -47,8 +47,11 @@ Run the smoke and regression tests:
 ```bash
 python tests/smoke.py
 python tests/check_reference.py
+python tests/check_reference.py --ref=reference_bis_ids.json
 python tests/heirlooms.py
 python tests/spec_weights.py
+python tests/features.py
+python tests/reference_ids.py
 ```
 
 ## Where to make changes
@@ -59,9 +62,12 @@ python tests/spec_weights.py
 - `scripts/fetch_heirloom_stats.py`: level-by-level heirloom stats from the WoWWiki archive and Wowhead.
 - `scripts/build_page.py`: injects data into the template and writes `tolltip.html`.
 - `tests/smoke.py`: browser smoke test.
-- `tests/check_reference.py`: Icy Veins BiS accuracy audit for all 31 level-80 specializations.
-- `tests/reference_bis.json`: reference BiS lists used by the audit.
+- `tests/check_reference.py`: Icy Veins BiS accuracy audit for all 31 level-80 specializations; `--ref=reference_bis_ids.json` uses the ID-based reference.
+- `tests/reference_bis.json`: name-based reference BiS lists used by the audit.
+- `tests/reference_bis_ids.json`: ID-based reference with alternatives; validated by `reference_ids.py`.
 - `tests/heirlooms.py`: heirloom scaling, off-spec filtering, two-handed off-hand rules, and relic search.
+- `tests/features.py`: gems/sockets, T10 set bonuses, and curated trinkets/class relics.
+- `tests/reference_ids.py`: validates that every ID reference exists, has the right name, and belongs to a compatible slot.
 - `tests/spec_weights.py`: all 31 level-80 specializations.
 
 Do **not** edit `tolltip.html` by hand. It is generated. After changing the template or data, run the build again.
@@ -72,7 +78,8 @@ Do **not** edit `tolltip.html` by hand. It is generated. After changing the temp
 - Commit the generated `data/gear_data.json` when recommendations change.
 - Commit `data/heirloom_stats.json` when heirloom stats change and `data/spec_weights.json` when priorities change. Every spec entry keeps its source (Icy Veins and, when applicable, WowSims) and priority; `data/reference_spec_stats.json` holds the raw calibration values.
 - Keep item sources and faction availability accurate. If a source is unknown, label it as “Other source” rather than guessing.
-- When updating `tests/reference_bis.json`, make sure every referenced item exists in the dataset and belongs to the slot where the guide lists it.
+- When updating `tests/reference_bis.json` or `tests/reference_bis_ids.json`, make sure every referenced item exists in the dataset and belongs to the slot where the guide lists it. Run `python tests/reference_ids.py`.
+- Guide-recommended gems, T10 set bonuses, trinkets, and class relics live in `data/reference_gems.json`, `data/reference_sets.json`, and `data/reference_trinkets.json`. Keep their `source`/`contrast_source` fields and update the generated `data/gear_data.json`.
 - Do not add raid loot to the main leveling ranking unless the project scope changes.
 
 ## Interface rules
@@ -99,7 +106,7 @@ Avoid mixing unrelated changes in one commit.
 ## Pull request checklist
 
 - [ ] The page builds with `python scripts/build_page.py`.
-- [ ] `python tests/smoke.py`, `tests/check_reference.py`, `tests/heirlooms.py`, and `tests/spec_weights.py` pass.
+- [ ] `python tests/smoke.py`, `tests/check_reference.py`, `tests/check_reference.py --ref=reference_bis_ids.json`, `tests/heirlooms.py`, `tests/spec_weights.py`, `tests/features.py`, and `tests/reference_ids.py` pass.
 - [ ] `data/gear_data.json` and `tolltip.html` are regenerated if needed.
 - [ ] Both Spanish and English UI strings are updated.
 - [ ] No raw data, caches, or `__pycache__` files are included.

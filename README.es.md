@@ -16,19 +16,22 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 
 ## Características
 
-- **Ficha de equipamiento completa**: cabeza, cuello, hombros, espalda, pecho, muñecas, manos, cintura, piernas, pies, anillos, abalorios, mano principal, mano secundaria, a distancia y reliquia.
+- **Ficha de equipamiento completa**: cabeza, cuello, hombros, espalda, pecho, muñecas, manos, cintura, piernas, pies, anillos, abalorios, mano principal, mano secundaria, a distancia y reliquia de clase.
 - **Mejor objeto por slot** con 2, 5 o 10 alternativas, ordenadas por puntuación (no por fuente).
 - **Cómo conseguirlo**: cada objeto muestra su fuente (misión, vendedor, jefe de mazmorra con probabilidad de drop, banda, drop raro) y enlaza a su ficha de EVOWOW.
 - **«¿Por qué este objeto?»** por slot: desglose de la puntuación por estadística, penalización por tipo de armadura, comparación con la siguiente alternativa y aviso cuando una opción de mayor nivel está oculta o es peor.
 - **Modos de contenido**: «Sin bandas» (por defecto) o «Con bandas», fase de raid 1–4 o Todas y un modo aparte «Solo PvP» (el PvE es el predeterminado; el equipo PvP nunca se mezcla en la recomendación PvE).
 - **Legendarios incluidos**: los legendarios se puntúan como cualquier otro objeto y aparecen cuando son la mejor opción; los de banda requieren «Con bandas». La página muestra el top por slot, no un catálogo completo de legendarios.
-- **Abalorios con procs**: los efectos de uso y los procs se promedian según duración y enfriamiento (≈).
+- **Abalorios con procs**: los efectos de uso y los procs se promedian según duración y enfriamiento (≈). Las listas curadas de abalorios de las guías mandan en su slot.
+- **Gemas y sockets recomendados por las guías**: cada socket se valora con la mejor gema recomendada para la especialidad, y el bonus de socket cuenta la mitad.
+- **Bonus de set T10**: el valor estimado del bonus de 2 o 4 piezas se reparte solo entre las piezas que recomienda la guía, no entre todo el set.
+- **Reliquias de clase**: sigilos, tótems, ídolos y librams son equipo normal y se recomiendan cuando la guía los incluye. Son distintas de las reliquias de subida (heirlooms).
 - **Topes de nivel 80**: se muestran los totales de golpe y pericia; lo que excede el tope vale un 15 %.
 - **Buscador de botín**: indica lo que lleva puesto tu personaje (o carga el recomendado), elige una mazmorra o banda y mira todo lo que puede soltar para tu clase y especialidad, con el % de cambio frente a tu pieza equipada. El botín fuera de especialidad queda oculto por defecto y se puede mostrar con un interruptor.
 - **Filtro de facción**: las misiones y vendedores se ajustan a Horda o Alianza.
 - **Interfaz bilingüe**: español e inglés.
 - **Detalle de cada objeto**: icono, calidad, nivel de objeto, nivel requerido, estadísticas relevantes y fuente.
-- **Reliquias de herencia opcionales**: las 35 reliquias tienen estadísticas exactas por nivel y cambio de tipo de armadura antes del nivel 40. Quedan fuera de las recomendaciones salvo que marques «Incluir reliquias que ya tengo», porque sus vendedores requieren moneda de nivel 80.
+- **Reliquias de subida (heirlooms) opcionales**: las 35 reliquias de subida tienen estadísticas exactas por nivel y cambio de tipo de armadura antes del nivel 40. Quedan fuera de las recomendaciones salvo que marques «Incluir reliquias de subida (heirlooms) que ya tengo», porque sus vendedores requieren moneda de nivel 80.
 - **Tooltips de EVOWOW** para todos los objetos.
 - **Diseño responsive** y selección guardada en `localStorage`.
 - **Sin backend** y sin compilación para ver la página.
@@ -36,11 +39,11 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 ## Cómo funciona
 
 1. `scripts/fetch_raw.py` descarga los datos crudos de objetos y zonas, `scripts/fetch_heirloom_stats.py` añade las estadísticas de las reliquias nivel a nivel, y `scripts/fetch_atlasloot.py` + `scripts/build_loot.py` añaden las tablas de botín por jefe de WotLK (Ulduar, Trial of the Crusader, Icecrown Citadel, mazmorras heroicas, 10/25) desde AtlasLootClassic.
-2. `scripts/build_item_db.py` normaliza objetos, estadísticas (incluidos los procs y efectos de uso de abalorios, promediados), niveles requeridos, armadura/armas y fuentes.
-3. `scripts/build_recommendations.py` genera la base de objetos, las definiciones de especialidad, los pesos de estadísticas y la lista de mazmorras. A nivel 80 se usa la prioridad de Icy Veins de cada especialidad, calibrada con WowSims cuando hay datos; por debajo de 80, los pesos por rol mantienen el equipo de subida coherente. Las reliquias solo se rankean si activas «Incluir reliquias que ya tengo». El ranking se calcula en el navegador, así que los filtros de modo, fase, PvP y facción se aplican al instante.
+2. `scripts/build_item_db.py` normaliza objetos, estadísticas (incluidos los procs y efectos de uso de abalorios, promediados, sockets y bonus de socket), niveles requeridos, armadura/armas y fuentes.
+3. `scripts/build_recommendations.py` genera la base de objetos, las definiciones de especialidad, los pesos de estadísticas, las gemas de referencia, los bonus de set T10, los abalorios y reliquias curados y la lista de mazmorras. A nivel 80 se usa la prioridad de Icy Veins de cada especialidad, calibrada con WowSims cuando hay datos; por debajo de 80, los pesos por rol mantienen el equipo de subida coherente. Las reliquias de subida solo se rankean si activas «Incluir reliquias de subida (heirlooms) que ya tengo»; las reliquias de clase son equipo normal. El ranking se calcula en el navegador, así que los filtros de modo, fase, PvP y facción se aplican al instante.
 4. `scripts/build_page.py` inyecta el JSON generado en `src/template.html` y escribe `tolltip.html`.
 
-El ranking es una heurística práctica, no un simulador de combate: ordena por una puntuación ponderada de estadísticas (el nivel de objeto solo desempata), usa prioridades por especialidad a nivel 80 y pesos por rol durante la subida, penaliza los tipos de armadura que no son ideales para la clase, promedia los procs y efectos de uso de los abalorios según duración y enfriamiento, aplica los topes de golpe/pericia a nivel 80 y compara dos manos contra una mano + secundaria. Un arma a dos manos bloquea la mano secundaria salvo en especialidades con Titan's Grip. Los épicos sin fuente registrada de nivel de objeto 213 o más se tratan como botín de banda («banda probable»). Aún no se puntúan gemas, encantamientos, bonificaciones de set ni objetos con encantamiento aleatorio.
+El ranking es una heurística práctica, no un simulador de combate: ordena por una puntuación ponderada de estadísticas (el nivel de objeto solo desempata), usa prioridades por especialidad a nivel 80 y pesos por rol durante la subida, penaliza los tipos de armadura que no son ideales para la clase, promedia los procs y efectos de uso de los abalorios según duración y enfriamiento, valora las gemas recomendadas por las guías en cada socket, reparte el bonus de set T10 solo entre las piezas recomendadas, aplica los topes de golpe/pericia a nivel 80 y compara dos manos contra una mano + secundaria. Un arma a dos manos bloquea la mano secundaria salvo en especialidades con Titan's Grip. Los épicos sin fuente registrada de nivel de objeto 213 o más se tratan como botín de banda («banda probable»). Aún no se puntúan encantamientos ni objetos con encantamiento aleatorio.
 
 ## Inicio rápido
 
@@ -69,11 +72,14 @@ python scripts/build_page.py
 
 python tests/smoke.py
 python tests/check_reference.py
+python tests/check_reference.py --ref=reference_bis_ids.json
 python tests/heirlooms.py
 python tests/spec_weights.py
+python tests/features.py
+python tests/reference_ids.py
 ```
 
-`build_page.py` escribe `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis.json` e informa de aciertos y coincidencias exactas; `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `spec_weights.py` comprueba las 31 especialidades a nivel 80.
+`build_page.py` escribe `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis.json` (o `--ref=reference_bis_ids.json` para la referencia por ID) e informa de aciertos y coincidencias exactas; `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `features.py` cubre gemas/sockets, bonus de set y reliquias curadas; `reference_ids.py` valida la referencia por ID; `spec_weights.py` comprueba las 31 especialidades a nivel 80.
 
 ## Estructura del proyecto
 
@@ -103,7 +109,7 @@ Las tablas de botín por jefe vienen de [AtlasLootClassic](https://github.com/Ho
 
 Los tooltips e iconos se cargan desde [EVOWOW](https://wotlk.evowow.com/).
 
-Las estadísticas de las reliquias vienen de las tablas por nivel de [WoWWiki archive](https://wowwiki-archive.fandom.com/) y de la [API de tooltips de Wowhead WotLK](https://www.wowhead.com/wotlk). Las prioridades de estadísticas a nivel 80 siguen [Icy Veins WotLK Classic](https://www.icy-veins.com/wotlk-classic/) y, cuando hay datos, se calibran con los valores EP de [WowSims](https://wowsims.github.io/wotlk/); `data/spec_weights.json` guarda la fuente y la prioridad de cada especialidad, y `data/reference_spec_stats.json` conserva los valores de referencia en bruto.
+Las estadísticas de las reliquias vienen de las tablas por nivel de [WoWWiki archive](https://wowwiki-archive.fandom.com/) y de la [API de tooltips de Wowhead WotLK](https://www.wowhead.com/wotlk). Las prioridades de estadísticas a nivel 80 siguen [Icy Veins WotLK Classic](https://www.icy-veins.com/wotlk-classic/) y, cuando hay datos, se calibran con los valores EP de [WowSims](https://wowsims.github.io/wotlk/); `data/spec_weights.json` guarda la fuente y la prioridad de cada especialidad, y `data/reference_spec_stats.json` conserva los valores de referencia en bruto. Las gemas, bonus de set T10, abalorios y reliquias de clase recomendados por las guías se guardan en `data/reference_gems.json`, `data/reference_sets.json` y `data/reference_trinkets.json`, con sus fuentes en cada archivo.
 
 Este proyecto no está afiliado a Blizzard Entertainment. World of Warcraft y Wrath of the Lich King son marcas de Blizzard Entertainment.
 
@@ -111,9 +117,11 @@ Este proyecto no está afiliado a Blizzard Entertainment. World of Warcraft y Wr
 
 - La base está basada en WotLK Classic; algunas fuentes originales de 3.3.5 pueden faltar o aparecer como “Otra fuente”.
 - En «Sin bandas» se excluyen el botín de banda y las cadenas de misión de banda; en «Con bandas» aparecen.
-- Los pesos de estadísticas son aproximaciones por rol durante la subida y siguen las prioridades de Icy Veins, calibradas con WowSims cuando hay datos, a nivel 80. Sirven para orientar, no sustituyen a un simulador de BiS; los topes suaves de celeridad, los sets y las interacciones de talentos no se modelan.
+- Los pesos de estadísticas son aproximaciones por rol durante la subida y siguen las prioridades de Icy Veins, calibradas con WowSims cuando hay datos, a nivel 80. Sirven para orientar, no sustituyen a un simulador de BiS; los topes suaves de celeridad y las interacciones de talentos no se modelan.
+- Las gemas asumen la gema recomendada por la guía en cada socket y el bonus de socket cuenta la mitad. Los encantamientos, los encantamientos aleatorios y algunas interacciones de abalorios/sets siguen simplificados.
+- El bonus de set T10 es una estimación que se reparte solo entre las piezas recomendadas por la guía; no simula por completo el uptime de 2 o 4 piezas.
 - El botín fuera de especialidad está oculto por defecto. El interruptor lo muestra atenuado para valorar mejoras cruzadas sin mezclarlo con la recomendación.
-- Las reliquias no se recomiendan por defecto: los Emblemas de Heroísmo y las Marcas de la Conquista del Invierno se obtienen a nivel 80. Activa «Incluir reliquias que ya tengo» solo si realmente las tienes.
+- Las reliquias de subida (heirlooms) no se recomiendan por defecto: los Emblemas de Heroísmo y las Marcas de la Conquista del Invierno se obtienen a nivel 80. Activa «Incluir reliquias de subida (heirlooms) que ya tengo» solo si realmente las tienes. Las reliquias de clase son distintas y sí aparecen en el ranking.
 - Algunos slots de niveles muy bajos pueden no tener objetos con estadísticas conocidas.
 - La página muestra el mejor objeto y alternativas por slot, no todos los objetos. Un legendario solo aparece si puntúa para la especialidad, nivel, facción, modo, fase y filtro PvP seleccionados. Los legendarios de nivel bajo o que dependen de una combinación no modelada pueden no aparecer.
 - Las combinaciones de armas cubren Frost Death Knight con dos armas de una mano y Titan's Grip de Fury (dos armas a dos manos). Otros setups especiales siguen simplificados, así que aún pueden faltar algunos objetos BiS.
