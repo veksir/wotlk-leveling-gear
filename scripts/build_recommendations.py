@@ -52,7 +52,7 @@ SPECS = [
     ("Death Knight", "Frost DPS", "str", "str", "1h", "dw", None, "Sigil"),
     ("Death Knight", "Unholy DPS", "str", "str", "2h", None, None, "Sigil"),
     ("Druid", "Balance", "caster", "int", "any", "held", None, "Idol"),
-    ("Druid", "Feral DPS", "agi", "agi", "2h", None, None, "Idol"),
+    ("Druid", "Feral DPS", "feral", "agi", "2h", None, None, "Idol"),
     ("Druid", "Feral Tank", "bear", "agi", "2h", None, None, "Idol"),
     ("Druid", "Restoration", "healer", "int", "any", "held", None, "Idol"),
     ("Hunter", "Beast Mastery", "hunter", "agi", "any", None, "ranged", None),
@@ -114,9 +114,10 @@ BRACKET_EN = {
 
 def weights_for(role):
     w = defaultdict(float)
-    if role in ("str", "agi"):
-        key = role
-        w.update({key: 1.0, "sta": 0.10, "ap": 0.50, "feralap": 0.50 if key == "agi" else 0.0,
+    if role in ("str", "agi", "feral"):
+        key = "agi" if role == "feral" else role
+        # El poder de ataque feral solo vale para el druida feral (rol «feral»), no para todo el rol «agi»
+        w.update({key: 1.0, "sta": 0.10, "ap": 0.50, "feralap": 0.50 if role == "feral" else 0.0,
                   "hit": 0.70, "crit": 0.55, "haste": 0.40, "exp": 0.65, "arp": 0.50,
                   "armor": 0.004, "dps": 5.0})
     elif role == "caster":
@@ -156,8 +157,16 @@ def load_spec_weights():
 SPEC_WEIGHTS = load_spec_weights()
 # Topes a nivel 80 en puntuación, sin talentos ni bonificaciones raciales (que los bajan):
 # golpe de hechizos 17 %, golpe cuerpo a cuerpo/a distancia 8 %, pericia 26.
-CAPS = {"caster": {"hit": 446}, "str": {"hit": 263, "exp": 214}, "agi": {"hit": 263, "exp": 214}, "hunter": {"hit": 263}}
-ROLES = ["str", "agi", "caster", "healer", "tank", "bear", "hunter"]
+CAPS = {"caster": {"hit": 446}, "str": {"hit": 263, "exp": 214}, "agi": {"hit": 263, "exp": 214}, "feral": {"hit": 263, "exp": 214}, "hunter": {"hit": 263}}
+# Familias de arma que prefieren las guías para cada especialidad (el resto se penaliza un 10 %, no se excluye)
+WEAPON_PREF = {
+    "Rogue|Assassination": ["Dagger"], "Rogue|Subtlety": ["Dagger"],
+    "Rogue|Combat": ["Sword", "Axe", "Mace", "Fist Weapon"],
+    "Shaman|Enhancement": ["Axe", "Mace", "Fist Weapon"],
+    "Hunter|Beast Mastery": ["Polearm", "Staff"], "Hunter|Marksmanship": ["Polearm", "Staff"], "Hunter|Survival": ["Polearm", "Staff"],
+    "Paladin|Protection": ["Mace"], "Warrior|Protection": ["Mace"],
+}
+ROLES = ["str", "agi", "feral", "caster", "healer", "tank", "bear", "hunter"]
 
 
 def compact(it):
@@ -287,6 +296,35 @@ def build_gems():
     return out
 
 
+def build_caps_by_spec():
+    """Topes de golpe y pericia por especialidad a nivel 80 (data/reference_stats.json, Icy Veins/Wowhead).
+    Se usa el tope más bajo que se alcanza con los talentos de la propia especialidad, sin bonus racial, y se
+    descartan las variantes de golpe blanco (dual wield), venenos y raza: lo que el equipo tiene que cubrir."""
+    path = ROOT / "data" / "reference_stats.json"
+    if not path.exists():
+        return {}
+    skip = ("draenei", "white", "poison", "frostfire", "dwarf", "human")
+    roles = {f"{c}|{n}": role for c, n, role, *_ in SPECS}
+    out = {}
+    for spec, v in json.loads(path.read_text(encoding="utf-8")).items():
+        caps = v.get("caps") if isinstance(v, dict) else None
+        role = roles.get(spec)
+        if not isinstance(caps, dict) or role not in CAPS:
+            continue
+        spell = role in ("caster", "healer")
+        hits = [x for k, x in caps.items() if isinstance(x, (int, float)) and "hit" in k and not any(t in k for t in skip)
+                and (("spell" in k) if spell else ("spell" not in k))]
+        exps = [x for k, x in caps.items() if isinstance(x, (int, float)) and "expertise" in k and not any(t in k for t in skip)]
+        entry = {}
+        if "hit" in CAPS[role] and hits:
+            entry["hit"] = int(min(hits))
+        if "exp" in CAPS[role] and exps:
+            entry["exp"] = int(min(exps))
+        if entry:
+            out[spec] = entry
+    return out
+
+
 def main():
     items = json.loads(ITEMS_PATH.read_text(encoding="utf-8"))
     raw = json.loads((ROOT / "data" / "raw_items.json").read_text(encoding="utf-8"))
@@ -348,6 +386,8 @@ def main():
         "curated": build_curated(),
         "gems": build_gems(),
         "caps": CAPS,
+        "capsBySpec": build_caps_by_spec(),
+        "weaponPref": WEAPON_PREF,
         "weights": {role: dict(weights_for(role)) for role in ROLES},
         "armorTiers": ARMOR_TIERS,
         "armorUnlock": ARMOR_UNLOCK,
@@ -368,7 +408,7 @@ def main():
         "classMeta": legacy["classMeta"],
         "classMetaEn": CLASS_META_EN,
         "brackets": brackets,
-        "stats": legacy["stats"],
+        "stats": {**legacy["stats"], "feral": legacy["stats"]["agi"]},
         "slotOrder": SLOT_ORDER,
         "factions": list(FACTIONS),
     }

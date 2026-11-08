@@ -135,10 +135,11 @@ def parse_effects(tooltip):
         low = (t.get("label") or "").lower().replace("\xa0", " ")
         if not (low.startswith("use:") or low.startswith("equip:")):
             continue
-        dm = re.search(r"for (\d+) sec", low)
+        dm = re.search(r"for (?:the next )?(\d+) sec", low)
         if not dm:
             continue
         duration = int(dm.group(1))
+        factor = 1.0  # promedio de acumulaciones o ramas del efecto
         if low.startswith("use:"):
             cm = re.search(r"\(([\d.]+) (min|sec)[a-z]* cooldown\)", low)
             if not cm:
@@ -147,9 +148,17 @@ def parse_effects(tooltip):
             uptime = min(1.0, duration / cooldown)
         else:
             pm = re.search(r"proc chance: ([\d.]+)%, ([\d.]+)(m|s) cooldown", low)
+            pm_only = re.search(r"proc chance: ([\d.]+)%\)", low)
             if pm:
                 chance = float(pm.group(1)) / 100
                 icd = float(pm.group(2)) * (60 if pm.group(3) == "m" else 1)
+            elif pm_only and not re.search(r"cooldown", low):
+                # Proc sin enfriamiento ("... 60% chance to gain 24 stamina for the next 10 sec, stacking up to 10 times")
+                chance = float(pm_only.group(1)) / 100
+                icd = 0.0
+                stack = re.search(r"stack(?:ing|s)? up to (\d+) times", low)
+                if stack:
+                    factor = min(float(stack.group(1)), duration * chance / PROC_EVENT_SECONDS)
             else:
                 # "Chance on hit to increase ... for 10 sec. (1m cooldown)": no dice la probabilidad; se supone 20 %
                 cm = re.search(r"\(([\d.]+)\s*(m|min|s|sec)[a-z]*\s*cooldown\)", low)
@@ -159,7 +168,7 @@ def parse_effects(tooltip):
                 icd = float(cm.group(1)) * (60 if cm.group(2) in ("m", "min") else 1)
             uptime = min(1.0, duration / (icd + PROC_EVENT_SECONDS / max(chance, 0.01)))
         ramp = re.search(r"additional (\d+) every (\d+) sec", low)
-        factor = (1 + duration / int(ramp.group(2))) / 2 if ramp else 1.0
+        factor = (1 + duration / int(ramp.group(2))) / 2 if ramp else factor
         got_hs = False
         for phrase, key in EFFECT_STATS:
             if got_hs and key in ("str", "agi", "int", "spi", "sta"):

@@ -1,0 +1,674 @@
+{
+  "Death Knight|Blood Tank": {
+    "source": "https://www.icy-veins.com/wotlk-classic/blood-death-knight-tank-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/death-knight/blood/tank-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Defense hasta el tope (540 Defense / 689 Rating)",
+      "Stamina (Supervivencia EHP)",
+      "Spell Hit hasta el tope para Icy Touch (o) Melee Hit hasta el tope (8%)",
+      "Expertise hasta el tope de esquiva (6.5% / 26 Expertise)",
+      "Armor",
+      "Agility (Dodge y Armor)",
+      "Dodge Rating (o) Parry Rating",
+      "Strength"
+    ],
+    "caps": {
+      "defense_rating": 689,
+      "defense_skill": 540,
+      "melee_hit_rating_base": 263,
+      "melee_hit_rating_draenei": 230,
+      "spell_hit_rating_base": 446,
+      "spell_hit_rating_with_virulence_and_debuff": 289,
+      "expertise_dodge_rating_base": 214,
+      "expertise_dodge_rating_with_veteran": 164,
+      "expertise_parry_rating_hard_cap": 459
+    },
+    "caps_assumptions": "Defense: 689 Defense Rating (+140 Defense sobre 400 base = 5.6% reducción de crítico contra jefes nivel 83); la runa Rune of the Stoneskin Gargoyle (+25 Defense) o Rune of the Nerubian Carapace (+13 Defense) reduce el rating necesario en equipo. Expertise: el talento Veteran of the Third War (3/3) otorga +6 Pericia, reduciendo el tope de esquiva de 26 (214 rating) a 20 (164 rating). Spell Hit: Icy Touch usa la tabla de golpe con hechizos (17% = 446 rating base; 14% = 368 con Misery/Improved Faerie Fire; 11% = 289 si además se lleva 3/3 Virulence). Razas: Draenei reduce 1% Hit (32.79 melee / 26.23 spell); Humano reduce 3 Pericia con espadas/mazas (-25 rating); Orco/Enano reducen 5 Pericia con hachas/mazas (-41 rating).",
+    "notas": "En ICC (con el debuff Chill of the Throne que reduce el esquive en un 20%), la prioridad absoluta tras el tope de Defensa es Efective Health Pool (Stamina y Armadura). Icy Touch es la principal fuente de amenaza a un solo objetivo, por lo que alcanzar el tope de golpe de hechizos (o usar glifo/talentos de golpe) es prioritario si hay problemas de amenaza inicial."
+  },
+  "Death Knight|Frost DPS": {
+    "source": "https://www.icy-veins.com/wotlk-classic/frost-death-knight-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/death-knight/frost/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Melee Hit hasta el tope amarillo (5% / 164 Rating con Nerves of Cold Steel)",
+      "Expertise hasta el tope de esquiva (6.5% / 173 Rating con Tundra Stalker)",
+      "Strength",
+      "Armor Penetration (hasta el tope de 1400 Rating)",
+      "Critical Strike",
+      "Haste",
+      "Melee Hit (más allá del tope amarillo hasta el tope de hechizos)"
+    ],
+    "caps": {
+      "melee_hit_rating_base": 263,
+      "melee_hit_rating_with_nerves_of_cold_steel": 164,
+      "melee_hit_rating_with_nerves_and_draenei": 132,
+      "spell_hit_rating_with_debuff": 368,
+      "expertise_dodge_rating_base": 214,
+      "expertise_dodge_rating_with_tundra_stalker": 173,
+      "armor_penetration_rating_cap": 1400
+    },
+    "caps_assumptions": "Melee Hit: 8% (263 rating) base; el talento obligatorio Nerves of Cold Steel (3/3) aporta +3% de golpe cuerpo a cuerpo, bajando el requisito a 5% (164 rating) o 4% (132 rating) con presencia Draenei (1%). Expertise: 6.5% (26 pericia / 214 rating) base; el talento Tundra Stalker (5/5) aporta +5 de pericia, reduciendo el tope a 21 pericia (173 rating). Razas: Humano con espadas/mazas de una mano reduce 3 pericia adicional (18 pericia = 148 rating); Orco con hachas de una mano reduce 5 pericia adicional (16 pericia = 132 rating).",
+    "notas": "En Fase 4 (ICC), Armor Penetration escala hasta acercarse al valor de Strength para Obliterate y golpes automáticos, pero nunca se engema por encima de Strength salvo que permita alcanzar un umbral específico con abalorios de fase final."
+  },
+  "Death Knight|Unholy DPS": {
+    "source": "https://www.icy-veins.com/wotlk-classic/unholy-death-knight-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/death-knight/unholy/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Melee Hit hasta el tope (8% / 263 Rating) (o) Spell Hit hasta el tope (11% / 289 Rating con Virulence y debuff)",
+      "Strength",
+      "Haste",
+      "Critical Strike",
+      "Expertise hasta el tope (6.5% / 214 Rating)",
+      "Armor Penetration",
+      "Agility"
+    ],
+    "caps": {
+      "melee_hit_rating_base": 263,
+      "melee_hit_rating_draenei": 230,
+      "spell_hit_rating_base": 446,
+      "spell_hit_rating_with_virulence_and_debuff": 289,
+      "spell_hit_rating_with_virulence_debuff_and_draenei": 263,
+      "expertise_dodge_rating_base": 214
+    },
+    "caps_assumptions": "Melee Hit: 8% (263 rating) sin talentos de golpe físico (si se usa variante Dual-Wield con 3/3 Nerves of Cold Steel, baja a 5% = 164 rating; en build 2H con Shadowmourne se requieren los 263 rating completos). Spell Hit: 17% base (446 rating); reducido en 3% por Virulence (3/3) y 3% por Misery/Improved Faerie Fire a 11% (289 rating). Con Draenei (1%), 263 rating cubre tanto el tope físico 2H (8%) como la mayor parte del tope de hechizos (10%). Expertise: 26 pericia (214 rating) sin talentos reductores en la rama Unholy.",
+    "notas": "La mascota (Ghoul) hereda estadísticas mediante un 'snapshot' al ser invocada (Strength y Haste son las más importantes para escalar su velocidad de ataque). Expertise tiene bajo valor relativo en Unholy porque gran parte del daño proviene de enfermedades, Death Coil, Gargoyle y Ghoul, y los golpes parados/esquivados devuelven la runa."
+  },
+  "Druid|Balance": {
+    "source": "https://www.icy-veins.com/wotlk-classic/balance-druid-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/druid/balance/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Spell Hit hasta el tope (10% / 263 Rating)",
+      "Spell Power",
+      "Haste (hasta el soft cap de 401 Rating) (o) Critical Strike (hasta el soft cap de Starfire)",
+      "Critical Strike (más allá del soft cap de Haste)",
+      "Haste (más allá del soft cap de 401 Rating)",
+      "Spirit",
+      "Intellect"
+    ],
+    "caps": {
+      "spell_hit_rating_base": 446,
+      "spell_hit_rating_with_balance_of_power_and_iff": 263,
+      "spell_hit_rating_with_talents_and_draenei": 237,
+      "haste_soft_cap_rating": 401,
+      "haste_soft_cap_without_wrath_of_air_rating": 585
+    },
+    "caps_assumptions": "Spell Hit: 17% base (446 rating). El talento Balance of Power (2/2) aporta 4% de golpe y Improved Faerie Fire (3/3) o Misery aporta 3%, dejando el tope necesario en equipo en 10% (263 Hit Rating), o 9% (237 Hit Rating) con Draenei en el grupo. Haste Soft Cap: 401 Haste Rating (12.22% en equipo) reduce el casteo de Wrath a 1.0s (tope del GCD) asumiendo Nature's Grace (20%), Celestial Focus (3%), Improved Moonkin Form (3%) y Wrath of Air Totem (5%).",
+    "notas": "El soft cap de Critical Strike para Starfire bajo Lunar Eclipse (que otorga +40% de crítico a Starfire) se alcanza alrededor de ~43-45% de crítico en estadísticas de personaje (antes de buffs de banda e ídolos). Una vez superados los 401 de Haste Rating y el soft cap de crítico en Lunar Eclipse, Spell Power sigue siendo la estadística dominante."
+  },
+  "Druid|Feral DPS": {
+    "source": "https://www.icy-veins.com/wotlk-classic/feral-druid-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/druid/feral/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Armor Penetration (hasta el tope de 1400 Rating)",
+      "Agility (o) Strength",
+      "Melee Hit hasta el tope (8% / 263 Rating)",
+      "Expertise hasta el tope de esquiva (6.5% / 132 Rating con Primal Precision)",
+      "Critical Strike (hasta el soft cap de golpes blancos ~76-77.8%)",
+      "Haste",
+      "Attack Power"
+    ],
+    "caps": {
+      "melee_hit_rating_base": 263,
+      "melee_hit_rating_draenei": 230,
+      "expertise_dodge_rating_base": 214,
+      "expertise_dodge_rating_with_primal_precision": 132,
+      "armor_penetration_rating_cap": 1400,
+      "white_crit_cap_percent_raid_buffed": 77.8
+    },
+    "caps_assumptions": "Melee Hit: 8% (263 rating) base; 7% (230 rating) con presencia Draenei (1%). Expertise: 6.5% (26 pericia / 214 rating) base; el talento Primal Precision (2/2) otorga +10 de pericia, reduciendo el tope necesario en equipo a 16 de pericia (132 rating). Armor Penetration: 100% = 1400 rating.",
+    "notas": "A diferencia de otras clases cuerpo a cuerpo, las guías señalan que Hit y Expertise no son estrictamente obligatorios antes de engemar Agility o Armor Penetration porque los remates fallidos devuelven el 80% de la energía con Primal Precision; sin embargo, en equipo BiS de Fase 4 se alcanzan naturalmente junto con los 1400 de Armor Penetration. El tope de crítico de golpes blancos contra jefes nivel 83 es 77.8% (100% - 24% Glancing - 4.8% Crit Suppression + 6.5% si está al tope de Hit/Expertise)."
+  },
+  "Druid|Feral Tank": {
+    "source": "https://www.icy-veins.com/wotlk-classic/feral-druid-tank-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/druid/feral/tank-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Stamina",
+      "Agility (Armor, Dodge y Critical Strike)",
+      "Bonus Armor",
+      "Expertise hasta el tope de esquiva (6.5% / 132 Rating) (o) Melee Hit hasta el tope (8% / 263 Rating)",
+      "Defense Rating (o) Dodge Rating",
+      "Strength (o) Attack Power",
+      "Haste"
+    ],
+    "caps": {
+      "defense_rating": 0,
+      "melee_hit_rating_base": 263,
+      "melee_hit_rating_draenei": 230,
+      "spell_hit_rating_for_growl_with_debuff": 368,
+      "expertise_dodge_rating_base": 214,
+      "expertise_dodge_rating_with_primal_precision": 132,
+      "expertise_parry_rating_hard_cap": 459
+    },
+    "caps_assumptions": "Defense: 0 Defense Rating requerido; la inmunidad a golpes críticos (5.6% contra jefes nivel 83) se obtiene íntegramente mediante el talento Survival of the Fittest (3/3), que reduce un 6% la probabilidad de recibir críticos cuerpo a cuerpo. Expertise: Primal Precision (2/2) aporta +10 Pericia, dejando el tope de esquiva en 16 Pericia (132 rating).",
+    "notas": "Growl y Faerie Fire (Feral) utilizan el tope de golpe con hechizos (17% = 446 rating base, reducido por el glifo de Growl en un 8% para el taunt). En Fase 4 (ICC), Stamina y Bonus Armor dominan para mitigar daño mágico y golpes físicos consecutivos."
+  },
+  "Druid|Restoration": {
+    "source": "https://www.icy-veins.com/wotlk-classic/restoration-druid-healer-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/druid/restoration/healer-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Spell Power",
+      "Haste (hasta el breakpoint de GCD de 1.0s: 735 o 856 Rating)",
+      "MP5 (o) Spirit (según duración del combate)",
+      "Intellect",
+      "Critical Strike"
+    ],
+    "caps": {
+      "haste_gcd_cap_with_celestial_focus_rating": 735,
+      "haste_gcd_cap_without_celestial_focus_rating": 856,
+      "haste_gcd_cap_no_raid_buffs_rating": 1179
+    },
+    "caps_assumptions": "Haste Breakpoints para reducir el Global Cooldown (GCD) de Rejuvenation y Wild Growth a 1.0 segundo: asume Gift of the Earthmother (5/5 = 10% reducción del GCD base) y buffs de banda de 25 jugadores: Wrath of Air Totem (5% spell haste) + Swift Retribution o Improved Moonkin Form (3% haste). Con Celestial Focus (3/3 = 3% spell haste), el tope se alcanza con 735 Haste Rating (22.4% haste en equipo). Sin Celestial Focus (0/3), el tope se alcanza con 856 Haste Rating (26.1% haste en equipo).",
+    "notas": "Para el Druida Restauración, Spell Power es la estadística número uno en todas las fases porque escala directamente todas las curas en el tiempo (HoTs). Una vez alcanzado el breakpoint de celeridad (735 o 856 Haste Rating según talentos), la celeridad adicional solo reduce el tiempo de lanzamiento de Nourish, Regrowth y Healing Touch, por lo que pierde casi todo su valor frente a Spell Power. Improved Tree of Life convierte el 15% del Spirit en Spell Power y Living Spirit aumenta el Spirit total un 15%."
+  },
+  "Hunter|Beast Mastery": {
+    "source": "https://www.icy-veins.com/wotlk-classic/beast-mastery-hunter-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/hunter/beast-mastery/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Ranged Hit hasta el tope (8% / 263 Rating)",
+      "Agility (o) Attack Power",
+      "Armor Penetration (hasta el tope de 1400 Rating)",
+      "Critical Strike",
+      "Intellect",
+      "Haste"
+    ],
+    "caps": {
+      "ranged_hit_rating_base": 263,
+      "ranged_hit_rating_1_focused_aim": 230,
+      "ranged_hit_rating_2_focused_aim": 197,
+      "ranged_hit_rating_3_focused_aim": 164,
+      "armor_penetration_rating_cap": 1400
+    },
+    "caps_assumptions": "Ranged Hit: 8% (263 rating) base. Cada punto en el talento Focused Aim (1/3, 2/3, 3/3) reduce el requisito en 1% (230, 197 y 164 Hit Rating respectivamente). La presencia racial Draenei (Heroic Presence) aporta otro 1% (-32.79 rating).",
+    "notas": "La mascota del cazador hereda Attack Power y Stamina del cazador, pero NO se beneficia del Armor Penetration del jugador; por ello, aunque Armor Penetration sigue siendo muy fuerte para Steady Shot y Auto Shot en Fase 4, Attack Power y Agility mantienen un peso proporcional mayor que en Marksmanship."
+  },
+  "Hunter|Marksmanship": {
+    "source": "https://www.icy-veins.com/wotlk-classic/marksmanship-hunter-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/hunter/marksmanship/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Ranged Hit hasta el tope (8% / 263 Rating)",
+      "Armor Penetration (hasta el tope de 1400 Rating)",
+      "Agility",
+      "Critical Strike",
+      "Attack Power",
+      "Intellect",
+      "Haste"
+    ],
+    "caps": {
+      "ranged_hit_rating_base": 263,
+      "ranged_hit_rating_1_focused_aim": 230,
+      "ranged_hit_rating_2_focused_aim": 197,
+      "ranged_hit_rating_3_focused_aim": 164,
+      "armor_penetration_rating_cap": 1400
+    },
+    "caps_assumptions": "Ranged Hit: 8% (263 rating) sin Focused Aim; 7% (230), 6% (197) o 5% (164) con 1, 2 o 3 puntos en Focused Aim (o presencia Draenei -1%). Armor Penetration: 100% = 1400 Armor Penetration Rating.",
+    "notas": "En Fase 4 (ICC), el cazador Marksmanship puede alcanzar el hard cap de 1400 de Armor Penetration de forma pasiva en el equipo (sin depender de procs de abalorios de fases anteriores). Una vez alcanzados los 1400 de Armor Penetration y los 263 de Hit Rating, todas las gemas deben pasar a Agility (+20 Agility)."
+  },
+  "Hunter|Survival": {
+    "source": "https://www.icy-veins.com/wotlk-classic/survival-hunter-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/hunter/survival/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Ranged Hit hasta el tope (8% / 263 Rating)",
+      "Agility",
+      "Critical Strike",
+      "Armor Penetration",
+      "Attack Power",
+      "Intellect",
+      "Haste"
+    ],
+    "caps": {
+      "ranged_hit_rating_base": 263,
+      "ranged_hit_rating_1_focused_aim": 230,
+      "ranged_hit_rating_2_focused_aim": 197,
+      "ranged_hit_rating_3_focused_aim": 164,
+      "armor_penetration_rating_cap": 1400
+    },
+    "caps_assumptions": "Ranged Hit: 8% (263 rating) base; reducido en 1% por cada punto en Focused Aim (230 / 197 / 164 rating) y en 1% por presencia Draenei.",
+    "notas": "Survival escala principalmente con Agility gracias al talento Expose Weakness y Lightning Reflexes (+15% Agility). Como Explosive Shot, Black Arrow y Serpent Sting infligen daño mágico (fuego/sombras/naturaleza), ignoran la armadura de forma nativa y reducen el valor de Armor Penetration frente a Agility."
+  },
+  "Mage|Arcane": {
+    "source": "https://www.icy-veins.com/wotlk-classic/arcane-mage-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/mage/arcane/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Spell Hit hasta el tope (8% / 210 Rating)",
+      "Spell Power",
+      "Haste",
+      "Critical Strike",
+      "Intellect",
+      "Spirit"
+    ],
+    "caps": {
+      "spell_hit_rating_base": 446,
+      "spell_hit_rating_with_talents_and_debuff": 210,
+      "spell_hit_rating_with_talents_debuff_and_draenei": 184,
+      "spell_hit_rating_no_raid_debuff": 289
+    },
+    "caps_assumptions": "Spell Hit: 17% (446 rating) base contra jefes nivel 83. Los talentos Precision (3/3 = 3%) y Arcane Focus (3/3 = 3%) aportan un 6% de golpe para hechizos Arcanos, y el debuff de banda Misery / Improved Faerie Fire aporta otro 3%, dejando solo un 8% necesario en equipo (210 Hit Rating), o 7% (184 Hit Rating) con presencia Draenei (1%).",
+    "notas": "Precaución con la celeridad: durante el solapamiento de Bloodlust/Heroism (30%), Icy Veins (20%) y el bonus de 2 piezas de Tier 10 (Pushing the Limit = 12%), el tiempo de lanzamiento de Arcane Blast puede bajar de 1.0 segundo (el límite del GCD), por lo que las guías recomiendan desfasar Icy Veins de Bloodlust/Heroism cuando se tiene alto nivel de equipo en Fase 4."
+  },
+  "Mage|Fire": {
+    "source": "https://www.icy-veins.com/wotlk-classic/fire-mage-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/mage/fire/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Spell Hit hasta el tope (14% / 368 Rating en TTW-Fire, o 11% / 289 Rating en Frostfire)",
+      "Spell Power",
+      "Critical Strike (o) Haste",
+      "Spirit",
+      "Intellect"
+    ],
+    "caps": {
+      "spell_hit_rating_base": 446,
+      "spell_hit_rating_ttw_fire_with_debuff": 368,
+      "spell_hit_rating_ttw_fire_with_debuff_and_draenei": 342,
+      "spell_hit_rating_frostfire_with_precision_and_debuff": 289
+    },
+    "caps_assumptions": "Spell Hit: En la especialización estándar de Fase 4 (Torment the Weak / Arcane-Fire), no se alcanza el talento Precision en la rama Frost, por lo que solo se cuenta con el 3% del debuff de banda (Misery / Improved Faerie Fire), requiriendo 14% de golpe en equipo (368 Hit Rating, o 342 con Draenei). En la variante Frostfire (con 3/3 Precision), el requisito baja a 11% (289 Hit Rating).",
+    "notas": "En Fase 4 (ICC), Fire tiene una sinergia extrema entre Critical Strike (para activar Hot Streak e Ignite) y Haste (para lanzar más Fireballs y activar el 2p T10 Pushing the Limit). Molten Armor con su glifo convierte Spirit en Critical Strike Rating."
+  },
+  "Mage|Frost": {
+    "source": "https://www.icy-veins.com/wotlk-classic/frost-mage-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/mage/frost/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Spell Hit hasta el tope (11% / 289 Rating)",
+      "Spell Power",
+      "Haste",
+      "Critical Strike (hasta el soft cap de Shatter de 33.34%)",
+      "Spirit",
+      "Intellect"
+    ],
+    "caps": {
+      "spell_hit_rating_base": 446,
+      "spell_hit_rating_with_precision_and_debuff": 289,
+      "spell_hit_rating_with_precision_debuff_and_draenei": 263,
+      "shatter_crit_soft_cap_percent": 33.34
+    },
+    "caps_assumptions": "Spell Hit: 17% (446 rating) base; reducido en 3% por Precision (3/3) y 3% por Misery / Improved Faerie Fire a 11% (289 Hit Rating), o 10% (263 Hit Rating) con presencia Draenei.",
+    "notas": "El talento Shatter otorga +50% de probabilidad de crítico contra objetivos congelados (o bajo el efecto de Fingers of Frost); por ello, al alcanzar un 33.34% de crítico con todos los buffs y debuffs de banda, los hechizos bajo Shatter alcanzan el 100% de crítico efectivo contra jefes (considerando la supresión de crítico), reduciendo drásticamente el valor del Critical Strike adicional."
+  },
+  "Paladin|Holy": {
+    "source": "https://www.icy-veins.com/wotlk-classic/holy-paladin-healer-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/paladin/holy/healer-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Intellect",
+      "Haste",
+      "MP5",
+      "Critical Strike (o) Spell Power",
+      "Spirit (sin valor en combate)"
+    ],
+    "caps": {
+      "haste_gcd_soft_cap_rating": 676,
+      "spell_hit_rating_for_judgement": 0
+    },
+    "caps_assumptions": "Haste GCD Soft Cap: 676 Haste Rating (20.6% haste en equipo) reduce el GCD de hechizos instantáneos (Holy Shock, Beacon of Light, Sacred Shield) a 1.0s asumiendo Judgements of the Pure (5/5 = 15% haste), Wrath of Air Totem (5%) y Swift Retribution / Improved Moonkin Form (3%). Judgement Hit: el talento Enlightened Judgements (2/2) aporta 4% de golpe, lo que sumado a los debuffs de banda garantiza que Judgement no falle sin necesitar Hit Rating en equipo.",
+    "notas": "Intellect es de lejos la mejor estadística para el Paladín Sagrado: aumenta el maná máximo (amplificado un 10% por Divine Intellect y un 10% por Blessing of Kings), incrementa el maná regenerado por Divine Plea, Replenishment y Arcane Torrent, otorga crítico y convierte el 20% del Intelecto total en Spell Power mediante Holy Guidance. Haste se sigue acumulando por encima del soft cap de 676 porque el objetivo principal es reducir el tiempo de lanzamiento de Holy Light. Spirit no aporta regeneración dentro de la regla de los 5 segundos para los paladines."
+  },
+  "Paladin|Protection": {
+    "source": "https://www.icy-veins.com/wotlk-classic/protection-paladin-tank-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/paladin/protection/tank-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Defense hasta el tope (540 Defense / 689 Rating)",
+      "Stamina",
+      "Bonus Armor",
+      "Expertise hasta el tope de esquiva (6.5% / 26 Expertise)",
+      "Melee Hit hasta el tope (8% / 263 Rating)",
+      "Agility (o) Dodge Rating",
+      "Strength (o) Block Value",
+      "Parry Rating (o) Block Rating"
+    ],
+    "caps": {
+      "defense_rating": 689,
+      "defense_skill": 540,
+      "melee_hit_rating_base": 263,
+      "melee_hit_rating_draenei": 230,
+      "expertise_dodge_rating_base": 214,
+      "expertise_dodge_rating_with_combat_expertise": 164,
+      "expertise_dodge_rating_with_combat_exp_and_glyph_sov": 82,
+      "expertise_parry_rating_hard_cap": 459
+    },
+    "caps_assumptions": "Defense: 689 Defense Rating (+140 Defense sobre 400 base = 540 Defense para el 5.6% de reducción de crítico contra jefes nivel 83). Expertise: 26 Pericia (214 rating) base; el talento Combat Expertise (3/3) aporta +6 Pericia y el Glyph of Seal of Vengeance aporta +10 Pericia mientras Seal of Vengeance/Corruption está activo, reduciendo el requisito en equipo a solo 10 Pericia (82 rating), o 7 Pericia (58 rating) si además es Humano con espada o maza.",
+    "notas": "El hechizo Hand of Reckoning (taunt) utiliza la tabla de golpe con hechizos (17% cap), por lo que se recomienda el Glyph of Righteous Defense (+8% de golpe a Righteous Defense y Hand of Reckoning) para evitar fallos en cambios de tanque críticos en ICC."
+  },
+  "Paladin|Retribution": {
+    "source": "https://www.icy-veins.com/wotlk-classic/retribution-paladin-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/paladin/retribution/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Melee Hit hasta el tope (8% / 263 Rating)",
+      "Expertise hasta el tope de esquiva (6.5% / 26 Expertise)",
+      "Strength",
+      "Critical Strike (o) Agility",
+      "Attack Power",
+      "Haste (o) Armor Penetration"
+    ],
+    "caps": {
+      "melee_hit_rating_base": 263,
+      "melee_hit_rating_draenei": 230,
+      "expertise_dodge_rating_base": 214,
+      "expertise_dodge_rating_with_glyph_sov": 132,
+      "expertise_dodge_rating_with_glyph_sov_and_human": 107
+    },
+    "caps_assumptions": "Melee Hit: 8% (263 rating) base; 7% (230 rating) con presencia Draenei (1%). Con los 263 de Hit Rating y el 3% del debuff de banda (Misery / Improved Faerie Fire), los hechizos como Exorcism y Consecration también quedan muy cerca del tope de hechizos. Expertise: 26 Pericia (214 rating) base; el Glyph of Seal of Vengeance otorga +10 Pericia, reduciendo el tope necesario en equipo a 16 Pericia (132 rating), o 13 Pericia (107 rating) para Humanos usando espadas o mazas.",
+    "notas": "Strength escala un +15% por Divine Strength, +10% por Blessing of Kings y convierte el 30% del Attack Power en Spell Power mediante Sheath of Light. Agility otorga más Critical Strike por punto que Critical Strike Rating puro en Fase 4. Gran parte del daño del Paladín Retribución es Sagrado (Seal of Vengeance, Divine Storm con 2p T10, Consecration, Judgement), por lo que Armor Penetration es significativamente inferior a Strength y Critical Strike."
+  },
+  "Priest|Discipline": {
+    "source": "https://www.icy-veins.com/wotlk-classic/discipline-priest-healer-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/priest/discipline/healer-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Spell Power",
+      "Critical Strike (o) Haste (hasta ~150-400 Rating para casteos sin Borrowed Time)",
+      "Intellect",
+      "MP5 (o) Spirit"
+    ],
+    "caps": {
+      "haste_gcd_cap_with_borrowed_time_and_raid_buffs_rating": 0,
+      "haste_gcd_cap_with_borrowed_time_no_wrath_of_air_rating": 97,
+      "haste_gcd_cap_without_borrowed_time_with_raid_buffs_rating": 1059
+    },
+    "caps_assumptions": "Haste Breakpoints: El talento Enlightenment (3/3) aporta 6% de celeridad pasiva y Borrowed Time (5/5) otorga 25% de celeridad durante 6s tras lanzar Power Word: Shield. Sumado a Wrath of Air Totem (5%) y Swift Retribution / Improved Moonkin Form (3%), el Sacerdote Disciplina ya supera el 38.58% requerido para el GCD de 1.0s con 0 Haste Rating mientras Borrowed Time está activo (o necesita solo 97 Haste Rating si falta Wrath of Air Totem). Sin Borrowed Time activo, alcanzar el GCD de 1.0s requiere 1059 Haste Rating.",
+    "notas": "Power Word: Shield representa más del 60-70% de la sanación/absorción efectiva del Sacerdote Disciplina y escala exclusivamente con Spell Power (no puede hacer crítico ni se beneficia de celeridad más allá del GCD de 1.0s). Critical Strike es muy valioso para activar Divine Aegis en Penance, Flash Heal y Prayer of Healing. Se recomienda mantener una cantidad moderada de Haste (150-400 rating) que viene naturalmente en el equipo BiS para agilizar Penance y Prayer of Healing tras consumir Borrowed Time."
+  },
+  "Priest|Holy": {
+    "source": "https://www.icy-veins.com/wotlk-classic/holy-priest-healer-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/priest/holy/healer-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Spell Power",
+      "Haste (o) Intellect",
+      "Spirit",
+      "Critical Strike",
+      "MP5"
+    ],
+    "caps": {
+      "haste_gcd_cap_raid_buffed_rating": 1265,
+      "haste_gcd_cap_with_enlightenment_subspec_rating": 1059
+    },
+    "caps_assumptions": "Haste Breakpoints: Para llevar el Global Cooldown (GCD) de Renew, Circle of Healing y Prayer of Mending a 1.0 segundo con los buffs de banda de 25 jugadores (5% Wrath of Air Totem + 3% Swift Retribution / Improved Moonkin Form), se necesita un 38.58% de celeridad en equipo, equivalente a 1265 Haste Rating.",
+    "notas": "El Sacerdote Sagrado equilibra potencia de curación (Spell Power y Haste) con regeneración de maná (Intellect y Spirit). El talento Spiritual Guidance convierte el 25% del Spirit total en Spell Power, y Meditation permite que el 50% de la regeneración por Spirit continúe durante el combate; además, los críticos de Flash Heal, Binding Heal y Greater Heal con Empowered Healing activan Surge of Light (Flash Heal instantáneo y gratuito) y Holy Concentration (+50% de regeneración de maná por Spirit)."
+  },
+  "Priest|Shadow": {
+    "source": "https://www.icy-veins.com/wotlk-classic/shadow-priest-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/priest/shadow/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Spell Hit hasta el tope (11% / 289 Rating)",
+      "Spell Power",
+      "Haste",
+      "Critical Strike",
+      "Spirit",
+      "Intellect"
+    ],
+    "caps": {
+      "spell_hit_rating_base": 446,
+      "spell_hit_rating_with_shadow_focus_and_misery": 289,
+      "spell_hit_rating_with_talents_and_draenei": 263
+    },
+    "caps_assumptions": "Spell Hit: 17% (446 rating) base contra jefes nivel 83. El Sacerdote Sombras aporta su propio 3% por Misery (3/3) y obtiene otro 3% adicional del talento Shadow Focus (3/3), reduciendo el tope necesario en equipo a 11% (289 Hit Rating), o 10% (263 Hit Rating) con presencia Draenei (1%).",
+    "notas": "En Fase 4 (con el bonus de 4 piezas de Tier 10 que reduce en 0.5s la canalización de Mind Flay), Haste es extremadamente valioso y compite punto por punto con Spell Power. El talento Twisted Faith convierte el 20% del Spirit total en Spell Power (y el Glyph of Shadow añade otro 10% del Spirit tras hacer crítico con daño directo)."
+  },
+  "Rogue|Assassination": {
+    "source": "https://www.icy-veins.com/wotlk-classic/assassination-rogue-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/rogue/assassination/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Melee Hit hasta el tope amarillo (5% / 164 Rating) y Spell Hit para venenos (11% / 289 Rating)",
+      "Expertise hasta el tope de esquiva (6.5% / 214 Rating)",
+      "Attack Power (o) Agility",
+      "Haste",
+      "Critical Strike",
+      "Armor Penetration",
+      "Melee Hit (hasta el tope de golpes blancos 24% / 787 Rating)"
+    ],
+    "caps": {
+      "yellow_melee_hit_rating_with_precision": 164,
+      "poison_spell_hit_rating_with_precision_and_debuff": 289,
+      "poison_spell_hit_rating_with_precision_debuff_and_draenei": 263,
+      "white_dual_wield_hit_rating_with_precision": 787,
+      "expertise_dodge_rating_base": 214
+    },
+    "caps_assumptions": "Hit: El talento Precision (5/5) otorga +5% de golpe tanto a ataques cuerpo a cuerpo como a venenos (que usan la tabla de golpe con hechizos de 17%). Con Precision (5%) + Misery / Improved Faerie Fire (3%), el tope de golpe para venenos se alcanza con un 9% de golpe de hechizos (237 Hit Rating, aunque muchos jugadores apuntan a 289-315 para cubrir escenarios sin debuff o más golpes blancos). El tope amarillo físico es solo 3% en equipo (99 Hit Rating), que queda cubierto al buscar el tope de venenos. Expertise: 26 Pericia (214 rating) sin talentos reductores en Assassination.",
+    "notas": "Dado que Envenom y los venenos (Instant Poison y Deadly Poison) representan la mayor parte del daño de Assassination y son daño de Naturaleza (ignoran armadura), Attack Power y Haste superan ampliamente a Armor Penetration."
+  },
+  "Rogue|Combat": {
+    "source": "https://www.icy-veins.com/wotlk-classic/combat-rogue-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/rogue/combat/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Expertise hasta el tope de esquiva (6.5% / 132 Rating con Weapon Expertise)",
+      "Melee Hit hasta el tope de venenos (237-315 Rating con Precision)",
+      "Armor Penetration (hasta el tope de 1400 Rating)",
+      "Agility (o) Attack Power",
+      "Critical Strike (hasta el soft cap de golpes blancos)",
+      "Haste",
+      "Melee Hit (hasta el tope de golpes blancos 787 Rating)"
+    ],
+    "caps": {
+      "yellow_melee_hit_rating_with_precision": 99,
+      "poison_spell_hit_rating_with_precision_and_debuff": 237,
+      "poison_spell_hit_rating_no_debuff": 315,
+      "white_dual_wield_hit_rating_with_precision": 787,
+      "expertise_dodge_rating_base": 214,
+      "expertise_dodge_rating_with_weapon_expertise": 132,
+      "armor_penetration_rating_cap": 1400
+    },
+    "caps_assumptions": "Expertise: 26 Pericia (214 rating) base; el talento Weapon Expertise (2/2) aporta +10 de Pericia, reduciendo el tope necesario en equipo a 16 de Pericia (132 rating). Si es Humano con espadas/mazas (+3 Pericia), baja a 13 Pericia (107 rating); si es Orco con hachas/armas de puño (+5 Pericia), baja a 11 Pericia (91 rating). Hit: Precision (5/5) aporta +5% de golpe físico y de hechizos; el tope de venenos con debuff de banda (3%) es 9% spell hit = 237 Hit Rating (o 12% = 315 sin debuff de banda).",
+    "notas": "En Fase 4 (ICC), el Pícaro Combate alcanza el hard cap de 1400 de Armor Penetration (o 1200 si usa especialización de mazas, aunque en BiS se usa hacha/espada con Hack and Slash). Cuidado con el tope de crítico de golpes blancos (Crit Cap): con 27% de penalización Dual-Wield y 24% de Glancing Blows, el exceso de crítico se desperdicia si no se acompaña de más Hit Rating."
+  },
+  "Rogue|Subtlety": {
+    "source": "https://www.icy-veins.com/wotlk-classic/subtlety-rogue-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/rogue/subtlety/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Melee Hit hasta el tope de venenos (237-315 Rating con Precision)",
+      "Expertise hasta el tope de esquiva (6.5% / 214 Rating)",
+      "Agility",
+      "Armor Penetration",
+      "Attack Power",
+      "Haste",
+      "Critical Strike"
+    ],
+    "caps": {
+      "yellow_melee_hit_rating_with_precision": 99,
+      "poison_spell_hit_rating_with_precision_and_debuff": 237,
+      "white_dual_wield_hit_rating_with_precision": 787,
+      "expertise_dodge_rating_base": 214,
+      "armor_penetration_rating_cap": 1400
+    },
+    "caps_assumptions": "Hit: Con Precision (5/5 = 5% hit), el tope de habilidades amarillas es 3% (99 Hit Rating) y el tope de venenos con Misery / Improved Faerie Fire (3%) es 9% spell hit (237 Hit Rating). Expertise: 26 Pericia (214 rating) sin talentos de pericia en la build estándar.",
+    "notas": "El talento Sinister Calling aumenta la Agility total en un 15%, haciendo de Agility la estadística primaria más eficiente tras asegurar los topes de Hit y Expertise."
+  },
+  "Shaman|Elemental": {
+    "source": "https://www.icy-veins.com/wotlk-classic/elemental-shaman-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/shaman/elemental/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Spell Hit hasta el tope (11% / 289 Rating)",
+      "Spell Power",
+      "Haste (hasta el soft cap de ~1200 Rating)",
+      "Critical Strike",
+      "Intellect"
+    ],
+    "caps": {
+      "spell_hit_rating_base": 446,
+      "spell_hit_rating_with_elemental_precision_and_debuff": 289,
+      "spell_hit_rating_with_elemental_precision_debuff_and_draenei": 263,
+      "haste_soft_cap_rating": 1200
+    },
+    "caps_assumptions": "Spell Hit: 17% (446 rating) base; reducido en 3% por Elemental Precision (3/3) y 3% por Misery / Improved Faerie Fire a 11% (289 Hit Rating), o 10% (263 Hit Rating) si es Alianza con presencia Draenei (1%).",
+    "notas": "Alrededor de los 1200 de Haste Rating, Lava Burst y Chain Lightning se acercan al límite de 1.0s del GCD bajo efectos de celeridad (Elemental Mastery / Bloodlust), momento en el cual Spell Power sigue siendo prioritario y Critical Strike recorta distancia frente a Haste adicional."
+  },
+  "Shaman|Enhancement": {
+    "source": "https://www.icy-veins.com/wotlk-classic/enhancement-shaman-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/shaman/enhancement/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Spell Hit hasta el tope (14% / 368 Rating con debuff de banda)",
+      "Expertise hasta el tope de esquiva (6.5% / 140 Rating con Unleashed Rage)",
+      "Haste (o) Attack Power (o) Spell Power",
+      "Critical Strike (o) Agility",
+      "Intellect",
+      "Melee Hit (hasta el tope de golpes blancos 787 Rating)",
+      "Armor Penetration"
+    ],
+    "caps": {
+      "yellow_melee_hit_rating_with_dual_wield_spec": 66,
+      "spell_hit_rating_with_raid_debuff": 368,
+      "spell_hit_rating_with_raid_debuff_and_draenei": 342,
+      "white_dual_wield_hit_rating_with_dual_wield_spec": 689,
+      "expertise_dodge_rating_base": 214,
+      "expertise_dodge_rating_with_unleashed_rage": 140
+    },
+    "caps_assumptions": "Hit: El talento Dual Wield Specialization (3/3) aporta +6% de golpe físico cuerpo a cuerpo, pero NO aporta golpe con hechizos; por ello, el Chamán Mejora apunta al tope de golpe de hechizos de 14% (368 Hit Rating con el 3% de Misery / Improved Faerie Fire, o 342 Hit Rating con Draenei) para no fallar Lightning Bolt, Chain Lightning, Shocks y Fire Nova. Expertise: 26 Pericia (214 rating) base; el talento Unleashed Rage (3/3) otorga +9 de Pericia, reduciendo el tope necesario en equipo a 17 de Pericia (140 rating), o 12 de Pericia (99 rating) si es Orco usando hachas/armas de puño.",
+    "notas": "En Fase 4 (ICC), Haste escala extraordinariamente bien en Enhancement porque acelera la generación de cargas de Maelstrom Weapon y los golpes de Windfury/Flametongue."
+  },
+  "Shaman|Restoration": {
+    "source": "https://www.icy-veins.com/wotlk-classic/restoration-shaman-healer-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/shaman/restoration/healer-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Haste (hasta el soft cap de GCD de 1265 Rating)",
+      "Spell Power",
+      "MP5 (o) Intellect",
+      "Critical Strike",
+      "Spirit (inútil en combate)"
+    ],
+    "caps": {
+      "haste_gcd_soft_cap_rating": 1265
+    },
+    "caps_assumptions": "Haste Breakpoints: 1265 Haste Rating (38.58% haste en equipo) reduce el Global Cooldown (GCD) de Riptide, Earth Shield y Cleanse Spirit a 1.0 segundo asumiendo Wrath of Air Totem (5%) y Swift Retribution / Improved Moonkin Form (3%).",
+    "notas": "El Chamán Restauración en Fase 4 (ICC) prioriza Haste por encima de cualquier otra estadística (incluso engemando +20 Haste en ranuras amarillas/rojas) porque Chain Heal tiene un tiempo de lanzamiento base de 2.5 segundos y no se beneficia de Tidal Waves; reducir el casteo de Chain Heal es vital para levantar el daño de banda en ICC. Critical Strike activa Ancestral Awakening (+30% de la cura crítica a otro aliado herido) e Improved Water Shield. Spirit no ofrece regeneración en combate para los chamanes."
+  },
+  "Warlock|Affliction": {
+    "source": "https://www.icy-veins.com/wotlk-classic/affliction-warlock-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/warlock/affliction/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Spell Hit hasta el tope (11% / 289 Rating)",
+      "Spell Power",
+      "Haste",
+      "Critical Strike",
+      "Spirit",
+      "Intellect"
+    ],
+    "caps": {
+      "spell_hit_rating_base": 446,
+      "spell_hit_rating_with_suppression_and_debuff": 289,
+      "spell_hit_rating_with_suppression_debuff_and_draenei": 263,
+      "spell_hit_rating_no_raid_debuff": 368
+    },
+    "caps_assumptions": "Spell Hit: 17% (446 rating) base contra jefes nivel 83; reducido en 3% por el talento Suppression (3/3) y en 3% por el debuff de banda Misery / Improved Faerie Fire a 11% (289 Hit Rating), o 10% (263 Hit Rating) con presencia Draenei (1%).",
+    "notas": "Haste reduce el tiempo entre tics de Corruption (mediante el Glyph of Quick Decay) y acelera Shadow Bolt, Haunt y Unstable Affliction. El hechizo Corruption mantiene un 'snapshot' dinámico del porcentaje de crítico y multiplicadores de daño (% damage como Devious Minds 4p T10 o Tricks of the Trade) al aplicarse y renovarse con Everlasting Affliction, mientras que Spell Power y Haste se actualizan en cada renovación. Life Tap y Fel Armor convierten el 50% del Spirit en Spell Power."
+  },
+  "Warlock|Demonology": {
+    "source": "https://www.icy-veins.com/wotlk-classic/demonology-warlock-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/warlock/demonology/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Spell Hit hasta el tope (14% / 368 Rating sin Suppression, o 11% / 289 Rating con 3/3 Suppression)",
+      "Spell Power",
+      "Haste",
+      "Spirit",
+      "Critical Strike",
+      "Intellect"
+    ],
+    "caps": {
+      "spell_hit_rating_base": 446,
+      "spell_hit_rating_0_suppression_with_debuff": 368,
+      "spell_hit_rating_1_suppression_with_debuff": 342,
+      "spell_hit_rating_2_suppression_with_debuff": 315,
+      "spell_hit_rating_3_suppression_with_debuff": 289
+    },
+    "caps_assumptions": "Spell Hit: 17% (446 rating) base. Con el 3% del debuff de banda (Misery / Improved Faerie Fire), el requisito es 14% (368 Hit Rating). En función de cuántos puntos libres se inviertan en Suppression (0 a 3 puntos), el requisito baja a 368 (0/3), 342 (1/3), 315 (2/3) o 289 (3/3) Hit Rating (resta 26.23 rating adicional si hay Draenei en el grupo).",
+    "notas": "Para el Brujo Demonología, Spell Power y Spirit tienen una prioridad aún más alta que en las demás ramas porque el talento Demonic Pact otorga a toda la banda un buff equivalente al 10% del Spell Power total del brujo cuando su mascota asesta un golpe crítico; por ello, las guías recomiendan priorizar Spell Power y Spirit (que convierte el 30% por Fel Armor + 20% por Glyph of Life Tap = 50% del Spirit en Spell Power) incluso si supone un ligero sacrificio personal de Haste o Crit."
+  },
+  "Warlock|Destruction": {
+    "source": "https://www.icy-veins.com/wotlk-classic/destruction-warlock-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/warlock/destruction/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Spell Hit hasta el tope (11% / 289 Rating con 3/3 Suppression, o 14% / 368 Rating sin Suppression)",
+      "Spell Power",
+      "Haste",
+      "Critical Strike",
+      "Spirit",
+      "Intellect"
+    ],
+    "caps": {
+      "spell_hit_rating_base": 446,
+      "spell_hit_rating_with_3_suppression_and_debuff": 289,
+      "spell_hit_rating_0_suppression_with_debuff": 368
+    },
+    "caps_assumptions": "Spell Hit: 17% (446 rating) base; reducido en 3% por Suppression (3/3) y 3% por Misery / Improved Faerie Fire a 11% (289 Hit Rating), o 10% (263 Hit Rating) con presencia Draenei.",
+    "notas": "Precaución con Haste bajo Backdraft: el talento Backdraft (3/3) reduce un 30% tanto el tiempo de lanzamiento como el Global Cooldown (GCD) de los siguientes 3 hechizos de Destrucción tras lanzar Conflagrate; sin embargo, el GCD nunca puede bajar de 1.0 segundo, por lo que durante Bloodlust/Heroism y Backdraft el lanzamiento de Incinerate y Chaos Bolt puede recortarse contra el límite del GCD."
+  },
+  "Warrior|Arms": {
+    "source": "https://www.icy-veins.com/wotlk-classic/arms-warrior-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/warrior/arms/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Melee Hit hasta el tope (8% / 263 Rating)",
+      "Armor Penetration (hasta el tope de 1260 Rating en Battle Stance)",
+      "Expertise hasta el tope de esquiva (6.5% / 181 Rating con Strength of Arms)",
+      "Strength",
+      "Critical Strike",
+      "Haste"
+    ],
+    "caps": {
+      "melee_hit_rating_base": 263,
+      "melee_hit_rating_draenei": 230,
+      "expertise_dodge_rating_base": 214,
+      "expertise_dodge_rating_with_strength_of_arms": 181,
+      "armor_penetration_rating_cap_battle_stance": 1260,
+      "armor_penetration_rating_cap_with_mace_spec": 1050
+    },
+    "caps_assumptions": "Melee Hit: 8% (263 rating) base; 7% (230 rating) con presencia Draenei (1%). Expertise: 26 Pericia (214 rating) base; el talento Strength of Arms (2/2) aporta +4 Pericia, reduciendo el tope necesario en equipo a 22 Pericia (181 rating), aunque en Arms los esquives del objetivo activan Overpower, por lo que quedarse ligeramente por debajo del tope de pericia es menos punitivo que en Fury. Armor Penetration: Battle Stance otorga un 10% de penetración de armadura pasiva, reduciendo el hard cap de 1400 a 1260 Armor Penetration Rating (90% en equipo); si se usa Mace Specialization (15% adicional), baja a 1050 Rating (75%).",
+    "notas": "En Fase 4 (ICC), los guerreros Arms usan hachas/espadas de dos manos (Shadowmourne / Glorenzelg) con Poleaxe o Sword Specialization, por lo que su tope objetivo de Armor Penetration en equipo es 1260 Rating."
+  },
+  "Warrior|Fury": {
+    "source": "https://www.icy-veins.com/wotlk-classic/fury-warrior-dps-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/warrior/fury/dps-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Melee Hit hasta el tope amarillo (5% / 164 Rating con 3/3 Precision)",
+      "Expertise hasta el tope de esquiva (6.5% / 214 Rating)",
+      "Armor Penetration (hasta el tope de 1400 Rating)",
+      "Strength",
+      "Critical Strike",
+      "Haste"
+    ],
+    "caps": {
+      "yellow_melee_hit_rating_base": 263,
+      "yellow_melee_hit_rating_with_precision": 164,
+      "yellow_melee_hit_rating_with_precision_and_draenei": 132,
+      "white_dual_wield_hit_rating_with_precision": 787,
+      "expertise_dodge_rating_base": 214,
+      "expertise_dodge_rating_human_sword_mace": 189,
+      "expertise_dodge_rating_orc_axe": 173,
+      "armor_penetration_rating_cap": 1400
+    },
+    "caps_assumptions": "Melee Hit: 8% (263 rating) base; el talento Precision (3/3) aporta +3% de golpe, dejando el tope de habilidades amarillas en 5% (164 Hit Rating) o 4% (132 Hit Rating) con presencia Draenei (1%). Expertise: 26 Pericia (214 rating) base (189 para Humanos con espadas/mazas; 173 para Orcos con hachas). Armor Penetration: 100% = 1400 Armor Penetration Rating.",
+    "notas": "El Guerrero Furia no debe engemar Hit por encima de los 164 de Hit Rating (o 132 con Draenei) porque Heroic Strike / Cleave al estar en cola eliminan la penalización de Dual-Wield de los ataques de mano secundaria. En Fase 4 (ICC), alcanzar los 1400 de Armor Penetration es el objetivo primordial antes de pasar todas las gemas a Strength."
+  },
+  "Warrior|Protection": {
+    "source": "https://www.icy-veins.com/wotlk-classic/protection-warrior-tank-stat-priority",
+    "contrast_source": "https://www.wowhead.com/wotlk/guide/classes/warrior/protection/tank-stat-priority-attributes-pve",
+    "stat_priority": [
+      "Defense hasta el tope (540 Defense / 689 Rating)",
+      "Stamina",
+      "Bonus Armor",
+      "Expertise hasta el tope de esquiva (6.5% / 164 Rating con Vitality)",
+      "Melee Hit hasta el tope (8% / 263 Rating)",
+      "Block Value (o) Strength",
+      "Dodge Rating (o) Agility",
+      "Parry Rating (o) Block Rating"
+    ],
+    "caps": {
+      "defense_rating": 689,
+      "defense_skill": 540,
+      "melee_hit_rating_base": 263,
+      "melee_hit_rating_draenei": 230,
+      "expertise_dodge_rating_base": 214,
+      "expertise_dodge_rating_with_vitality": 164,
+      "expertise_parry_rating_hard_cap": 459
+    },
+    "caps_assumptions": "Defense: 689 Defense Rating (+140 Defense sobre 400 base = 540 Defense para el 5.6% de reducción de crítico contra jefes nivel 83). Expertise: 26 Pericia (214 rating) base; el talento Vitality (3/3) aporta +6 Pericia, reduciendo el tope de esquiva necesario en equipo a 20 Pericia (164 rating).",
+    "notas": "Taunt utiliza la tabla de golpe con hechizos (17% cap), por lo que las guías recomiendan el Glyph of Taunt (+8% de probabilidad de golpe con Taunt) en encuentros donde el fallo de un cambio de tanque provoque wipe. Stamina y Armor siempre prevalecen sobre alcanzar los topes de Hit y Expertise cuando se progresa en jefes heroicos de ICC."
+  },
+  "resumen_calidad": {
+    "estado_general": "MÓDULO 1 COMPLETADO (31/31 especialidades)",
+    "discrepancias_entre_fuentes": [
+      "Druid|Balance: Icy Veins cifra el soft cap de Haste en ~400-401 Rating (con 3/3 Celestial Focus), mientras que Wowhead detalla también la variante sin Celestial Focus o sin Wrath of Air Totem (~585 Rating).",
+      "Priest|Holy: Icy Veins sitúa Haste e Intellect en el segundo escalón tras Spell Power según el estilo de curación (Renew spam vs Prayer of Healing), mientras que Wowhead enfatiza el equilibrio entre Spirit/Intellect para combates largos de ICC Heroico y el tope teórico de 1265 Haste Rating para el GCD de 1.0s.",
+      "Rogue|Combat y Rogue|Assassination: Icy Veins lista 315 Hit Rating (12% spell hit) como referencia para el tope de venenos sin debuff de banda, mientras que Wowhead prioriza 237 Hit Rating (9% spell hit) asumiendo que en bandas de 25 jugadores siempre está presente Misery o Improved Faerie Fire (+3% spell hit).",
+      "Warrior|Arms: Icy Veins sitúa Expertise junto a Hit al inicio de la lista, mientras que Wowhead aclara que quedarse ligeramente por debajo del tope de Expertise (181 Rating) no es una pérdida severa porque los esquives del jefe habilitan Overpower."
+    ],
+    "especialidades_con_fuente_debil_o_notas": [
+      "Mage|Frost, Rogue|Subtlety y Hunter|Beast Mastery: Tanto Icy Veins como Wowhead las catalogan como especializaciones secundarias/off-meta en PvE de Fase 4 (ICC), por lo que sus secciones de estadísticas tienen menos desglose de micro-umbrales que sus contrapartes principales (Fire/Arcane, Combat/Assassination, Marksmanship/Survival), aunque sus prioridades y topes están completamente documentados.",
+      "NO ENCONTRADO: Ningún campo quedó como NO ENCONTRADO en el Módulo 1; las 31 especialidades cuentan con prioridad de estadísticas y topes documentados en Icy Veins y Wowhead WotLK Classic."
+    ]
+  }
+}

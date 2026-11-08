@@ -918,6 +918,7 @@ function isRelevant(it, spec, w) {
   let signature = 0, foreign = 0;
   const add = (k, v) => {
     if (!v || ignore.has(k) || k === "dps") return;
+    if (k === "feralap" && !(w.feralap > 0)) return; // solo es relevante para quien lo pondera (druida feral)
     if (k === "hs") {
       if ((w[spec.primary] || 0) > 0) signature += v;
       return;
@@ -928,6 +929,12 @@ function isRelevant(it, spec, w) {
   Object.entries(it.px || {}).forEach(([k, v]) => add(k, v));
   if (it.dps && (w.dps || 0) > 0) signature += it.dps;
   if (it.at === "Shield" && spec.off === "shield") return true;
+  // Un arma con una estadística principal que no es la de la especialidad no le sirve (p. ej. un arma de agilidad
+  // para un guerrero o un arma de fuerza para un pícaro).
+  if (it.dps) {
+    const main = ["str", "agi", "int"].filter((k) => (it.st || {})[k] > 0);
+    if (main.length && !main.includes(spec.primary)) return false;
+  }
   if (signature <= 0) {
     const pureTankStamina = !foreign && (it.st || {}).sta && (spec.role === "tank" || spec.role === "bear");
     return !!pureTankStamina;
@@ -976,6 +983,10 @@ function specSlots(spec) {
   return DATA.slotOrder.filter((s) => (s === "offhand" ? !!spec.off : s === "ranged" ? !!spec.ranged : s === "relic" ? !!spec.relic : true));
 }
 
+// La armadura de un tipo inferior se penaliza por completo en físicos y tanques; en casters, sanadores, cazadores y
+// pícaros/chamanes de agilidad pesa menos, porque las guías usan a menudo tela o cuero en slots sin set.
+const ARMOR_PENALTY_SCALE = { caster: 0.25, healer: 0.25, hunter: 0.5, agi: 0.5, feral: 0.5 };
+const softArmor = (f, role) => (f > 0 && ARMOR_PENALTY_SCALE[role] !== undefined ? 1 - (1 - f) * ARMOR_PENALTY_SCALE[role] : f);
 function evalItem(it, spec, w, o, cap, curated) {
   if (it.cl && !it.cl.includes(spec.cls)) return null;
   const fs = itemFactions(it);
@@ -988,7 +999,9 @@ function evalItem(it, spec, w, o, cap, curated) {
   if (sp.base <= 0 && !curated) return null;
   // La penalización de armadura solo aplica a piezas de armadura (no a escudos ni a capas).
   const tiered = it.at && it.s !== "back" && ARMOR_KEYS.includes(it.s);
-  const af = tiered ? armorFactor(spec.cls, it.at, o.level) : 1;
+  const pref = (ENG.weaponPref || {})[spec.cls + "|" + spec.name];
+  const weaponF = it.dps && pref && !pref.includes(it.sub) ? 0.9 : 1;
+  const af = (tiered ? softArmor(armorFactor(spec.cls, it.at, o.level), spec.role) : 1) * weaponF;
   if (af <= 0) return null;
   return { pk, al, parts: sp.parts, base: sp.base, af, score: sp.base * af, rel: curated || isRelevant(it, spec, w) };
 }
@@ -996,7 +1009,7 @@ function evalItem(it, spec, w, o, cap, curated) {
 /* opts: { level, faction, scope: "noraid"|"raid", phase: 0 (todas)|1-4, pvp: bool (solo equipo PvP) } */
 function computeGear(spec, o) {
   const w = weightsFor(spec, o.pvp, o.level);
-  const caps = o.level === 80 ? (ENG.caps || {})[spec.role] || null : null;
+  const caps = o.level === 80 ? ((ENG.capsBySpec || {})[spec.cls + "|" + spec.name] || (ENG.caps || {})[spec.role] || null) : null;
   const capKeys = caps ? Object.keys(caps) : [];
   const specKey = spec.cls + "|" + spec.name;
   const cur = (ENG.curated || {})[specKey];
@@ -1064,16 +1077,24 @@ function computeGear(spec, o) {
       if (slot === "offhand" && twoHandMain && !tg) pool = [];
       if (slot === "offhand" && spec.off === "dw" && mainBest) pool = pool.filter((e) => e.it.n !== mainBest.it.n);
       let list = pool;
-      if (slot === "ring1" || slot === "trinket1") list = [pool[0]].concat(pool.slice(2)).filter(Boolean);
-      if (slot === "ring2" || slot === "trinket2") list = [pool[1]].concat(pool.slice(2)).filter(Boolean);
+      if (slot.startsWith("ring") || slot.startsWith("trinket")) {
+        // Equipamiento único: los anillos «Ashen Band» de Ashen Verdict comparten restricción (solo se lleva uno).
+        const fam = (e) => (/^Ashen Band of /.test(e.it.n) ? "ashen" : null);
+        const first = pool[0];
+        const second = first ? pool.find((e) => e !== first && !(fam(first) && fam(e) === fam(first))) : null;
+        const rest = pool.filter((e) => e !== first && e !== second);
+        list = (slot.endsWith("1") ? [first] : [second]).concat(rest).filter(Boolean);
+      }
       out[slot] = { list, info: info[src] || null };
     });
     return out;
   };
   let slots = buildSlots();
-  // Topes (nivel 80): lo que sobra por encima del tope vale solo un 15 %, según lo que aportan los demás slots.
+  // Topes (nivel 80): lo que sobra por encima del tope vale solo un 15 %. Cada vuelta penaliza según lo que aportan los
+  // demás slots; como el proceso puede oscilar (penalizar el golpe, quedarse sin él, volver a elegirlo...), se evalúa
+  // cada vuelta con un único objetivo (puntuación del equipo menos el exceso sobre el tope) y se queda la mejor.
   if (capKeys.length) {
-    for (let iter = 0; iter < 3; iter++) {
+    const selected = () => {
       const total = {}, byPool = {};
       specSlots(spec).forEach((slot) => {
         const e = slots[slot].list[0], p = poolOfSlot(slot);
@@ -1084,23 +1105,40 @@ function computeGear(spec, o) {
           (byPool[p] = byPool[p] || {})[k] = ((byPool[p] || {})[k] || 0) + v;
         });
       });
+      return { total, byPool };
+    };
+    const objective = (tb) => {
+      let f = 0;
+      specSlots(spec).forEach((slot) => { const e = slots[slot].list[0]; if (e) f += e.base * e.af + (e.setBonus || 0); });
+      capKeys.forEach((k) => { f -= Math.max(0, (tb.total[k] || 0) - caps[k]) * (w[k] || 0) * 0.85; });
+      return f;
+    };
+    const applyCaps = (tb) => {
       for (const p in pools) {
         pools[p].forEach((e) => {
           let pen = 0;
-          capKeys.forEach((k) => {
+          if (tb) capKeys.forEach((k) => {
             const v = (e.it.st || {})[k] || 0;
             if (!v) return;
-            const others = (total[k] || 0) - ((byPool[p] || {})[k] || 0);
-            const excess = Math.max(0, v - Math.max(0, caps[k] - others));
-            pen += excess * (w[k] || 0) * 0.85 * e.af;
+            const others = (tb.total[k] || 0) - ((tb.byPool[p] || {})[k] || 0);
+            pen += Math.max(0, v - Math.max(0, caps[k] - others)) * (w[k] || 0) * 0.85 * e.af;
           });
           e.capPen = pen;
           e.score = e.base * e.af - pen + (e.setBonus || 0);
         });
         sortPool(p);
       }
+    };
+    let best = { f: objective(selected()), tb: null };
+    for (let iter = 0; iter < 5; iter++) {
+      const tb = selected();
+      applyCaps(tb);
       slots = buildSlots();
+      const f = objective(selected());
+      if (f > best.f) best = { f, tb };
     }
+    applyCaps(best.tb);
+    slots = buildSlots();
   }
   // Dos manos o arma + mano secundaria: se queda el conjunto que más puntúa.
   let loadout = null;
@@ -1184,7 +1222,7 @@ function evalEquip(it, spec, w, o) {
   const al = availableLevel(it, spec);
   if (al === null) return null;
   const tiered = it.at && it.s !== "back" && ARMOR_KEYS.includes(it.s);
-  const af = tiered ? armorFactor(spec.cls, it.at, o.level) : 1;
+  const af = tiered ? softArmor(armorFactor(spec.cls, it.at, o.level), spec.role) : 1;
   return { pk, al, score: Math.max(scoreParts(it, w).base, 0) * af };
 }
 let candCache = { key: "", pools: null };
@@ -1278,7 +1316,8 @@ function rivalNote(best, inf) {
   if (!r || r.id === best.id || r.it.ilvl - best.it.ilvl < 5) return "";
   const head = L("Hay un objeto de mayor nivel (", "A higher item level option (") + r.it.n + ", iLvl " + r.it.ilvl + ")";
   if (r.reasons && r.score > best.score) return head + L(" oculto: ", " is hidden: ") + reasonText(r) + ".";
-  if (r.af < best.af) return head + L(" es de armadura ", " is ") + r.it.at + L(" y tiene penalización ×", " armor and gets a penalty of ×") + r.af.toFixed(2) + ".";
+  if (r.af < best.af && r.it.at) return head + L(" es de armadura ", " is ") + r.it.at + L(" y tiene penalización ×", " armor and gets a penalty of ×") + r.af.toFixed(2) + ".";
+  if (r.af < best.af) return head + L(" no es de la familia de arma que prefiere la especialidad (penalización ×", " is not a weapon family the spec prefers (penalty ×") + r.af.toFixed(2) + ").";
   let key = null, gain = 0;
   best.parts.forEach((p) => {
     const other = (r.parts.find((q) => q.k === p.k) || { c: 0 }).c;
@@ -1294,7 +1333,8 @@ function whyHtml(e, next, inf) {
   if (e.cur) extra += "<p>" + L("Recomendado por las guías (Icy Veins y Wowhead) para esta especialidad: puesto ", "Recommended by the guides (Icy Veins and Wowhead) for this spec: rank ") + e.curRank + L(" de su lista, que manda en este slot.", " in their list, which rules this slot.") + "</p>";
   if (e.setBonus > 0.05) extra += "<p>" + L("Bonus de set T10 (valor estimado del bonus repartido entre sus piezas recomendadas): +", "Tier 10 set bonus (estimated bonus value shared among its recommended pieces): +") + e.setBonus.toFixed(1) + "</p>";
   if (e.capPen > 0.05) extra += "<p>" + L("Penalización por exceder el tope de golpe o pericia: −", "Penalty for exceeding the hit or expertise cap: −") + e.capPen.toFixed(1) + "</p>";
-  if (e.af < 1) extra += "<p>" + L("Penalización por tipo de armadura (", "Armor type penalty (") + esc(e.it.at) + "): ×" + e.af.toFixed(2) + "</p>";
+  if (e.af < 1 && e.it.at) extra += "<p>" + L("Penalización por tipo de armadura (", "Armor type penalty (") + esc(e.it.at) + "): ×" + e.af.toFixed(2) + "</p>";
+  else if (e.af < 1) extra += "<p>" + L("Familia de arma que la especialidad no prefiere: ×", "Weapon family the spec does not prefer: ×") + e.af.toFixed(2) + "</p>";
   if (next) extra += "<p>" + L("Frente a «", "Versus \"") + esc(next.it.n) + L("»: ", "\": ") + (pctDiff(e.score, next.score) >= 0 ? "+" : "") + pctDiff(e.score, next.score) + L("% de puntuación.", "% score.") + "</p>";
   const b = inf && inf.blocked;
   if (b && b.score > e.score) extra += "<p>" + L("Oculto por tus filtros: «", "Hidden by your filters: \"") + esc(b.it.n) + L("» (+", "\" (+") + pctDiff(b.score, e.score) + L("% de puntuación): ", "% score): ") + esc(reasonText(b)) + ".</p>";

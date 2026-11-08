@@ -1,943 +1,2608 @@
 {
-  "Death Knight": {
-    "variants": {
-      "Scourgelord's Plate (Tank)": {
-        "specs": ["Death Knight|Blood Tank"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/blood-death-knight-tank-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-242/scourgelords-plate"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50853, "name": "Scourgelord Faceguard"},
-            {"tier": "25N", "id": 51133, "name": "Sanctified Scourgelord Faceguard"},
-            {"tier": "25H", "id": 51306, "name": "Sanctified Scourgelord Faceguard"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50851, "name": "Scourgelord Pauldrons"},
-            {"tier": "25N", "id": 51130, "name": "Sanctified Scourgelord Pauldrons"},
-            {"tier": "25H", "id": 51309, "name": "Sanctified Scourgelord Pauldrons"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50855, "name": "Scourgelord Chestguard"},
-            {"tier": "25N", "id": 51134, "name": "Sanctified Scourgelord Chestguard"},
-            {"tier": "25H", "id": 51305, "name": "Sanctified Scourgelord Chestguard"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50854, "name": "Scourgelord Handguards"},
-            {"tier": "25N", "id": 51132, "name": "Sanctified Scourgelord Handguards"},
-            {"tier": "25H", "id": 51307, "name": "Sanctified Scourgelord Handguards"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50852, "name": "Scourgelord Legguards"},
-            {"tier": "25N", "id": 51131, "name": "Sanctified Scourgelord Legguards"},
-            {"tier": "25H", "id": 51308, "name": "Sanctified Scourgelord Legguards"}
-          ]
-        },
-        "bonus_2p": "Increases the damage done by your Death and Decay ability by 20%.",
-        "bonus_4p": "When you activate Blood Tap, you gain 12% damage reduction from all attacks for 10 sec.",
-        "recommendations_by_spec": {
-          "Death Knight|Blood Tank": {
-            "recommended_pieces": "4 piezas (Shoulder, Chest, Hands, Legs) + Broken Ram Skull Helm (50640) en Head",
-            "guide_quote": "The 4-piece Tier 10 bonus turns Blood Tap into a 12% damage reduction cooldown on a 1-minute timer, making it mandatory for progression tanking in Icecrown Citadel.",
-            "approx_value": "12% de reducción de daño activa durante 10s cada 60s (Blood Tap)."
-          }
-        }
-      },
-      "Scourgelord's Battlegear (DPS)": {
-        "specs": ["Death Knight|Frost DPS", "Death Knight|Unholy DPS"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/frost-death-knight-dps-gear-best-in-slot",
-          "https://www.icy-veins.com/wotlk-classic/unholy-death-knight-dps-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-241/scourgelords-battlegear"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50089, "name": "Scourgelord Helmet"},
-            {"tier": "25N", "id": 51127, "name": "Sanctified Scourgelord Helmet"},
-            {"tier": "25H", "id": 51312, "name": "Sanctified Scourgelord Helmet"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50092, "name": "Scourgelord Shoulderplates"},
-            {"tier": "25N", "id": 51125, "name": "Sanctified Scourgelord Shoulderplates"},
-            {"tier": "25H", "id": 51314, "name": "Sanctified Scourgelord Shoulderplates"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50087, "name": "Scourgelord Battleplate"},
-            {"tier": "25N", "id": 51129, "name": "Sanctified Scourgelord Battleplate"},
-            {"tier": "25H", "id": 51310, "name": "Sanctified Scourgelord Battleplate"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50088, "name": "Scourgelord Gauntlets"},
-            {"tier": "25N", "id": 51128, "name": "Sanctified Scourgelord Gauntlets"},
-            {"tier": "25H", "id": 51311, "name": "Sanctified Scourgelord Gauntlets"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50090, "name": "Scourgelord Legplates"},
-            {"tier": "25N", "id": 51126, "name": "Sanctified Scourgelord Legplates"},
-            {"tier": "25H", "id": 51313, "name": "Sanctified Scourgelord Legplates"}
-          ]
-        },
-        "bonus_2p": "Increases the damage done by your Obliterate and Scourge Strike abilities by 10% and the damage done by your Heart Strike ability by 7%.",
-        "bonus_4p": "Whenever all your runes are on cooldown, you gain 3% increased damage done with Weapons, Spells, and Abilities for the next 15 sec.",
-        "recommendations_by_spec": {
-          "Death Knight|Frost DPS": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Aldriana's Gloves of Secrecy (50675) en Hands",
-            "guide_quote": "Both the 2-piece and 4-piece Tier 10 bonuses are massive upgrades for Frost, as Obliterate is your top damaging ability and the 4-piece 3% damage buff has near 100% uptime.",
-            "approx_value": "~5-6% de DPS total combinado (2p + 4p)."
-          },
-          "Death Knight|Unholy DPS": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Scourge Reaver's Legplates (50624) en Legs",
-            "guide_quote": "You will want to use 4-piece Tier 10 as Unholy, dropping the Tier legs for Scourge Reaver's Legplates.",
-            "approx_value": "~4.5-5% de DPS total combinado (2p + 4p)."
-          }
-        }
-      }
-    }
-  },
-  "Druid": {
-    "variants": {
-      "Lasherweave Regalia (Balance)": {
-        "specs": ["Druid|Balance"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/balance-druid-dps-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-238/lasherweave-regalia"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50821, "name": "Lasherweave Cover"},
-            {"tier": "25N", "id": 51149, "name": "Sanctified Lasherweave Cover"},
-            {"tier": "25H", "id": 51290, "name": "Sanctified Lasherweave Cover"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50819, "name": "Lasherweave Mantle"},
-            {"tier": "25N", "id": 51147, "name": "Sanctified Lasherweave Mantle"},
-            {"tier": "25H", "id": 51292, "name": "Sanctified Lasherweave Mantle"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50823, "name": "Lasherweave Vestment"},
-            {"tier": "25N", "id": 51145, "name": "Sanctified Lasherweave Vestment"},
-            {"tier": "25H", "id": 51294, "name": "Sanctified Lasherweave Vestment"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50822, "name": "Lasherweave Gloves"},
-            {"tier": "25N", "id": 51148, "name": "Sanctified Lasherweave Gloves"},
-            {"tier": "25H", "id": 51291, "name": "Sanctified Lasherweave Gloves"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50820, "name": "Lasherweave Leggings"},
-            {"tier": "25N", "id": 51146, "name": "Sanctified Lasherweave Leggings"},
-            {"tier": "25H", "id": 51293, "name": "Sanctified Lasherweave Leggings"}
-          ]
-        },
-        "bonus_2p": "When you gain Clearcasting from your Omen of Clarity talent, you deal 15% additional Nature and Arcane damage for 6 sec.",
-        "bonus_4p": "Your critical strikes from Starfire and Wrath cause the target to languish for an additional 7% of your spell's damage over 4 sec.",
-        "recommendations_by_spec": {
-          "Druid|Balance": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
-            "guide_quote": "Both the 2-piece (Omen of Doom) and 4-piece (Languish) bonuses are essential and provide a massive DPS increase, leaving legs as your off-set piece.",
-            "approx_value": "~6-7% de DPS total combinado (el 4p Languish aporta ~4.5-5% del daño de Starfire/Wrath)."
-          }
-        }
-      },
-      "Lasherweave Battlegear (Feral)": {
-        "specs": ["Druid|Feral DPS", "Druid|Feral Tank"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/feral-druid-dps-gear-best-in-slot",
-          "https://www.icy-veins.com/wotlk-classic/feral-druid-tank-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-239/lasherweave-battlegear"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50824, "name": "Lasherweave Headguard"},
-            {"tier": "25N", "id": 51143, "name": "Sanctified Lasherweave Headguard"},
-            {"tier": "25H", "id": 51296, "name": "Sanctified Lasherweave Headguard"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50827, "name": "Lasherweave Shoulderpads"},
-            {"tier": "25N", "id": 51140, "name": "Sanctified Lasherweave Shoulderpads"},
-            {"tier": "25H", "id": 51299, "name": "Sanctified Lasherweave Shoulderpads"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50828, "name": "Lasherweave Raiment"},
-            {"tier": "25N", "id": 51141, "name": "Sanctified Lasherweave Raiment"},
-            {"tier": "25H", "id": 51298, "name": "Sanctified Lasherweave Raiment"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50826, "name": "Lasherweave Handgrips"},
-            {"tier": "25N", "id": 51144, "name": "Sanctified Lasherweave Handgrips"},
-            {"tier": "25H", "id": 51295, "name": "Sanctified Lasherweave Handgrips"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50825, "name": "Lasherweave Legguards"},
-            {"tier": "25N", "id": 51142, "name": "Sanctified Lasherweave Legguards"},
-            {"tier": "25H", "id": 51297, "name": "Sanctified Lasherweave Legguards"}
-          ]
-        },
-        "bonus_2p": "Your Lacerate ability deals 20% additional damage and the cost of your Rip ability is reduced by 10 energy.",
-        "bonus_4p": "Your Enrage ability no longer decreases your armor and instead decreases all damage taken by 12%, and the periodic damage dealt by your Rake ability can now be a critical strike.",
-        "recommendations_by_spec": {
-          "Druid|Feral DPS": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Aldriana's Gloves of Secrecy (50675) en Hands",
-            "guide_quote": "Allowing Rake periodic ticks to critically strike makes the 4-piece Tier 10 bonus mandatory for Feral DPS.",
-            "approx_value": "~6-7.5% de DPS total combinado (2p + 4p)."
-          },
-          "Druid|Feral Tank": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Hands, Legs) + Ikfirus's Sack of Wonder (50656) en Chest",
-            "guide_quote": "The 4-piece bonus turns Enrage into an extra 12% damage reduction cooldown every minute while removing its armor penalty, making it mandatory for Bear tanks.",
-            "approx_value": "12% de reducción de daño en Enrage + 20% de daño en Lacerate."
-          }
-        }
-      },
-      "Lasherweave Garb (Restoration)": {
-        "specs": ["Druid|Restoration"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/restoration-druid-healer-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-240/lasherweave-garb"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50108, "name": "Lasherweave Helmet"},
-            {"tier": "25N", "id": 51138, "name": "Sanctified Lasherweave Helmet"},
-            {"tier": "25H", "id": 51301, "name": "Sanctified Lasherweave Helmet"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50110, "name": "Lasherweave Pauldrons"},
-            {"tier": "25N", "id": 51135, "name": "Sanctified Lasherweave Pauldrons"},
-            {"tier": "25H", "id": 51304, "name": "Sanctified Lasherweave Pauldrons"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50106, "name": "Lasherweave Robes"},
-            {"tier": "25N", "id": 51139, "name": "Sanctified Lasherweave Robes"},
-            {"tier": "25H", "id": 51300, "name": "Sanctified Lasherweave Robes"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50107, "name": "Lasherweave Gauntlets"},
-            {"tier": "25N", "id": 51137, "name": "Sanctified Lasherweave Gauntlets"},
-            {"tier": "25H", "id": 51302, "name": "Sanctified Lasherweave Gauntlets"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50109, "name": "Lasherweave Legplates"},
-            {"tier": "25N", "id": 51136, "name": "Sanctified Lasherweave Legplates"},
-            {"tier": "25H", "id": 51303, "name": "Sanctified Lasherweave Legplates"}
-          ]
-        },
-        "bonus_2p": "The healing granted by your Wild Growth spell reduces 30% less over time.",
-        "bonus_4p": "Each time your Rejuvenation spell heals a target, it has a 2% chance to jump to a new target at full duration.",
-        "recommendations_by_spec": {
-          "Druid|Restoration": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Hands, Legs) + Sanguine Silk Robes (50717) en Chest",
-            "guide_quote": "Both the 2-piece and 4-piece bonuses directly enhance your two strongest spells, Wild Growth and Rejuvenation, making 4-piece Tier 10 mandatory.",
-            "approx_value": "~5-7% de incremento de sanación total en banda (HPS)."
-          }
-        }
-      }
-    }
-  },
-  "Hunter": {
-    "variants": {
-      "Ahn'Kahar Blood Hunter's Battlegear": {
-        "specs": ["Hunter|Beast Mastery", "Hunter|Marksmanship", "Hunter|Survival"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/marksmanship-hunter-dps-gear-best-in-slot",
-          "https://www.icy-veins.com/wotlk-classic/survival-hunter-dps-gear-best-in-slot",
-          "https://www.icy-veins.com/wotlk-classic/beast-mastery-hunter-dps-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-237/ahnkahar-blood-hunters-battlegear"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50114, "name": "Ahn'Kahar Blood Hunter's Headpiece"},
-            {"tier": "25N", "id": 51153, "name": "Sanctified Ahn'Kahar Blood Hunter's Headpiece"},
-            {"tier": "25H", "id": 51286, "name": "Sanctified Ahn'Kahar Blood Hunter's Headpiece"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50116, "name": "Ahn'Kahar Blood Hunter's Spaulders"},
-            {"tier": "25N", "id": 51151, "name": "Sanctified Ahn'Kahar Blood Hunter's Spaulders"},
-            {"tier": "25H", "id": 51288, "name": "Sanctified Ahn'Kahar Blood Hunter's Spaulders"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50117, "name": "Ahn'Kahar Blood Hunter's Tunic"},
-            {"tier": "25N", "id": 51150, "name": "Sanctified Ahn'Kahar Blood Hunter's Tunic"},
-            {"tier": "25H", "id": 51289, "name": "Sanctified Ahn'Kahar Blood Hunter's Tunic"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50113, "name": "Ahn'Kahar Blood Hunter's Handguards"},
-            {"tier": "25N", "id": 51154, "name": "Sanctified Ahn'Kahar Blood Hunter's Handguards"},
-            {"tier": "25H", "id": 51285, "name": "Sanctified Ahn'Kahar Blood Hunter's Handguards"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50115, "name": "Ahn'Kahar Blood Hunter's Legguards"},
-            {"tier": "25N", "id": 51152, "name": "Sanctified Ahn'Kahar Blood Hunter's Legguards"},
-            {"tier": "25H", "id": 51287, "name": "Sanctified Ahn'Kahar Blood Hunter's Legguards"}
-          ]
-        },
-        "bonus_2p": "Your Auto Shots have a 5% chance to cause you and your pet to deal 15% additional damage for 10 sec.",
-        "bonus_4p": "Your Serpent Sting and Wyvern Sting abilities have a 5% chance to grant you 20% attack power for 10 sec each time they deal damage.",
-        "recommendations_by_spec": {
-          "Hunter|Beast Mastery": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Leggings of Northern Lights (50645) en Legs",
-            "guide_quote": "The 2-piece bonus buffs both you and your pet by 15% damage, making 4-piece Tier 10 with Leggings of Northern Lights the undisputed BiS.",
-            "approx_value": "~6-8% de DPS total combinado (2p + 4p)."
-          },
-          "Hunter|Marksmanship": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Leggings of Northern Lights (50645) en Legs",
-            "guide_quote": "Both Tier 10 set bonuses (Exploit Weakness and Stinger) are massive DPS gains, and you should use 4 pieces with Leggings of Northern Lights as your off-set piece.",
-            "approx_value": "~7-8% de DPS total combinado (2p + 4p)."
-          },
-          "Hunter|Survival": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Leggings of Northern Lights (50645) en Legs",
-            "guide_quote": "4-piece Tier 10 is mandatory for Survival, dropping the Tier legs for Leggings of Northern Lights.",
-            "approx_value": "~6-7.5% de DPS total combinado (2p + 4p)."
-          }
-        }
-      }
-    }
-  },
-  "Mage": {
-    "variants": {
-      "Bloodmage Regalia": {
-        "specs": ["Mage|Arcane", "Mage|Fire", "Mage|Frost"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/fire-mage-dps-gear-best-in-slot",
-          "https://www.icy-veins.com/wotlk-classic/arcane-mage-dps-gear-best-in-slot",
-          "https://www.icy-veins.com/wotlk-classic/frost-mage-dps-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-236/bloodmage-regalia"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50276, "name": "Bloodmage Hood"},
-            {"tier": "25N", "id": 51158, "name": "Sanctified Bloodmage Hood"},
-            {"tier": "25H", "id": 51281, "name": "Sanctified Bloodmage Hood"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50279, "name": "Bloodmage Shoulderpads"},
-            {"tier": "25N", "id": 51155, "name": "Sanctified Bloodmage Shoulderpads"},
-            {"tier": "25H", "id": 51284, "name": "Sanctified Bloodmage Shoulderpads"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50278, "name": "Bloodmage Robe"},
-            {"tier": "25N", "id": 51156, "name": "Sanctified Bloodmage Robe"},
-            {"tier": "25H", "id": 51283, "name": "Sanctified Bloodmage Robe"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50275, "name": "Bloodmage Gloves"},
-            {"tier": "25N", "id": 51159, "name": "Sanctified Bloodmage Gloves"},
-            {"tier": "25H", "id": 51280, "name": "Sanctified Bloodmage Gloves"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50277, "name": "Bloodmage Leggings"},
-            {"tier": "25N", "id": 51157, "name": "Sanctified Bloodmage Leggings"},
-            {"tier": "25H", "id": 51282, "name": "Sanctified Bloodmage Leggings"}
-          ]
-        },
-        "bonus_2p": "Your Hot Streak, Missile Barrage, and Brain Freeze talents also grant you 12% spell haste for 5 sec when the effect of the talent is consumed.",
-        "bonus_4p": "Your Mirror Image ability also causes you to deal 18% additional damage for 30 sec.",
-        "recommendations_by_spec": {
-          "Mage|Arcane": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
-            "guide_quote": "The 2-piece (12% haste on Missile Barrage) and 4-piece (18% damage for 30s on Mirror Image) are among the strongest set bonuses in the expansion; always run 4-piece with Plaguebringer's Stained Pants.",
-            "approx_value": "~8-10% de DPS total combinado (2p + 4p)."
-          },
-          "Mage|Fire": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
-            "guide_quote": "4-piece Tier 10 is mandatory for Fire Mage, leaving legs open for Plaguebringer's Stained Pants to cover a massive chunk of your Hit cap.",
-            "approx_value": "~8-10% de DPS total combinado (2p Pushing the Limit + 4p Quad-Core)."
-          },
-          "Mage|Frost": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
-            "guide_quote": "Use 4 pieces of Tier 10 with Plaguebringer's Stained Pants as your off-set piece.",
-            "approx_value": "~7-8% de DPS total combinado (2p + 4p)."
-          }
-        }
-      }
-    }
-  },
-  "Paladin": {
-    "variants": {
-      "Lightsworn Garb (Holy)": {
-        "specs": ["Paladin|Holy"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/holy-paladin-healer-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-233/lightsworn-garb"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50867, "name": "Lightsworn Headpiece"},
-            {"tier": "25N", "id": 51167, "name": "Sanctified Lightsworn Headpiece"},
-            {"tier": "25H", "id": 51272, "name": "Sanctified Lightsworn Headpiece"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50868, "name": "Lightsworn Spaulders"},
-            {"tier": "25N", "id": 51166, "name": "Sanctified Lightsworn Spaulders"},
-            {"tier": "25H", "id": 51273, "name": "Sanctified Lightsworn Spaulders"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50869, "name": "Lightsworn Tunic"},
-            {"tier": "25N", "id": 51165, "name": "Sanctified Lightsworn Tunic"},
-            {"tier": "25H", "id": 51274, "name": "Sanctified Lightsworn Tunic"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50865, "name": "Lightsworn Gloves"},
-            {"tier": "25N", "id": 51169, "name": "Sanctified Lightsworn Gloves"},
-            {"tier": "25H", "id": 51270, "name": "Sanctified Lightsworn Gloves"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50866, "name": "Lightsworn Greaves"},
-            {"tier": "25N", "id": 51168, "name": "Sanctified Lightsworn Greaves"},
-            {"tier": "25H", "id": 51271, "name": "Sanctified Lightsworn Greaves"}
-          ]
-        },
-        "bonus_2p": "While your Divine Illumination talent is active, your healing spells are 35% stronger.",
-        "bonus_4p": "Your Holy Shock spell causes the next Holy Light you cast within 10 sec to have 0.3 sec reduced cast time.",
-        "recommendations_by_spec": {
-          "Paladin|Holy": {
-            "recommended_pieces": "2 piezas (Head y Shoulder) + Chest, Hands y Legs off-set con Haste",
-            "guide_quote": "The 2-piece Tier 10 bonus is an incredible healing cooldown (+35% healing during Divine Illumination), but the 4-piece bonus is weak and the remaining Tier pieces lack Haste, so you only wear 2 pieces (Helm and Shoulders).",
-            "approx_value": "+35% de sanación durante 15s cada 3 minutos con el 2p; el 4p se descarta."
-          }
-        }
-      },
-      "Lightsworn Plate (Protection)": {
-        "specs": ["Paladin|Protection"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/protection-paladin-tank-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-234/lightsworn-plate"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50862, "name": "Lightsworn Faceguard"},
-            {"tier": "25N", "id": 51173, "name": "Sanctified Lightsworn Faceguard"},
-            {"tier": "25H", "id": 51266, "name": "Sanctified Lightsworn Faceguard"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50860, "name": "Lightsworn Shoulderguards"},
-            {"tier": "25N", "id": 51170, "name": "Sanctified Lightsworn Shoulderguards"},
-            {"tier": "25H", "id": 51269, "name": "Sanctified Lightsworn Shoulderguards"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50864, "name": "Lightsworn Chestguard"},
-            {"tier": "25N", "id": 51174, "name": "Sanctified Lightsworn Chestguard"},
-            {"tier": "25H", "id": 51265, "name": "Sanctified Lightsworn Chestguard"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50863, "name": "Lightsworn Handguards"},
-            {"tier": "25N", "id": 51172, "name": "Sanctified Lightsworn Handguards"},
-            {"tier": "25H", "id": 51267, "name": "Sanctified Lightsworn Handguards"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50861, "name": "Lightsworn Legguards"},
-            {"tier": "25N", "id": 51171, "name": "Sanctified Lightsworn Legguards"},
-            {"tier": "25H", "id": 51268, "name": "Sanctified Lightsworn Legguards"}
-          ]
-        },
-        "bonus_2p": "Your Hammer of the Righteous ability deals 20% more damage.",
-        "bonus_4p": "When you activate Divine Plea, you gain 12% dodge for 10 sec.",
-        "recommendations_by_spec": {
-          "Paladin|Protection": {
-            "recommended_pieces": "2 piezas (Shoulder y Hands) + Head (50640), Chest (50681) y Legs (50612) off-set con Bonus Armor (o 4p situacional)",
-            "guide_quote": "For maximum Effective Health (EHP), you only use 2-piece Tier 10 (Shoulders and Hands) alongside the three non-set Bonus Armor pieces (Broken Ram Skull Helm, Blightborne Warplate, and Legguards of Lost Hope).",
-            "approx_value": "+20% de daño en Hammer of the Righteous (2p)."
-          }
-        }
-      },
-      "Lightsworn Battlegear (Retribution)": {
-        "specs": ["Paladin|Retribution"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/retribution-paladin-dps-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-235/lightsworn-battlegear"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50326, "name": "Lightsworn Helmet"},
-            {"tier": "25N", "id": 51162, "name": "Sanctified Lightsworn Helmet"},
-            {"tier": "25H", "id": 51277, "name": "Sanctified Lightsworn Helmet"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50328, "name": "Lightsworn Shoulderplates"},
-            {"tier": "25N", "id": 51160, "name": "Sanctified Lightsworn Shoulderplates"},
-            {"tier": "25H", "id": 51279, "name": "Sanctified Lightsworn Shoulderplates"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50324, "name": "Lightsworn Battleplate"},
-            {"tier": "25N", "id": 51164, "name": "Sanctified Lightsworn Battleplate"},
-            {"tier": "25H", "id": 51275, "name": "Sanctified Lightsworn Battleplate"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50325, "name": "Lightsworn Gauntlets"},
-            {"tier": "25N", "id": 51163, "name": "Sanctified Lightsworn Gauntlets"},
-            {"tier": "25H", "id": 51276, "name": "Sanctified Lightsworn Gauntlets"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50327, "name": "Lightsworn Legplates"},
-            {"tier": "25N", "id": 51161, "name": "Sanctified Lightsworn Legplates"},
-            {"tier": "25H", "id": 51278, "name": "Sanctified Lightsworn Legplates"}
-          ]
-        },
-        "bonus_2p": "Your melee attacks have a 40% chance to reset the cooldown on your Divine Storm ability.",
-        "bonus_4p": "Your Seals and Judgements deal 10% additional damage.",
-        "recommendations_by_spec": {
-          "Paladin|Retribution": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Fleshrending Gauntlets (50690) o Aldriana's Gloves of Secrecy (50675) en Hands",
-            "guide_quote": "The 2-piece Tier 10 bonus completely transforms the Retribution rotation with frequent Divine Storm resets and synergizes with Tiny Abomination in a Jar, while the 4-piece adds 10% Seal and Judgement damage; 4-piece is mandatory.",
-            "approx_value": "~8-10% de DPS total combinado (2p + 4p)."
-          }
-        }
-      }
-    }
-  },
-  "Priest": {
-    "variants": {
-      "Crimson Acolyte's Regalia (Healer)": {
-        "specs": ["Priest|Discipline", "Priest|Holy"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/discipline-priest-healer-gear-best-in-slot",
-          "https://www.icy-veins.com/wotlk-classic/holy-priest-healer-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-231/crimson-acolytes-regalia"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50767, "name": "Crimson Acolyte Hood"},
-            {"tier": "25N", "id": 51178, "name": "Sanctified Crimson Acolyte Hood"},
-            {"tier": "25H", "id": 51261, "name": "Sanctified Crimson Acolyte Hood"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50766, "name": "Crimson Acolyte Shoulderpads"},
-            {"tier": "25N", "id": 51175, "name": "Sanctified Crimson Acolyte Shoulderpads"},
-            {"tier": "25H", "id": 51264, "name": "Sanctified Crimson Acolyte Shoulderpads"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50769, "name": "Crimson Acolyte Robe"},
-            {"tier": "25N", "id": 51176, "name": "Sanctified Crimson Acolyte Robe"},
-            {"tier": "25H", "id": 51263, "name": "Sanctified Crimson Acolyte Robe"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50765, "name": "Crimson Acolyte Gloves"},
-            {"tier": "25N", "id": 51179, "name": "Sanctified Crimson Acolyte Gloves"},
-            {"tier": "25H", "id": 51260, "name": "Sanctified Crimson Acolyte Gloves"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50768, "name": "Crimson Acolyte Leggings"},
-            {"tier": "25N", "id": 51177, "name": "Sanctified Crimson Acolyte Leggings"},
-            {"tier": "25H", "id": 51262, "name": "Sanctified Crimson Acolyte Leggings"}
-          ]
-        },
-        "bonus_2p": "Your Flash Heal spell has a 33% chance to cause the target to heal for 33% of the healed amount over 9 sec.",
-        "bonus_4p": "Increases the effect of your Power Word: Shield by 5% and Circle of Healing by 10%.",
-        "recommendations_by_spec": {
-          "Priest|Discipline": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + San'layn Ritualist Gloves (50722) en Hands",
-            "guide_quote": "The 4-piece bonus directly increases Power Word: Shield by 5%, which makes up the vast majority of your healing output, making 4-piece Tier 10 mandatory.",
-            "approx_value": "+5% directo a todas las absorciones de Power Word: Shield (~3.5-4% de HPS total)."
-          },
-          "Priest|Holy": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Hands, Legs) + Sanguine Silk Robes (50717) en Chest",
-            "guide_quote": "4-piece Tier 10 is mandatory for Holy Priest to gain the 10% increase on Circle of Healing, using Sanguine Silk Robes as your off-set piece.",
-            "approx_value": "+10% directo a Circle of Healing y +11% promedio en Flash Heal."
-          }
-        }
-      },
-      "Crimson Acolyte's Raiment (Shadow)": {
-        "specs": ["Priest|Shadow"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/shadow-priest-dps-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-232/crimson-acolytes-raiment"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50392, "name": "Crimson Acolyte Cowl"},
-            {"tier": "25N", "id": 51184, "name": "Sanctified Crimson Acolyte Cowl"},
-            {"tier": "25H", "id": 51255, "name": "Sanctified Crimson Acolyte Cowl"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50396, "name": "Crimson Acolyte Mantle"},
-            {"tier": "25N", "id": 51182, "name": "Sanctified Crimson Acolyte Mantle"},
-            {"tier": "25H", "id": 51257, "name": "Sanctified Crimson Acolyte Mantle"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50394, "name": "Crimson Acolyte Raiments"},
-            {"tier": "25N", "id": 51181, "name": "Sanctified Crimson Acolyte Raiments"},
-            {"tier": "25H", "id": 51258, "name": "Sanctified Crimson Acolyte Raiments"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50391, "name": "Crimson Acolyte Handwraps"},
-            {"tier": "25N", "id": 51183, "name": "Sanctified Crimson Acolyte Handwraps"},
-            {"tier": "25H", "id": 51256, "name": "Sanctified Crimson Acolyte Handwraps"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50393, "name": "Crimson Acolyte Pants"},
-            {"tier": "25N", "id": 51180, "name": "Sanctified Crimson Acolyte Pants"},
-            {"tier": "25H", "id": 51259, "name": "Sanctified Crimson Acolyte Pants"}
-          ]
-        },
-        "bonus_2p": "The critical strike chance of your Shadow Word: Pain, Devouring Plague, and Vampiric Touch spells is increased by 5%.",
-        "bonus_4p": "Reduces the channel duration by 0.5 sec and period by 0.17 sec on your Mind Flay spell.",
-        "recommendations_by_spec": {
-          "Priest|Shadow": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
-            "guide_quote": "The 4-piece Tier 10 bonus is the single biggest upgrade for Shadow Priests in WotLK, reducing Mind Flay's base channel from 3.0s to 2.5s (a 20% effective haste increase on Mind Flay).",
-            "approx_value": "~8-10% de DPS total combinado (2p + 4p)."
-          }
-        }
-      }
-    }
-  },
-  "Rogue": {
-    "variants": {
-      "Shadowblade's Battlegear": {
-        "specs": ["Rogue|Assassination", "Rogue|Combat", "Rogue|Subtlety"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/assassination-rogue-dps-gear-best-in-slot",
-          "https://www.icy-veins.com/wotlk-classic/combat-rogue-dps-gear-best-in-slot",
-          "https://www.icy-veins.com/wotlk-classic/subtlety-rogue-dps-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-230/shadowblades-battlegear"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50085, "name": "Shadowblade Helmet"},
-            {"tier": "25N", "id": 51187, "name": "Sanctified Shadowblade Helmet"},
-            {"tier": "25H", "id": 51252, "name": "Sanctified Shadowblade Helmet"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50105, "name": "Shadowblade Pauldrons"},
-            {"tier": "25N", "id": 51185, "name": "Sanctified Shadowblade Pauldrons"},
-            {"tier": "25H", "id": 51254, "name": "Sanctified Shadowblade Pauldrons"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50083, "name": "Shadowblade Breastplate"},
-            {"tier": "25N", "id": 51189, "name": "Sanctified Shadowblade Breastplate"},
-            {"tier": "25H", "id": 51250, "name": "Sanctified Shadowblade Breastplate"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50084, "name": "Shadowblade Gauntlets"},
-            {"tier": "25N", "id": 51188, "name": "Sanctified Shadowblade Gauntlets"},
-            {"tier": "25H", "id": 51251, "name": "Sanctified Shadowblade Gauntlets"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50086, "name": "Shadowblade Legplates"},
-            {"tier": "25N", "id": 51186, "name": "Sanctified Shadowblade Legplates"},
-            {"tier": "25H", "id": 51253, "name": "Sanctified Shadowblade Legplates"}
-          ]
-        },
-        "bonus_2p": "Gives your Tricks of the Trade ability a 15 energy Return instead of costing energy.",
-        "bonus_4p": "Gives your melee finishing moves a 13% chance to add 3 combo points to your target.",
-        "recommendations_by_spec": {
-          "Rogue|Assassination": {
-            "recommended_pieces": "2 piezas (Head y Hands) + Shoulder (50646), Chest (50656) y Legs (50697) off-set",
-            "guide_quote": "The 2-piece Tier 10 bonus is mandatory (turning Tricks of the Trade from a 15 energy cost into a 15 energy gain), while using 3 heroic off-set pieces outperforms the 4-piece bonus due to superior Haste/Crit stats.",
-            "approx_value": "2p aporta +30 de energía neta cada 30s (~2.5-3% de DPS)."
-          },
-          "Rogue|Combat": {
-            "recommended_pieces": "2 piezas (Head y Shoulder) + Chest (50656), Hands (50675) y Legs (50697) off-set (o 4p antes de tener las 3 piezas 277 off-set)",
-            "guide_quote": "In full 277 BiS gear, running 2-piece Tier 10 (Helm and Shoulders) with three 277 off-set pieces slightly outperforms 4-piece Tier 10 because it allows reaching the 1400 Armor Penetration cap with superior secondary stats.",
-            "approx_value": "2p aporta +30 de energía neta cada 30s; 2p + 3 off-set 277 supera al 4p por ~20-40 DPS en BiS absoluto."
-          },
-          "Rogue|Subtlety": {
-            "recommended_pieces": "2 piezas (Head y Shoulder/Hands) + 3 piezas off-set 277",
-            "guide_quote": "Use 2-piece Tier 10 for the Tricks of the Trade energy return and fill the remaining three slots with 277 non-set leather pieces.",
-            "approx_value": "2p aporta +30 de energía neta cada 30s."
-          }
-        }
-      }
-    }
-  },
-  "Shaman": {
-    "variants": {
-      "Frost Witch's Regalia (Elemental)": {
-        "specs": ["Shaman|Elemental"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/elemental-shaman-dps-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-228/frost-witchs-regalia"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50843, "name": "Frost Witch's Helm"},
-            {"tier": "25N", "id": 51202, "name": "Sanctified Frost Witch's Helm"},
-            {"tier": "25H", "id": 51237, "name": "Sanctified Frost Witch's Helm"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50840, "name": "Frost Witch's Shoulderpads"},
-            {"tier": "25N", "id": 51204, "name": "Sanctified Frost Witch's Shoulderpads"},
-            {"tier": "25H", "id": 51235, "name": "Sanctified Frost Witch's Shoulderpads"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50842, "name": "Frost Witch's Hauberk"},
-            {"tier": "25N", "id": 51201, "name": "Sanctified Frost Witch's Hauberk"},
-            {"tier": "25H", "id": 51238, "name": "Sanctified Frost Witch's Hauberk"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50841, "name": "Frost Witch's Gloves"},
-            {"tier": "25N", "id": 51200, "name": "Sanctified Frost Witch's Gloves"},
-            {"tier": "25H", "id": 51239, "name": "Sanctified Frost Witch's Gloves"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50844, "name": "Frost Witch's Kilt"},
-            {"tier": "25N", "id": 51203, "name": "Sanctified Frost Witch's Kilt"},
-            {"tier": "25H", "id": 51236, "name": "Sanctified Frost Witch's Kilt"}
-          ]
-        },
-        "bonus_2p": "Your Lightning Bolt and Chain Lightning spells reduce the remaining cooldown on your Elemental Mastery talent by 2 sec.",
-        "bonus_4p": "The cast time of your Lava Burst spell allows your Flame Shock periodic damage ticks to deal damage for at least 6 additional sec.",
-        "recommendations_by_spec": {
-          "Shaman|Elemental": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
-            "guide_quote": "Both the 2-piece and 4-piece bonuses are huge DPS gains; the 4-piece extends Flame Shock by 6 seconds every time you cast Lava Burst, almost completely removing the need to recast Flame Shock on single target.",
-            "approx_value": "~6-7% de DPS total combinado (2p + 4p)."
-          }
-        }
-      },
-      "Frost Witch's Battlegear (Enhancement)": {
-        "specs": ["Shaman|Enhancement"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/enhancement-shaman-dps-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-229/frost-witchs-battlegear"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50832, "name": "Frost Witch's Faceguard"},
-            {"tier": "25N", "id": 51197, "name": "Sanctified Frost Witch's Faceguard"},
-            {"tier": "25H", "id": 51242, "name": "Sanctified Frost Witch's Faceguard"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50834, "name": "Frost Witch's Shoulderguards"},
-            {"tier": "25N", "id": 51199, "name": "Sanctified Frost Witch's Shoulderguards"},
-            {"tier": "25H", "id": 51240, "name": "Sanctified Frost Witch's Shoulderguards"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50830, "name": "Frost Witch's Cuirass"},
-            {"tier": "25N", "id": 51195, "name": "Sanctified Frost Witch's Cuirass"},
-            {"tier": "25H", "id": 51244, "name": "Sanctified Frost Witch's Cuirass"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50831, "name": "Frost Witch's Grips"},
-            {"tier": "25N", "id": 51196, "name": "Sanctified Frost Witch's Grips"},
-            {"tier": "25H", "id": 51243, "name": "Sanctified Frost Witch's Grips"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50833, "name": "Frost Witch's War-Kilt"},
-            {"tier": "25N", "id": 51198, "name": "Sanctified Frost Witch's War-Kilt"},
-            {"tier": "25H", "id": 51241, "name": "Sanctified Frost Witch's War-Kilt"}
-          ]
-        },
-        "bonus_2p": "When you activate your Shamanistic Rage ability you also deal 12% additional damage for 15 sec.",
-        "bonus_4p": "Whenever your Maelstrom Weapon talent reaches 5 charges, you have a 15% chance to gain 20% attack power for 10 sec.",
-        "recommendations_by_spec": {
-          "Shaman|Enhancement": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Anub'ar Stalker's Gloves (50619) en Hands",
-            "guide_quote": "The 2-piece turns Shamanistic Rage into an offensive 12% damage cooldown every minute and the 4-piece grants a 20% Attack Power buff on 5-stack Maelstrom Weapon procs; 4-piece is mandatory.",
-            "approx_value": "~7-9% de DPS total combinado (2p + 4p)."
-          }
-        }
-      },
-      "Frost Witch's Garb (Restoration)": {
-        "specs": ["Shaman|Restoration"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/restoration-shaman-healer-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-227/frost-witchs-garb"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50837, "name": "Frost Witch's Headpiece"},
-            {"tier": "25N", "id": 51192, "name": "Sanctified Frost Witch's Headpiece"},
-            {"tier": "25H", "id": 51247, "name": "Sanctified Frost Witch's Headpiece"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50839, "name": "Frost Witch's Spaulders"},
-            {"tier": "25N", "id": 51194, "name": "Sanctified Frost Witch's Spaulders"},
-            {"tier": "25H", "id": 51245, "name": "Sanctified Frost Witch's Spaulders"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50835, "name": "Frost Witch's Tunic"},
-            {"tier": "25N", "id": 51190, "name": "Sanctified Frost Witch's Tunic"},
-            {"tier": "25H", "id": 51249, "name": "Sanctified Frost Witch's Tunic"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50836, "name": "Frost Witch's Handguards"},
-            {"tier": "25N", "id": 51191, "name": "Sanctified Frost Witch's Handguards"},
-            {"tier": "25H", "id": 51248, "name": "Sanctified Frost Witch's Handguards"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50838, "name": "Frost Witch's Legguards"},
-            {"tier": "25N", "id": 51193, "name": "Sanctified Frost Witch's Legguards"},
-            {"tier": "25H", "id": 51246, "name": "Sanctified Frost Witch's Legguards"}
-          ]
-        },
-        "bonus_2p": "Your Riptide spell grants 20% spell haste for your next spell cast within 10 sec.",
-        "bonus_4p": "Your Chain Heal critical strikes cause the target to heal for 25% of the healed amount over 9 sec.",
-        "recommendations_by_spec": {
-          "Shaman|Restoration": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Unclean Surgical Gloves (50703) en Hands",
-            "guide_quote": "Both the 2-piece (20% spell haste after Riptide) and 4-piece (25% HoT on Chain Heal crits) are monumental throughput upgrades, making 4-piece Tier 10 mandatory.",
-            "approx_value": "~6-8% de incremento de sanación total en banda (HPS)."
-          }
-        }
-      }
-    }
-  },
-  "Warlock": {
-    "variants": {
-      "Dark Coven's Regalia": {
-        "specs": ["Warlock|Affliction", "Warlock|Demonology", "Warlock|Destruction"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/affliction-warlock-dps-gear-best-in-slot",
-          "https://www.icy-veins.com/wotlk-classic/demonology-warlock-dps-gear-best-in-slot",
-          "https://www.icy-veins.com/wotlk-classic/destruction-warlock-dps-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-226/dark-covens-regalia"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50241, "name": "Dark Coven Hood"},
-            {"tier": "25N", "id": 51208, "name": "Sanctified Dark Coven Hood"},
-            {"tier": "25H", "id": 51231, "name": "Sanctified Dark Coven Hood"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50244, "name": "Dark Coven Shoulderpads"},
-            {"tier": "25N", "id": 51205, "name": "Sanctified Dark Coven Shoulderpads"},
-            {"tier": "25H", "id": 51234, "name": "Sanctified Dark Coven Shoulderpads"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50243, "name": "Dark Coven Robe"},
-            {"tier": "25N", "id": 51206, "name": "Sanctified Dark Coven Robe"},
-            {"tier": "25H", "id": 51233, "name": "Sanctified Dark Coven Robe"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50240, "name": "Dark Coven Gloves"},
-            {"tier": "25N", "id": 51209, "name": "Sanctified Dark Coven Gloves"},
-            {"tier": "25H", "id": 51230, "name": "Sanctified Dark Coven Gloves"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50242, "name": "Dark Coven Leggings"},
-            {"tier": "25N", "id": 51207, "name": "Sanctified Dark Coven Leggings"},
-            {"tier": "25H", "id": 51232, "name": "Sanctified Dark Coven Leggings"}
-          ]
-        },
-        "bonus_2p": "The critical strike chance of your Shadow Bolt, Incinerate, Soul Fire, and Corruption abilities is increased by 5%.",
-        "bonus_4p": "Each time your Immolate and Unstable Affliction spells deal periodic damage, you have a 15% chance to cause you and your pet to deal 10% additional damage for 10 sec.",
-        "recommendations_by_spec": {
-          "Warlock|Affliction": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
-            "guide_quote": "4-piece Tier 10 is mandatory for Affliction; both the 5% Corruption crit from the 2-piece and the 10% damage buff from the 4-piece (Devious Minds) can be snapshotted into Corruption for the entire fight.",
-            "approx_value": "~7-9% de DPS total combinado (incluyendo el snapshot permanente en Corruption)."
-          },
-          "Warlock|Demonology": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + San'layn Ritualist Gloves (50722) en Hands (o 4p con Legs off-set 50694 si falta Hit)",
-            "guide_quote": "4-piece Tier 10 is mandatory for Demonology, as Devious Minds buffs both you and your Felguard by 10% damage.",
-            "approx_value": "~6-7.5% de DPS personal combinado (2p + 4p)."
-          },
-          "Warlock|Destruction": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
-            "guide_quote": "Use 4-piece Tier 10 with Plaguebringer's Stained Pants as your off-set piece.",
-            "approx_value": "~6-7% de DPS total combinado (2p + 4p)."
-          }
-        }
-      }
-    }
-  },
-  "Warrior": {
-    "variants": {
-      "Ymirjar Lord's Battlegear (DPS)": {
-        "specs": ["Warrior|Arms", "Warrior|Fury"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/fury-warrior-dps-gear-best-in-slot",
-          "https://www.icy-veins.com/wotlk-classic/arms-warrior-dps-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-225/ymirjar-lords-battlegear"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50080, "name": "Ymirjar Lord's Helmet"},
-            {"tier": "25N", "id": 51212, "name": "Sanctified Ymirjar Lord's Helmet"},
-            {"tier": "25H", "id": 51227, "name": "Sanctified Ymirjar Lord's Helmet"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50082, "name": "Ymirjar Lord's Shoulderplates"},
-            {"tier": "25N", "id": 51210, "name": "Sanctified Ymirjar Lord's Shoulderplates"},
-            {"tier": "25H", "id": 51229, "name": "Sanctified Ymirjar Lord's Shoulderplates"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50078, "name": "Ymirjar Lord's Battleplate"},
-            {"tier": "25N", "id": 51214, "name": "Sanctified Ymirjar Lord's Battleplate"},
-            {"tier": "25H", "id": 51225, "name": "Sanctified Ymirjar Lord's Battleplate"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50079, "name": "Ymirjar Lord's Gauntlets"},
-            {"tier": "25N", "id": 51213, "name": "Sanctified Ymirjar Lord's Gauntlets"},
-            {"tier": "25H", "id": 51226, "name": "Sanctified Ymirjar Lord's Gauntlets"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50081, "name": "Ymirjar Lord's Legplates"},
-            {"tier": "25N", "id": 51211, "name": "Sanctified Ymirjar Lord's Legplates"},
-            {"tier": "25H", "id": 51228, "name": "Sanctified Ymirjar Lord's Legplates"}
-          ]
-        },
-        "bonus_2p": "When your Deep Wounds ability deals damage you have a 3% chance to gain 16% attack power for 10 sec.",
-        "bonus_4p": "You have a 20% chance for your Bloodsurge and Sudden Death talents to grant 2 charges of their effect instead of 1, reduces the global cooldown on Execute or Slam by 0.5 sec, and increases the duration of the effect by 100%.",
-        "recommendations_by_spec": {
-          "Warrior|Arms": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Aldriana's Gloves of Secrecy (50675) en Hands",
-            "guide_quote": "Both the 2-piece (16% Attack Power on Deep Wounds ticks) and 4-piece (double Sudden Death charges with a 1.0s Execute GCD) are mandatory for Arms.",
-            "approx_value": "~5-7% de DPS total combinado (mayor en combates con cleave por más tics de Deep Wounds)."
-          },
-          "Warrior|Fury": {
-            "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Aldriana's Gloves of Secrecy (50675) en Hands",
-            "guide_quote": "You will always use 4-piece Tier 10 as Fury, using leather Aldriana's Gloves of Secrecy in the hands slot while replacing the Tier Gauntlets (which have Expertise and Hit beyond what you need).",
-            "approx_value": "~6-8% de DPS total combinado (2p + 4p)."
-          }
-        }
-      },
-      "Ymirjar Lord's Plate (Protection)": {
-        "specs": ["Warrior|Protection"],
-        "sources": [
-          "https://www.icy-veins.com/wotlk-classic/protection-warrior-tank-gear-best-in-slot",
-          "https://www.wowhead.com/wotlk/item-set=-224/ymirjar-lords-plate"
-        ],
-        "pieces": {
-          "head": [
-            {"tier": "10N", "id": 50848, "name": "Ymirjar Lord's Greathelm"},
-            {"tier": "25N", "id": 51218, "name": "Sanctified Ymirjar Lord's Greathelm"},
-            {"tier": "25H", "id": 51221, "name": "Sanctified Ymirjar Lord's Greathelm"}
-          ],
-          "shoulder": [
-            {"tier": "10N", "id": 50845, "name": "Ymirjar Lord's Pauldrons"},
-            {"tier": "25N", "id": 51215, "name": "Sanctified Ymirjar Lord's Pauldrons"},
-            {"tier": "25H", "id": 51224, "name": "Sanctified Ymirjar Lord's Pauldrons"}
-          ],
-          "chest": [
-            {"tier": "10N", "id": 50846, "name": "Ymirjar Lord's Breastplate"},
-            {"tier": "25N", "id": 51219, "name": "Sanctified Ymirjar Lord's Breastplate"},
-            {"tier": "25H", "id": 51220, "name": "Sanctified Ymirjar Lord's Breastplate"}
-          ],
-          "hands": [
-            {"tier": "10N", "id": 50847, "name": "Ymirjar Lord's Handguards"},
-            {"tier": "25N", "id": 51217, "name": "Sanctified Ymirjar Lord's Handguards"},
-            {"tier": "25H", "id": 51222, "name": "Sanctified Ymirjar Lord's Handguards"}
-          ],
-          "legs": [
-            {"tier": "10N", "id": 50849, "name": "Ymirjar Lord's Legguards"},
-            {"tier": "25N", "id": 51216, "name": "Sanctified Ymirjar Lord's Legguards"},
-            {"tier": "25H", "id": 51223, "name": "Sanctified Ymirjar Lord's Legguards"}
-          ]
-        },
-        "bonus_2p": "Your Shield Slam and Shockwave abilities deal 20% increased damage.",
-        "bonus_4p": "Your Bloodrage ability no longer costs health to use, and now causes you to absorb damage equal to 20% of your maximum health. Lasts 10 sec.",
-        "recommendations_by_spec": {
-          "Warrior|Protection": {
-            "recommended_pieces": "4 piezas (Shoulder, Chest, Hands, Legs) + Broken Ram Skull Helm (50640) en Head (o 4p con Legguards of Lost Hope 50612 en Legs)",
-            "guide_quote": "The 2-piece provides a massive boost to your two main threat abilities (Shield Slam and Shockwave) and the 4-piece turns Bloodrage into a 20% max health absorb shield every minute.",
-            "approx_value": "+20% de daño en Shield Slam/Shockwave (2p) y escudo de absorción del 20% de la salud máxima cada 40-60s (4p)."
-          }
-        }
-      }
-    }
-  },
-  "resumen_calidad": {
-    "estado_general": "MÓDULO 3 COMPLETADO (9 clases, 19 sets de Tier 10, 95 objetos x 3 dificultades = 285 IDs verificados, 31 especialidades cubiertas)",
-    "discrepancias_entre_fuentes": [
-      "Rogue|Combat: Icy Veins y Wowhead coinciden en que con equipo BiS completo de ilvl 277, llevar solo 2 piezas de Tier 10 (Head 51252 y Shoulder 51254) junto con 3 piezas off-set 277 (Ikfirus's Sack of Wonder 50656, Aldriana's Gloves of Secrecy 50675 y Gangrenous Leggings 50697) supera ligeramente al bonus de 4 piezas porque permite alcanzar el hard cap de 1400 de Armor Penetration con mejores estadísticas secundarias; sin embargo, antes de tener las 3 piezas 277 off-set, el 4p T10 es superior.",
-      "Paladin|Protection: Ambas fuentes presentan dos configuraciones de Tier 10: 2 piezas (Shoulder + Hands) combinadas con 3 piezas off-set con Bonus Armor (Head 50640, Chest 50681, Legs 50612) para maximizar la armadura y vida efectiva (EHP) contra jefes físicos como el Rey Exánime, o 4 piezas para contar con el proc de 12% de esquiva al activar Divine Plea.",
-      "Warlock|Demonology: Si el brujo invierte puntos en Suppression o recibe el 1% de golpe de un Draenei, reemplaza los guantes de Tier por San'layn Ritualist Gloves (50722) manteniendo los pantalones de Tier (que tienen Spirit); si no llega al tope de Hit, usa Plaguebringer's Stained Pants (50694) en piernas y mantiene los guantes de Tier."
+ "Death Knight": {
+  "variants": {
+   "Scourgelord's Plate (Tank)": {
+    "specs": [
+     "Death Knight|Blood Tank"
     ],
-    "especialidades_con_fuente_debil_o_notas": [
-      "Valor porcentual de los bonus (~X% de DPS/HPS): Ni Icy Veins ni Wowhead publican una tabla numérica estandarizada de porcentaje exacto en todas las páginas de fase 4; en las especialidades donde el análisis textual de la guía explicita el porcentaje aproximado o el efecto directo, se transcribió junto con su explicación.",
-      "NO ENCONTRADO: Ningún ID ni texto de bonus quedó como NO ENCONTRADO."
-    ]
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/blood-death-knight-tank-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-242/scourgelords-plate"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50855,
+       "name": "Scourgelord Faceguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51689,
+       "name": "Scourgelord Faceguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51133,
+       "name": "Sanctified Scourgelord Faceguard",
+       "ilvl": 264
+      },
+      {
+       "id": 51306,
+       "name": "Sanctified Scourgelord Faceguard",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50853,
+       "name": "Scourgelord Pauldrons",
+       "ilvl": 251
+      },
+      {
+       "id": 51691,
+       "name": "Scourgelord Pauldrons",
+       "ilvl": 251
+      },
+      {
+       "id": 51130,
+       "name": "Sanctified Scourgelord Pauldrons",
+       "ilvl": 264
+      },
+      {
+       "id": 51309,
+       "name": "Sanctified Scourgelord Pauldrons",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50857,
+       "name": "Scourgelord Chestguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51687,
+       "name": "Scourgelord Chestguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51134,
+       "name": "Sanctified Scourgelord Chestguard",
+       "ilvl": 264
+      },
+      {
+       "id": 51305,
+       "name": "Sanctified Scourgelord Chestguard",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50856,
+       "name": "Scourgelord Handguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51688,
+       "name": "Scourgelord Handguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51132,
+       "name": "Sanctified Scourgelord Handguards",
+       "ilvl": 264
+      },
+      {
+       "id": 51307,
+       "name": "Sanctified Scourgelord Handguards",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50854,
+       "name": "Scourgelord Legguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51690,
+       "name": "Scourgelord Legguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51131,
+       "name": "Sanctified Scourgelord Legguards",
+       "ilvl": 264
+      },
+      {
+       "id": 51308,
+       "name": "Sanctified Scourgelord Legguards",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "Increases the damage done by your Death and Decay ability by 20%.",
+    "bonus_4p": "When you activate Blood Tap, you gain 12% damage reduction from all attacks for 10 sec.",
+    "recommendations_by_spec": {
+     "Death Knight|Blood Tank": {
+      "recommended_pieces": "4 piezas (Shoulder, Chest, Hands, Legs) + Broken Ram Skull Helm (50640) en Head",
+      "guide_quote": "The 4-piece Tier 10 bonus turns Blood Tap into a 12% damage reduction cooldown on a 1-minute timer, making it mandatory for progression tanking in Icecrown Citadel.",
+      "approx_value": "12% de reducción de daño activa durante 10s cada 60s (Blood Tap)."
+     }
+    }
+   },
+   "Scourgelord's Battlegear (DPS)": {
+    "specs": [
+     "Death Knight|Frost DPS",
+     "Death Knight|Unholy DPS"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/frost-death-knight-dps-gear-best-in-slot",
+     "https://www.icy-veins.com/wotlk-classic/unholy-death-knight-dps-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-241/scourgelords-battlegear"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50096,
+       "name": "Scourgelord Helmet",
+       "ilvl": 251
+      },
+      {
+       "id": 51684,
+       "name": "Scourgelord Helmet",
+       "ilvl": 251
+      },
+      {
+       "id": 51127,
+       "name": "Sanctified Scourgelord Helmet",
+       "ilvl": 264
+      },
+      {
+       "id": 51312,
+       "name": "Sanctified Scourgelord Helmet",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50098,
+       "name": "Scourgelord Shoulderplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51682,
+       "name": "Scourgelord Shoulderplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51125,
+       "name": "Sanctified Scourgelord Shoulderplates",
+       "ilvl": 264
+      },
+      {
+       "id": 51314,
+       "name": "Sanctified Scourgelord Shoulderplates",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50094,
+       "name": "Scourgelord Battleplate",
+       "ilvl": 251
+      },
+      {
+       "id": 51686,
+       "name": "Scourgelord Battleplate",
+       "ilvl": 251
+      },
+      {
+       "id": 51129,
+       "name": "Sanctified Scourgelord Battleplate",
+       "ilvl": 264
+      },
+      {
+       "id": 51310,
+       "name": "Sanctified Scourgelord Battleplate",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50095,
+       "name": "Scourgelord Gauntlets",
+       "ilvl": 251
+      },
+      {
+       "id": 51685,
+       "name": "Scourgelord Gauntlets",
+       "ilvl": 251
+      },
+      {
+       "id": 51128,
+       "name": "Sanctified Scourgelord Gauntlets",
+       "ilvl": 264
+      },
+      {
+       "id": 51311,
+       "name": "Sanctified Scourgelord Gauntlets",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50097,
+       "name": "Scourgelord Legplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51683,
+       "name": "Scourgelord Legplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51126,
+       "name": "Sanctified Scourgelord Legplates",
+       "ilvl": 264
+      },
+      {
+       "id": 51313,
+       "name": "Sanctified Scourgelord Legplates",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "Increases the damage done by your Obliterate and Scourge Strike abilities by 10% and the damage done by your Heart Strike ability by 7%.",
+    "bonus_4p": "Whenever all your runes are on cooldown, you gain 3% increased damage done with Weapons, Spells, and Abilities for the next 15 sec.",
+    "recommendations_by_spec": {
+     "Death Knight|Frost DPS": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Aldriana's Gloves of Secrecy (50675) en Hands",
+      "guide_quote": "Both the 2-piece and 4-piece Tier 10 bonuses are massive upgrades for Frost, as Obliterate is your top damaging ability and the 4-piece 3% damage buff has near 100% uptime.",
+      "approx_value": "~5-6% de DPS total combinado (2p + 4p)."
+     },
+     "Death Knight|Unholy DPS": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Scourge Reaver's Legplates (50624) en Legs",
+      "guide_quote": "You will want to use 4-piece Tier 10 as Unholy, dropping the Tier legs for Scourge Reaver's Legplates.",
+      "approx_value": "~4.5-5% de DPS total combinado (2p + 4p)."
+     }
+    }
+   }
   }
+ },
+ "Druid": {
+  "variants": {
+   "Lasherweave Regalia (Balance)": {
+    "specs": [
+     "Druid|Balance"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/balance-druid-dps-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-238/lasherweave-regalia"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50821,
+       "name": "Lasherweave Cover",
+       "ilvl": 251
+      },
+      {
+       "id": 51704,
+       "name": "Lasherweave Cover",
+       "ilvl": 251
+      },
+      {
+       "id": 51149,
+       "name": "Sanctified Lasherweave Cover",
+       "ilvl": 264
+      },
+      {
+       "id": 51290,
+       "name": "Sanctified Lasherweave Cover",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50819,
+       "name": "Lasherweave Mantle",
+       "ilvl": 251
+      },
+      {
+       "id": 51706,
+       "name": "Lasherweave Mantle",
+       "ilvl": 251
+      },
+      {
+       "id": 51147,
+       "name": "Sanctified Lasherweave Mantle",
+       "ilvl": 264
+      },
+      {
+       "id": 51292,
+       "name": "Sanctified Lasherweave Mantle",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50823,
+       "name": "Lasherweave Vestment",
+       "ilvl": 251
+      },
+      {
+       "id": 51702,
+       "name": "Lasherweave Vestment",
+       "ilvl": 251
+      },
+      {
+       "id": 51145,
+       "name": "Sanctified Lasherweave Vestment",
+       "ilvl": 264
+      },
+      {
+       "id": 51294,
+       "name": "Sanctified Lasherweave Vestment",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50822,
+       "name": "Lasherweave Gloves",
+       "ilvl": 251
+      },
+      {
+       "id": 51703,
+       "name": "Lasherweave Gloves",
+       "ilvl": 251
+      },
+      {
+       "id": 51148,
+       "name": "Sanctified Lasherweave Gloves",
+       "ilvl": 264
+      },
+      {
+       "id": 51291,
+       "name": "Sanctified Lasherweave Gloves",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50820,
+       "name": "Lasherweave Trousers",
+       "ilvl": 251
+      },
+      {
+       "id": 51705,
+       "name": "Lasherweave Trousers",
+       "ilvl": 251
+      },
+      {
+       "id": 51146,
+       "name": "Sanctified Lasherweave Trousers",
+       "ilvl": 264
+      },
+      {
+       "id": 51293,
+       "name": "Sanctified Lasherweave Trousers",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "When you gain Clearcasting from your Omen of Clarity talent, you deal 15% additional Nature and Arcane damage for 6 sec.",
+    "bonus_4p": "Your critical strikes from Starfire and Wrath cause the target to languish for an additional 7% of your spell's damage over 4 sec.",
+    "recommendations_by_spec": {
+     "Druid|Balance": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
+      "guide_quote": "Both the 2-piece (Omen of Doom) and 4-piece (Languish) bonuses are essential and provide a massive DPS increase, leaving legs as your off-set piece.",
+      "approx_value": "~6-7% de DPS total combinado (el 4p Languish aporta ~4.5-5% del daño de Starfire/Wrath)."
+     }
+    }
+   },
+   "Lasherweave Battlegear (Feral)": {
+    "specs": [
+     "Druid|Feral DPS",
+     "Druid|Feral Tank"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/feral-druid-dps-gear-best-in-slot",
+     "https://www.icy-veins.com/wotlk-classic/feral-druid-tank-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-239/lasherweave-battlegear"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50826,
+       "name": "Lasherweave Headguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51699,
+       "name": "Lasherweave Headguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51143,
+       "name": "Sanctified Lasherweave Headguard",
+       "ilvl": 264
+      },
+      {
+       "id": 51296,
+       "name": "Sanctified Lasherweave Headguard",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50824,
+       "name": "Lasherweave Shoulderpads",
+       "ilvl": 251
+      },
+      {
+       "id": 51701,
+       "name": "Lasherweave Shoulderpads",
+       "ilvl": 251
+      },
+      {
+       "id": 51140,
+       "name": "Sanctified Lasherweave Shoulderpads",
+       "ilvl": 264
+      },
+      {
+       "id": 51299,
+       "name": "Sanctified Lasherweave Shoulderpads",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50828,
+       "name": "Lasherweave Raiment",
+       "ilvl": 251
+      },
+      {
+       "id": 51697,
+       "name": "Lasherweave Raiment",
+       "ilvl": 251
+      },
+      {
+       "id": 51141,
+       "name": "Sanctified Lasherweave Raiment",
+       "ilvl": 264
+      },
+      {
+       "id": 51298,
+       "name": "Sanctified Lasherweave Raiment",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50827,
+       "name": "Lasherweave Handgrips",
+       "ilvl": 251
+      },
+      {
+       "id": 51698,
+       "name": "Lasherweave Handgrips",
+       "ilvl": 251
+      },
+      {
+       "id": 51144,
+       "name": "Sanctified Lasherweave Handgrips",
+       "ilvl": 264
+      },
+      {
+       "id": 51295,
+       "name": "Sanctified Lasherweave Handgrips",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50825,
+       "name": "Lasherweave Legguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51700,
+       "name": "Lasherweave Legguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51142,
+       "name": "Sanctified Lasherweave Legguards",
+       "ilvl": 264
+      },
+      {
+       "id": 51297,
+       "name": "Sanctified Lasherweave Legguards",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "Your Lacerate ability deals 20% additional damage and the cost of your Rip ability is reduced by 10 energy.",
+    "bonus_4p": "Your Enrage ability no longer decreases your armor and instead decreases all damage taken by 12%, and the periodic damage dealt by your Rake ability can now be a critical strike.",
+    "recommendations_by_spec": {
+     "Druid|Feral DPS": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Aldriana's Gloves of Secrecy (50675) en Hands",
+      "guide_quote": "Allowing Rake periodic ticks to critically strike makes the 4-piece Tier 10 bonus mandatory for Feral DPS.",
+      "approx_value": "~6-7.5% de DPS total combinado (2p + 4p)."
+     },
+     "Druid|Feral Tank": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Hands, Legs) + Ikfirus's Sack of Wonder (50656) en Chest",
+      "guide_quote": "The 4-piece bonus turns Enrage into an extra 12% damage reduction cooldown every minute while removing its armor penalty, making it mandatory for Bear tanks.",
+      "approx_value": "12% de reducción de daño en Enrage + 20% de daño en Lacerate."
+     }
+    }
+   },
+   "Lasherweave Garb (Restoration)": {
+    "specs": [
+     "Druid|Restoration"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/restoration-druid-healer-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-240/lasherweave-garb"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50108,
+       "name": "Lasherweave Helmet",
+       "ilvl": 251
+      },
+      {
+       "id": 51694,
+       "name": "Lasherweave Helmet",
+       "ilvl": 251
+      },
+      {
+       "id": 51137,
+       "name": "Sanctified Lasherweave Helmet",
+       "ilvl": 264
+      },
+      {
+       "id": 51302,
+       "name": "Sanctified Lasherweave Helmet",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50113,
+       "name": "Lasherweave Pauldrons",
+       "ilvl": 251
+      },
+      {
+       "id": 51692,
+       "name": "Lasherweave Pauldrons",
+       "ilvl": 251
+      },
+      {
+       "id": 51135,
+       "name": "Sanctified Lasherweave Pauldrons",
+       "ilvl": 264
+      },
+      {
+       "id": 51304,
+       "name": "Sanctified Lasherweave Pauldrons",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50106,
+       "name": "Lasherweave Robes",
+       "ilvl": 251
+      },
+      {
+       "id": 51696,
+       "name": "Lasherweave Robes",
+       "ilvl": 251
+      },
+      {
+       "id": 51139,
+       "name": "Sanctified Lasherweave Robes",
+       "ilvl": 264
+      },
+      {
+       "id": 51300,
+       "name": "Sanctified Lasherweave Robes",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50107,
+       "name": "Lasherweave Gauntlets",
+       "ilvl": 251
+      },
+      {
+       "id": 51695,
+       "name": "Lasherweave Gauntlets",
+       "ilvl": 251
+      },
+      {
+       "id": 51138,
+       "name": "Sanctified Lasherweave Gauntlets",
+       "ilvl": 264
+      },
+      {
+       "id": 51301,
+       "name": "Sanctified Lasherweave Gauntlets",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50109,
+       "name": "Lasherweave Legplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51693,
+       "name": "Lasherweave Legplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51136,
+       "name": "Sanctified Lasherweave Legplates",
+       "ilvl": 264
+      },
+      {
+       "id": 51303,
+       "name": "Sanctified Lasherweave Legplates",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "The healing granted by your Wild Growth spell reduces 30% less over time.",
+    "bonus_4p": "Each time your Rejuvenation spell heals a target, it has a 2% chance to jump to a new target at full duration.",
+    "recommendations_by_spec": {
+     "Druid|Restoration": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Hands, Legs) + Sanguine Silk Robes (50717) en Chest",
+      "guide_quote": "Both the 2-piece and 4-piece bonuses directly enhance your two strongest spells, Wild Growth and Rejuvenation, making 4-piece Tier 10 mandatory.",
+      "approx_value": "~5-7% de incremento de sanación total en banda (HPS)."
+     }
+    }
+   }
+  }
+ },
+ "Hunter": {
+  "variants": {
+   "Ahn'Kahar Blood Hunter's Battlegear": {
+    "specs": [
+     "Hunter|Beast Mastery",
+     "Hunter|Marksmanship",
+     "Hunter|Survival"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/marksmanship-hunter-dps-gear-best-in-slot",
+     "https://www.icy-veins.com/wotlk-classic/survival-hunter-dps-gear-best-in-slot",
+     "https://www.icy-veins.com/wotlk-classic/beast-mastery-hunter-dps-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-237/ahnkahar-blood-hunters-battlegear"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50115,
+       "name": "Ahn'Kahar Blood Hunter's Headpiece",
+       "ilvl": 251
+      },
+      {
+       "id": 51710,
+       "name": "Ahn'Kahar Blood Hunter's Headpiece",
+       "ilvl": 251
+      },
+      {
+       "id": 51153,
+       "name": "Sanctified Ahn'Kahar Blood Hunter's Headpiece",
+       "ilvl": 264
+      },
+      {
+       "id": 51286,
+       "name": "Sanctified Ahn'Kahar Blood Hunter's Headpiece",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50117,
+       "name": "Ahn'Kahar Blood Hunter's Spaulders",
+       "ilvl": 251
+      },
+      {
+       "id": 51708,
+       "name": "Ahn'Kahar Blood Hunter's Spaulders",
+       "ilvl": 251
+      },
+      {
+       "id": 51151,
+       "name": "Sanctified Ahn'Kahar Blood Hunter's Spaulders",
+       "ilvl": 264
+      },
+      {
+       "id": 51288,
+       "name": "Sanctified Ahn'Kahar Blood Hunter's Spaulders",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50118,
+       "name": "Ahn'Kahar Blood Hunter's Tunic",
+       "ilvl": 251
+      },
+      {
+       "id": 51707,
+       "name": "Ahn'Kahar Blood Hunter's Tunic",
+       "ilvl": 251
+      },
+      {
+       "id": 51150,
+       "name": "Sanctified Ahn'Kahar Blood Hunter's Tunic",
+       "ilvl": 264
+      },
+      {
+       "id": 51289,
+       "name": "Sanctified Ahn'Kahar Blood Hunter's Tunic",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50114,
+       "name": "Ahn'Kahar Blood Hunter's Handguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51711,
+       "name": "Ahn'Kahar Blood Hunter's Handguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51154,
+       "name": "Sanctified Ahn'Kahar Blood Hunter's Handguards",
+       "ilvl": 264
+      },
+      {
+       "id": 51285,
+       "name": "Sanctified Ahn'Kahar Blood Hunter's Handguards",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50116,
+       "name": "Ahn'Kahar Blood Hunter's Legguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51709,
+       "name": "Ahn'Kahar Blood Hunter's Legguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51152,
+       "name": "Sanctified Ahn'Kahar Blood Hunter's Legguards",
+       "ilvl": 264
+      },
+      {
+       "id": 51287,
+       "name": "Sanctified Ahn'Kahar Blood Hunter's Legguards",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "Your Auto Shots have a 5% chance to cause you and your pet to deal 15% additional damage for 10 sec.",
+    "bonus_4p": "Your Serpent Sting and Wyvern Sting abilities have a 5% chance to grant you 20% attack power for 10 sec each time they deal damage.",
+    "recommendations_by_spec": {
+     "Hunter|Beast Mastery": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Leggings of Northern Lights (50645) en Legs",
+      "guide_quote": "The 2-piece bonus buffs both you and your pet by 15% damage, making 4-piece Tier 10 with Leggings of Northern Lights the undisputed BiS.",
+      "approx_value": "~6-8% de DPS total combinado (2p + 4p)."
+     },
+     "Hunter|Marksmanship": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Leggings of Northern Lights (50645) en Legs",
+      "guide_quote": "Both Tier 10 set bonuses (Exploit Weakness and Stinger) are massive DPS gains, and you should use 4 pieces with Leggings of Northern Lights as your off-set piece.",
+      "approx_value": "~7-8% de DPS total combinado (2p + 4p)."
+     },
+     "Hunter|Survival": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Leggings of Northern Lights (50645) en Legs",
+      "guide_quote": "4-piece Tier 10 is mandatory for Survival, dropping the Tier legs for Leggings of Northern Lights.",
+      "approx_value": "~6-7.5% de DPS total combinado (2p + 4p)."
+     }
+    }
+   }
+  }
+ },
+ "Mage": {
+  "variants": {
+   "Bloodmage Regalia": {
+    "specs": [
+     "Mage|Arcane",
+     "Mage|Fire",
+     "Mage|Frost"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/fire-mage-dps-gear-best-in-slot",
+     "https://www.icy-veins.com/wotlk-classic/arcane-mage-dps-gear-best-in-slot",
+     "https://www.icy-veins.com/wotlk-classic/frost-mage-dps-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-236/bloodmage-regalia"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50276,
+       "name": "Bloodmage Hood",
+       "ilvl": 251
+      },
+      {
+       "id": 51715,
+       "name": "Bloodmage Hood",
+       "ilvl": 251
+      },
+      {
+       "id": 51158,
+       "name": "Sanctified Bloodmage Hood",
+       "ilvl": 264
+      },
+      {
+       "id": 51281,
+       "name": "Sanctified Bloodmage Hood",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50279,
+       "name": "Bloodmage Shoulderpads",
+       "ilvl": 251
+      },
+      {
+       "id": 51712,
+       "name": "Bloodmage Shoulderpads",
+       "ilvl": 251
+      },
+      {
+       "id": 51155,
+       "name": "Sanctified Bloodmage Shoulderpads",
+       "ilvl": 264
+      },
+      {
+       "id": 51284,
+       "name": "Sanctified Bloodmage Shoulderpads",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50278,
+       "name": "Bloodmage Robe",
+       "ilvl": 251
+      },
+      {
+       "id": 51713,
+       "name": "Bloodmage Robe",
+       "ilvl": 251
+      },
+      {
+       "id": 51156,
+       "name": "Sanctified Bloodmage Robe",
+       "ilvl": 264
+      },
+      {
+       "id": 51283,
+       "name": "Sanctified Bloodmage Robe",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50275,
+       "name": "Bloodmage Gloves",
+       "ilvl": 251
+      },
+      {
+       "id": 51716,
+       "name": "Bloodmage Gloves",
+       "ilvl": 251
+      },
+      {
+       "id": 51159,
+       "name": "Sanctified Bloodmage Gloves",
+       "ilvl": 264
+      },
+      {
+       "id": 51280,
+       "name": "Sanctified Bloodmage Gloves",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50277,
+       "name": "Bloodmage Leggings",
+       "ilvl": 251
+      },
+      {
+       "id": 51714,
+       "name": "Bloodmage Leggings",
+       "ilvl": 251
+      },
+      {
+       "id": 51157,
+       "name": "Sanctified Bloodmage Leggings",
+       "ilvl": 264
+      },
+      {
+       "id": 51282,
+       "name": "Sanctified Bloodmage Leggings",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "Your Hot Streak, Missile Barrage, and Brain Freeze talents also grant you 12% spell haste for 5 sec when the effect of the talent is consumed.",
+    "bonus_4p": "Your Mirror Image ability also causes you to deal 18% additional damage for 30 sec.",
+    "recommendations_by_spec": {
+     "Mage|Arcane": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
+      "guide_quote": "The 2-piece (12% haste on Missile Barrage) and 4-piece (18% damage for 30s on Mirror Image) are among the strongest set bonuses in the expansion; always run 4-piece with Plaguebringer's Stained Pants.",
+      "approx_value": "~8-10% de DPS total combinado (2p + 4p)."
+     },
+     "Mage|Fire": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
+      "guide_quote": "4-piece Tier 10 is mandatory for Fire Mage, leaving legs open for Plaguebringer's Stained Pants to cover a massive chunk of your Hit cap.",
+      "approx_value": "~8-10% de DPS total combinado (2p Pushing the Limit + 4p Quad-Core)."
+     },
+     "Mage|Frost": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
+      "guide_quote": "Use 4 pieces of Tier 10 with Plaguebringer's Stained Pants as your off-set piece.",
+      "approx_value": "~7-8% de DPS total combinado (2p + 4p)."
+     }
+    }
+   }
+  }
+ },
+ "Paladin": {
+  "variants": {
+   "Lightsworn Garb (Holy)": {
+    "specs": [
+     "Paladin|Holy"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/holy-paladin-healer-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-233/lightsworn-garb"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50867,
+       "name": "Lightsworn Headpiece",
+       "ilvl": 251
+      },
+      {
+       "id": 51724,
+       "name": "Lightsworn Headpiece",
+       "ilvl": 251
+      },
+      {
+       "id": 51167,
+       "name": "Sanctified Lightsworn Headpiece",
+       "ilvl": 264
+      },
+      {
+       "id": 51272,
+       "name": "Sanctified Lightsworn Headpiece",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50865,
+       "name": "Lightsworn Spaulders",
+       "ilvl": 251
+      },
+      {
+       "id": 51726,
+       "name": "Lightsworn Spaulders",
+       "ilvl": 251
+      },
+      {
+       "id": 51166,
+       "name": "Sanctified Lightsworn Spaulders",
+       "ilvl": 264
+      },
+      {
+       "id": 51273,
+       "name": "Sanctified Lightsworn Spaulders",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50869,
+       "name": "Lightsworn Tunic",
+       "ilvl": 251
+      },
+      {
+       "id": 51722,
+       "name": "Lightsworn Tunic",
+       "ilvl": 251
+      },
+      {
+       "id": 51165,
+       "name": "Sanctified Lightsworn Tunic",
+       "ilvl": 264
+      },
+      {
+       "id": 51274,
+       "name": "Sanctified Lightsworn Tunic",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50868,
+       "name": "Lightsworn Gloves",
+       "ilvl": 251
+      },
+      {
+       "id": 51723,
+       "name": "Lightsworn Gloves",
+       "ilvl": 251
+      },
+      {
+       "id": 51169,
+       "name": "Sanctified Lightsworn Gloves",
+       "ilvl": 264
+      },
+      {
+       "id": 51270,
+       "name": "Sanctified Lightsworn Gloves",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50866,
+       "name": "Lightsworn Greaves",
+       "ilvl": 251
+      },
+      {
+       "id": 51725,
+       "name": "Lightsworn Greaves",
+       "ilvl": 251
+      },
+      {
+       "id": 51168,
+       "name": "Sanctified Lightsworn Greaves",
+       "ilvl": 264
+      },
+      {
+       "id": 51271,
+       "name": "Sanctified Lightsworn Greaves",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "While your Divine Illumination talent is active, your healing spells are 35% stronger.",
+    "bonus_4p": "Your Holy Shock spell causes the next Holy Light you cast within 10 sec to have 0.3 sec reduced cast time.",
+    "recommendations_by_spec": {
+     "Paladin|Holy": {
+      "recommended_pieces": "2 piezas (Head y Shoulder) + Chest, Hands y Legs off-set con Haste",
+      "guide_quote": "The 2-piece Tier 10 bonus is an incredible healing cooldown (+35% healing during Divine Illumination), but the 4-piece bonus is weak and the remaining Tier pieces lack Haste, so you only wear 2 pieces (Helm and Shoulders).",
+      "approx_value": "+35% de sanación durante 15s cada 3 minutos con el 2p; el 4p se descarta."
+     }
+    }
+   },
+   "Lightsworn Plate (Protection)": {
+    "specs": [
+     "Paladin|Protection"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/protection-paladin-tank-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-234/lightsworn-plate"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50862,
+       "name": "Lightsworn Faceguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51729,
+       "name": "Lightsworn Faceguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51173,
+       "name": "Sanctified Lightsworn Faceguard",
+       "ilvl": 264
+      },
+      {
+       "id": 51266,
+       "name": "Sanctified Lightsworn Faceguard",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50860,
+       "name": "Lightsworn Shoulderguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51731,
+       "name": "Lightsworn Shoulderguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51170,
+       "name": "Sanctified Lightsworn Shoulderguards",
+       "ilvl": 264
+      },
+      {
+       "id": 51269,
+       "name": "Sanctified Lightsworn Shoulderguards",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50864,
+       "name": "Lightsworn Chestguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51727,
+       "name": "Lightsworn Chestguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51174,
+       "name": "Sanctified Lightsworn Chestguard",
+       "ilvl": 264
+      },
+      {
+       "id": 51265,
+       "name": "Sanctified Lightsworn Chestguard",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50863,
+       "name": "Lightsworn Handguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51728,
+       "name": "Lightsworn Handguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51172,
+       "name": "Sanctified Lightsworn Handguards",
+       "ilvl": 264
+      },
+      {
+       "id": 51267,
+       "name": "Sanctified Lightsworn Handguards",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50861,
+       "name": "Lightsworn Legguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51730,
+       "name": "Lightsworn Legguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51171,
+       "name": "Sanctified Lightsworn Legguards",
+       "ilvl": 264
+      },
+      {
+       "id": 51268,
+       "name": "Sanctified Lightsworn Legguards",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "Your Hammer of the Righteous ability deals 20% more damage.",
+    "bonus_4p": "When you activate Divine Plea, you gain 12% dodge for 10 sec.",
+    "recommendations_by_spec": {
+     "Paladin|Protection": {
+      "recommended_pieces": "2 piezas (Shoulder y Hands) + Head (50640), Chest (50681) y Legs (50612) off-set con Bonus Armor (o 4p situacional)",
+      "guide_quote": "For maximum Effective Health (EHP), you only use 2-piece Tier 10 (Shoulders and Hands) alongside the three non-set Bonus Armor pieces (Broken Ram Skull Helm, Blightborne Warplate, and Legguards of Lost Hope).",
+      "approx_value": "+20% de daño en Hammer of the Righteous (2p)."
+     }
+    }
+   },
+   "Lightsworn Battlegear (Retribution)": {
+    "specs": [
+     "Paladin|Retribution"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/retribution-paladin-dps-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-235/lightsworn-battlegear"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50326,
+       "name": "Lightsworn Helmet",
+       "ilvl": 251
+      },
+      {
+       "id": 51719,
+       "name": "Lightsworn Helmet",
+       "ilvl": 251
+      },
+      {
+       "id": 51162,
+       "name": "Sanctified Lightsworn Helmet",
+       "ilvl": 264
+      },
+      {
+       "id": 51277,
+       "name": "Sanctified Lightsworn Helmet",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50324,
+       "name": "Lightsworn Shoulderplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51721,
+       "name": "Lightsworn Shoulderplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51160,
+       "name": "Sanctified Lightsworn Shoulderplates",
+       "ilvl": 264
+      },
+      {
+       "id": 51279,
+       "name": "Sanctified Lightsworn Shoulderplates",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50328,
+       "name": "Lightsworn Battleplate",
+       "ilvl": 251
+      },
+      {
+       "id": 51717,
+       "name": "Lightsworn Battleplate",
+       "ilvl": 251
+      },
+      {
+       "id": 51164,
+       "name": "Sanctified Lightsworn Battleplate",
+       "ilvl": 264
+      },
+      {
+       "id": 51275,
+       "name": "Sanctified Lightsworn Battleplate",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50327,
+       "name": "Lightsworn Gauntlets",
+       "ilvl": 251
+      },
+      {
+       "id": 51718,
+       "name": "Lightsworn Gauntlets",
+       "ilvl": 251
+      },
+      {
+       "id": 51163,
+       "name": "Sanctified Lightsworn Gauntlets",
+       "ilvl": 264
+      },
+      {
+       "id": 51276,
+       "name": "Sanctified Lightsworn Gauntlets",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50325,
+       "name": "Lightsworn Legplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51720,
+       "name": "Lightsworn Legplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51161,
+       "name": "Sanctified Lightsworn Legplates",
+       "ilvl": 264
+      },
+      {
+       "id": 51278,
+       "name": "Sanctified Lightsworn Legplates",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "Your melee attacks have a 40% chance to reset the cooldown on your Divine Storm ability.",
+    "bonus_4p": "Your Seals and Judgements deal 10% additional damage.",
+    "recommendations_by_spec": {
+     "Paladin|Retribution": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Fleshrending Gauntlets (50690) o Aldriana's Gloves of Secrecy (50675) en Hands",
+      "guide_quote": "The 2-piece Tier 10 bonus completely transforms the Retribution rotation with frequent Divine Storm resets and synergizes with Tiny Abomination in a Jar, while the 4-piece adds 10% Seal and Judgement damage; 4-piece is mandatory.",
+      "approx_value": "~8-10% de DPS total combinado (2p + 4p)."
+     }
+    }
+   }
+  }
+ },
+ "Priest": {
+  "variants": {
+   "Crimson Acolyte's Regalia (Healer)": {
+    "specs": [
+     "Priest|Discipline",
+     "Priest|Holy"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/discipline-priest-healer-gear-best-in-slot",
+     "https://www.icy-veins.com/wotlk-classic/holy-priest-healer-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-231/crimson-acolytes-regalia"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50765,
+       "name": "Crimson Acolyte Hood",
+       "ilvl": 251
+      },
+      {
+       "id": 51736,
+       "name": "Crimson Acolyte Hood",
+       "ilvl": 251
+      },
+      {
+       "id": 51178,
+       "name": "Sanctified Crimson Acolyte Hood",
+       "ilvl": 264
+      },
+      {
+       "id": 51261,
+       "name": "Sanctified Crimson Acolyte Hood",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50767,
+       "name": "Crimson Acolyte Shoulderpads",
+       "ilvl": 251
+      },
+      {
+       "id": 51734,
+       "name": "Crimson Acolyte Shoulderpads",
+       "ilvl": 251
+      },
+      {
+       "id": 51175,
+       "name": "Sanctified Crimson Acolyte Shoulderpads",
+       "ilvl": 264
+      },
+      {
+       "id": 51264,
+       "name": "Sanctified Crimson Acolyte Shoulderpads",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50768,
+       "name": "Crimson Acolyte Robe",
+       "ilvl": 251
+      },
+      {
+       "id": 51733,
+       "name": "Crimson Acolyte Robe",
+       "ilvl": 251
+      },
+      {
+       "id": 51176,
+       "name": "Sanctified Crimson Acolyte Robe",
+       "ilvl": 264
+      },
+      {
+       "id": 51263,
+       "name": "Sanctified Crimson Acolyte Robe",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50766,
+       "name": "Crimson Acolyte Gloves",
+       "ilvl": 251
+      },
+      {
+       "id": 51735,
+       "name": "Crimson Acolyte Gloves",
+       "ilvl": 251
+      },
+      {
+       "id": 51179,
+       "name": "Sanctified Crimson Acolyte Gloves",
+       "ilvl": 264
+      },
+      {
+       "id": 51260,
+       "name": "Sanctified Crimson Acolyte Gloves",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50769,
+       "name": "Crimson Acolyte Leggings",
+       "ilvl": 251
+      },
+      {
+       "id": 51732,
+       "name": "Crimson Acolyte Leggings",
+       "ilvl": 251
+      },
+      {
+       "id": 51177,
+       "name": "Sanctified Crimson Acolyte Leggings",
+       "ilvl": 264
+      },
+      {
+       "id": 51262,
+       "name": "Sanctified Crimson Acolyte Leggings",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "Your Flash Heal spell has a 33% chance to cause the target to heal for 33% of the healed amount over 9 sec.",
+    "bonus_4p": "Increases the effect of your Power Word: Shield by 5% and Circle of Healing by 10%.",
+    "recommendations_by_spec": {
+     "Priest|Discipline": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + San'layn Ritualist Gloves (50722) en Hands",
+      "guide_quote": "The 4-piece bonus directly increases Power Word: Shield by 5%, which makes up the vast majority of your healing output, making 4-piece Tier 10 mandatory.",
+      "approx_value": "+5% directo a todas las absorciones de Power Word: Shield (~3.5-4% de HPS total)."
+     },
+     "Priest|Holy": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Hands, Legs) + Sanguine Silk Robes (50717) en Chest",
+      "guide_quote": "4-piece Tier 10 is mandatory for Holy Priest to gain the 10% increase on Circle of Healing, using Sanguine Silk Robes as your off-set piece.",
+      "approx_value": "+10% directo a Circle of Healing y +11% promedio en Flash Heal."
+     }
+    }
+   },
+   "Crimson Acolyte's Raiment (Shadow)": {
+    "specs": [
+     "Priest|Shadow"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/shadow-priest-dps-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-232/crimson-acolytes-raiment"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50392,
+       "name": "Crimson Acolyte Cowl",
+       "ilvl": 251
+      },
+      {
+       "id": 51737,
+       "name": "Crimson Acolyte Cowl",
+       "ilvl": 251
+      },
+      {
+       "id": 51184,
+       "name": "Sanctified Crimson Acolyte Cowl",
+       "ilvl": 264
+      },
+      {
+       "id": 51255,
+       "name": "Sanctified Crimson Acolyte Cowl",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50396,
+       "name": "Crimson Acolyte Mantle",
+       "ilvl": 251
+      },
+      {
+       "id": 51739,
+       "name": "Crimson Acolyte Mantle",
+       "ilvl": 251
+      },
+      {
+       "id": 51182,
+       "name": "Sanctified Crimson Acolyte Mantle",
+       "ilvl": 264
+      },
+      {
+       "id": 51257,
+       "name": "Sanctified Crimson Acolyte Mantle",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50394,
+       "name": "Crimson Acolyte Raiments",
+       "ilvl": 251
+      },
+      {
+       "id": 51740,
+       "name": "Crimson Acolyte Raiments",
+       "ilvl": 251
+      },
+      {
+       "id": 51180,
+       "name": "Sanctified Crimson Acolyte Raiments",
+       "ilvl": 264
+      },
+      {
+       "id": 51259,
+       "name": "Sanctified Crimson Acolyte Raiments",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50391,
+       "name": "Crimson Acolyte Handwraps",
+       "ilvl": 251
+      },
+      {
+       "id": 51738,
+       "name": "Crimson Acolyte Handwraps",
+       "ilvl": 251
+      },
+      {
+       "id": 51183,
+       "name": "Sanctified Crimson Acolyte Handwraps",
+       "ilvl": 264
+      },
+      {
+       "id": 51256,
+       "name": "Sanctified Crimson Acolyte Handwraps",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50393,
+       "name": "Crimson Acolyte Pants",
+       "ilvl": 251
+      },
+      {
+       "id": 51741,
+       "name": "Crimson Acolyte Pants",
+       "ilvl": 251
+      },
+      {
+       "id": 51181,
+       "name": "Sanctified Crimson Acolyte Pants",
+       "ilvl": 264
+      },
+      {
+       "id": 51258,
+       "name": "Sanctified Crimson Acolyte Pants",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "The critical strike chance of your Shadow Word: Pain, Devouring Plague, and Vampiric Touch spells is increased by 5%.",
+    "bonus_4p": "Reduces the channel duration by 0.5 sec and period by 0.17 sec on your Mind Flay spell.",
+    "recommendations_by_spec": {
+     "Priest|Shadow": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
+      "guide_quote": "The 4-piece Tier 10 bonus is the single biggest upgrade for Shadow Priests in WotLK, reducing Mind Flay's base channel from 3.0s to 2.5s (a 20% effective haste increase on Mind Flay).",
+      "approx_value": "~8-10% de DPS total combinado (2p + 4p)."
+     }
+    }
+   }
+  }
+ },
+ "Rogue": {
+  "variants": {
+   "Shadowblade's Battlegear": {
+    "specs": [
+     "Rogue|Assassination",
+     "Rogue|Combat",
+     "Rogue|Subtlety"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/assassination-rogue-dps-gear-best-in-slot",
+     "https://www.icy-veins.com/wotlk-classic/combat-rogue-dps-gear-best-in-slot",
+     "https://www.icy-veins.com/wotlk-classic/subtlety-rogue-dps-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-230/shadowblades-battlegear"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50089,
+       "name": "Shadowblade Helmet",
+       "ilvl": 251
+      },
+      {
+       "id": 51745,
+       "name": "Shadowblade Helmet",
+       "ilvl": 251
+      },
+      {
+       "id": 51187,
+       "name": "Sanctified Shadowblade Helmet",
+       "ilvl": 264
+      },
+      {
+       "id": 51252,
+       "name": "Sanctified Shadowblade Helmet",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50105,
+       "name": "Shadowblade Pauldrons",
+       "ilvl": 251
+      },
+      {
+       "id": 51746,
+       "name": "Shadowblade Pauldrons",
+       "ilvl": 251
+      },
+      {
+       "id": 51185,
+       "name": "Sanctified Shadowblade Pauldrons",
+       "ilvl": 264
+      },
+      {
+       "id": 51254,
+       "name": "Sanctified Shadowblade Pauldrons",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50087,
+       "name": "Shadowblade Breastplate",
+       "ilvl": 251
+      },
+      {
+       "id": 51743,
+       "name": "Shadowblade Breastplate",
+       "ilvl": 251
+      },
+      {
+       "id": 51189,
+       "name": "Sanctified Shadowblade Breastplate",
+       "ilvl": 264
+      },
+      {
+       "id": 51250,
+       "name": "Sanctified Shadowblade Breastplate",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50088,
+       "name": "Shadowblade Gauntlets",
+       "ilvl": 251
+      },
+      {
+       "id": 51742,
+       "name": "Shadowblade Gauntlets",
+       "ilvl": 251
+      },
+      {
+       "id": 51188,
+       "name": "Sanctified Shadowblade Gauntlets",
+       "ilvl": 264
+      },
+      {
+       "id": 51251,
+       "name": "Sanctified Shadowblade Gauntlets",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50090,
+       "name": "Shadowblade Legplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51744,
+       "name": "Shadowblade Legplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51186,
+       "name": "Sanctified Shadowblade Legplates",
+       "ilvl": 264
+      },
+      {
+       "id": 51253,
+       "name": "Sanctified Shadowblade Legplates",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "Gives your Tricks of the Trade ability a 15 energy Return instead of costing energy.",
+    "bonus_4p": "Gives your melee finishing moves a 13% chance to add 3 combo points to your target.",
+    "recommendations_by_spec": {
+     "Rogue|Assassination": {
+      "recommended_pieces": "2 piezas (Head y Hands) + Shoulder (50646), Chest (50656) y Legs (50697) off-set",
+      "guide_quote": "The 2-piece Tier 10 bonus is mandatory (turning Tricks of the Trade from a 15 energy cost into a 15 energy gain), while using 3 heroic off-set pieces outperforms the 4-piece bonus due to superior Haste/Crit stats.",
+      "approx_value": "2p aporta +30 de energía neta cada 30s (~2.5-3% de DPS)."
+     },
+     "Rogue|Combat": {
+      "recommended_pieces": "2 piezas (Head y Shoulder) + Chest (50656), Hands (50675) y Legs (50697) off-set (o 4p antes de tener las 3 piezas 277 off-set)",
+      "guide_quote": "In full 277 BiS gear, running 2-piece Tier 10 (Helm and Shoulders) with three 277 off-set pieces slightly outperforms 4-piece Tier 10 because it allows reaching the 1400 Armor Penetration cap with superior secondary stats.",
+      "approx_value": "2p aporta +30 de energía neta cada 30s; 2p + 3 off-set 277 supera al 4p por ~20-40 DPS en BiS absoluto."
+     },
+     "Rogue|Subtlety": {
+      "recommended_pieces": "2 piezas (Head y Shoulder/Hands) + 3 piezas off-set 277",
+      "guide_quote": "Use 2-piece Tier 10 for the Tricks of the Trade energy return and fill the remaining three slots with 277 non-set leather pieces.",
+      "approx_value": "2p aporta +30 de energía neta cada 30s."
+     }
+    }
+   }
+  }
+ },
+ "Shaman": {
+  "variants": {
+   "Frost Witch's Regalia (Elemental)": {
+    "specs": [
+     "Shaman|Elemental"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/elemental-shaman-dps-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-228/frost-witchs-regalia"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50843,
+       "name": "Frost Witch's Helm",
+       "ilvl": 251
+      },
+      {
+       "id": 51759,
+       "name": "Frost Witch's Helm",
+       "ilvl": 251
+      },
+      {
+       "id": 51202,
+       "name": "Sanctified Frost Witch's Helm",
+       "ilvl": 264
+      },
+      {
+       "id": 51237,
+       "name": "Sanctified Frost Witch's Helm",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50845,
+       "name": "Frost Witch's Shoulderpads",
+       "ilvl": 251
+      },
+      {
+       "id": 51761,
+       "name": "Frost Witch's Shoulderpads",
+       "ilvl": 251
+      },
+      {
+       "id": 51204,
+       "name": "Sanctified Frost Witch's Shoulderpads",
+       "ilvl": 264
+      },
+      {
+       "id": 51235,
+       "name": "Sanctified Frost Witch's Shoulderpads",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50841,
+       "name": "Frost Witch's Hauberk",
+       "ilvl": 251
+      },
+      {
+       "id": 51757,
+       "name": "Frost Witch's Hauberk",
+       "ilvl": 251
+      },
+      {
+       "id": 51200,
+       "name": "Sanctified Frost Witch's Hauberk",
+       "ilvl": 264
+      },
+      {
+       "id": 51239,
+       "name": "Sanctified Frost Witch's Hauberk",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50842,
+       "name": "Frost Witch's Gloves",
+       "ilvl": 251
+      },
+      {
+       "id": 51758,
+       "name": "Frost Witch's Gloves",
+       "ilvl": 251
+      },
+      {
+       "id": 51201,
+       "name": "Sanctified Frost Witch's Gloves",
+       "ilvl": 264
+      },
+      {
+       "id": 51238,
+       "name": "Sanctified Frost Witch's Gloves",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50844,
+       "name": "Frost Witch's Kilt",
+       "ilvl": 251
+      },
+      {
+       "id": 51760,
+       "name": "Frost Witch's Kilt",
+       "ilvl": 251
+      },
+      {
+       "id": 51203,
+       "name": "Sanctified Frost Witch's Kilt",
+       "ilvl": 264
+      },
+      {
+       "id": 51236,
+       "name": "Sanctified Frost Witch's Kilt",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "Your Lightning Bolt and Chain Lightning spells reduce the remaining cooldown on your Elemental Mastery talent by 2 sec.",
+    "bonus_4p": "The cast time of your Lava Burst spell allows your Flame Shock periodic damage ticks to deal damage for at least 6 additional sec.",
+    "recommendations_by_spec": {
+     "Shaman|Elemental": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
+      "guide_quote": "Both the 2-piece and 4-piece bonuses are huge DPS gains; the 4-piece extends Flame Shock by 6 seconds every time you cast Lava Burst, almost completely removing the need to recast Flame Shock on single target.",
+      "approx_value": "~6-7% de DPS total combinado (2p + 4p)."
+     }
+    }
+   },
+   "Frost Witch's Battlegear (Enhancement)": {
+    "specs": [
+     "Shaman|Enhancement"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/enhancement-shaman-dps-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-229/frost-witchs-battlegear"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50832,
+       "name": "Frost Witch's Faceguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51754,
+       "name": "Frost Witch's Faceguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51197,
+       "name": "Sanctified Frost Witch's Faceguard",
+       "ilvl": 264
+      },
+      {
+       "id": 51242,
+       "name": "Sanctified Frost Witch's Faceguard",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50834,
+       "name": "Frost Witch's Shoulderguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51756,
+       "name": "Frost Witch's Shoulderguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51199,
+       "name": "Sanctified Frost Witch's Shoulderguards",
+       "ilvl": 264
+      },
+      {
+       "id": 51240,
+       "name": "Sanctified Frost Witch's Shoulderguards",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50830,
+       "name": "Frost Witch's Chestguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51752,
+       "name": "Frost Witch's Chestguard",
+       "ilvl": 251
+      },
+      {
+       "id": 51195,
+       "name": "Sanctified Frost Witch's Chestguard",
+       "ilvl": 264
+      },
+      {
+       "id": 51244,
+       "name": "Sanctified Frost Witch's Chestguard",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50831,
+       "name": "Frost Witch's Grips",
+       "ilvl": 251
+      },
+      {
+       "id": 51753,
+       "name": "Frost Witch's Grips",
+       "ilvl": 251
+      },
+      {
+       "id": 51196,
+       "name": "Sanctified Frost Witch's Grips",
+       "ilvl": 264
+      },
+      {
+       "id": 51243,
+       "name": "Sanctified Frost Witch's Grips",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50833,
+       "name": "Frost Witch's War-Kilt",
+       "ilvl": 251
+      },
+      {
+       "id": 51755,
+       "name": "Frost Witch's War-Kilt",
+       "ilvl": 251
+      },
+      {
+       "id": 51198,
+       "name": "Sanctified Frost Witch's War-Kilt",
+       "ilvl": 264
+      },
+      {
+       "id": 51241,
+       "name": "Sanctified Frost Witch's War-Kilt",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "When you activate your Shamanistic Rage ability you also deal 12% additional damage for 15 sec.",
+    "bonus_4p": "Whenever your Maelstrom Weapon talent reaches 5 charges, you have a 15% chance to gain 20% attack power for 10 sec.",
+    "recommendations_by_spec": {
+     "Shaman|Enhancement": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Anub'ar Stalker's Gloves (50619) en Hands",
+      "guide_quote": "The 2-piece turns Shamanistic Rage into an offensive 12% damage cooldown every minute and the 4-piece grants a 20% Attack Power buff on 5-stack Maelstrom Weapon procs; 4-piece is mandatory.",
+      "approx_value": "~7-9% de DPS total combinado (2p + 4p)."
+     }
+    }
+   },
+   "Frost Witch's Garb (Restoration)": {
+    "specs": [
+     "Shaman|Restoration"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/restoration-shaman-healer-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-227/frost-witchs-garb"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50837,
+       "name": "Frost Witch's Headpiece",
+       "ilvl": 251
+      },
+      {
+       "id": 51749,
+       "name": "Frost Witch's Headpiece",
+       "ilvl": 251
+      },
+      {
+       "id": 51192,
+       "name": "Sanctified Frost Witch's Headpiece",
+       "ilvl": 264
+      },
+      {
+       "id": 51247,
+       "name": "Sanctified Frost Witch's Headpiece",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50839,
+       "name": "Frost Witch's Spaulders",
+       "ilvl": 251
+      },
+      {
+       "id": 51751,
+       "name": "Frost Witch's Spaulders",
+       "ilvl": 251
+      },
+      {
+       "id": 51194,
+       "name": "Sanctified Frost Witch's Spaulders",
+       "ilvl": 264
+      },
+      {
+       "id": 51245,
+       "name": "Sanctified Frost Witch's Spaulders",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50835,
+       "name": "Frost Witch's Tunic",
+       "ilvl": 251
+      },
+      {
+       "id": 51747,
+       "name": "Frost Witch's Tunic",
+       "ilvl": 251
+      },
+      {
+       "id": 51190,
+       "name": "Sanctified Frost Witch's Tunic",
+       "ilvl": 264
+      },
+      {
+       "id": 51249,
+       "name": "Sanctified Frost Witch's Tunic",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50836,
+       "name": "Frost Witch's Handguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51748,
+       "name": "Frost Witch's Handguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51191,
+       "name": "Sanctified Frost Witch's Handguards",
+       "ilvl": 264
+      },
+      {
+       "id": 51248,
+       "name": "Sanctified Frost Witch's Handguards",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50838,
+       "name": "Frost Witch's Legguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51750,
+       "name": "Frost Witch's Legguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51193,
+       "name": "Sanctified Frost Witch's Legguards",
+       "ilvl": 264
+      },
+      {
+       "id": 51246,
+       "name": "Sanctified Frost Witch's Legguards",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "Your Riptide spell grants 20% spell haste for your next spell cast within 10 sec.",
+    "bonus_4p": "Your Chain Heal critical strikes cause the target to heal for 25% of the healed amount over 9 sec.",
+    "recommendations_by_spec": {
+     "Shaman|Restoration": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Unclean Surgical Gloves (50703) en Hands",
+      "guide_quote": "Both the 2-piece (20% spell haste after Riptide) and 4-piece (25% HoT on Chain Heal crits) are monumental throughput upgrades, making 4-piece Tier 10 mandatory.",
+      "approx_value": "~6-8% de incremento de sanación total en banda (HPS)."
+     }
+    }
+   }
+  }
+ },
+ "Warlock": {
+  "variants": {
+   "Dark Coven's Regalia": {
+    "specs": [
+     "Warlock|Affliction",
+     "Warlock|Demonology",
+     "Warlock|Destruction"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/affliction-warlock-dps-gear-best-in-slot",
+     "https://www.icy-veins.com/wotlk-classic/demonology-warlock-dps-gear-best-in-slot",
+     "https://www.icy-veins.com/wotlk-classic/destruction-warlock-dps-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-226/dark-covens-regalia"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50241,
+       "name": "Dark Coven Hood",
+       "ilvl": 251
+      },
+      {
+       "id": 51765,
+       "name": "Dark Coven Hood",
+       "ilvl": 251
+      },
+      {
+       "id": 51208,
+       "name": "Sanctified Dark Coven Hood",
+       "ilvl": 264
+      },
+      {
+       "id": 51231,
+       "name": "Sanctified Dark Coven Hood",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50244,
+       "name": "Dark Coven Shoulderpads",
+       "ilvl": 251
+      },
+      {
+       "id": 51762,
+       "name": "Dark Coven Shoulderpads",
+       "ilvl": 251
+      },
+      {
+       "id": 51205,
+       "name": "Sanctified Dark Coven Shoulderpads",
+       "ilvl": 264
+      },
+      {
+       "id": 51234,
+       "name": "Sanctified Dark Coven Shoulderpads",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50243,
+       "name": "Dark Coven Robe",
+       "ilvl": 251
+      },
+      {
+       "id": 51763,
+       "name": "Dark Coven Robe",
+       "ilvl": 251
+      },
+      {
+       "id": 51206,
+       "name": "Sanctified Dark Coven Robe",
+       "ilvl": 264
+      },
+      {
+       "id": 51233,
+       "name": "Sanctified Dark Coven Robe",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50240,
+       "name": "Dark Coven Gloves",
+       "ilvl": 251
+      },
+      {
+       "id": 51766,
+       "name": "Dark Coven Gloves",
+       "ilvl": 251
+      },
+      {
+       "id": 51209,
+       "name": "Sanctified Dark Coven Gloves",
+       "ilvl": 264
+      },
+      {
+       "id": 51230,
+       "name": "Sanctified Dark Coven Gloves",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50242,
+       "name": "Dark Coven Leggings",
+       "ilvl": 251
+      },
+      {
+       "id": 51764,
+       "name": "Dark Coven Leggings",
+       "ilvl": 251
+      },
+      {
+       "id": 51207,
+       "name": "Sanctified Dark Coven Leggings",
+       "ilvl": 264
+      },
+      {
+       "id": 51232,
+       "name": "Sanctified Dark Coven Leggings",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "The critical strike chance of your Shadow Bolt, Incinerate, Soul Fire, and Corruption abilities is increased by 5%.",
+    "bonus_4p": "Each time your Immolate and Unstable Affliction spells deal periodic damage, you have a 15% chance to cause you and your pet to deal 10% additional damage for 10 sec.",
+    "recommendations_by_spec": {
+     "Warlock|Affliction": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
+      "guide_quote": "4-piece Tier 10 is mandatory for Affliction; both the 5% Corruption crit from the 2-piece and the 10% damage buff from the 4-piece (Devious Minds) can be snapshotted into Corruption for the entire fight.",
+      "approx_value": "~7-9% de DPS total combinado (incluyendo el snapshot permanente en Corruption)."
+     },
+     "Warlock|Demonology": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + San'layn Ritualist Gloves (50722) en Hands (o 4p con Legs off-set 50694 si falta Hit)",
+      "guide_quote": "4-piece Tier 10 is mandatory for Demonology, as Devious Minds buffs both you and your Felguard by 10% damage.",
+      "approx_value": "~6-7.5% de DPS personal combinado (2p + 4p)."
+     },
+     "Warlock|Destruction": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Hands) + Plaguebringer's Stained Pants (50694) en Legs",
+      "guide_quote": "Use 4-piece Tier 10 with Plaguebringer's Stained Pants as your off-set piece.",
+      "approx_value": "~6-7% de DPS total combinado (2p + 4p)."
+     }
+    }
+   }
+  }
+ },
+ "Warrior": {
+  "variants": {
+   "Ymirjar Lord's Battlegear (DPS)": {
+    "specs": [
+     "Warrior|Arms",
+     "Warrior|Fury"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/fury-warrior-dps-gear-best-in-slot",
+     "https://www.icy-veins.com/wotlk-classic/arms-warrior-dps-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-225/ymirjar-lords-battlegear"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50080,
+       "name": "Ymirjar Lord's Helmet",
+       "ilvl": 251
+      },
+      {
+       "id": 51769,
+       "name": "Ymirjar Lord's Helmet",
+       "ilvl": 251
+      },
+      {
+       "id": 51212,
+       "name": "Sanctified Ymirjar Lord's Helmet",
+       "ilvl": 264
+      },
+      {
+       "id": 51227,
+       "name": "Sanctified Ymirjar Lord's Helmet",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 50082,
+       "name": "Ymirjar Lord's Shoulderplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51767,
+       "name": "Ymirjar Lord's Shoulderplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51210,
+       "name": "Sanctified Ymirjar Lord's Shoulderplates",
+       "ilvl": 264
+      },
+      {
+       "id": 51229,
+       "name": "Sanctified Ymirjar Lord's Shoulderplates",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50078,
+       "name": "Ymirjar Lord's Battleplate",
+       "ilvl": 251
+      },
+      {
+       "id": 51771,
+       "name": "Ymirjar Lord's Battleplate",
+       "ilvl": 251
+      },
+      {
+       "id": 51214,
+       "name": "Sanctified Ymirjar Lord's Battleplate",
+       "ilvl": 264
+      },
+      {
+       "id": 51225,
+       "name": "Sanctified Ymirjar Lord's Battleplate",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50079,
+       "name": "Ymirjar Lord's Gauntlets",
+       "ilvl": 251
+      },
+      {
+       "id": 51770,
+       "name": "Ymirjar Lord's Gauntlets",
+       "ilvl": 251
+      },
+      {
+       "id": 51213,
+       "name": "Sanctified Ymirjar Lord's Gauntlets",
+       "ilvl": 264
+      },
+      {
+       "id": 51226,
+       "name": "Sanctified Ymirjar Lord's Gauntlets",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50081,
+       "name": "Ymirjar Lord's Legplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51768,
+       "name": "Ymirjar Lord's Legplates",
+       "ilvl": 251
+      },
+      {
+       "id": 51211,
+       "name": "Sanctified Ymirjar Lord's Legplates",
+       "ilvl": 264
+      },
+      {
+       "id": 51228,
+       "name": "Sanctified Ymirjar Lord's Legplates",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "When your Deep Wounds ability deals damage you have a 3% chance to gain 16% attack power for 10 sec.",
+    "bonus_4p": "You have a 20% chance for your Bloodsurge and Sudden Death talents to grant 2 charges of their effect instead of 1, reduces the global cooldown on Execute or Slam by 0.5 sec, and increases the duration of the effect by 100%.",
+    "recommendations_by_spec": {
+     "Warrior|Arms": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Aldriana's Gloves of Secrecy (50675) en Hands",
+      "guide_quote": "Both the 2-piece (16% Attack Power on Deep Wounds ticks) and 4-piece (double Sudden Death charges with a 1.0s Execute GCD) are mandatory for Arms.",
+      "approx_value": "~5-7% de DPS total combinado (mayor en combates con cleave por más tics de Deep Wounds)."
+     },
+     "Warrior|Fury": {
+      "recommended_pieces": "4 piezas (Head, Shoulder, Chest, Legs) + Aldriana's Gloves of Secrecy (50675) en Hands",
+      "guide_quote": "You will always use 4-piece Tier 10 as Fury, using leather Aldriana's Gloves of Secrecy in the hands slot while replacing the Tier Gauntlets (which have Expertise and Hit beyond what you need).",
+      "approx_value": "~6-8% de DPS total combinado (2p + 4p)."
+     }
+    }
+   },
+   "Ymirjar Lord's Plate (Protection)": {
+    "specs": [
+     "Warrior|Protection"
+    ],
+    "sources": [
+     "https://www.icy-veins.com/wotlk-classic/protection-warrior-tank-gear-best-in-slot",
+     "https://www.wowhead.com/wotlk/item-set=-224/ymirjar-lords-plate"
+    ],
+    "pieces": {
+     "head": [
+      {
+       "id": 50848,
+       "name": "Ymirjar Lord's Greathelm",
+       "ilvl": 251
+      },
+      {
+       "id": 51774,
+       "name": "Ymirjar Lord's Greathelm",
+       "ilvl": 251
+      },
+      {
+       "id": 51218,
+       "name": "Sanctified Ymirjar Lord's Greathelm",
+       "ilvl": 264
+      },
+      {
+       "id": 51221,
+       "name": "Sanctified Ymirjar Lord's Greathelm",
+       "ilvl": 277
+      }
+     ],
+     "shoulder": [
+      {
+       "id": 51776,
+       "name": "Ymirjar Lord's Pauldrons",
+       "ilvl": 251
+      },
+      {
+       "id": 50846,
+       "name": "Ymirjar Lord's Pauldrons",
+       "ilvl": 251
+      },
+      {
+       "id": 51215,
+       "name": "Sanctified Ymirjar Lord's Pauldrons",
+       "ilvl": 264
+      },
+      {
+       "id": 51224,
+       "name": "Sanctified Ymirjar Lord's Pauldrons",
+       "ilvl": 277
+      }
+     ],
+     "chest": [
+      {
+       "id": 50850,
+       "name": "Ymirjar Lord's Breastplate",
+       "ilvl": 251
+      },
+      {
+       "id": 51772,
+       "name": "Ymirjar Lord's Breastplate",
+       "ilvl": 251
+      },
+      {
+       "id": 51219,
+       "name": "Sanctified Ymirjar Lord's Breastplate",
+       "ilvl": 264
+      },
+      {
+       "id": 51220,
+       "name": "Sanctified Ymirjar Lord's Breastplate",
+       "ilvl": 277
+      }
+     ],
+     "hands": [
+      {
+       "id": 50849,
+       "name": "Ymirjar Lord's Handguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51773,
+       "name": "Ymirjar Lord's Handguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51217,
+       "name": "Sanctified Ymirjar Lord's Handguards",
+       "ilvl": 264
+      },
+      {
+       "id": 51222,
+       "name": "Sanctified Ymirjar Lord's Handguards",
+       "ilvl": 277
+      }
+     ],
+     "legs": [
+      {
+       "id": 50847,
+       "name": "Ymirjar Lord's Legguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51775,
+       "name": "Ymirjar Lord's Legguards",
+       "ilvl": 251
+      },
+      {
+       "id": 51216,
+       "name": "Sanctified Ymirjar Lord's Legguards",
+       "ilvl": 264
+      },
+      {
+       "id": 51223,
+       "name": "Sanctified Ymirjar Lord's Legguards",
+       "ilvl": 277
+      }
+     ]
+    },
+    "bonus_2p": "Your Shield Slam and Shockwave abilities deal 20% increased damage.",
+    "bonus_4p": "Your Bloodrage ability no longer costs health to use, and now causes you to absorb damage equal to 20% of your maximum health. Lasts 10 sec.",
+    "recommendations_by_spec": {
+     "Warrior|Protection": {
+      "recommended_pieces": "4 piezas (Shoulder, Chest, Hands, Legs) + Broken Ram Skull Helm (50640) en Head (o 4p con Legguards of Lost Hope 50612 en Legs)",
+      "guide_quote": "The 2-piece provides a massive boost to your two main threat abilities (Shield Slam and Shockwave) and the 4-piece turns Bloodrage into a 20% max health absorb shield every minute.",
+      "approx_value": "+20% de daño en Shield Slam/Shockwave (2p) y escudo de absorción del 20% de la salud máxima cada 40-60s (4p)."
+     }
+    }
+   }
+  }
+ },
+ "resumen_calidad": {
+  "estado_general": "MÓDULO 3 COMPLETADO (9 clases, 19 sets de Tier 10, 95 objetos x 3 dificultades = 285 IDs verificados, 31 especialidades cubiertas)",
+  "discrepancias_entre_fuentes": [
+   "Rogue|Combat: Icy Veins y Wowhead coinciden en que con equipo BiS completo de ilvl 277, llevar solo 2 piezas de Tier 10 (Head 51252 y Shoulder 51254) junto con 3 piezas off-set 277 (Ikfirus's Sack of Wonder 50656, Aldriana's Gloves of Secrecy 50675 y Gangrenous Leggings 50697) supera ligeramente al bonus de 4 piezas porque permite alcanzar el hard cap de 1400 de Armor Penetration con mejores estadísticas secundarias; sin embargo, antes de tener las 3 piezas 277 off-set, el 4p T10 es superior.",
+   "Paladin|Protection: Ambas fuentes presentan dos configuraciones de Tier 10: 2 piezas (Shoulder + Hands) combinadas con 3 piezas off-set con Bonus Armor (Head 50640, Chest 50681, Legs 50612) para maximizar la armadura y vida efectiva (EHP) contra jefes físicos como el Rey Exánime, o 4 piezas para contar con el proc de 12% de esquiva al activar Divine Plea.",
+   "Warlock|Demonology: Si el brujo invierte puntos en Suppression o recibe el 1% de golpe de un Draenei, reemplaza los guantes de Tier por San'layn Ritualist Gloves (50722) manteniendo los pantalones de Tier (que tienen Spirit); si no llega al tope de Hit, usa Plaguebringer's Stained Pants (50694) en piernas y mantiene los guantes de Tier."
+  ],
+  "especialidades_con_fuente_debil_o_notas": [
+   "Valor porcentual de los bonus (~X% de DPS/HPS): Ni Icy Veins ni Wowhead publican una tabla numérica estandarizada de porcentaje exacto en todas las páginas de fase 4; en las especialidades donde el análisis textual de la guía explicita el porcentaje aproximado o el efecto directo, se transcribió junto con su explicación.",
+   "NO ENCONTRADO: Ningún ID ni texto de bonus quedó como NO ENCONTRADO."
+  ]
+ }
 }
