@@ -146,7 +146,7 @@ def main():
         page.get_by_role("button", name="Sin bandas", exact=True).click()
         page.wait_for_timeout(300)
         assert page.locator('#slots a[href$="item=49623"]').count() == 0, "Shadowmourne no debe ser un objeto recomendado sin bandas"
-        assert "Shadowmourne" in page.locator("#slots .warn").all_inner_texts().__str__(), "debe explicar que el objeto oculto es de banda"
+        assert any("oculto" in w and "banda" in w for w in page.locator("#slots .warn").all_inner_texts()), "debe explicar que hay objetos ocultos por ser de banda"
 
         page.get_by_role("button", name="Paladin", exact=True).click()
         page.get_by_role("button", name="Protection", exact=True).click()

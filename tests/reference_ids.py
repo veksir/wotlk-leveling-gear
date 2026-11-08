@@ -1,4 +1,4 @@
-"""Valida tests/reference_bis_ids.json contra data/items.json.
+"""Valida tests/reference_bis_ids.json contra data/gear_data.json.
 
 Cada entrada debe existir, tener el mismo nombre y pertenecer a una ranura compatible.
 Uso: python tests/reference_ids.py
@@ -8,7 +8,8 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ITEMS = json.loads((ROOT / "data" / "items.json").read_text(encoding="utf-8"))
+GEAR = json.loads((ROOT / "data" / "gear_data.json").read_text(encoding="utf-8"))
+ITEMS = GEAR["items"]
 REFS = json.loads((ROOT / "tests" / "reference_bis_ids.json").read_text(encoding="utf-8"))
 
 
@@ -42,6 +43,11 @@ def main():
                     bad.append(f"{spec} {slot}: {value['id']} es {item.get('n')}, no {value['name']}")
                 elif not compatible(slot, item.get("s")):
                     bad.append(f"{spec} {slot}: {value['name']} es {item.get('s')}")
+    # La referencia debe ser coherente con el tipo de armas de la especialidad (p. ej. sin offhand con dos manos)
+    for spec, ref in REFS.items():
+        d = GEAR["specs"][spec]
+        if not d["off"] and ref["slots"].get("offhand"):
+            bad.append(f"{spec}: tiene mano secundaria pero la especialidad no la usa (modo {d['mode']})")
     assert REFS and entries, "reference_bis_ids.json vacío"
     assert not bad, "\n".join(bad[:20])
     print(f"reference ids ok: {len(REFS)} specs, {entries} entradas")

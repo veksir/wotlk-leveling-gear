@@ -1,4 +1,4 @@
-"""Compara el ranking de la herramienta con listas BiS de referencia (tests/reference_bis.json).
+"""Compara el ranking de la herramienta con listas BiS de referencia (tests/reference_bis_ids.json).
 
 Por especialidad, en modo «Con bandas», fase de la referencia (4), nivel 80:
   - slot acertado: la primera opción de la herramienta está en la lista de la guía (BiS o alternativas).
@@ -41,7 +41,7 @@ JS = """(ref) => {
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     verbose = "--verbose" in sys.argv
-    ref_file = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--ref=")), "reference_bis.json")
+    ref_file = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--ref=")), "reference_bis_ids.json")
     refs = json.loads((ROOT / "tests" / ref_file).read_text(encoding="utf-8"))
     bad_data = 0
     tot_u = tot_h = tot_e = 0

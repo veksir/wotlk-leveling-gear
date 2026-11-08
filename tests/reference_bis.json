@@ -770,7 +770,8 @@
     "The Lady's Brittle Bracers"
    ],
    "hands": [
-    "Sanctified Bloodmage Gloves"
+    "Sanctified Bloodmage Gloves",
+    "Sanctified Bloodmage Leggings"
    ],
    "waist": [
     "Crushing Coldwraith Belt"
@@ -869,7 +870,8 @@
   "assumptions": "Blood Elf (Horde) / Human or Dwarf (Alliance), 52/19/0 Holy + Divine Sacrifice, 25-Man Heroic",
   "slots": {
    "head": [
-    "Sanctified Lightsworn Headpiece"
+    "Sanctified Lightsworn Headpiece",
+    "Ancient Skeletal Boots"
    ],
    "neck": [
     "Blood Queen's Crimson Choker",
@@ -900,7 +902,8 @@
     "Split Shape Belt"
    ],
    "legs": [
-    "Plaguebringer's Stained Pants"
+    "Plaguebringer's Stained Pants",
+    "Tightening Waistband"
    ],
    "feet": [
     "Plague Scientist's Boots",
@@ -1135,7 +1138,8 @@
     "Sundial of Eternal Dusk"
    ],
    "ranged": [
-    "Corpse-Impaling Spike"
+    "Corpse-Impaling Spike",
+    "Nighttime"
    ]
   },
   "phase": 4
@@ -1202,7 +1206,8 @@
     "Shadow Silk Spindle"
    ],
    "ranged": [
-    "Corpse-Impaling Spike"
+    "Corpse-Impaling Spike",
+    "Nighttime"
    ]
   },
   "phase": 4
@@ -1233,7 +1238,8 @@
     "The Lady's Brittle Bracers"
    ],
    "hands": [
-    "Sanctified Crimson Acolyte Handwraps"
+    "Sanctified Crimson Acolyte Handwraps",
+    "Sanctified Crimson Acolyte Pants"
    ],
    "waist": [
     "Crushing Coldwraith Belt"
@@ -1612,7 +1618,8 @@
     "Havoc's Call, Blade of Lordaeron Kings"
    ],
    "offhand": [
-    "Havoc's Call, Blade of Lordaeron Kings"
+    "Havoc's Call, Blade of Lordaeron Kings",
+    "Black Bruise"
    ],
    "ranged": [
     "Bizuri's Totem of Shattered Ice"

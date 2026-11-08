@@ -33,7 +33,8 @@ def main():
         }""")
         assert data["holy"]["slots"] == ["head", "shoulder"], data["holy"]
         assert data["rogue"]["slots"] == ["head", "hands"], data["rogue"]
-        assert not set(data["holy"]["ids"]) & {"50869", "50865", "50866"}, data["holy"]
+        assert not set(data["holy"]["ids"]) & {"50869", "50866"}, data["holy"]  # tunic (pecho) y greaves (piernas): fuera de lo recomendado
+        assert {"50865", "50867"} <= set(data["holy"]["ids"]), data["holy"]  # spaulders y headpiece: las piezas del set que sí recomienda la guía
         assert not set(data["rogue"]["ids"]) & {"50105", "50083", "50086"}, data["rogue"]
         assert data["gems"] and data["gv"] > 0, data
         assert data["socketItem"]["sc"] >= 1 and data["socketItem"]["sb"], data["socketItem"]
@@ -62,8 +63,15 @@ def main():
         assert not gear["dkHeirloom"], "los heirlooms no deben aparecer sin el check"
         assert gear["holyTrinket"] == "46051", gear["holyTrinket"]
 
+        # Anillos de equipamiento único: nunca dos «Ashen Band» a la vez (comparten restricción en el juego)
+        ashen = page.evaluate("""() => Object.keys(DATA.specs).filter((k) => {
+          const g = computeGear(DATA.specs[k], { level: 80, faction: "horde", scope: "raid", phase: 4, pvp: false });
+          return ["ring1", "ring2"].filter((s) => g.slots[s] && g.slots[s].list[0] && /^Ashen Band of /.test(g.slots[s].list[0].it.n)).length > 1;
+        })""")
+        assert not ashen, "dos Ashen Band a la vez en: " + str(ashen)
+
         assert not errors, errors
-        print("features ok: gems, set bonus, curated relic, proc fallback")
+        print("features ok: gems, set bonus, curated relic, proc fallback, unique rings")
         browser.close()
 
 
