@@ -1046,6 +1046,77 @@ function evalItem(it, spec, w, o, cap, curated) {
 }
 
 /* opts: { level, faction, scope: "noraid"|"raid", phase: 0 (todas)|1-4, pvp: bool (solo equipo PvP) } */
+const BEAM_SLOTS = ["head", "neck", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet", "ring1", "ring2"];
+function jointOptimize(spec, w, caps, sb, slots, pools, opts) {
+  const width = (opts && opts.width) || 60, K = (opts && opts.k) || 8;
+  const capN = opts && opts.capN != null ? opts.capN : 2;
+  const opt = BEAM_SLOTS.filter((s) => slots[s] && slots[s].list[0]);
+  const plain = (e) => e.base * e.af;
+  const capKeys = caps ? Object.keys(caps) : [];
+  const setIds = sb ? new Set(sb.ids) : null;
+  let fixedPlain = 0, fixedSet = 0;
+  const fixedStats = {};
+  specSlots(spec).filter((s) => !opt.includes(s)).forEach((s) => {
+    const e = slots[s] && slots[s].list[0];
+    if (!e) return;
+    fixedPlain += plain(e);
+    capKeys.forEach((k) => { fixedStats[k] = (fixedStats[k] || 0) + ((e.it.st || {})[k] || 0); });
+    if (setIds && setIds.has(e.id)) fixedSet++;
+  });
+  const fam = (e) => (/^Ashen Band of /.test(e.it.n) ? "ashen" : null);
+  // candidatos: los mejores por puntuación base, los que más aportan a un tope y las mejores piezas del set
+  const cands = {};
+  opt.forEach((s) => {
+    const pool = (pools[poolOfSlot(s)] || []).slice().sort((a, b) => plain(b) - plain(a));
+    const top = pool.slice(0, K);
+    const capTop = [];
+    if (capN > 0) capKeys.forEach((k) => {
+      pool.slice().sort((a, b) => ((b.it.st || {})[k] || 0) - ((a.it.st || {})[k] || 0)).slice(0, capN).forEach((e) => capTop.push(e));
+    });
+    const sets = setIds ? pool.filter((e) => setIds.has(e.id) && !top.includes(e)).slice(0, 3) : [];
+    const list = [];
+    top.concat(capTop, sets).forEach((e) => { if (e && !list.includes(e)) list.push(e); });
+    cands[s] = list;
+  });
+  const evaluate = (st, final) => {
+    const total = st.plain + fixedPlain;
+    let v = total;
+    capKeys.forEach((k) => { v -= Math.max(0, (st.stats[k] || 0) + (fixedStats[k] || 0) - caps[k]) * (w[k] || 0) * 0.85; });
+    if (sb) {
+      const n = st.setN + fixedSet;
+      v += n >= sb.need ? (sb.pct / 100) * total : final ? 0 : (sb.pct / 100) * total * (n / sb.need) * 0.5;
+    }
+    return v;
+  };
+  let beam = [{ sel: {}, plain: 0, stats: {}, setN: 0 }];
+  opt.forEach((s) => {
+    const next = [];
+    beam.forEach((st) => {
+      cands[s].forEach((e) => {
+        if (s === "ring2") {
+          const r1 = st.sel.ring1;
+          if (r1 && (r1 === e || r1.it.n === e.it.n || (fam(r1) && fam(r1) === fam(e)))) return;
+        }
+        const stats = Object.assign({}, st.stats);
+        capKeys.forEach((k) => { stats[k] = (stats[k] || 0) + ((e.it.st || {})[k] || 0); });
+        next.push({ sel: Object.assign({}, st.sel, { [s]: e }), plain: st.plain + plain(e), stats, setN: st.setN + (setIds && setIds.has(e.id) ? 1 : 0) });
+      });
+    });
+    next.forEach((st) => { st.v = evaluate(st, false); });
+    next.sort((a, b) => b.v - a.v);
+    beam = next.slice(0, width);
+  });
+  if (!beam.length) return slots;
+  let best = beam[0], bestV = -Infinity;
+  beam.forEach((st) => { const v = evaluate(st, true); if (v > bestV) { bestV = v; best = st; } });
+  const out = Object.assign({}, slots);
+  opt.forEach((s) => {
+    const chosen = best.sel[s];
+    out[s] = { list: [chosen].concat(slots[s].list.filter((e) => e !== chosen)), info: slots[s].info };
+  });
+  return out;
+}
+
 function computeGear(spec, o) {
   const w = weightsFor(spec, o.pvp, o.level);
   const caps = o.level === 80 ? ((ENG.capsBySpec || {})[spec.cls + "|" + spec.name] || (ENG.caps || {})[spec.role] || null) : null;
@@ -1192,6 +1263,11 @@ function computeGear(spec, o) {
       if (!use1) pools.offhand = [];
       slots = buildSlots();
     }
+  }
+  // Búsqueda en haz (nivel 80): elige a la vez los slots sin lista curada ni arma midiendo lo que el proceso codicioso solo
+  // aproxima: el bonus de set exacto (todo o nada), los topes sobre el conjunto completo y el anillo único Ashen Band.
+  if (o.level === 80 && !o.pvp && o.beam !== false && !(typeof window !== "undefined" && window.__NO_BEAM)) {
+    slots = jointOptimize(spec, w, caps, sb, slots, pools, { width: o.beamWidth, k: o.beamK, capN: o.beamCapN });
   }
   Object.values(slots).forEach((sl) => { sl.list = sl.list.slice(0, 11); });
   // Totales de golpe/pericia de lo recomendado (solo objetos: sin gemas, encantamientos ni talentos)
