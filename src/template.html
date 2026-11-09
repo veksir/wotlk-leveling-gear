@@ -970,7 +970,8 @@ function isRelevant(it, spec, w) {
   if (it.at === "Shield" && spec.off === "shield") return true;
   // Un arma con una estadística principal que no es la de la especialidad no le sirve (p. ej. un arma de agilidad
   // para un guerrero o un arma de fuerza para un pícaro).
-  if (it.dps) {
+  // Las armas a distancia son la excepción: llevan agilidad aunque la clase no la use (guerreros, pícaros...).
+  if (it.dps && it.s !== "ranged" && it.s !== "thrown") {
     const main = ["str", "agi", "int"].filter((k) => (it.st || {})[k] > 0);
     if (main.length && !main.includes(spec.primary)) return false;
   }
