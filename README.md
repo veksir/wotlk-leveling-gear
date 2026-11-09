@@ -23,7 +23,7 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 - **Content modes**: "No raids" (default) or "With raids", raid phase 1–4 or All, and a separate "PvP only" mode (PvE is the default; PvP gear is never mixed into PvE recommendations).
 - **Legendary items included**: legendaries are scored like any other item and appear when they are the best option; raid legendaries require "With raids". The page shows the top choices per slot, not a full legendary catalog.
 - **Proc-aware trinkets**: on-use and proc effects are averaged by duration and cooldown (≈). Curated trinket lists from the guides take priority in their slot.
-- **Guide-recommended gems and sockets**: each socket is valued with the best gem recommended for the spec, and socket bonuses count for half.
+- **Gems by color and meta gems**: each socket uses the best gem of its color; the socket bonus only activates when the colors are respected, and a meta gem only counts when it meets its requirements and pays for its activation cost.
 - **Tier 10 set bonuses**: the estimated 2-piece or 4-piece bonus is shared only among the pieces the guide recommends, not every piece of the set.
 - **Class relics**: sigils, totems, idols, and librams are normal gear and are recommended when the guide lists them. They are separate from leveling heirlooms.
 - **Level 80 caps**: hit and expertise totals are shown; stats above the cap count for 15 %.
@@ -39,11 +39,11 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 ## How it works
 
 1. `scripts/fetch_raw.py` downloads the raw item and zone data, `scripts/fetch_heirloom_stats.py` adds level-by-level heirloom stats, and `scripts/fetch_atlasloot.py` + `scripts/build_loot.py` add per-boss loot tables for WotLK (Ulduar, Trial of the Crusader, Icecrown Citadel, heroic dungeons, 10/25) from AtlasLootClassic.
-2. `scripts/build_item_db.py` normalizes items, stats (including averaged trinket procs, on-use effects, sockets, and socket bonuses), required levels, armor/weapon metadata, and sources.
-3. `scripts/build_recommendations.py` emits the item database, spec definitions, stat weights, reference gems, T10 set bonuses, curated trinkets/relics, and the dungeon list. Level-80 weights follow each spec's Icy Veins priority, calibrated with WowSims where available; below 80 the role weights keep leveling gear sensible. Heirlooms are ranked only when the “already own” toggle is enabled; class relics are normal gear. The ranking itself runs in the browser, so mode, phase, PvP, and faction filters apply instantly.
+2. `scripts/build_item_db.py` normalizes items, stats (including averaged trinket procs, on-use effects, socket colors, and meta sockets), required levels, armor/weapon metadata, and sources.
+3. `scripts/build_recommendations.py` emits the item database, spec definitions, stat weights, reference gems and meta gems, T10 set bonuses, curated trinkets/relics, and the dungeon list. Level-80 weights follow each spec's Icy Veins priority, calibrated with WowSims where available; below 80 the role weights keep leveling gear sensible. Heirlooms are ranked only when the “already own” toggle is enabled; class relics are normal gear. The ranking itself runs in the browser, so mode, phase, PvP, and faction filters apply instantly. At level 80 the browser chooses armor and rings together with a beam search; weapons, trinkets, and relics keep their own rules.
 4. `scripts/build_page.py` injects the generated JSON into `src/template.html` and writes `tolltip.html`.
 
-The ranking is a practical heuristic, not a combat simulator: it sorts by a weighted stat score (item level only breaks ties), uses per-spec priorities at level 80 and role weights while leveling, penalizes armor types that are not ideal for the class, averages trinket procs and on-use effects by duration and cooldown, applies guide-recommended gems per socket, shares the T10 set bonus only among the recommended pieces, applies hit/expertise caps at level 80, and compares two-handers against one-hand + off-hand. A two-hander blocks the off-hand slot unless the spec uses Titan's Grip. Epic items with no recorded source at item level 213 or higher are treated as raid loot ("likely raid"). Enchants and random-enchant items are not scored yet.
+The ranking is a practical heuristic, not a combat simulator: it sorts by a weighted stat score (item level only breaks ties), uses per-spec priorities at level 80 and role weights while leveling, penalizes armor types that are not ideal for the class, averages trinket procs and on-use effects by duration and cooldown, chooses gems by color, activates the socket bonus only when the colors are respected, uses a meta gem only when it meets its requirements and pays for its activation cost, shares the T10 set bonus only among the recommended pieces, applies hit/expertise caps at level 80, and compares two-handers against one-hand + off-hand. A two-hander blocks the off-hand slot unless the spec uses Titan's Grip. Epic items with no recorded source at item level 213 or higher are treated as raid loot ("likely raid"). Enchants and random-enchant items are not scored yet.
 
 ## Quick start
 
@@ -71,15 +71,20 @@ python scripts/build_recommendations.py
 python scripts/build_page.py
 
 python tests/smoke.py
+python tests/sockets.py
+python tests/gems.py
+python tests/optimizer.py
 python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
+python tests/check_reference.py --min=487
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py
+python tests/reference_sets.py
 python tests/reference_ids.py
 ```
 
-`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` audits all 31 level-80 specializations against the Icy Veins BiS lists in `tests/reference_bis_ids.json` (ID-based, Icy Veins + Wowhead) and reports hit/exact rates; `heirlooms.py` covers level scaling, off-spec filtering, two-handed weapons, and relic search; `features.py` covers gems/sockets, set bonuses, and curated relics; `reference_ids.py` validates the ID-based reference; `spec_weights.py` checks all 31 level-80 specializations.
+`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` audits all 31 level-80 specializations against the Icy Veins BiS lists in `tests/reference_bis_ids.json` (ID-based, Icy Veins + Wowhead) and reports hit/exact rates; `--min=487` enforces the current gate and `--strict` is the final 518/518 target. `sockets.py` covers socket colors and meta sockets, `gems.py` covers meta-gem activation and socket bonuses, and `optimizer.py` covers the beam search, performance (<750 ms), and that level 79 does not use it. `heirlooms.py` covers level scaling, off-spec filtering, two-handed weapons, and relic search; `features.py` covers gems/sockets, set bonuses, and curated relics; `reference_sets.py` validates the T10 set pieces; `reference_ids.py` validates the ID-based reference; `spec_weights.py` checks all 31 level-80 specializations.
 
 ## Project structure
 
@@ -108,7 +113,7 @@ Per-boss loot tables come from [AtlasLootClassic](https://github.com/Hoizame/Atl
 
 Item tooltips and icons are loaded from [EVOWOW](https://wotlk.evowow.com/).
 
-Heirloom stats come from the [WoWWiki archive](https://wowwiki-archive.fandom.com/) level tables and the [Wowhead WotLK tooltip API](https://www.wowhead.com/wotlk). Level-80 stat priorities follow [Icy Veins WotLK Classic](https://www.icy-veins.com/wotlk-classic/) and, where available, are calibrated with [WowSims](https://wowsims.github.io/wotlk/) EP values; `data/spec_weights.json` records the source and priority for every specialization, and `data/reference_spec_stats.json` keeps the raw reference values. Guide-recommended gems, T10 set bonuses, trinkets, and class relics are stored in `data/reference_gems.json`, `data/reference_sets.json`, and `data/reference_trinkets.json`, with sources recorded in each file.
+Heirloom stats come from the [WoWWiki archive](https://wowwiki-archive.fandom.com/) level tables and the [Wowhead WotLK tooltip API](https://www.wowhead.com/wotlk). Level-80 stat priorities follow [Icy Veins WotLK Classic](https://www.icy-veins.com/wotlk-classic/) and, where available, are calibrated with [WowSims](https://wowsims.github.io/wotlk/) EP values; `data/spec_weights.json` records the source and priority for every specialization, and `data/reference_spec_stats.json` keeps the raw reference values. Guide-recommended gems, T10 set bonuses, trinkets, and class relics are stored in `data/reference_gems.json`, `data/reference_sets.json`, and `data/reference_trinkets.json`, with sources recorded in each file; meta gems and their activation cost are in `data/reference_meta_gems.json`.
 
 This project is not affiliated with Blizzard Entertainment. World of Warcraft and Wrath of the Lich King are trademarks of Blizzard Entertainment.
 
@@ -117,7 +122,9 @@ This project is not affiliated with Blizzard Entertainment. World of Warcraft an
 - The dataset is based on WotLK Classic; a few original 3.3.5 sources may be missing or labeled as “Other source”.
 - "No raids" excludes raid loot and raid quest chains; "With raids" includes them.
 - Stat weights are role-based while leveling and follow Icy Veins priorities, calibrated with WowSims where available, at level 80. They are designed to be useful, not to replace a full BiS simulator; haste soft caps and talent interactions are not modeled.
-- Gem values assume the guide-recommended gem for each socket and count socket bonuses at half. Enchants, random enchants, and some trinket/set interactions are still simplified.
+- Gems are chosen by color and the socket bonus only activates when the colors are respected; the meta gem uses a heuristic EP cost documented in `data/reference_meta_gems.json` and does not model every activation effect. Enchants, random enchants, and some trinket/set interactions are still simplified.
+- Below level 80 the previous approximation remains: one recommended gem per socket and socket bonuses count for half.
+- The level-80 beam search only covers armor and rings; weapons, off-hand, ranged, trinkets, and relics keep their greedy or curated calculation.
 - The T10 set bonus is an estimate shared only among the pieces recommended by the guide; it is not a full simulation of 2-piece/4-piece uptime.
 - Off-spec loot is hidden by default. The toggle reveals it faded so you can judge cross-spec upgrades without mixing it into the recommendation.
 - Leveling heirlooms are not recommended by default: Emblems of Heroism and Wintergrasp Marks are earned at level 80. Enable “Include leveling heirlooms I already own” only if you actually have them. Class relics are separate and do appear in the ranking.

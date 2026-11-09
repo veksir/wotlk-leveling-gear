@@ -46,11 +46,16 @@ Ejecuta las pruebas de humo y regresión:
 
 ```bash
 python tests/smoke.py
+python tests/sockets.py
+python tests/gems.py
+python tests/optimizer.py
 python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
+python tests/check_reference.py --min=487
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py
+python tests/reference_sets.py
 python tests/reference_ids.py
 ```
 
@@ -62,11 +67,15 @@ python tests/reference_ids.py
 - `scripts/fetch_heirloom_stats.py`: estadísticas de reliquias nivel a nivel desde WoWWiki archive y Wowhead.
 - `scripts/build_page.py`: inyecta los datos en la plantilla y escribe `tolltip.html`.
 - `tests/smoke.py`: prueba de humo en navegador.
-- `tests/check_reference.py`: auditoría de aciertos contra las listas BiS de Icy Veins para las 31 especialidades a nivel 80; `--ref=reference_bis_ids.json` usa la referencia por ID.
+- `tests/sockets.py`: colores de socket, sockets meta y excepciones como el objeto 23232.
+- `tests/gems.py`: activación de meta-gemas, elección de gemas por color y bonus de socket.
+- `tests/optimizer.py`: búsqueda en haz de nivel 80, rendimiento (<750 ms) y que el nivel 79 no la use.
+- `tests/check_reference.py`: auditoría de aciertos contra las listas BiS de Icy Veins para las 31 especialidades a nivel 80; `--ref=reference_bis_ids.json` usa la referencia por ID, `--min=487` exige el gate y `--strict` es el objetivo final de 518/518.
 - `tests/reference_bis.json`: listas BiS de referencia por nombre que usa la auditoría.
 - `tests/reference_bis_ids.json`: referencia por ID con alternativas; la valida `reference_ids.py`.
 - `tests/heirlooms.py`: escalado de reliquias de subida, filtro fuera de especialidad, reglas de mano secundaria con 2H y búsqueda de reliquias.
 - `tests/features.py`: gemas/sockets, bonus de set T10 y abalorios/reliquias curados.
+- `tests/reference_sets.py`: valida las piezas de los sets T10 usadas por el bonus de set.
 - `tests/reference_ids.py`: comprueba que cada ID de referencia existe, tiene el nombre correcto y pertenece a una ranura compatible.
 - `tests/spec_weights.py`: las 31 especialidades a nivel 80.
 
@@ -79,7 +88,7 @@ python tests/reference_ids.py
 - Incluye `data/heirloom_stats.json` cuando cambien las reliquias y `data/spec_weights.json` cuando cambien las prioridades. Cada especialidad conserva su fuente (Icy Veins y, si aplica, WowSims) y su prioridad; `data/reference_spec_stats.json` guarda los valores de calibración en bruto.
 - Mantén las fuentes y la disponibilidad por facción con la mayor precisión posible. Si una fuente es desconocida, usa “Otra fuente” en vez de adivinar.
 - Al actualizar `tests/reference_bis.json` o `tests/reference_bis_ids.json`, comprueba que todos los objetos existan en el dataset y pertenezcan al slot que indica la guía. Ejecuta `python tests/reference_ids.py`.
-- Las gemas, bonus de set T10, abalorios y reliquias de clase recomendados por las guías están en `data/reference_gems.json`, `data/reference_sets.json` y `data/reference_trinkets.json`. Conserva sus campos `source`/`contrast_source` y actualiza `data/gear_data.json`.
+- Las gemas, bonus de set T10, abalorios y reliquias de clase recomendados por las guías están en `data/reference_gems.json`, `data/reference_sets.json` y `data/reference_trinkets.json`. Las meta-gemas y su coste de activación están en `data/reference_meta_gems.json`. Conserva sus campos `source`/`contrast_source` y actualiza `data/gear_data.json`.
 - No añadas botín de banda al ranking principal de subida salvo que cambie el alcance del proyecto.
 
 ## Reglas de interfaz
@@ -106,7 +115,7 @@ Evita mezclar cambios no relacionados en un mismo commit.
 ## Lista de comprobación para pull requests
 
 - [ ] La página se genera con `python scripts/build_page.py`.
-- [ ] Pasan `python tests/smoke.py`, `tests/check_reference.py`, `tests/check_reference.py --ref=reference_bis_ids.json`, `tests/heirlooms.py`, `tests/spec_weights.py`, `tests/features.py` y `tests/reference_ids.py`.
+- [ ] Pasan `python tests/smoke.py`, `tests/sockets.py`, `tests/gems.py`, `tests/optimizer.py`, `tests/check_reference.py`, `tests/check_reference.py --ref=reference_bis_ids.json`, `tests/heirlooms.py`, `tests/spec_weights.py`, `tests/features.py`, `tests/reference_sets.py` y `tests/reference_ids.py`.
 - [ ] `data/gear_data.json` y `tolltip.html` están regenerados si hace falta.
 - [ ] Los textos en español e inglés están actualizados.
 - [ ] No se incluyen datos crudos, cachés ni `__pycache__`.
