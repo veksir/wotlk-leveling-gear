@@ -5,7 +5,9 @@ Por especialidad, en modo «Con bandas», fase de la referencia (4), nivel 80:
     Para anillos y abalorios (2 slots) cuenta cuántas de las 2 primeras opciones están en la lista.
   - exacto: la primera opción coincide con el BiS que pone la guía en primer lugar.
 Falla si algún objeto de la guía no existe en el dataset (error de datos).
-Uso: python tests/check_reference.py [--ref=reference_bis_ids.json] [--verbose] [Clase|Especialidad ...]"""
+Uso: python tests/check_reference.py [--ref=reference_bis_ids.json] [--verbose] [--min=N] [--strict] [Clase|Especialidad ...]
+  --min=N   falla si los aciertos bajan de N (guardarraíl contra regresiones)
+  --strict  falla si cualquier slot de la referencia no acierta"""
 import json
 import sys
 from pathlib import Path
@@ -66,7 +68,15 @@ def main():
                         print(f"     {r['slot']:9} guía: {r['want'][:2]}  herramienta: {r['tops']}")
         browser.close()
     print(f"\nTOTAL acierta {tot_h}/{tot_u} ({tot_h * 100 // max(tot_u, 1)}%), exacto {tot_e}/{tot_u}")
-    sys.exit(1 if bad_data else 0)
+    minimum = next((int(x.split("=", 1)[1]) for x in sys.argv[1:] if x.startswith("--min=")), None)
+    failed = bad_data > 0
+    if "--strict" in sys.argv and tot_h < tot_u:
+        print(f"STRICT: faltan {tot_u - tot_h} slots sin acierto")
+        failed = True
+    if minimum is not None and tot_h < minimum:
+        print(f"REGRESIÓN: {tot_h} aciertos, el mínimo exigido es {minimum}")
+        failed = True
+    sys.exit(1 if failed else 0)
 
 
 if __name__ == "__main__":
