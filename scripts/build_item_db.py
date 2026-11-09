@@ -192,16 +192,24 @@ SOCKET_BONUS_STATS = {
 
 
 def parse_sockets(tooltip):
-    """Cantidad de sockets normales (sin el meta) y la bonificación del socket."""
-    sockets, bonus = 0, {}
+    """Sockets con su color real, si tiene socket meta y la bonificación del socket.
+
+    Devuelve (colores, meta, bonus). «colores» conserva el orden del tooltip y solo trae sockets normales:
+    red, yellow, blue o prismatic (acepta cualquier gema). El socket meta va aparte."""
+    colors, meta, bonus = [], False, {}
     for t in tooltip:
         label = (t.get("label") or "").strip()
-        if label.endswith("Socket") and "Meta" not in label and "Bonus" not in label:
-            sockets += 1
+        m = re.match(r"^(Red|Yellow|Blue|Prismatic|Meta) Socket\b", label, re.I)
+        if m:
+            color = m.group(1).lower()
+            if color == "meta":
+                meta = True
+            else:
+                colors.append(color)
         m = re.match(r"Socket Bonus:\s*\+(\d+)\s+(.+?)\.?$", label, re.I)
         if m and m.group(2).lower() in SOCKET_BONUS_STATS:
             bonus[SOCKET_BONUS_STATS[m.group(2).lower()]] = int(m.group(1))
-    return sockets, (bonus if sockets else {})
+    return colors, meta, (bonus if (colors or meta) else {})
 
 
 def parse_restrictions(tooltip):
@@ -343,7 +351,7 @@ def main():
             continue
         stats, armor, dps, speed = parse_stats(tooltip)
         px = parse_effects(tooltip)
-        sockets, socket_bonus = parse_sockets(tooltip)
+        socket_colors, has_meta, socket_bonus = parse_sockets(tooltip)
         if not stats and not px and dps == 0 and slot != "relic" and not (slot == "offhand" and armor > 0):
             continue
         classes, races = parse_restrictions(tooltip)
@@ -372,7 +380,9 @@ def main():
             "at": armor_type,
             "st": stats,
             "px": px,
-            "sc": sockets,
+            "sc": len(socket_colors),
+            "sg": socket_colors,
+            "mt": has_meta,
             "sb": socket_bonus,
             "ar": armor,
             "dps": round(dps, 1),

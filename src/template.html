@@ -888,10 +888,34 @@ function weightsFor(spec, pvp, level) {
   const specW = level === 80 ? (ENG.specWeights || {})[spec.cls + "|" + spec.name] : null;
   const w = Object.assign({}, ENG.weights[spec.role] || {}, specW || {});
   w.hs = w[spec.primary] || 0; // «mejor estadística» de un proc: la principal de la especialidad
-  // Valor de un socket: la mejor de las gemas que recomiendan las guías para esta especialidad (con sus propios pesos).
-  w.gv = Math.max.apply(null, [0].concat(((ENG.gems || {})[spec.cls + "|" + spec.name] || []).map((g) => Object.entries(g).reduce((a, [k, v]) => a + v * (w[k] || 0), 0))));
+  // Valor de un socket por debajo de nivel 80: la mejor de las gemas que recomiendan las guías para esta especialidad.
+  const G = (ENG.gems || {})[spec.cls + "|" + spec.name] || null;
+  const gemVal = (st) => Object.entries(st).reduce((a, [k, v]) => a + v * (w[k] || 0), 0);
+  w.gv = Math.max.apply(null, [0].concat(G ? [].concat(G.red || [], G.yellow || [], G.blue || []).map(gemVal) : []));
+  w.gc = level === 80 && G ? gemContext(G, w, spec, gemVal) : null; // modelo por color (solo nivel 80)
   if (pvp) w.res = 0.9;
   return w;
+}
+/* Modelo de gemas por color (nivel 80): valor de la mejor gema de cada color y de la meta-gema, que solo cuenta si
+   compensa lo que cuesta activarla (poner gemas de un color que quizá no sean las mejores, o un Nightmare Tear, que cuenta
+   como una gema de cada color pero es único). */
+function gemContext(G, w, spec, gemVal) {
+  const best = (list) => Math.max.apply(null, [0].concat((list || []).map(gemVal)));
+  const ctx = { red: best(G.red), yellow: best(G.yellow), blue: best(G.blue), meta: 0, metaCost: 0, metaPlan: null };
+  ctx.any = Math.max(ctx.red, ctx.yellow, ctx.blue);
+  ctx.prismatic = ctx.any;
+  const M = G.meta;
+  if (M) {
+    const req = M.requires || {};
+    const loss = (c) => Math.max(0, ctx.any - (ctx[c] || 0));
+    const tear = (ENG.metaGems && ENG.metaGems.wildcard) ? gemVal(ENG.metaGems.wildcard.st) : 0;
+    const noTear = Object.entries(req).reduce((a, [c, n]) => a + n * loss(c), 0);
+    const withTear = Math.max(0, ctx.any - tear) + Object.entries(req).reduce((a, [c, n]) => a + Math.max(0, n - 1) * loss(c), 0);
+    ctx.metaCost = Math.min(noTear, withTear);
+    ctx.metaPlan = withTear < noTear ? "tear" : "colors";
+    ctx.meta = Math.max(0, gemVal(M.st) + (M.extraEp || 0) - ctx.metaCost);
+  }
+  return ctx;
 }
 function scoreParts(it, w) {
   const parts = [];
@@ -900,14 +924,29 @@ function scoreParts(it, w) {
   add("dps", it.dps || 0, w.dps);
   Object.entries(it.st || {}).forEach(([k, v]) => add(k, v, w[k]));
   Object.entries(it.px || {}).forEach(([k, v]) => add(k, v, w[k], true));
-  // Sockets: cada uno vale una gema recomendada (menos en objetos de menor nivel); el bonus de socket cuenta la mitad.
-  if (it.sc && w.gv) {
+  // Sockets
+  if (it.sc && w.gc) {
+    // Nivel 80: cada socket lleva la mejor gema de su color y el bonus de socket solo cuenta si compensa frente a poner
+    // en todos los sockets la mejor gema de cualquier color (entonces el bonus se pierde).
+    const g = w.gc, cols = it.sg && it.sg.length ? it.sg : new Array(it.sc).fill("prismatic");
+    const scale = Math.min(1, Math.max(0, ((it.ilvl || 0) - 60) / 180));
+    const matched = cols.reduce((a, c) => a + (g[c] !== undefined ? g[c] : g.any), 0) * scale;
+    const any = cols.length * g.any * scale;
+    const sb = Object.entries(it.sb || {});
+    const bonus = sb.reduce((a, [k, v]) => a + v * (w[k] || 0), 0);
+    const useBonus = bonus > 0 && matched + bonus >= any;
+    parts.push({ k: "gems", v: it.sc, c: useBonus ? matched : any, fx: false });
+    if (useBonus) parts.push({ k: "sbonus", v: sb.reduce((a, [, v]) => a + v, 0), c: bonus, fx: false });
+  } else if (it.sc && w.gv) {
+    // Por debajo de nivel 80: cada socket vale una gema recomendada y el bonus cuenta la mitad.
     const scale = Math.min(1, Math.max(0, ((it.ilvl || 0) - 60) / 180));
     add("gems", it.sc, w.gv * scale);
     const sb = Object.entries(it.sb || {});
     const bonus = sb.reduce((a, [k, v]) => a + v * (w[k] || 0) * 0.5, 0);
     if (bonus > 0) parts.push({ k: "sbonus", v: sb.reduce((a, [, v]) => a + v, 0), c: bonus, fx: false });
   }
+  // Meta-gema: una sola vez, en el casco con socket meta, y solo si compensa su coste de activación.
+  if (it.mt && w.gc && w.gc.meta > 0) parts.push({ k: "meta", v: 1, c: w.gc.meta, fx: true });
   return { parts, base: parts.reduce((a, p) => a + p.c, 0) + (it.ilvl || 0) * 0.01 };
 }
 // Relevancia: un objeto puede ser equipable por la clase y aun así no aportar nada a la
@@ -1299,8 +1338,9 @@ const pctDiff = (a, b) => (b > 0 ? Math.round((a / b - 1) * 100) : 0);
 function partLabel(k) {
   if (k === "armor") return L("Armadura", "Armor");
   if (k === "dps") return L("DPS del arma", "Weapon DPS");
-  if (k === "gems") return L("Gemas (las recomendadas por las guías)", "Gems (guide-recommended)");
-  if (k === "sbonus") return L("Bonus de socket (50 %)", "Socket bonus (50%)");
+  if (k === "gems") return L("Gemas", "Gems");
+  if (k === "meta") return L("Meta-gema (activada)", "Meta gem (activated)");
+  if (k === "sbonus") return L("Bonus de socket", "Socket bonus");
   if (k === "feralap") return L("Poder de ataque (feral)", "Attack power (feral)");
   return (STAT_LABEL[state.lang] || STAT_LABEL.es)[k] || k;
 }

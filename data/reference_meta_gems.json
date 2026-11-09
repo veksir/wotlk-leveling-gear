@@ -1,0 +1,13 @@
+{
+  "_notes": {
+    "requires": "Colores de gema que exige cada meta-gema. Nightmare Tear cuenta como una gema de cada color (solo una por personaje) y siempre cumple 'un color'. Fuentes: Warcraft Tavern WotLK Classic (Chaotic: 2 azules; Relentless: 1 azul) e Icy Veins (Nightmare Tear activa la meta por sí solo). Hay discrepancia sobre Relentless: fuentes de 2010 dicen 'una de cada color' y desde el parche 4.0.6 son 3 rojas; con Nightmare Tear todas las variantes se cumplen.",
+    "extra_ep": "Valor fijo (en las mismas unidades que los pesos del repo, fuerza = 1.0) de los efectos no numéricos de la meta; las estadísticas planas se parsean aparte para no duplicarlas. Son heurísticos documentados, no salen de un simulador: +3% de daño crítico = 60, mana al lanzar = 30, +2% de armadura = 35."
+  },
+  "wildcard": {"id": 49110, "name": "Nightmare Tear", "st": {"str": 10, "agi": 10, "sta": 10, "int": 10, "spi": 10}, "unique": true},
+  "gems": {
+    "41285": {"name": "Chaotic Skyflare Diamond", "requires": {"blue": 2}, "extra_ep": 60},
+    "41398": {"name": "Relentless Earthsiege Diamond", "requires": {"blue": 1}, "extra_ep": 60},
+    "41401": {"name": "Insightful Earthsiege Diamond", "requires": {"red": 1, "blue": 1}, "extra_ep": 30},
+    "41380": {"name": "Austere Earthsiege Diamond", "requires": {"red": 1, "blue": 2}, "extra_ep": 35}
+  }
+}

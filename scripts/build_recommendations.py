@@ -172,7 +172,7 @@ ROLES = ["str", "agi", "feral", "caster", "healer", "tank", "bear", "hunter"]
 def compact(it):
     """Quita campos vacíos y derivables: la página calcula el resto en el navegador."""
     out = {k: it[k] for k in ("n", "i", "q", "ilvl", "req", "s", "sub", "src") if it.get(k) not in (None, "")}
-    for k in ("at", "ar", "dps", "cl", "st", "px", "sc", "sb"):
+    for k in ("at", "ar", "dps", "cl", "st", "px", "sc", "sg", "mt", "sb"):
         if it.get(k):
             out[k] = it[k]
     for k in ("raid", "pvp", "ph"):
@@ -267,32 +267,56 @@ def build_curated():
     return out
 
 
+GEM_STAT_NAMES = {"spell power": "sp", "attack power": "ap", "strength": "str", "agility": "agi", "intellect": "int", "stamina": "sta",
+                  "spirit": "spi", "critical strike rating": "crit", "crit rating": "crit", "haste rating": "haste", "hit rating": "hit",
+                  "expertise rating": "exp", "armor penetration rating": "arp", "defense rating": "def", "dodge rating": "dodge",
+                  "parry rating": "parry", "resilience rating": "res", "mp5": "mp5", "mana per 5 sec": "mp5"}
+
+
+def parse_gem_stats(text):
+    """'+21 Intellect and Chance to restore mana' -> {'int': 21} (los efectos sin número no se parsean aquí)."""
+    import re
+    clean = re.sub(r"\(.*?\)", "", str(text or ""))
+    st = {}
+    for num, stat in re.findall(r"\+(\d+)\s+([A-Za-z0-9 ]+?)(?=\s+and\b|,|\.|$)", clean):
+        key = GEM_STAT_NAMES.get(stat.strip().lower())
+        if key:
+            st[key] = st.get(key, 0) + int(num)
+    return st
+
+
+def load_meta_gems():
+    path = ROOT / "data" / "reference_meta_gems.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {"gems": {}}
+
+
 def build_gems():
-    """Gemas recomendadas por especialidad (data/reference_gems.json) -> estadísticas numéricas por gema."""
+    """Gemas recomendadas por especialidad y color (data/reference_gems.json) y su meta-gema.
+
+    ENG.gems[spec] = {red: [st], yellow: [st], blue: [st], meta: {id, name, st, requires, extraEp}}"""
     path = ROOT / "data" / "reference_gems.json"
     if not path.exists():
         return {}
-    names = {"spell power": "sp", "attack power": "ap", "strength": "str", "agility": "agi", "intellect": "int", "stamina": "sta",
-             "spirit": "spi", "critical strike rating": "crit", "crit rating": "crit", "haste rating": "haste", "hit rating": "hit",
-             "expertise rating": "exp", "armor penetration rating": "arp", "defense rating": "def", "dodge rating": "dodge",
-             "parry rating": "parry", "resilience rating": "res", "mp5": "mp5", "mana per 5 sec": "mp5"}
+    metas = load_meta_gems()["gems"]
     out = {}
     for spec, v in json.loads(path.read_text(encoding="utf-8")).items():
-        seen, gems = set(), []
-        for color in ("red_socket", "yellow_socket", "blue_socket"):
-            for g in v.get(color) or []:
+        entry = {}
+        for color in ("red", "yellow", "blue"):
+            seen, gems = set(), []
+            for g in v.get(f"{color}_socket") or []:
                 if g.get("id") in seen:
                     continue
                 seen.add(g.get("id"))
-                text = re.sub(r"\(.*?\)", "", str(g.get("stats", "")))  # sin las aclaraciones entre paréntesis
-                st = {}
-                for num, stat in re.findall(r"\+(\d+)\s+([A-Za-z0-9 ]+?)(?=\s+and\b|,|\.|$)", text):
-                    key = names.get(stat.strip().lower())
-                    if key:
-                        st[key] = st.get(key, 0) + int(num)
+                st = parse_gem_stats(g.get("stats"))
                 if st:
                     gems.append(st)
-        out[spec] = gems
+            entry[color] = gems
+        meta = v.get("meta_gem") or {}
+        info = metas.get(str(meta.get("id")))
+        if info:
+            entry["meta"] = {"id": meta["id"], "name": info["name"], "st": parse_gem_stats(meta.get("stats")),
+                             "requires": info["requires"], "extraEp": info.get("extra_ep", 0)}
+        out[spec] = entry
     return out
 
 
@@ -385,6 +409,7 @@ def main():
         "setBonus": build_set_bonus(),
         "curated": build_curated(),
         "gems": build_gems(),
+        "metaGems": {"wildcard": load_meta_gems().get("wildcard")},
         "caps": CAPS,
         "capsBySpec": build_caps_by_spec(),
         "weaponPref": WEAPON_PREF,
