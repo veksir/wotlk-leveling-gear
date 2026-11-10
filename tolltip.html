@@ -1025,7 +1025,7 @@ function specSlots(spec) {
 
 // La armadura de un tipo inferior se penaliza por completo en físicos y tanques; en casters, sanadores, cazadores y
 // pícaros/chamanes de agilidad pesa menos, porque las guías usan a menudo tela o cuero en slots sin set.
-const ARMOR_PENALTY_SCALE = { caster: 0.25, healer: 0.25, hunter: 0.5, agi: 0.5, feral: 0.5 };
+const ARMOR_PENALTY_SCALE = { caster: 0.1, healer: 0.1, hunter: 0.1, agi: 0.5, feral: 0.5 };
 const softArmor = (f, role) => (f > 0 && ARMOR_PENALTY_SCALE[role] !== undefined ? 1 - (1 - f) * ARMOR_PENALTY_SCALE[role] : f);
 function evalItem(it, spec, w, o, cap, curated) {
   if (it.cl && !it.cl.includes(spec.cls)) return null;
