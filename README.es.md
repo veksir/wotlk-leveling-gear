@@ -76,7 +76,7 @@ python tests/gems.py
 python tests/optimizer.py
 python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
-python tests/check_reference.py --min=487
+python tests/check_reference.py --min=496
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py
@@ -84,7 +84,7 @@ python tests/reference_sets.py
 python tests/reference_ids.py
 ```
 
-`build_page.py` escribe `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis_ids.json` (por ID, Icy Veins + Wowhead) e informa de aciertos y coincidencias exactas; `--min=487` exige el gate actual y `--strict` es el objetivo final de 518/518. `sockets.py` comprueba los colores y el socket meta, `gems.py` la activación de la meta-gema y el bonus de socket, y `optimizer.py` la búsqueda en haz, el rendimiento (<750 ms) y que el nivel 79 no la use. `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `features.py` cubre gemas/sockets, bonus de set y reliquias curadas; `reference_sets.py` valida las piezas de los sets T10; `reference_ids.py` valida la referencia por ID; `spec_weights.py` comprueba las 31 especialidades a nivel 80.
+`build_page.py` escribe `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis_ids.json` (por ID, Icy Veins + Wowhead) e informa de aciertos y coincidencias exactas; `--min=496` exige el gate actual y `--strict` es el objetivo final de 518/518. `sockets.py` comprueba los colores y el socket meta, `gems.py` la activación de la meta-gema y el bonus de socket, y `optimizer.py` la búsqueda en haz, el rendimiento (<750 ms) y que el nivel 79 no la use. `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `features.py` cubre gemas/sockets, bonus de set y reliquias curadas; `reference_sets.py` valida las piezas de los sets T10; `reference_ids.py` valida la referencia por ID; `spec_weights.py` comprueba las 31 especialidades a nivel 80.
 
 ## Estructura del proyecto
 

@@ -51,7 +51,7 @@ python tests/gems.py
 python tests/optimizer.py
 python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
-python tests/check_reference.py --min=487
+python tests/check_reference.py --min=496
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py
@@ -70,8 +70,7 @@ python tests/reference_ids.py
 - `tests/sockets.py`: socket colors, meta sockets, and exceptions such as item 23232.
 - `tests/gems.py`: meta-gem activation, gem choice by color, and socket bonuses.
 - `tests/optimizer.py`: level-80 beam search, performance (<750 ms), and that level 79 does not use it.
-- `tests/check_reference.py`: Icy Veins BiS accuracy audit for all 31 level-80 specializations; `--ref=reference_bis_ids.json` uses the ID-based reference, `--min=487` enforces the gate, and `--strict` is the final 518/518 target.
-- `tests/reference_bis.json`: name-based reference BiS lists used by the audit.
+- `tests/check_reference.py`: Icy Veins BiS accuracy audit for all 31 level-80 specializations; `--ref=reference_bis_ids.json` uses the ID-based reference, `--min=496` enforces the gate, and `--strict` is the final 518/518 target.
 - `tests/reference_bis_ids.json`: ID-based reference with alternatives; validated by `reference_ids.py`.
 - `tests/heirlooms.py`: heirloom scaling, off-spec filtering, two-handed off-hand rules, and relic search.
 - `tests/features.py`: gems/sockets, T10 set bonuses, and curated trinkets/class relics.
@@ -87,7 +86,7 @@ Do **not** edit `tolltip.html` by hand. It is generated. After changing the temp
 - Commit the generated `data/gear_data.json` when recommendations change.
 - Commit `data/heirloom_stats.json` when heirloom stats change and `data/spec_weights.json` when priorities change. Every spec entry keeps its source (Icy Veins and, when applicable, WowSims) and priority; `data/reference_spec_stats.json` holds the raw calibration values.
 - Keep item sources and faction availability accurate. If a source is unknown, label it as “Other source” rather than guessing.
-- When updating `tests/reference_bis.json` or `tests/reference_bis_ids.json`, make sure every referenced item exists in the dataset and belongs to the slot where the guide lists it. Run `python tests/reference_ids.py`.
+- When updating `tests/reference_bis_ids.json`, make sure every referenced item exists in the dataset and belongs to the slot where the guide lists it. Run `python tests/reference_ids.py`.
 - Guide-recommended gems, T10 set bonuses, trinkets, and class relics live in `data/reference_gems.json`, `data/reference_sets.json`, and `data/reference_trinkets.json`. Meta gems and their activation cost live in `data/reference_meta_gems.json`. Keep their `source`/`contrast_source` fields and update the generated `data/gear_data.json`.
 - Do not add raid loot to the main leveling ranking unless the project scope changes.
 

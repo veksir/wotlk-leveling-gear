@@ -76,7 +76,7 @@ python tests/gems.py
 python tests/optimizer.py
 python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
-python tests/check_reference.py --min=487
+python tests/check_reference.py --min=496
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py
@@ -84,7 +84,7 @@ python tests/reference_sets.py
 python tests/reference_ids.py
 ```
 
-`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` audits all 31 level-80 specializations against the Icy Veins BiS lists in `tests/reference_bis_ids.json` (ID-based, Icy Veins + Wowhead) and reports hit/exact rates; `--min=487` enforces the current gate and `--strict` is the final 518/518 target. `sockets.py` covers socket colors and meta sockets, `gems.py` covers meta-gem activation and socket bonuses, and `optimizer.py` covers the beam search, performance (<750 ms), and that level 79 does not use it. `heirlooms.py` covers level scaling, off-spec filtering, two-handed weapons, and relic search; `features.py` covers gems/sockets, set bonuses, and curated relics; `reference_sets.py` validates the T10 set pieces; `reference_ids.py` validates the ID-based reference; `spec_weights.py` checks all 31 level-80 specializations.
+`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` audits all 31 level-80 specializations against the Icy Veins BiS lists in `tests/reference_bis_ids.json` (ID-based, Icy Veins + Wowhead) and reports hit/exact rates; `--min=496` enforces the current gate and `--strict` is the final 518/518 target. `sockets.py` covers socket colors and meta sockets, `gems.py` covers meta-gem activation and socket bonuses, and `optimizer.py` covers the beam search, performance (<750 ms), and that level 79 does not use it. `heirlooms.py` covers level scaling, off-spec filtering, two-handed weapons, and relic search; `features.py` covers gems/sockets, set bonuses, and curated relics; `reference_sets.py` validates the T10 set pieces; `reference_ids.py` validates the ID-based reference; `spec_weights.py` checks all 31 level-80 specializations.
 
 ## Project structure
 
