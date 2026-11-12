@@ -75,9 +75,11 @@ def main():
           state.cls = spec.cls; state.spec = spec.name; state.level = 80; state.faction = "horde";
           const all = Object.values(candidates(spec)).flat();
           const bauble = all.find((e) => e.it.n === "Bauble of True Blood");
-          return {bauble: bauble && {st: bauble.it.st}};
+          const mask = all.find((e) => e.it.n === "Vile Fumigator's Mask");
+          return {bauble: bauble && {st: bauble.it.st}, mask: !!mask};
         }""")
         assert equipped["bauble"] and equipped["bauble"]["st"].get("mp5", 0) > 0, equipped
+        assert equipped["mask"], "los objetos sin estadísticas parseadas deben poder seleccionarse como equipo actual"
 
         assert not errors, errors
         print("features ok: gems, set bonus, curated relic, proc fallback, unique rings, equipped search")

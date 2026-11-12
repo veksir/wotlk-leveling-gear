@@ -352,8 +352,6 @@ def main():
         stats, armor, dps, speed = parse_stats(tooltip)
         px = parse_effects(tooltip)
         socket_colors, has_meta, socket_bonus = parse_sockets(tooltip)
-        if not stats and not px and dps == 0 and slot != "relic" and not (slot == "offhand" and armor > 0):
-            continue
         classes, races = parse_restrictions(tooltip)
         is_pvp = bool(PVP_RE.search(it.get("name") or "")) or bool(stats.get("res"))
         src, src_kind, is_raid = source_info(it.get("source"), zones, ilvl, quality)
