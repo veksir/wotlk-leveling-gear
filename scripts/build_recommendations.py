@@ -172,7 +172,7 @@ ROLES = ["str", "agi", "feral", "caster", "healer", "tank", "bear", "hunter"]
 def compact(it):
     """Quita campos vacíos y derivables: la página calcula el resto en el navegador."""
     out = {k: it[k] for k in ("n", "i", "q", "ilvl", "req", "s", "sub", "src") if it.get(k) not in (None, "")}
-    for k in ("at", "ar", "dps", "cl", "st", "px", "sc", "sg", "mt", "sb"):
+    for k in ("at", "ar", "dps", "cl", "st", "px", "sc", "sg", "mt", "sb", "x"):
         if it.get(k):
             out[k] = it[k]
     for k in ("raid", "pvp", "ph"):

@@ -1028,6 +1028,7 @@ function specSlots(spec) {
 const ARMOR_PENALTY_SCALE = { caster: 0.1, healer: 0.1, hunter: 0.1, agi: 0.5, feral: 0.5 };
 const softArmor = (f, role) => (f > 0 && ARMOR_PENALTY_SCALE[role] !== undefined ? 1 - (1 - f) * ARMOR_PENALTY_SCALE[role] : f);
 function evalItem(it, spec, w, o, cap, curated) {
+  if (it.x) return null;
   if (it.cl && !it.cl.includes(spec.cls)) return null;
   const fs = itemFactions(it);
   if (!(fs.has("both") || fs.has(o.faction))) return null;
@@ -1306,15 +1307,19 @@ function equipPools(it, spec, level) {
   const cls = spec.cls, slot = it.s, sub = it.sub;
   if (ARMOR_KEYS.includes(slot)) {
     if (slot === "back") return ["back"];
+    if (!it.at) return [slot];
     return (ENG.armorTiers[cls] || []).includes(it.at) ? [slot] : [];
   }
   if (slot === "neck" || slot === "ring" || slot === "trinket") return [slot];
   if (slot === "offhand" && it.at === "Shield") return SHIELD_CLASSES.includes(cls) ? ["offhand"] : [];
   if (slot === "held") return ["offhand"];
   if (["twohand", "onehand", "mainhand", "offhand"].includes(slot)) {
-    if (!(ENG.classWeapons[cls] || []).includes(sub)) return [];
     const hands = itemHands(it);
-    if (!((ENG.weaponHands[cls] || {})[sub] || []).includes(hands)) return [];
+    const known = (ENG.classWeapons[cls] || []).includes(sub) && ((ENG.weaponHands[cls] || {})[sub] || []).includes(hands);
+    if (!known) {
+      if (["Miscellaneous", "Fishing Pole", "Exotic"].includes(sub)) return slot === "offhand" ? ["offhand"] : ["mainhand"];
+      return [];
+    }
     if (hands === 2) return titanGrip(spec, level) && cls === "Warrior" ? ["mainhand", "offhand"] : ["mainhand"];
     return hands === 1 && (spec.off === "dw" || DW_CLASSES.includes(cls)) ? ["mainhand", "offhand"] : ["mainhand"];
   }

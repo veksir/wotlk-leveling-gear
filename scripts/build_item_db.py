@@ -8,7 +8,7 @@ RAW = ROOT / "data" / "raw_items.json"
 ZONES_RAW = ROOT / "data" / "raw_zones.json"
 OUT = ROOT / "data" / "items.json"
 
-QUALITY = {"Uncommon": 2, "Rare": 3, "Epic": 4, "Legendary": 5, "Heirloom": 7}
+QUALITY = {"Poor": 0, "Common": 1, "Uncommon": 2, "Rare": 3, "Epic": 4, "Legendary": 5, "Heirloom": 7}
 SLOT_MAP = {
     "Head": "head", "Neck": "neck", "Shoulder": "shoulder", "Back": "back",
     "Chest": "chest", "Wrist": "wrist", "Hands": "hands", "Waist": "waist",
@@ -334,7 +334,7 @@ def main():
         if not slot:
             continue
         quality = QUALITY.get(it.get("quality"))
-        if quality not in (2, 3, 4, 5):
+        if quality is None or quality == 7:
             continue
         req = int(it.get("requiredLevel") or 0)
         ilvl = int(it.get("itemLevel") or 0)
@@ -347,11 +347,11 @@ def main():
             continue
         tooltip = it.get("tooltip") or []
         labels = " ".join((t.get("label") or "") for t in tooltip)
-        if "Random enchantment" in labels:
-            continue
+        random_enchant = "Random enchantment" in labels
         stats, armor, dps, speed = parse_stats(tooltip)
         px = parse_effects(tooltip)
         socket_colors, has_meta, socket_bonus = parse_sockets(tooltip)
+        search_only = random_enchant or quality not in (2, 3, 4, 5) or (not stats and not px and dps == 0 and slot != "relic" and not (slot == "offhand" and armor > 0))
         classes, races = parse_restrictions(tooltip)
         is_pvp = bool(PVP_RE.search(it.get("name") or "")) or bool(stats.get("res"))
         src, src_kind, is_raid = source_info(it.get("source"), zones, ilvl, quality)
@@ -394,6 +394,7 @@ def main():
             "ra": races,
             "h": hands,
             "rg": ranged,
+            **({"x": 1} if search_only else {}),
         }
 
     apply_atlasloot(items, zones)

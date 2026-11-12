@@ -71,15 +71,25 @@ def main():
         assert not ashen, "dos Ashen Band a la vez en: " + str(ashen)
 
         equipped = page.evaluate("""() => {
-          const spec = DATA.specs["Paladin|Holy"];
-          state.cls = spec.cls; state.spec = spec.name; state.level = 80; state.faction = "horde";
-          const all = Object.values(candidates(spec)).flat();
-          const bauble = all.find((e) => e.it.n === "Bauble of True Blood");
-          const mask = all.find((e) => e.it.n === "Vile Fumigator's Mask");
-          return {bauble: bauble && {st: bauble.it.st}, mask: !!mask};
+          const paladin = DATA.specs["Paladin|Holy"];
+          state.cls = paladin.cls; state.spec = paladin.name; state.level = 80; state.faction = "horde";
+          const paladinItems = Object.values(candidates(paladin)).flat();
+          const rogue = DATA.specs["Rogue|Assassination"];
+          state.cls = rogue.cls; state.spec = rogue.name;
+          const rogueItems = Object.values(candidates(rogue)).flat();
+          const has = (items, name) => items.some((e) => e.it.n === name);
+          const bauble = paladinItems.find((e) => e.it.n === "Bauble of True Blood");
+          return {
+            bauble: bauble && {st: bauble.it.st},
+            mask: has(paladinItems, "Vile Fumigator's Mask"),
+            random: has(paladinItems, "Forgotten Necklace"),
+            common: has(paladinItems, "Footpad's Shoes"),
+            restricted: has(rogueItems, "Red Defias Mask"),
+          };
         }""")
         assert equipped["bauble"] and equipped["bauble"]["st"].get("mp5", 0) > 0, equipped
         assert equipped["mask"], "los objetos sin estadísticas parseadas deben poder seleccionarse como equipo actual"
+        assert equipped["random"] and equipped["common"] and equipped["restricted"], equipped
 
         assert not errors, errors
         print("features ok: gems, set bonus, curated relic, proc fallback, unique rings, equipped search")
