@@ -102,7 +102,7 @@ def parse_stats(tooltip):
             continue
         if not (lower.startswith("equip:") or lower.startswith("increases") or lower.startswith("improves") or lower.startswith("restores")):
             continue
-        m = re.search(r"(?:by|up to|restores)\s+(\d+)", lower)
+        m = re.search(r"(?:by|up to|restores)\s+\+?(\d+)", lower)
         if not m:
             continue
         value = int(m.group(1))

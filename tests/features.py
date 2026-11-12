@@ -70,8 +70,17 @@ def main():
         })""")
         assert not ashen, "dos Ashen Band a la vez en: " + str(ashen)
 
+        equipped = page.evaluate("""() => {
+          const spec = DATA.specs["Paladin|Holy"];
+          state.cls = spec.cls; state.spec = spec.name; state.level = 80; state.faction = "horde";
+          const all = Object.values(candidates(spec)).flat();
+          const bauble = all.find((e) => e.it.n === "Bauble of True Blood");
+          return {bauble: bauble && {st: bauble.it.st}};
+        }""")
+        assert equipped["bauble"] and equipped["bauble"]["st"].get("mp5", 0) > 0, equipped
+
         assert not errors, errors
-        print("features ok: gems, set bonus, curated relic, proc fallback, unique rings")
+        print("features ok: gems, set bonus, curated relic, proc fallback, unique rings, equipped search")
         browser.close()
 
 
