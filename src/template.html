@@ -1399,7 +1399,14 @@ function renderEquip(spec) {
     const show = () => {
       const q = inp.value.trim().toLowerCase();
       const q2 = q === curName().toLowerCase() ? "" : q;
-      const list = (pools[poolOfSlot(slot)] || []).filter((e) => !q2 || e.it.n.toLowerCase().includes(q2)).slice(0, 8);
+      const matches = (pools[poolOfSlot(slot)] || []).filter((e) => !q2 || e.it.n.toLowerCase().includes(q2));
+      matches.sort((a, b) => {
+        const an = a.it.n.toLowerCase(), bn = b.it.n.toLowerCase();
+        const ar = an === q2 ? 0 : an.startsWith(q2) ? 1 : 2;
+        const br = bn === q2 ? 0 : bn.startsWith(q2) ? 1 : 2;
+        return ar - br;
+      });
+      const list = matches.slice(0, 20);
       ul.innerHTML = list.map((e) => '<li data-id="' + e.id + '"><span style="color:' + qColor(e.it.q) + '">' + esc(e.it.n) + "</span><small>iLvl " + e.it.ilvl + " · " + esc(obtainInfo(e.it).kind) + "</small></li>").join("") || '<li class="none">' + t("eqNone") + "</li>";
       ul.hidden = false;
     };
