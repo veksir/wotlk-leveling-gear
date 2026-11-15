@@ -320,6 +320,9 @@ def build_gems():
     return out
 
 
+CAPS_OVERRIDE = {"Mage|Fire": {"hit": 289}}
+
+
 def build_caps_by_spec():
     """Topes de golpe y pericia por especialidad a nivel 80 (data/reference_stats.json, Icy Veins/Wowhead).
     Se usa el tope más bajo que se alcanza con los talentos de la propia especialidad, sin bonus racial, y se
@@ -346,6 +349,8 @@ def build_caps_by_spec():
             entry["exp"] = int(min(exps))
         if entry:
             out[spec] = entry
+    for spec, extra in CAPS_OVERRIDE.items():
+        out.setdefault(spec, {}).update(extra)
     return out
 
 
