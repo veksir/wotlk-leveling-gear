@@ -44,7 +44,11 @@ RATING_PATTERNS = [
 ]
 
 
-JUNK_RE = re.compile(r"^(\[ph\]|test\b|zz|monster -|npc equip)|deprecated|\(test\)", re.I)
+JUNK_RE = re.compile(
+    r"^(\[ph\]|test\b|zz|monster -|npc equip|monster, |deadman )|deprecated|\(test\)|gamemaster|crobinson|^\(action figure\)"
+    r"|do not use|engineer's shield \d|doomsday|\b[a-z]\d\d bracers|\blance$|fire festival|winter clothes|sandals of summer",
+    re.I,
+)
 
 
 def infer_req(ilvl):
@@ -351,7 +355,10 @@ def main():
         stats, armor, dps, speed = parse_stats(tooltip)
         px = parse_effects(tooltip)
         socket_colors, has_meta, socket_bonus = parse_sockets(tooltip)
-        search_only = random_enchant or quality not in (2, 3, 4, 5) or (not stats and not px and dps == 0 and slot != "relic" and not (slot == "offhand" and armor > 0))
+        filler = quality in (0, 1) and (armor > 0 or dps > 0)
+        has_content = bool(stats or px or dps or armor or slot == "relic")
+        search_only = quality not in (0, 1, 2, 3, 4, 5) or (quality in (0, 1) and not filler) or (
+            not random_enchant and not has_content) or (not random_enchant and quality not in (0, 1) and not (stats or px or dps or slot == "relic" or (slot == "offhand" and armor > 0)))
         classes, races = parse_restrictions(tooltip)
         is_pvp = bool(PVP_RE.search(it.get("name") or "")) or bool(stats.get("res"))
         src, src_kind, is_raid = source_info(it.get("source"), zones, ilvl, quality)
@@ -395,6 +402,7 @@ def main():
             "h": hands,
             "rg": ranged,
             **({"x": 1} if search_only else {}),
+            **({"re": 1} if random_enchant else {}),
         }
 
     apply_atlasloot(items, zones)

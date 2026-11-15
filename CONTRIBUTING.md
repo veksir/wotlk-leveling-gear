@@ -51,7 +51,7 @@ python tests/gems.py
 python tests/optimizer.py
 python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
-python tests/check_reference.py --min=496
+python tests/check_reference.py --min=497
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py
@@ -70,7 +70,7 @@ python tests/reference_ids.py
 - `tests/sockets.py`: socket colors, meta sockets, and exceptions such as item 23232.
 - `tests/gems.py`: meta-gem activation, gem choice by color, and socket bonuses.
 - `tests/optimizer.py`: level-80 beam search, performance (<750 ms), and that level 79 does not use it.
-- `tests/check_reference.py`: Icy Veins BiS accuracy audit for all 31 level-80 specializations; `--ref=reference_bis_ids.json` uses the ID-based reference, `--min=496` enforces the gate, and `--strict` is the final 518/518 target.
+- `tests/check_reference.py`: Icy Veins BiS accuracy audit for all 31 level-80 specializations; `--ref=reference_bis_ids.json` uses the ID-based reference, `--min=497` enforces the gate, and `--strict` is the final 518/518 target.
 - `tests/reference_bis_ids.json`: ID-based reference with alternatives; validated by `reference_ids.py`.
 - `tests/heirlooms.py`: heirloom scaling, off-spec filtering, two-handed off-hand rules, and relic search.
 - `tests/features.py`: gems/sockets, T10 set bonuses, and curated trinkets/class relics.

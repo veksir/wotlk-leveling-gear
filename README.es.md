@@ -27,6 +27,7 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 - **Bonus de set T10**: el valor estimado del bonus de 2 o 4 piezas se reparte solo entre las piezas que recomienda la guía, no entre todo el set.
 - **Reliquias de clase**: sigilos, tótems, ídolos y librams son equipo normal y se recomiendan cuando la guía los incluye. Son distintas de las reliquias de subida (heirlooms).
 - **Topes de nivel 80**: se muestran los totales de golpe y pericia; lo que excede el tope vale un 15 %.
+- **Cobertura al subir de nivel**: los objetos con encantamiento aleatorio («of the Bear») se estiman con el mejor sufijo para tu especialidad, los blancos solo con armadura rellenan slots vacíos y los slots sin ningún objeto útil muestran la mejor opción disponible con un aviso. Se comprueba con `python tests/leveling.py`.
 - **Buscador de botín**: indica lo que lleva puesto tu personaje (o carga el recomendado), elige una mazmorra o banda y mira todo lo que puede soltar para tu clase y especialidad, con el % de cambio frente a tu pieza equipada. El botín fuera de especialidad queda oculto por defecto y se puede mostrar con un interruptor.
 - **Filtro de facción**: las misiones y vendedores se ajustan a Horda o Alianza.
 - **Interfaz bilingüe**: español e inglés.
@@ -76,7 +77,7 @@ python tests/gems.py
 python tests/optimizer.py
 python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
-python tests/check_reference.py --min=496
+python tests/check_reference.py --min=497
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py
@@ -84,7 +85,7 @@ python tests/reference_sets.py
 python tests/reference_ids.py
 ```
 
-`build_page.py` escribe `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis_ids.json` (por ID, Icy Veins + Wowhead) e informa de aciertos y coincidencias exactas; `--min=496` exige el gate actual y `--strict` es el objetivo final de 518/518. `sockets.py` comprueba los colores y el socket meta, `gems.py` la activación de la meta-gema y el bonus de socket, y `optimizer.py` la búsqueda en haz, el rendimiento (<750 ms) y que el nivel 79 no la use. `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `features.py` cubre gemas/sockets, bonus de set y reliquias curadas; `reference_sets.py` valida las piezas de los sets T10; `reference_ids.py` valida la referencia por ID; `spec_weights.py` comprueba las 31 especialidades a nivel 80.
+`build_page.py` escribe `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis_ids.json` (por ID, Icy Veins + Wowhead) e informa de aciertos y coincidencias exactas; `--min=497` exige el gate actual y `--strict` es el objetivo final de 518/518. `sockets.py` comprueba los colores y el socket meta, `gems.py` la activación de la meta-gema y el bonus de socket, y `optimizer.py` la búsqueda en haz, el rendimiento (<750 ms) y que el nivel 79 no la use. `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `features.py` cubre gemas/sockets, bonus de set y reliquias curadas; `reference_sets.py` valida las piezas de los sets T10; `reference_ids.py` valida la referencia por ID; `spec_weights.py` comprueba las 31 especialidades a nivel 80.
 
 ## Estructura del proyecto
 

@@ -27,6 +27,7 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 - **Tier 10 set bonuses**: the estimated 2-piece or 4-piece bonus is shared only among the pieces the guide recommends, not every piece of the set.
 - **Class relics**: sigils, totems, idols, and librams are normal gear and are recommended when the guide lists them. They are separate from leveling heirlooms.
 - **Level 80 caps**: hit and expertise totals are shown; stats above the cap count for 15 %.
+- **Leveling coverage**: random-enchant items ("of the Bear") are estimated with the best suffix for your spec, white armor-only items fill empty slots, and slots without any useful item show the best available option with a notice. Checked by `python tests/leveling.py`.
 - **Loot browser**: enter what your character is wearing (or load the recommended set), pick a dungeon or raid, and see every item it can drop for your class and spec with the % change over your equipped piece. Off-spec items are hidden by default and can be revealed with a toggle.
 - **Faction-aware**: quests and vendors are filtered for Horde or Alliance.
 - **Bilingual UI**: Spanish and English.
@@ -76,7 +77,7 @@ python tests/gems.py
 python tests/optimizer.py
 python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
-python tests/check_reference.py --min=496
+python tests/check_reference.py --min=497
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py
@@ -84,7 +85,7 @@ python tests/reference_sets.py
 python tests/reference_ids.py
 ```
 
-`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` audits all 31 level-80 specializations against the Icy Veins BiS lists in `tests/reference_bis_ids.json` (ID-based, Icy Veins + Wowhead) and reports hit/exact rates; `--min=496` enforces the current gate and `--strict` is the final 518/518 target. `sockets.py` covers socket colors and meta sockets, `gems.py` covers meta-gem activation and socket bonuses, and `optimizer.py` covers the beam search, performance (<750 ms), and that level 79 does not use it. `heirlooms.py` covers level scaling, off-spec filtering, two-handed weapons, and relic search; `features.py` covers gems/sockets, set bonuses, and curated relics; `reference_sets.py` validates the T10 set pieces; `reference_ids.py` validates the ID-based reference; `spec_weights.py` checks all 31 level-80 specializations.
+`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` audits all 31 level-80 specializations against the Icy Veins BiS lists in `tests/reference_bis_ids.json` (ID-based, Icy Veins + Wowhead) and reports hit/exact rates; `--min=497` enforces the current gate and `--strict` is the final 518/518 target. `sockets.py` covers socket colors and meta sockets, `gems.py` covers meta-gem activation and socket bonuses, and `optimizer.py` covers the beam search, performance (<750 ms), and that level 79 does not use it. `heirlooms.py` covers level scaling, off-spec filtering, two-handed weapons, and relic search; `features.py` covers gems/sockets, set bonuses, and curated relics; `reference_sets.py` validates the T10 set pieces; `reference_ids.py` validates the ID-based reference; `spec_weights.py` checks all 31 level-80 specializations.
 
 ## Project structure
 
