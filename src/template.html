@@ -352,6 +352,10 @@ var aowow_tooltips = {
   .opt-check { display: flex; align-items: center; gap: 6px; align-self: end; padding-bottom: 3px; color: var(--muted); font-size: 12px; cursor: pointer; }
   .opt-check input { accent-color: var(--class); }
   .opts-hint { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11.5px; }
+  .fresh-route { margin: 0 0 1.25rem; }
+  .fresh-route ol { margin: 8px 0 0; padding-left: 20px; color: var(--text); font-size: 12.5px; line-height: 1.5; display: grid; gap: 5px; }
+  .fresh-route li::marker { color: var(--class); font-weight: 700; }
+  .fresh-route .note + .note { margin-top: 10px; }
   .bracket { display: inline-block; margin-top: 12px; color: var(--ice); font-size: 12px; font-weight: 600; }
   .bracket::before { content: "\25CF  "; font-size: 8px; vertical-align: 1px; }
   .src-badge { display: inline-block; padding: 0 6px; margin-right: 5px; border-radius: 3px; font-size: 10px; font-weight: 700; letter-spacing: .02em; color: #06131d; background: #8fadbd; }
@@ -481,6 +485,7 @@ var aowow_tooltips = {
             <div><span class="field-label" id="pvpLabel" data-i18n="pvpLabel">Tipo de equipo</span><div class="seg" id="pvps" role="group" aria-labelledby="pvpLabel"></div></div>
             <div><span class="field-label" id="altsLabel" data-i18n="altsLabel">Alternativas por slot</span><div class="seg" id="alts" role="group" aria-labelledby="altsLabel"></div></div>
             <label class="opt-check"><input type="checkbox" id="showHeirlooms"> <span data-i18n="showHeirlooms">Incluir reliquias de subida (heirlooms) que ya tengo</span></label>
+            <label class="opt-check"><input type="checkbox" id="fresh80"> <span data-i18n="fresh80">Modo recién 80 (sin Frost ni fichas de raid)</span></label>
           </div>
           <p class="opts-hint" data-i18n="optsHint"></p>
         </div>
@@ -497,6 +502,20 @@ var aowow_tooltips = {
         <p class="bracket-advice" id="bracketAdvice"></p>
       </div>
     </section>
+
+    <details class="panel fresh-route" id="freshRoute" hidden>
+      <summary data-i18n="freshRouteTitle">Ruta recién 80 (sin Frost ni fichas de raid)</summary>
+      <p class="note" data-i18n="freshRouteIntro">El modo filtra el equipo que puedes conseguir con Triunfo o inferior. Esta es la ruta recomendada:</p>
+      <ol>
+        <li data-i18n="freshRouteStep1">Nivel 80 y reputaciones: misiones de Icecrown y Storm Peaks; Kirin Tor, Wyrmrest, Ebon Blade, Cruzada Argenta y Kalu'ak.</li>
+        <li data-i18n="freshRouteStep2">Mazmorras: normales 80, ToC5 e ICC5; después heroicas y la diaria de Triunfo.</li>
+        <li data-i18n="freshRouteStep3">Emblemas de Triunfo: T9 232 (Dubin Clay, Horace Hunderland, Rueben Lauren, Rafael Langrom) y complementos 245 (Ninsianna, Debbi Moore, Jarold Puller, Abra Cadabra).</li>
+        <li data-i18n="freshRouteStep4">Oro, reputación y crafting: anillos de Kirin Tor de Harold Winston, capas crafteadas, reliquias y complementos.</li>
+        <li data-i18n="freshRouteStep5">Arma: cadena de Quel'Delar (251) en mazmorras de 5 si puedes completarla.</li>
+      </ol>
+      <p class="note" data-i18n="freshRouteConvert">Puedes convertir Triunfo en Conquista, Valor y Heroísmo 1:1; por eso el modo incluye equipo de emblemas anteriores.</p>
+      <p class="note" data-i18n="freshRouteAvoid">Evita hasta tener Frost: T10 251/264/277, capas 264 de Norvin Alderman y T9 245 (requiere Trophy of the Crusade de raid).</p>
+    </details>
 
     <section class="summary" aria-label="Resumen">
       <div><span data-i18n="statusPhase">Fase de subida</span><strong id="statusBracket">Aprendizaje · 1 a 19</strong></div>
@@ -570,7 +589,7 @@ var aowow_tooltips = {
 </div>
 <script>
 const DATA = /*__DATA__*/;
-const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup", showOffspec: "wotlk-gear-show-offspec", showHeirlooms: "wotlk-gear-show-heirlooms" };
+const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup", showOffspec: "wotlk-gear-show-offspec", showHeirlooms: "wotlk-gear-show-heirlooms", fresh: "wotlk-gear-fresh" };
 
 const I18N = {
   es: {
@@ -657,9 +676,22 @@ Object.assign(I18N.es, {
   modeLabel: "Contenido", modeNoRaid: "Sin bandas", modeRaid: "Con bandas",
   phaseLabel: "Fase", phaseAll: "Todas", pvpLabel: "Tipo de equipo", pvpOff: "PvE", pvpOn: "Solo PvP",
   altsLabel: "Alternativas por slot",
-  optsHint: "«Sin bandas» sirve para subir de nivel o jugar sin raid; «Con bandas» muestra el mejor equipo de raid; «Solo PvP» muestra únicamente equipo útil para PvP, sin mezclarlo con el PvE. La fase limita el contenido disponible hasta esa fase del juego.",
+  optsHint: "«Sin bandas» sirve para subir de nivel o jugar sin raid; «Con bandas» muestra el mejor equipo de raid; «Solo PvP» muestra únicamente equipo útil para PvP, sin mezclarlo con el PvE. La fase limita el contenido disponible hasta esa fase del juego. «Recién 80» oculta Frost, T10 y fichas de raid, y deja el equipo comprable con Triunfo o inferior.",
+  fresh80: "Modo recién 80 (sin Frost ni fichas de raid)",
+  fresh80Hint: "Oculta Frost, T10 y fichas de raid; incluye Triunfo y monedas inferiores.",
   sourcesRaid: "Misiones, mazmorras, vendedores, drops y bandas", sourcesPvp: " + PvP",
   sheetIntro80Raid: "Referencia de nivel 80 con botín de banda incluido.",
+  sheetIntro80Fresh: "Referencia de nivel 80 recién llegado: equipo accesible sin Frost, T10 ni fichas de raid.",
+  sourcesFresh: "Misiones, mazmorras, reputación, oro, subasta, crafting y emblemas hasta Triunfo",
+  freshRouteTitle: "Ruta recién 80 (sin Frost ni fichas de raid)",
+  freshRouteIntro: "El modo filtra el equipo que puedes conseguir con Triunfo o inferior. Esta es la ruta recomendada:",
+  freshRouteStep1: "Nivel 80 y reputaciones: misiones de Icecrown y Storm Peaks; Kirin Tor, Wyrmrest, Ebon Blade, Cruzada Argenta y Kalu'ak.",
+  freshRouteStep2: "Mazmorras: normales 80, ToC5 e ICC5; después heroicas y la diaria de Triunfo.",
+  freshRouteStep3: "Emblemas de Triunfo: T9 232 (Dubin Clay, Horace Hunderland, Rueben Lauren, Rafael Langrom) y complementos 245 (Ninsianna, Debbi Moore, Jarold Puller, Abra Cadabra).",
+  freshRouteStep4: "Oro, subasta, reputación y crafting: anillos de Kirin Tor de Harold Winston, capas crafteadas, reliquias y complementos.",
+  freshRouteStep5: "Arma: cadena de Quel'Delar (251) en mazmorras de 5 si puedes completarla.",
+  freshRouteConvert: "Puedes convertir Triunfo en Conquista, Valor y Heroísmo 1:1; por eso el modo incluye equipo de emblemas anteriores.",
+  freshRouteAvoid: "Evita hasta tener Frost: T10 251/264/277, capas 264 de Norvin Alderman y T9 245 (requiere Trophy of the Crusade de raid).",
   calcText: "Cada objeto se puntúa con las estadísticas que importan a tu especialidad (más el DPS del arma y la armadura) y se ordena por esa puntuación; el nivel de objeto solo desempata. La armadura de un tipo que no es el ideal para tu clase se penaliza. «Sin bandas» oculta el botín y las cadenas de misión de banda, el equipo PvP se ve aparte en el modo «Solo PvP» (con peso a la resiliencia) y la fase limita el contenido disponible. Los procs y efectos de uso de los abalorios se promedian según su duración y enfriamiento (≈). Las gemas se eligen por color y el bonus de socket solo se activa si se respetan los colores. El bonus de set T10 se reparte solo entre las piezas que recomienda la guía, y los abalorios y reliquias de clase curados mandan en su slot. A nivel 80 el golpe y la pericia por encima del tope valen un 15 %, y para las especialidades de «cualquier arma» se compara dos manos contra una mano + secundaria. Los épicos sin fuente registrada de nivel 213 o más se tratan como de banda. Las reliquias de subida (heirlooms) quedan fuera del ranking salvo que marques «Incluir reliquias de subida (heirlooms) que ya tengo»; las reliquias de clase son equipo normal. Aún no se calculan encantamientos ni objetos con encantamiento aleatorio. A nivel 80 la armadura y los anillos se eligen a la vez (búsqueda en haz): bonus de set exacto, topes de golpe y pericia, gemas por color y meta-gema solo si compensa su coste; armas, abalorios y reliquias mantienen sus reglas. Al subir de nivel, los objetos con encantamiento aleatorio («of the Bear»…) se estiman con el mejor sufijo para tu especialidad (≈), los objetos blancos solo con armadura rellenan slots sin nada mejor, y si un slot no tiene ningún objeto útil se muestra la mejor opción disponible con un aviso.",
   whyTitle: "¿Por qué este objeto?", scoreWord: "Puntuación", ilvlTie: "Nivel de objeto (desempate)",
   howTo: "Cómo conseguirlo ↗", moreAlts: "Alternativas",
@@ -684,9 +716,22 @@ Object.assign(I18N.en, {
   modeLabel: "Content", modeNoRaid: "No raids", modeRaid: "With raids",
   phaseLabel: "Phase", phaseAll: "All", pvpLabel: "Gear type", pvpOff: "PvE", pvpOn: "PvP only",
   altsLabel: "Alternatives per slot",
-  optsHint: "\"No raids\" is for leveling or playing without raiding; \"With raids\" shows the best raid gear; \"PvP only\" shows only PvP-useful gear, never mixed with PvE. The phase limits content to what is available up to that game phase.",
+  optsHint: "\"No raids\" is for leveling or playing without raiding; \"With raids\" shows the best raid gear; \"PvP only\" shows only PvP-useful gear, never mixed with PvE. The phase limits content to what is available up to that game phase. \"Fresh 80\" hides Frost, Tier 10, and raid tokens, leaving gear buyable with Triumph or lower.",
+  fresh80: "Fresh 80 mode (no Frost or raid tokens)",
+  fresh80Hint: "Hides Frost, Tier 10, and raid tokens; includes Triumph and lower emblems.",
   sourcesRaid: "Quests, dungeons, vendors, drops, and raids", sourcesPvp: " + PvP",
   sheetIntro80Raid: "Level 80 reference with raid loot included.",
+  sheetIntro80Fresh: "Fresh level 80 reference: gear accessible without Frost, Tier 10, or raid tokens.",
+  sourcesFresh: "Quests, dungeons, reputation, gold, auction house, crafting, and emblems up to Triumph",
+  freshRouteTitle: "Fresh 80 route (no Frost or raid tokens)",
+  freshRouteIntro: "The mode filters gear you can get with Triumph or lower emblems. This is the recommended route:",
+  freshRouteStep1: "Level 80 and reputations: Icecrown and Storm Peaks quests; Kirin Tor, Wyrmrest, Ebon Blade, Argent Crusade, and Kalu'ak.",
+  freshRouteStep2: "Dungeons: level-80 normals, ToC5, and ICC5; then heroics and the Triumph daily.",
+  freshRouteStep3: "Emblems of Triumph: Tier 9 232 (Dubin Clay, Horace Hunderland, Rueben Lauren, Rafael Langrom) and item level 245 offsets (Ninsianna, Debbi Moore, Jarold Puller, Abra Cadabra).",
+  freshRouteStep4: "Gold, auction house, reputation, and crafting: Harold Winston's Kirin Tor rings, crafted cloaks, relics, and offsets.",
+  freshRouteStep5: "Weapon: the Quel'Delar chain (251) in five-player dungeons if you can complete it.",
+  freshRouteConvert: "You can downgrade Triumph into Conquest, Valor, and Heroism 1:1, which is why the mode includes older emblem gear.",
+  freshRouteAvoid: "Avoid until you have Frost: Tier 10 251/264/277, Norvin Alderman's 264 cloaks, and Tier 9 245 (requires a raid Trophy of the Crusade).",
   calcText: "Each item is scored with the stats that matter to your spec (plus weapon DPS and armor) and sorted by that score; item level only breaks ties. Armor of a type that is not ideal for your class is penalized. \"No raids\" hides raid loot and raid quest chains, PvP gear is shown separately in \"PvP only\" mode (resilience is weighted), and the phase limits available content. Proc and on-use effects of trinkets are averaged by duration and cooldown (≈). Gems are chosen by color and the socket bonus only activates when the colors are respected. The Tier 10 set bonus is shared only among the pieces recommended by the guide, and curated trinkets and class relics rule their slot. At level 80, hit and expertise above the cap count for 15 %, and for \"any weapon\" specs a two-hander is compared against one-hand + off hand. Epics with no recorded source at item level 213 or higher are treated as raid loot. Leveling heirlooms stay out of the ranking unless you check «Include leveling heirlooms I already own»; class relics are normal gear. Enchants and random-enchant items are not scored yet. At level 80 armor and rings are chosen together (beam search): exact set bonus, hit and expertise caps, gems by socket color, and a meta gem only when it pays for its activation; weapons, trinkets, and relics keep their curated/greedy rules. While leveling, random-enchant items (\"of the Bear\"...) are estimated with the best suffix for your spec (≈), white armor-only items fill slots with nothing better, and if a slot has no useful item the best available option is shown with a notice.",
   whyTitle: "Why this item?", scoreWord: "Score", ilvlTie: "Item level (tiebreaker)",
   howTo: "How to get it ↗", moreAlts: "Alternatives",
@@ -744,9 +789,11 @@ let state = {
   onlyUp: load(STORE.onlyUp, "0") === "1",
   showOffspec: load(STORE.showOffspec, "0") === "1",
   showHeirlooms: load(STORE.showHeirlooms, "0") === "1",
+  fresh: load(STORE.fresh, "0") === "1",
   gear: (() => { try { return JSON.parse(load(STORE.gear, "{}")) || {}; } catch (e) { return {}; } })()
 };
 if (state.scope !== "raid") state.scope = "noraid";
+if (state.level !== 80 || state.pvp || state.scope === "raid") state.fresh = false;
 if (![0, 1, 2, 3, 4].includes(state.phase)) state.phase = 0;
 if (![2, 5, 10].includes(state.alts)) state.alts = 2;
 if (!DATA.factions.includes(state.faction)) state.faction = "horde";
@@ -1037,6 +1084,17 @@ function withSuffix(it, w) {
   SUFFIXES.forEach((s) => { const v = val * ((w[s[0]] || 0) + (w[s[1]] || 0)); if (v > bestV) { bestV = v; best = s; } });
   return Object.assign({}, it, { n: it.n + " " + best[2], px: { [best[0]]: val, [best[1]]: val }, est: 1 });
 }
+const FRESH_CURRENCIES = new Set(["heroism", "valor", "conquest", "triumph", "gold", "reputation"]);
+function freshAccessible(it) {
+  if (it.raid || it.pvp) return false;
+  const s = it.src || {};
+  if (s.t === "RaidProb" || s.t === "PvP" || s.rq) return false;
+  if (s.t === "Vendor") {
+    if (s.cur) return FRESH_CURRENCIES.has(s.cur);
+    if ((it.ilvl || 0) >= 251) return false;
+  }
+  return true;
+}
 function evalItem(it, spec, w, o, cap, curated) {
   if (it.x) return null;
   if (it.re) it = withSuffix(it, w);
@@ -1058,7 +1116,7 @@ function evalItem(it, spec, w, o, cap, curated) {
   return { pk, al, parts: sp.parts, base: sp.base, af, score: sp.base * af, rel: curated || isRelevant(it, spec, w), item: it.est ? it : null };
 }
 
-/* opts: { level, faction, scope: "noraid"|"raid", phase: 0 (todas)|1-4, pvp: bool (solo equipo PvP) } */
+/* opts: { level, faction, scope: "noraid"|"raid", phase: 0 (todas)|1-4, pvp: bool (solo equipo PvP), fresh: bool (recién 80) } */
 const BEAM_SLOTS = ["head", "neck", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet", "ring1", "ring2"];
 function jointOptimize(spec, w, caps, sb, slots, pools, opts) {
   const width = (opts && opts.width) || 60, K = (opts && opts.k) || 8;
@@ -1142,10 +1200,11 @@ function computeGear(spec, o) {
     if (!state.showHeirlooms && DATA.heirlooms[id]) continue;
     const it = levelItem(GEAR_ITEMS[id], o.level);
     if (o.pvp && !it.pvp) continue;
+    const freshBlocked = o.fresh && !freshAccessible(it);
     const r = evalItem(it, spec, w, o, true, curatedRelic.has(id));
     if (!r) continue;
     if (!r.rel) {
-      if (o.level < 80 && !(it.pvp && !o.pvp) && !(it.raid && o.scope !== "raid") && !(o.phase && it.ph > o.phase)) {
+      if (o.level < 80 && !freshBlocked && !(it.pvp && !o.pvp) && !(it.raid && o.scope !== "raid") && !(o.phase && it.ph > o.phase)) {
         const fe = { id, it: r.item || it, parts: r.parts, base: r.base, af: r.af, score: r.score, capPen: 0, offspec: true };
         r.pk.forEach((p) => (fallback[p] = fallback[p] || []).push(fe));
       }
@@ -1153,6 +1212,7 @@ function computeGear(spec, o) {
     }
     const e = { id, it: r.item || it, parts: r.parts, base: r.base, af: r.af, score: r.score, capPen: 0 };
     const reasons = [];
+    if (freshBlocked) reasons.push("fresh");
     if (!o.pvp) {
       if (it.pvp) reasons.push("pvp");
       if (it.raid && o.scope !== "raid") reasons.push("raid");
@@ -1459,6 +1519,7 @@ function partLabel(k) {
 }
 function reasonText(e) {
   const out = [];
+  if (e.reasons.includes("fresh")) out.push(L("requiere Frost o una ficha de raid", "requires Frost or a raid token"));
   if (e.reasons.includes("raid")) out.push(L("es de banda y estás en «Sin bandas»", "is a raid item and you are in \"No raids\""));
   if (e.reasons.includes("pvp")) out.push(L("es de PvP, que se ve en el modo «Solo PvP»", "is PvP gear, shown in \"PvP only\" mode"));
   if (e.reasons.includes("phase")) out.push(L("es de la fase " + e.it.ph + ", posterior a la fase " + state.phase, "is from phase " + e.it.ph + ", later than phase " + state.phase));
@@ -1493,6 +1554,25 @@ function whyHtml(e, next, inf) {
   if (b && b.score > e.score) extra += "<p>" + L("Oculto por tus filtros: «", "Hidden by your filters: \"") + esc(b.it.n) + L("» (+", "\" (+") + pctDiff(b.score, e.score) + L("% de puntuación): ", "% score): ") + esc(reasonText(b)) + ".</p>";
   return '<details class="why"><summary>' + t("whyTitle") + "</summary><table>" + rows + "</table><p><b>" + t("scoreWord") + ": " + e.score.toFixed(1) + "</b></p>" + extra + "</details>";
 }
+const CURRENCY_LABEL = {
+  heroism: ["Emblema de Heroísmo", "Emblem of Heroism"],
+  valor: ["Emblema de Valor", "Emblem of Valor"],
+  conquest: ["Emblema de Conquista", "Emblem of Conquest"],
+  triumph: ["Emblema de Triunfo", "Emblem of Triumph"],
+  frost: ["Emblema de Escarcha", "Emblem of Frost"],
+  "frost-token": ["Escarcha + marca de raid", "Frost + raid mark"],
+  gold: ["Oro", "Gold"],
+  reputation: ["Reputación", "Reputation"],
+  honor: ["Honor", "Honor"],
+  arena: ["Arena", "Arena"]
+};
+function currencyLabel(cur) {
+  const v = CURRENCY_LABEL[cur];
+  return v ? v[state.lang === "en" ? 1 : 0] : cur;
+}
+function goldLabel(copper) {
+  return Math.round((copper || 0) / 10000).toLocaleString(state.lang === "en" ? "en-US" : "es-ES") + " g";
+}
 function obtainInfo(it) {
   const s = it.src || {};
   if (s.t === "Quest") {
@@ -1500,7 +1580,16 @@ function obtainInfo(it) {
     const m = v.find((q) => { const f = String(q.f || "Both").toLowerCase(); return f === "both" || f === state.faction; }) || v[0] || {};
     return { cls: s.rq ? "rquest" : "quest", kind: s.rq ? L("Misión de banda", "Raid quest") : L("Misión", "Quest"), detail: m.n || L("Desconocida", "Unknown") };
   }
-  if (s.t === "Vendor") return { cls: "vendor", kind: L("Vendedor", "Vendor"), detail: s.n || L("Desconocido", "Unknown") };
+  if (s.t === "Vendor") {
+    const parts = [s.n || L("Desconocido", "Unknown")];
+    if (s.cur === "gold") parts.push(s.cost ? goldLabel(s.cost) : L("Oro", "Gold"));
+    else if (s.cur === "reputation") {
+      parts.push(L("Reputación", "Reputation"));
+      if (s.cost) parts.push(goldLabel(s.cost));
+    } else if (s.cur) parts.push(currencyLabel(s.cur));
+    else if (s.cost) parts.push(goldLabel(s.cost));
+    return { cls: "vendor", kind: L("Vendedor", "Vendor"), detail: parts.join(" · ") };
+  }
   if (s.t === "Drop") {
     const raid = s.zc === "Raid", dungeon = s.zc === "Dungeon", z = zoneOf(s.zid);
     const parts = [];
@@ -1634,10 +1723,13 @@ function renderSeg(el, options, current, onPick) {
 
 function renderOptions() {
   $("showHeirlooms").checked = state.showHeirlooms;
+  $("fresh80").checked = state.fresh;
+  $("fresh80").disabled = state.level !== 80 || state.pvp;
+  $("fresh80").title = t("fresh80Hint");
   const set = (key, fn) => (v) => { fn(v); persist(); renderOptions(); render(); };
-  renderSeg($("modes"), [{ value: "noraid", label: t("modeNoRaid") }, { value: "raid", label: t("modeRaid") }], state.scope, set("scope", (v) => { state.scope = v; }));
+  renderSeg($("modes"), [{ value: "noraid", label: t("modeNoRaid") }, { value: "raid", label: t("modeRaid") }], state.scope, set("scope", (v) => { state.scope = v; if (v === "raid") state.fresh = false; }));
   renderSeg($("phases"), [1, 2, 3, 4].map((n) => ({ value: n, label: String(n) })).concat([{ value: 0, label: t("phaseAll") }]), state.phase, set("phase", (v) => { state.phase = v; }));
-  renderSeg($("pvps"), [{ value: false, label: t("pvpOff") }, { value: true, label: t("pvpOn") }], state.pvp, set("pvp", (v) => { state.pvp = v; }));
+  renderSeg($("pvps"), [{ value: false, label: t("pvpOff") }, { value: true, label: t("pvpOn") }], state.pvp, set("pvp", (v) => { state.pvp = v; if (v) state.fresh = false; }));
   renderSeg($("alts"), [2, 5, 10].map((n) => ({ value: n, label: String(n) })), state.alts, set("alts", (v) => { state.alts = v; }));
 }
 
@@ -1706,11 +1798,13 @@ function persist() {
   save(STORE.onlyUp, state.onlyUp ? "1" : "0");
   save(STORE.showOffspec, state.showOffspec ? "1" : "0");
   save(STORE.showHeirlooms, state.showHeirlooms ? "1" : "0");
+  save(STORE.fresh, state.fresh ? "1" : "0");
   save(STORE.gear, JSON.stringify(state.gear));
 }
 
 function setLevel(value) {
   state.level = clampLevel(value);
+  if (state.level !== 80) state.fresh = false;
   levelInput.value = state.level;
   levelRange.value = state.level;
   persist();
@@ -1765,7 +1859,7 @@ function renderCaps(spec, gear) {
 }
 
 function renderSlots(spec, level) {
-  const gear = computeGear(spec, { level, faction: state.faction, scope: state.scope, phase: state.phase, pvp: state.pvp });
+  const gear = computeGear(spec, { level, faction: state.faction, scope: state.scope, phase: state.phase, pvp: state.pvp, fresh: state.fresh });
   const order = specSlots(spec);
   slotCount.textContent = order.length + t("slots");
   slotsEl.innerHTML = order.map((slot) => renderSlot(spec, gear, slot)).join("");
@@ -1867,10 +1961,14 @@ function render() {
     : bracketName(bracket) + " · " + bracket.min + (state.lang === "en" ? " to " : " a ") + bracket.max;
   $("statusArmor").textContent = armorText(state.cls, level);
   $("statusNext").textContent = next ? t("level") + next.min + " · " + bracketName(next) : t("nextBiS");
+  const fresh = state.fresh && level === 80 && !state.pvp && state.scope !== "raid";
+  $("fresh80").checked = state.fresh;
+  $("fresh80").disabled = level !== 80 || state.pvp;
+  $("freshRoute").hidden = !fresh;
   $("sheetIntro").textContent = state.pvp ? t("sheetIntroPvp") + level + "."
-    : level === 80 ? t(state.scope === "raid" ? "sheetIntro80Raid" : "sheetIntro80")
+    : level === 80 ? t(fresh ? "sheetIntro80Fresh" : state.scope === "raid" ? "sheetIntro80Raid" : "sheetIntro80")
     : t("sheetIntro") + level + ".";
-  $("sourcesValue").textContent = state.pvp ? t("sourcesPvpOnly") : t(state.scope === "raid" ? "sourcesRaid" : "sourcesValue");
+  $("sourcesValue").textContent = state.pvp ? t("sourcesPvpOnly") : fresh ? t("sourcesFresh") : t(state.scope === "raid" ? "sourcesRaid" : "sourcesValue");
   $("bracketAdvice").textContent = bracketAdvice(bracket);
   updateClassNote();
   const gear = renderSlots(spec, level);
@@ -1907,7 +2005,7 @@ levelInput.addEventListener("change", (e) => setLevel(e.target.value));
 levelInput.addEventListener("blur", (e) => setLevel(e.target.value));
 
 $("resetBtn").addEventListener("click", () => {
-  Object.assign(state, { cls: "Warrior", spec: "Arms", level: 20, scope: "noraid", phase: 0, pvp: false, alts: 2, dungeon: 0, onlyUp: false, showOffspec: false, showHeirlooms: false });
+  Object.assign(state, { cls: "Warrior", spec: "Arms", level: 20, scope: "noraid", phase: 0, pvp: false, alts: 2, dungeon: 0, onlyUp: false, showOffspec: false, showHeirlooms: false, fresh: false });
   persist();
   renderClasses();
   renderSpecs();
@@ -1920,6 +2018,13 @@ $("dungeonSelect").addEventListener("change", (e) => { state.dungeon = Number(e.
 $("onlyUp").addEventListener("change", (e) => { state.onlyUp = e.target.checked; persist(); render(); });
 $("showOffspec").addEventListener("change", (e) => { state.showOffspec = e.target.checked; persist(); render(); });
 $("showHeirlooms").addEventListener("change", (e) => { state.showHeirlooms = e.target.checked; persist(); render(); });
+$("fresh80").addEventListener("change", (e) => {
+  state.fresh = e.target.checked;
+  if (state.fresh) { state.scope = "noraid"; state.pvp = false; }
+  persist();
+  renderOptions();
+  render();
+});
 $("eqUseRec").addEventListener("click", () => {
   if (!lastGear) return;
   const spec = DATA.specs[state.cls + "|" + state.spec], g = {};
