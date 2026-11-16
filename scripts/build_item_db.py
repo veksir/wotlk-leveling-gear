@@ -242,6 +242,55 @@ RAID_QUEST_MIN_ILVL = 213
 # (fichas de set, botín sin jefe asignado). Se oculta en "Sin bandas" y se rotula "probable".
 UNSOURCED_RAID_MIN_ILVL = 213
 
+BADGE_VENDORS = {
+    "Griselda Hunderland", "Bragund Brightlink", "Paldesse", "Valerie Langrom",
+    "Dubin Clay", "Horace Hunderland", "Rafael Langrom", "Rueben Lauren",
+    "Matilda Brightlink", "Ninsianna", "Debbi Moore", "Jarold Puller",
+    "Abra Cadabra", "Norvin Alderman", "Harold Winston",
+}
+T10_VENDORS = {"Horace Hunderland", "Rafael Langrom", "Rueben Lauren", "Matilda Brightlink"}
+REPUTATION_VENDORS = {
+    "Archmage Alvareaux", "Cielstrasza", "Duchess Mynx", "Veteran Crusader Aliocha Segard",
+    "Geen", "Tanak", "Lillehoff",
+}
+PVP_VENDORS = {
+    "Doris Volanthius", "Nargle Lashcord", "Sergeant Thunderhorn",
+    "Magister Brasael", "Magistrix Lambriesse", "Captain Dirgehammer",
+}
+QUEL_DELAR_IDS = {str(i) for i in range(50046, 50053)}
+QUEL_DELAR_SOURCE = {
+    "t": "Quest",
+    "n": "Cadena de Quel'Delar",
+    "q": [{"n": "La purificación de Quel'Delar", "f": "Both"}],
+}
+
+
+def vendor_currency(name, ilvl, cost):
+    """Moneda de compra de un vendor de WotLK según su nombre y el nivel del objeto."""
+    if name in REPUTATION_VENDORS:
+        return "reputation"
+    if name in PVP_VENDORS:
+        return "honor"
+    if cost and cost > 0:
+        return "gold"
+    if name == "Harold Winston":
+        return "conquest" if ilvl == 226 else None
+    if name not in BADGE_VENDORS:
+        return None
+    if name in T10_VENDORS and ilvl >= 264:
+        return "frost-token"
+    if ilvl >= 251:
+        return "frost"
+    if ilvl >= 232:
+        return "triumph"
+    if ilvl >= 219:
+        return "conquest"
+    if ilvl >= 213:
+        return "valor"
+    if ilvl >= 200:
+        return "heroism"
+    return None
+
 
 def source_info(source, zones, ilvl=0, quality=0):
     """Devuelve (src, tipo, es_banda). Campos cortos para que el JSON pese poco."""
@@ -255,7 +304,15 @@ def source_info(source, zones, ilvl=0, quality=0):
         raid_quest = quality == 5 or ilvl >= RAID_QUEST_MIN_ILVL
         return {"t": "Quest", "n": name, "q": variants, **({"rq": 1} if raid_quest else {})}, "quest", raid_quest
     if cat == "Vendor":
-        return {"t": "Vendor", "n": source.get("name", "Vendedor"), "f": source.get("faction") or "Both"}, "vendor", False
+        name = source.get("name") or "Vendedor"
+        cost = source.get("cost") or 0
+        out = {"t": "Vendor", "n": name, "f": source.get("faction") or "Both"}
+        cur = vendor_currency(name, ilvl, cost)
+        if cur:
+            out["cur"] = cur
+        if cost > 0:
+            out["cost"] = cost
+        return out, "vendor", False
     if cat in ("Boss Drop", "Zone Drop"):
         zid = source.get("zone")
         z = zones.get(zid)
@@ -368,6 +425,10 @@ def main():
                 src = {"t": "PvP"}
             elif quality >= 4 and ilvl >= UNSOURCED_RAID_MIN_ILVL:
                 src, is_raid = {"t": "RaidProb"}, True
+        if str(it["itemId"]) in QUEL_DELAR_IDS:
+            src = dict(QUEL_DELAR_SOURCE)
+            src_kind = "quest"
+            is_raid = False
         sub = it.get("subclass") or ""
         cls = it.get("class")
         armor_type = sub if cls == "Armor" and sub in ("Cloth", "Leather", "Mail", "Plate", "Shield") else None
@@ -410,6 +471,11 @@ def main():
     from collections import Counter
     print("slots", Counter(v["s"] for v in items.values()))
     print("leveling", sum(1 for v in items.values() if v["src"] and not v["raid"] and v["sk"] != "unknown"))
+    print("currencies", Counter((v.get("src") or {}).get("cur") for v in items.values() if (v.get("src") or {}).get("cur")))
+    unknown_vendor = [v["n"] for v in items.values() if (v.get("src") or {}).get("t") == "Vendor" and v["ilvl"] >= 200
+                      and not (v["src"].get("cur") or v["src"].get("cost"))]
+    if unknown_vendor:
+        print("vendors sin moneda", len(unknown_vendor), unknown_vendor[:10])
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(items, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     print("bytes", OUT.stat().st_size)
