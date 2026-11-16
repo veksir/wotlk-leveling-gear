@@ -21,6 +21,7 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 - **Cómo conseguirlo**: cada objeto muestra su fuente (misión, vendedor, jefe de mazmorra con probabilidad de drop, banda, drop raro) y enlaza a su ficha de EVOWOW.
 - **«¿Por qué este objeto?»** por slot: desglose de la puntuación por estadística, penalización por tipo de armadura, comparación con la siguiente alternativa y aviso cuando una opción de mayor nivel está oculta o es peor.
 - **Modos de contenido**: «Sin bandas» (por defecto) o «Con bandas», fase de raid 1–4 o Todas y un modo aparte «Solo PvP» (el PvE es el predeterminado; el equipo PvP nunca se mezcla en la recomendación PvE).
+- **Modo «Recién 80»**: oculta Frost, T10, fichas de raid y PvP, y deja misiones, mazmorras, reputación, oro, subasta, crafting y emblemas hasta Triunfo (conversión 1:1 a Conquista/Valor/Heroísmo). Una ruta de cinco pasos explica el camino más rápido. Se comprueba con `python tests/fresh80.py`.
 - **Legendarios incluidos**: los legendarios se puntúan como cualquier otro objeto y aparecen cuando son la mejor opción; los de banda requieren «Con bandas». La página muestra el top por slot, no un catálogo completo de legendarios.
 - **Abalorios con procs**: los efectos de uso y los procs se promedian según duración y enfriamiento (≈). Las listas curadas de abalorios de las guías mandan en su slot.
 - **Gemas por color y meta-gemas**: cada socket usa la mejor gema de su color; el bonus de socket solo se activa si se respetan los colores y la meta-gema solo cuenta si cumple sus requisitos y compensa su coste de activación.
@@ -78,6 +79,7 @@ python tests/optimizer.py
 python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
 python tests/check_reference.py --min=497
+python tests/fresh80.py
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py
@@ -85,7 +87,7 @@ python tests/reference_sets.py
 python tests/reference_ids.py
 ```
 
-`build_page.py` escribe `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis_ids.json` (por ID, Icy Veins + Wowhead) e informa de aciertos y coincidencias exactas; `--min=497` exige el gate actual y `--strict` es el objetivo final de 518/518. `sockets.py` comprueba los colores y el socket meta, `gems.py` la activación de la meta-gema y el bonus de socket, y `optimizer.py` la búsqueda en haz, el rendimiento (<750 ms) y que el nivel 79 no la use. `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `features.py` cubre gemas/sockets, bonus de set y reliquias curadas; `reference_sets.py` valida las piezas de los sets T10; `reference_ids.py` valida la referencia por ID; `spec_weights.py` comprueba las 31 especialidades a nivel 80.
+`build_page.py` escribe `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis_ids.json` (por ID, Icy Veins + Wowhead) e informa de aciertos y coincidencias exactas; `--min=497` exige el gate actual y `--strict` es el objetivo final de 518/518. `sockets.py` comprueba los colores y el socket meta, `gems.py` la activación de la meta-gema y el bonus de socket, y `optimizer.py` la búsqueda en haz, el rendimiento (<750 ms) y que el nivel 79 no la use. `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `features.py` cubre gemas/sockets, bonus de set y reliquias curadas; `reference_sets.py` valida las piezas de los sets T10; `reference_ids.py` valida la referencia por ID; `spec_weights.py` comprueba las 31 especialidades a nivel 80; `fresh80.py` comprueba el filtro Recién 80 en las 31 especialidades y ambas facciones, además del checkbox, la ruta, la persistencia y su desactivación en PvP/«Con bandas».
 
 ## Estructura del proyecto
 
@@ -123,6 +125,7 @@ Este proyecto no está afiliado a Blizzard Entertainment. World of Warcraft y Wr
 
 - La base está basada en WotLK Classic; algunas fuentes originales de 3.3.5 pueden faltar o aparecer como “Otra fuente”.
 - En «Sin bandas» se excluyen el botín de banda y las cadenas de misión de banda; en «Con bandas» aparecen.
+- «Recién 80» no puntúa el bonus T9 ni distingue la disponibilidad de eventos estacionales; filtra por moneda/fuente, no por si el evento está activo esta semana.
 - Los pesos de estadísticas son aproximaciones por rol durante la subida y siguen las prioridades de Icy Veins, calibradas con WowSims cuando hay datos, a nivel 80. Sirven para orientar, no sustituyen a un simulador de BiS; los topes suaves de celeridad y las interacciones de talentos no se modelan.
 - Las gemas se eligen por color y el bonus de socket solo se activa si se respetan los colores; la meta-gema usa un coste EP heurístico documentado en `data/reference_meta_gems.json` y no modela todos los efectos de activación. Los encantamientos, los encantamientos aleatorios y algunas interacciones de abalorios/sets siguen simplificados.
 - Por debajo de nivel 80 se mantiene la aproximación anterior: una gema recomendada por socket y el bonus de socket cuenta la mitad.
@@ -133,7 +136,7 @@ Este proyecto no está afiliado a Blizzard Entertainment. World of Warcraft y Wr
 - Algunos slots de niveles muy bajos pueden no tener objetos con estadísticas conocidas.
 - La página muestra el mejor objeto y alternativas por slot, no todos los objetos. Un legendario solo aparece si puntúa para la especialidad, nivel, facción, modo, fase y filtro PvP seleccionados. Los legendarios de nivel bajo o que dependen de una combinación no modelada pueden no aparecer.
 - Las combinaciones de armas cubren Frost Death Knight con dos armas de una mano y Titan's Grip de Fury (dos armas a dos manos). Otros setups especiales siguen simplificados, así que aún pueden faltar algunos objetos BiS.
-- La página final incluye los datos incrustados, así que `tolltip.html` pesa alrededor de 5,1 MB.
+- La página final incluye los datos incrustados, así que `tolltip.html` pesa alrededor de 6,3 MB.
 
 ## Contribuir
 

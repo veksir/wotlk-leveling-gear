@@ -52,6 +52,7 @@ python tests/optimizer.py
 python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
 python tests/check_reference.py --min=497
+python tests/fresh80.py
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py
@@ -77,6 +78,7 @@ python tests/reference_ids.py
 - `tests/reference_sets.py`: valida las piezas de los sets T10 usadas por el bonus de set.
 - `tests/reference_ids.py`: comprueba que cada ID de referencia existe, tiene el nombre correcto y pertenece a una ranura compatible.
 - `tests/spec_weights.py`: las 31 especialidades a nivel 80.
+- `tests/fresh80.py`: cobertura de Recién 80 en las 31 especialidades y ambas facciones, además del checkbox, la ruta, la persistencia y su desactivación en PvP/«Con bandas».
 
 **No** edites `tolltip.html` a mano. Es generado. Después de cambiar la plantilla o los datos, vuelve a ejecutar la generación.
 
@@ -86,6 +88,7 @@ python tests/reference_ids.py
 - Incluye `data/gear_data.json` cuando cambien las recomendaciones.
 - Incluye `data/heirloom_stats.json` cuando cambien las reliquias y `data/spec_weights.json` cuando cambien las prioridades. Cada especialidad conserva su fuente (Icy Veins y, si aplica, WowSims) y su prioridad; `data/reference_spec_stats.json` guarda los valores de calibración en bruto.
 - Mantén las fuentes y la disponibilidad por facción con la mayor precisión posible. Si una fuente es desconocida, usa “Otra fuente” en vez de adivinar.
+- Para vendedores de emblemas, reputación y PvP, define `source.cur` y `source.cost` en `scripts/build_item_db.py`; `build_item_db.py` avisa de vendedores de nivel 80 sin moneda conocida, y `tests/fresh80.py` rechaza Frost, fichas de raid, equipo de banda y PvP.
 - Al actualizar `tests/reference_bis_ids.json`, comprueba que todos los objetos existan en el dataset y pertenezcan al slot que indica la guía. Ejecuta `python tests/reference_ids.py`.
 - Las gemas, bonus de set T10, abalorios y reliquias de clase recomendados por las guías están en `data/reference_gems.json`, `data/reference_sets.json` y `data/reference_trinkets.json`. Las meta-gemas y su coste de activación están en `data/reference_meta_gems.json`. Conserva sus campos `source`/`contrast_source` y actualiza `data/gear_data.json`.
 - No añadas botín de banda al ranking principal de subida salvo que cambie el alcance del proyecto.
@@ -114,7 +117,7 @@ Evita mezclar cambios no relacionados en un mismo commit.
 ## Lista de comprobación para pull requests
 
 - [ ] La página se genera con `python scripts/build_page.py`.
-- [ ] Pasan `python tests/smoke.py`, `tests/sockets.py`, `tests/gems.py`, `tests/optimizer.py`, `tests/check_reference.py`, `tests/check_reference.py --ref=reference_bis_ids.json`, `tests/heirlooms.py`, `tests/spec_weights.py`, `tests/features.py`, `tests/reference_sets.py` y `tests/reference_ids.py`.
+- [ ] Pasan `python tests/smoke.py`, `tests/sockets.py`, `tests/gems.py`, `tests/optimizer.py`, `tests/check_reference.py`, `tests/check_reference.py --ref=reference_bis_ids.json`, `tests/fresh80.py`, `tests/heirlooms.py`, `tests/spec_weights.py`, `tests/features.py`, `tests/reference_sets.py` y `tests/reference_ids.py`.
 - [ ] `data/gear_data.json` y `tolltip.html` están regenerados si hace falta.
 - [ ] Los textos en español e inglés están actualizados.
 - [ ] No se incluyen datos crudos, cachés ni `__pycache__`.

@@ -52,6 +52,7 @@ python tests/optimizer.py
 python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
 python tests/check_reference.py --min=497
+python tests/fresh80.py
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py
@@ -77,6 +78,7 @@ python tests/reference_ids.py
 - `tests/reference_sets.py`: validates the T10 set pieces used by the set bonus.
 - `tests/reference_ids.py`: validates that every ID reference exists, has the right name, and belongs to a compatible slot.
 - `tests/spec_weights.py`: all 31 level-80 specializations.
+- `tests/fresh80.py`: Fresh 80 coverage for all 31 specializations and both factions, plus the checkbox, route, persistence, and disabling in PvP/With raids.
 
 Do **not** edit `tolltip.html` by hand. It is generated. After changing the template or data, run the build again.
 
@@ -86,6 +88,7 @@ Do **not** edit `tolltip.html` by hand. It is generated. After changing the temp
 - Commit the generated `data/gear_data.json` when recommendations change.
 - Commit `data/heirloom_stats.json` when heirloom stats change and `data/spec_weights.json` when priorities change. Every spec entry keeps its source (Icy Veins and, when applicable, WowSims) and priority; `data/reference_spec_stats.json` holds the raw calibration values.
 - Keep item sources and faction availability accurate. If a source is unknown, label it as “Other source” rather than guessing.
+- For badge, reputation, and PvP vendors, set `source.cur` and `source.cost` in `scripts/build_item_db.py`; `build_item_db.py` warns about level-80 vendors without a known currency, and `tests/fresh80.py` rejects Frost, raid tokens, raid gear, and PvP gear.
 - When updating `tests/reference_bis_ids.json`, make sure every referenced item exists in the dataset and belongs to the slot where the guide lists it. Run `python tests/reference_ids.py`.
 - Guide-recommended gems, T10 set bonuses, trinkets, and class relics live in `data/reference_gems.json`, `data/reference_sets.json`, and `data/reference_trinkets.json`. Meta gems and their activation cost live in `data/reference_meta_gems.json`. Keep their `source`/`contrast_source` fields and update the generated `data/gear_data.json`.
 - Do not add raid loot to the main leveling ranking unless the project scope changes.
@@ -114,7 +117,7 @@ Avoid mixing unrelated changes in one commit.
 ## Pull request checklist
 
 - [ ] The page builds with `python scripts/build_page.py`.
-- [ ] `python tests/smoke.py`, `tests/sockets.py`, `tests/gems.py`, `tests/optimizer.py`, `tests/check_reference.py`, `tests/check_reference.py --ref=reference_bis_ids.json`, `tests/heirlooms.py`, `tests/spec_weights.py`, `tests/features.py`, `tests/reference_sets.py`, and `tests/reference_ids.py` pass.
+- [ ] `python tests/smoke.py`, `tests/sockets.py`, `tests/gems.py`, `tests/optimizer.py`, `tests/check_reference.py`, `tests/check_reference.py --ref=reference_bis_ids.json`, `tests/fresh80.py`, `tests/heirlooms.py`, `tests/spec_weights.py`, `tests/features.py`, `tests/reference_sets.py`, and `tests/reference_ids.py` pass.
 - [ ] `data/gear_data.json` and `tolltip.html` are regenerated if needed.
 - [ ] Both Spanish and English UI strings are updated.
 - [ ] No raw data, caches, or `__pycache__` files are included.

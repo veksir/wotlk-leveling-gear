@@ -21,6 +21,7 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 - **How to get it**: every item shows its source (quest, vendor, dungeon boss with drop chance, raid, rare drop) and links to its EVOWOW page.
 - **"Why this item?"** per slot: score breakdown by stat, armor-type penalty, comparison with the next alternative, and a warning when a higher item level option is hidden or weaker.
 - **Content modes**: "No raids" (default) or "With raids", raid phase 1–4 or All, and a separate "PvP only" mode (PvE is the default; PvP gear is never mixed into PvE recommendations).
+- **"Fresh 80" mode**: hides Frost, Tier 10, raid tokens, and PvP gear, leaving quests, dungeons, reputation, gold, auction house, crafting, and badges up to Triumph (1:1 conversion to Conquest/Valor/Heroism). A five-step route explains the fastest gearing path. Checked by `python tests/fresh80.py`.
 - **Legendary items included**: legendaries are scored like any other item and appear when they are the best option; raid legendaries require "With raids". The page shows the top choices per slot, not a full legendary catalog.
 - **Proc-aware trinkets**: on-use and proc effects are averaged by duration and cooldown (≈). Curated trinket lists from the guides take priority in their slot.
 - **Gems by color and meta gems**: each socket uses the best gem of its color; the socket bonus only activates when the colors are respected, and a meta gem only counts when it meets its requirements and pays for its activation cost.
@@ -78,6 +79,7 @@ python tests/optimizer.py
 python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
 python tests/check_reference.py --min=497
+python tests/fresh80.py
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py
@@ -85,7 +87,7 @@ python tests/reference_sets.py
 python tests/reference_ids.py
 ```
 
-`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` audits all 31 level-80 specializations against the Icy Veins BiS lists in `tests/reference_bis_ids.json` (ID-based, Icy Veins + Wowhead) and reports hit/exact rates; `--min=497` enforces the current gate and `--strict` is the final 518/518 target. `sockets.py` covers socket colors and meta sockets, `gems.py` covers meta-gem activation and socket bonuses, and `optimizer.py` covers the beam search, performance (<750 ms), and that level 79 does not use it. `heirlooms.py` covers level scaling, off-spec filtering, two-handed weapons, and relic search; `features.py` covers gems/sockets, set bonuses, and curated relics; `reference_sets.py` validates the T10 set pieces; `reference_ids.py` validates the ID-based reference; `spec_weights.py` checks all 31 level-80 specializations.
+`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` audits all 31 level-80 specializations against the Icy Veins BiS lists in `tests/reference_bis_ids.json` (ID-based, Icy Veins + Wowhead) and reports hit/exact rates; `--min=497` enforces the current gate and `--strict` is the final 518/518 target. `sockets.py` covers socket colors and meta sockets, `gems.py` covers meta-gem activation and socket bonuses, and `optimizer.py` covers the beam search, performance (<750 ms), and that level 79 does not use it. `heirlooms.py` covers level scaling, off-spec filtering, two-handed weapons, and relic search; `features.py` covers gems/sockets, set bonuses, and curated relics; `reference_sets.py` validates the T10 set pieces; `reference_ids.py` validates the ID-based reference; `spec_weights.py` checks all 31 level-80 specializations; `fresh80.py` checks the Fresh 80 filter across all 31 specializations and both factions, plus the checkbox, route, persistence, and disabling in PvP/With raids.
 
 ## Project structure
 
@@ -122,6 +124,7 @@ This project is not affiliated with Blizzard Entertainment. World of Warcraft an
 
 - The dataset is based on WotLK Classic; a few original 3.3.5 sources may be missing or labeled as “Other source”.
 - "No raids" excludes raid loot and raid quest chains; "With raids" includes them.
+- "Fresh 80" does not score the T9 set bonus and does not distinguish seasonal event availability; it filters by currency/source, not by whether the event is active this week.
 - Stat weights are role-based while leveling and follow Icy Veins priorities, calibrated with WowSims where available, at level 80. They are designed to be useful, not to replace a full BiS simulator; haste soft caps and talent interactions are not modeled.
 - Gems are chosen by color and the socket bonus only activates when the colors are respected; the meta gem uses a heuristic EP cost documented in `data/reference_meta_gems.json` and does not model every activation effect. Enchants, random enchants, and some trinket/set interactions are still simplified.
 - Below level 80 the previous approximation remains: one recommended gem per socket and socket bonuses count for half.
@@ -132,7 +135,7 @@ This project is not affiliated with Blizzard Entertainment. World of Warcraft an
 - Some very low-level slots may legitimately have no item with known stats.
 - The page shows the best item plus alternatives per slot, not every item. A legendary only appears if it ranks for the selected spec, level, faction, mode, phase, and PvP filter. Low-level legendaries or ones that depend on an unmodeled setup may not appear.
 - Weapon combinations cover dual-wield Frost Death Knights and Fury's Titan's Grip (two two-handed weapons). Other special setups remain simplified, so some BiS items may still be missing.
-- The generated page embeds the item data, so `tolltip.html` is intentionally large (around 5.1 MB).
+- The generated page embeds the item data, so `tolltip.html` is intentionally large (around 6.3 MB).
 
 ## Contributing
 
