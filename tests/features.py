@@ -63,6 +63,24 @@ def main():
         assert not gear["dkHeirloom"], "los heirlooms no deben aparecer sin el check"
         assert gear["holyTrinket"] == "46051", gear["holyTrinket"]
 
+        armor = page.evaluate("""() => {
+          const expected = {"Mage":"Cloth","Priest":"Cloth","Warlock":"Cloth","Druid":"Leather","Rogue":"Leather",
+                            "Hunter":"Mail","Shaman":"Mail","Warrior":"Plate","Paladin":"Plate","Death Knight":"Plate"};
+          const bad = [];
+          for (const key in DATA.specs) {
+            const spec = DATA.specs[key], want = expected[spec.cls];
+            if (!want) continue;
+            const g = computeGear(spec, {level: 80, faction: "horde", scope: "raid", phase: 4, pvp: false});
+            for (const slot of specSlots(spec)) {
+              if (!["head","shoulder","chest","wrist","hands","waist","legs","feet"].includes(slot)) continue;
+              const e = g.slots[slot] && g.slots[slot].list[0];
+              if (e && e.it.at !== want) bad.push([key, slot, e.it.n, e.it.at]);
+            }
+          }
+          return bad;
+        }""")
+        assert not armor, "armadura de tipo incorrecto: " + str(armor)
+
         # Anillos de equipamiento único: nunca dos «Ashen Band» a la vez (comparten restricción en el juego)
         ashen = page.evaluate("""() => Object.keys(DATA.specs).filter((k) => {
           const g = computeGear(DATA.specs[k], { level: 80, faction: "horde", scope: "raid", phase: 4, pvp: false });
