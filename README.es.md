@@ -29,6 +29,7 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 - **Reliquias de clase**: sigilos, tótems, ídolos y librams son equipo normal y se recomiendan cuando la guía los incluye. Son distintas de las reliquias de subida (heirlooms).
 - **Topes de nivel 80**: se muestran los totales de golpe y pericia; lo que excede el tope vale un 15 %.
 - **Cobertura al subir de nivel**: los objetos con encantamiento aleatorio («of the Bear») se estiman con el mejor sufijo para tu especialidad, los blancos solo con armadura rellenan slots vacíos y los slots sin ningún objeto útil muestran la mejor opción disponible con un aviso. Se comprueba con `python tests/leveling.py`.
+- **BiS por fase (estilo BiS-Tooltip)**: pestañas PR, T7, T8, T9 y T10 (acumulativas) con el ranking de cada slot a nivel 80: **BiS** (mejor), **BiS²** (segundo, en anillos y abalorios) y **ALT1–ALT6**. Marca las alternativas que «completan» golpe o pericia cuando el BiS de esa fase no llega al tope. Al pasar el cursor sobre cualquier objeto se ve su posición en cada fase, y la ficha principal también etiqueta BiS y ALT. Se comprueba con `python tests/bis.py`.
 - **Buscador de botín**: indica lo que lleva puesto tu personaje (o carga el recomendado), elige una mazmorra o banda y mira todo lo que puede soltar para tu clase y especialidad, con el % de cambio frente a tu pieza equipada. El botín fuera de especialidad queda oculto por defecto y se puede mostrar con un interruptor.
 - **Filtro de facción**: las misiones y vendedores se ajustan a Horda o Alianza.
 - **Interfaz bilingüe**: español e inglés.
@@ -80,6 +81,7 @@ python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
 python tests/check_reference.py --min=497
 python tests/fresh80.py
+python tests/bis.py
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py

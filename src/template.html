@@ -464,6 +464,36 @@ var aowow_tooltips = {
   .caps .cap.ok { color: #7fd49a; } .caps .cap.low { color: var(--gold); }
   .caps small { flex-basis: 100%; color: var(--muted); font-size: 10.5px; }
   .fx { color: #c3b2f0; } .fx b { font-weight: 600; }
+  .rank { display: inline-block; min-width: 38px; padding: 0 6px; border-radius: 4px; font-size: 10px; font-weight: 800; letter-spacing: .04em; text-align: center; line-height: 17px; white-space: nowrap; }
+  .rank-bis { color: #2a1c00; background: linear-gradient(180deg, #f3d489, var(--gold)); }
+  .rank-bis2 { color: #2a1c00; background: linear-gradient(180deg, #e4d6b0, #b9a06a); }
+  .rank-alt { color: #bcd3de; background: rgba(143, 173, 189, .16); border: 1px solid rgba(143, 173, 189, .25); line-height: 15px; }
+  .slot-top .rank { margin-left: auto; }
+  .alt-list li .rank { min-width: 34px; font-size: 9.5px; line-height: 14px; }
+  .bis-tabs { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 16px 4px; }
+  .bis-phase-note { margin: 0; padding: 4px 16px 10px; color: var(--muted); font-size: 12px; }
+  .bis-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 8px 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 11.5px; color: var(--muted); }
+  .bis-legend span { display: inline-flex; gap: 6px; align-items: center; }
+  .bis-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 10px; padding: 12px; }
+  .bis-card { border: 1px solid var(--line); border-radius: 6px; background: rgba(8, 25, 36, .55); padding: 8px 10px 6px; }
+  .bis-card h3 { margin: 0 0 6px; font-size: 10px; font-weight: 700; letter-spacing: .05em; color: var(--muted); text-transform: uppercase; }
+  .bis-card ol { margin: 0; padding: 0; list-style: none; }
+  .bis-card li { display: grid; grid-template-columns: 42px 24px minmax(0, 1fr); gap: 7px; align-items: start; padding: 3px 0; border-top: 1px solid rgba(26, 61, 80, .45); }
+  .bis-card li:first-child { border-top: 0; }
+  .bis-ic { width: 24px; height: 24px; border: 1px solid var(--line-2); border-radius: 3px; background: #071722; }
+  .bis-name { font-size: 12.5px; font-weight: 600; text-decoration: none; }
+  .bis-sub { display: block; color: #7d9bab; font-size: 10.5px; line-height: 1.35; }
+  .bis-fill { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 4px; background: rgba(127, 212, 154, .14); color: #7fd49a; font-size: 10px; font-weight: 700; }
+  .bis-empty { color: var(--muted); font-size: 12px; padding: 4px 0; }
+  .bis-tip { position: fixed; z-index: 2147483000; max-width: 300px; pointer-events: none; padding: 8px 10px; border: 1px solid var(--gold); border-radius: 6px; background: rgba(6, 19, 29, .97); box-shadow: 0 6px 20px rgba(0, 0, 0, .5); font-size: 12px; color: var(--text); }
+  .bis-tip[hidden] { display: none; }
+  .bis-tip strong { display: block; color: var(--gold); font-size: 11px; letter-spacing: .04em; }
+  .bis-tip small { display: block; color: var(--muted); font-size: 10.5px; margin-bottom: 4px; }
+  .bis-tip-row { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+  .bis-tip-row span { display: inline-flex; gap: 5px; align-items: center; }
+  .bis-tip-row em { font-style: normal; color: var(--muted); font-size: 11px; }
+  .bis-tip-row .none { color: #5d7a8a; }
+  @media (max-width: 680px) { .bis-grid { grid-template-columns: 1fr; padding: 9px; } }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -609,6 +639,19 @@ var aowow_tooltips = {
       </aside>
     </div>
 
+    <section class="panel bis" style="margin-top:14px" aria-labelledby="bisHeading">
+      <div class="panel-head">
+        <div><h2 id="bisHeading" data-i18n="bisTitle">BiS por fase</h2><p id="bisIntro" data-i18n="bisIntro"></p></div>
+        <span class="slot-count" id="bisSpec"></span>
+      </div>
+      <div class="bis-tabs seg" id="bisTabs" role="group" aria-labelledby="bisHeading"></div>
+      <p class="bis-phase-note" id="bisPhaseNote"></p>
+      <div class="caps" id="bisCaps" hidden></div>
+      <div class="bis-legend" id="bisLegend"></div>
+      <div class="bis-grid" id="bisGrid"></div>
+      <p class="note" style="padding:0 16px 12px" data-i18n="bisHint"></p>
+    </section>
+
     <section class="panel" style="margin-top:14px" aria-labelledby="lootHeading">
       <div class="panel-head"><div><h2 id="lootHeading" data-i18n="lootTitle">Botín de mazmorra</h2><p id="lootIntro" data-i18n="lootIntro"></p></div></div>
       <details class="eq" id="eqPanel" open>
@@ -638,9 +681,10 @@ var aowow_tooltips = {
     <p data-i18n="footer">Las ventanas de objeto se cargan desde EVOWOW. Pasa el cursor sobre un objeto para ver su ficha completa.</p>
   </footer>
 </div>
+<div class="bis-tip" id="bisTip" hidden role="tooltip"></div>
 <script>
 const DATA = /*__DATA__*/;
-const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup", showOffspec: "wotlk-gear-show-offspec", showHeirlooms: "wotlk-gear-show-heirlooms", fresh: "wotlk-gear-fresh", lootSlot: "wotlk-gear-loot-slot", lootSort: "wotlk-gear-loot-sort" };
+const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup", showOffspec: "wotlk-gear-show-offspec", showHeirlooms: "wotlk-gear-show-heirlooms", fresh: "wotlk-gear-fresh", lootSlot: "wotlk-gear-loot-slot", lootSort: "wotlk-gear-loot-sort", bisPhase: "wotlk-gear-bis-phase" };
 
 const I18N = {
   es: {
@@ -725,7 +769,12 @@ Object.assign(I18N.es, {
   capsNote: "Solo cuentan los objetos: sin gemas, encantamientos ni talentos, que bajan el tope. Lo que excede el tope vale un 15 %.",
   lootDungeons: "Mazmorras", lootRaids: "Bandas",
   modeLabel: "Contenido", modeNoRaid: "Sin bandas", modeRaid: "Con bandas",
-  phaseLabel: "Fase", phaseAll: "Todas", pvpLabel: "Tipo de equipo", pvpOff: "PvE", pvpOn: "Solo PvP",
+  phaseLabel: "Fase", phaseAll: "Todas",
+  bisTitle: "BiS por fase", bisIntro: "Ranking de objetos por slot y fase de banda, como el addon BiS-Tooltip. Se calcula siempre para nivel 80 con tu clase, especialidad y facción.",
+  bisLegendBis: "mejor objeto de la fase", bisLegendBis2: "segundo mejor (anillos y abalorios, se llevan dos)", bisLegendAlt: "siguientes alternativas, de mejor a peor",
+  bisHint: "Es una guía general: un objeto ALT puede rendirte más que el BiS si te ayuda a completar golpe o pericia. Los objetos marcados con «completa…» aportan a un tope que el equipo BiS de esta fase todavía no alcanza. Pasa el cursor sobre cualquier objeto de la página para ver su posición en cada fase.",
+  bisEmptySlot: "Sin objeto en este slot", bisTipTitle: "BiS-Tooltip", bisTipNone: "No está en el top de tu especialidad", bisTipLv: "Posiciones a nivel 80 · ", bisSpecWord: "Especialidad",
+  bisPairRing: "Anillos", bisPairTrinket: "Abalorios", bisAltTitle: "Alternativa", bisBisTitle: "Mejor objeto", pvpLabel: "Tipo de equipo", pvpOff: "PvE", pvpOn: "Solo PvP",
   altsLabel: "Alternativas por slot",
   optsHint: "«Sin bandas» sirve para subir de nivel o jugar sin raid; «Con bandas» muestra el mejor equipo de raid; «Solo PvP» muestra únicamente equipo útil para PvP, sin mezclarlo con el PvE. La fase limita el contenido disponible hasta esa fase del juego. «Recién 80» oculta Frost, T10 y fichas de raid, y deja el equipo comprable con Triunfo o inferior.",
   fresh80: "Modo recién 80 (sin Frost ni fichas de raid)",
@@ -782,7 +831,12 @@ Object.assign(I18N.en, {
   capsNote: "Items only: no gems, enchants, or talents, which lower the cap. Anything above the cap counts for 15 %.",
   lootDungeons: "Dungeons", lootRaids: "Raids",
   modeLabel: "Content", modeNoRaid: "No raids", modeRaid: "With raids",
-  phaseLabel: "Phase", phaseAll: "All", pvpLabel: "Gear type", pvpOff: "PvE", pvpOn: "PvP only",
+  phaseLabel: "Phase", phaseAll: "All",
+  bisTitle: "BiS by phase", bisIntro: "Item ranking per slot and raid phase, like the BiS-Tooltip addon. It is always computed for level 80 with your class, spec and faction.",
+  bisLegendBis: "best item of the phase", bisLegendBis2: "second best (rings and trinkets, you wear two)", bisLegendAlt: "next alternatives, best to worst",
+  bisHint: "This is a general guide: an ALT item can perform better than the BiS if it helps you reach hit or expertise. Items tagged «fills…» add to a cap that this phase's BiS gear does not reach yet. Hover any item on the page to see its position in each phase.",
+  bisEmptySlot: "No item in this slot", bisTipTitle: "BiS-Tooltip", bisTipNone: "Not in the top list for your spec", bisTipLv: "Level 80 positions · ", bisSpecWord: "Spec",
+  bisPairRing: "Rings", bisPairTrinket: "Trinkets", bisAltTitle: "Alternative", bisBisTitle: "Best item", pvpLabel: "Gear type", pvpOff: "PvE", pvpOn: "PvP only",
   altsLabel: "Alternatives per slot",
   optsHint: "\"No raids\" is for leveling or playing without raiding; \"With raids\" shows the best raid gear; \"PvP only\" shows only PvP-useful gear, never mixed with PvE. The phase limits content to what is available up to that game phase. \"Fresh 80\" hides Frost, Tier 10, and raid tokens, leaving gear buyable with Triumph or lower.",
   fresh80: "Fresh 80 mode (no Frost or raid tokens)",
@@ -877,12 +931,14 @@ let state = {
   showOffspec: load(STORE.showOffspec, "0") === "1",
   showHeirlooms: load(STORE.showHeirlooms, "0") === "1",
   fresh: load(STORE.fresh, "0") === "1",
+  bisPhase: load(STORE.bisPhase, "PR"),
   gear: (() => { try { return JSON.parse(load(STORE.gear, "{}")) || {}; } catch (e) { return {}; } })()
 };
 if (state.scope !== "raid") state.scope = "noraid";
 if (state.level !== 80 || state.pvp || state.scope === "raid") state.fresh = false;
 if (![0, 1, 2, 3, 4].includes(state.phase)) state.phase = 0;
 if (![2, 5, 10].includes(state.alts)) state.alts = 2;
+if (!["PR", "T7", "T8", "T9", "T10"].includes(state.bisPhase)) state.bisPhase = "PR";
 if (!DATA.factions.includes(state.faction)) state.faction = "horde";
 if (!["boss", "upgrade", "ilvl"].includes(state.lootSort)) state.lootSort = "boss";
 if (!I18N[state.lang]) state.lang = "es";
@@ -2213,6 +2269,7 @@ function persist() {
   save(STORE.showOffspec, state.showOffspec ? "1" : "0");
   save(STORE.showHeirlooms, state.showHeirlooms ? "1" : "0");
   save(STORE.fresh, state.fresh ? "1" : "0");
+  save(STORE.bisPhase, state.bisPhase || "PR");
   save(STORE.gear, JSON.stringify(state.gear));
 }
 
@@ -2227,6 +2284,9 @@ function setLevel(value) {
   render();
 }
 
+const bisLabel = (i, pair) => (i === 0 ? "BiS" : pair && i === 1 ? "BiS²" : "ALT" + (i - (pair ? 1 : 0)));
+const rankClass = (lab) => (lab === "BiS" ? "rank-bis" : lab === "BiS²" ? "rank-bis2" : "rank-alt");
+const rankPill = (lab, title) => '<span class="rank ' + rankClass(lab) + '"' + (title ? ' title="' + esc(title) + '"' : "") + ">" + lab + "</span>";
 function renderSlot(spec, gear, slot) {
   const sl = gear.slots[slot];
   const list = sl.list.slice(0, 1 + state.alts);
@@ -2239,7 +2299,7 @@ function renderSlot(spec, gear, slot) {
   const item = e.it;
   const alts = list.slice(1);
   const altHtml = alts.length
-    ? '<ul class="alt-list" aria-label="' + t("moreAlts") + '">' + alts.map((a) => "<li>" + itemLink(a.id, false, "alt-link") + "<span>iLvl " + a.it.ilvl + "</span><span>" + badgeHtml(obtainInfo(a.it)) + "</span></li>").join("") + "</ul>"
+    ? '<ul class="alt-list" aria-label="' + t("moreAlts") + '">' + alts.map((a) => "<li>" + rankPill("ALT" + (alts.indexOf(a) + 1), t("bisAltTitle")) + itemLink(a.id, false, "alt-link") + "<span>iLvl " + a.it.ilvl + "</span><span>" + badgeHtml(obtainInfo(a.it)) + "</span></li>").join("") + "</ul>"
     : '<div class="alts">' + t("noAlts") + "</div>";
   let note = "";
   if (slot === "offhand" && gear.slots.mainhand && gear.slots.mainhand.list[0] && gear.slots.mainhand.list[0].it.s === "twohand") note = '<div class="alt-note">' + t("offhandNote") + "</div>";
@@ -2253,7 +2313,7 @@ function renderSlot(spec, gear, slot) {
   if (item.dps) meta += " · " + item.dps + " DPS";
   if (item.ar) meta += " · " + item.ar + (state.lang === "en" ? " armor" : " armadura");
   return '<article class="slot" style="--q:' + qColor(item.q) + '">' +
-    '<div class="slot-top"><span class="slot-name">' + label + '</span><span class="slot-ilvl">iLvl ' + item.ilvl + "</span></div>" +
+    '<div class="slot-top"><span class="slot-name">' + label + '</span>' + rankPill(slot === "ring2" || slot === "trinket2" ? "BiS²" : "BiS", t("bisBisTitle")) + '<span class="slot-ilvl">iLvl ' + item.ilvl + "</span></div>" +
     '<div class="slot-body">' + iconHtml(item) + "<div>" + itemLink(e.id, false, "item-name") +
     '<div class="item-meta">' + meta + "</div>" +
     '<div class="item-source">' + badgeHtml(obtainInfo(item)) + "</div>" +
@@ -2405,6 +2465,7 @@ function render() {
   lastGear = gear;
   renderEquip(spec);
   renderLoot(spec);
+  renderBis(spec);
   renderStats(spec);
   renderDungeons(bracket, level);
   renderHeirlooms(state.cls + "|" + state.spec, level);
@@ -2413,6 +2474,135 @@ function render() {
   slotsEl.classList.add("reveal");
   scheduleRefresh();
 }
+
+/* ---------- BiS por fase (estilo BiS-Tooltip) ---------- */
+const BIS_PHASES = [
+  { key: "PR", scope: "noraid", phase: 1, es: "Pre-banda: mazmorras heroicas, reputaciones, profesiones y emblemas, sin entrar a banda.", en: "Pre-raid: heroic dungeons, reputations, professions and emblems, without raiding." },
+  { key: "T7", scope: "raid", phase: 1, es: "Fase 1: Naxxramas, Obsidian Sanctum y Eye of Eternity, más todo lo anterior.", en: "Phase 1: Naxxramas, Obsidian Sanctum and Eye of Eternity, plus everything before." },
+  { key: "T8", scope: "raid", phase: 2, es: "Fase 2: Ulduar, más todo lo anterior.", en: "Phase 2: Ulduar, plus everything before." },
+  { key: "T9", scope: "raid", phase: 3, es: "Fase 3: Trial of the Crusader, más todo lo anterior.", en: "Phase 3: Trial of the Crusader, plus everything before." },
+  { key: "T10", scope: "raid", phase: 5, es: "Fases 4 y 5: Icecrown Citadel y Ruby Sanctum, más todo lo anterior.", en: "Phases 4 and 5: Icecrown Citadel and Ruby Sanctum, plus everything before." }
+];
+const BIS_ALTS = 6;
+const bisCache = new Map();
+let bisWarmToken = 0;
+const bisCtx = () => [state.cls, state.spec, state.faction, state.showHeirlooms ? 1 : 0].join("|");
+
+function bisRows(spec, gear) {
+  const rows = [];
+  specSlots(spec).forEach((slot) => {
+    if (slot === "ring2" || slot === "trinket2") return;
+    const sl = gear.slots[slot];
+    if (!sl) return;
+    let list = sl.list, pair = false;
+    if (slot === "ring1" || slot === "trinket1") {
+      pair = true;
+      const other = gear.slots[slot.slice(0, -1) + "2"];
+      const seen = new Set(), merged = [];
+      [list[0], other && other.list[0]].concat(list.slice(1), other ? other.list.slice(1) : []).forEach((e) => {
+        if (e && !seen.has(e.it.n)) { seen.add(e.it.n); merged.push(e); }
+      });
+      list = merged;
+    }
+    rows.push({ slot, pair, list: list.slice(0, (pair ? 2 : 1) + BIS_ALTS) });
+  });
+  return rows;
+}
+function bisData(ph) {
+  const key = bisCtx() + "|" + ph.key;
+  if (bisCache.has(key)) return bisCache.get(key);
+  const spec = currentSpec();
+  const gear = computeGear(spec, { level: 80, faction: state.faction, scope: ph.scope, phase: ph.phase, pvp: false, fresh: false });
+  const rows = bisRows(spec, gear);
+  const ranks = {};
+  rows.forEach((r) => r.list.forEach((e, i) => {
+    const prev = ranks[e.it.n];
+    if (!prev || prev.i > i) ranks[e.it.n] = { i, label: bisLabel(i, r.pair) };
+  }));
+  const data = { rows, ranks, totals: gear.totals, caps: gear.caps };
+  bisCache.set(key, data);
+  if (bisCache.size > 60) bisCache.delete(bisCache.keys().next().value);
+  return data;
+}
+function bisCompletes(e, data) {
+  if (!data.totals || !data.caps) return "";
+  const ks = Object.keys(data.caps).filter((k) => (data.totals[k] || 0) < data.caps[k] && ((e.it.st || {})[k] || 0) > 0);
+  return ks.length ? '<span class="bis-fill">' + L("completa ", "fills ") + esc(ks.map((k) => partLabel(k).toLowerCase()).join(" + ")) + "</span>" : "";
+}
+function bisPairLabel(slot) { return slot === "ring1" ? t("bisPairRing") : slot === "trinket1" ? t("bisPairTrinket") : (SLOT_LABEL[state.lang] || SLOT_LABEL.es)[slot] || slot; }
+function bisCard(r, data) {
+  const items = r.list.map((e, i) => {
+    const lab = bisLabel(i, r.pair), isAlt = lab.startsWith("ALT");
+    const icon = e.it.i ? '<img class="bis-ic" src="https://wotlk.evowow.com/static/images/wow/icons/medium/' + esc(e.it.i) + '.jpg" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">' : '<span class="bis-ic"></span>';
+    return "<li>" + rankPill(lab) + icon + "<div>" + itemLink(e.id, false, "bis-name") + (isAlt ? bisCompletes(e, data) : "") +
+      '<span class="bis-sub">iLvl ' + e.it.ilvl + " · " + badgeHtml(obtainInfo(e.it)) + "</span></div></li>";
+  }).join("");
+  return '<article class="bis-card"><h3>' + esc(bisPairLabel(r.slot)) + "</h3>" + (items ? "<ol>" + items + "</ol>" : '<div class="bis-empty">' + t("bisEmptySlot") + "</div>") + "</article>";
+}
+function renderBis(spec) {
+  const ph = BIS_PHASES.find((p) => p.key === state.bisPhase) || BIS_PHASES[0];
+  renderSeg($("bisTabs"), BIS_PHASES.map((p) => ({ value: p.key, label: p.key })), ph.key, (v) => { state.bisPhase = v; persist(); renderBis(currentSpec()); scheduleRefresh(); });
+  $("bisSpec").textContent = state.cls + " · " + state.spec;
+  $("bisPhaseNote").textContent = ph[state.lang === "en" ? "en" : "es"];
+  $("bisLegend").innerHTML = "<span>" + rankPill("BiS") + t("bisLegendBis") + "</span><span>" + rankPill("BiS²") + t("bisLegendBis2") + "</span><span>" + rankPill("ALT1") + "–" + rankPill("ALT" + BIS_ALTS) + t("bisLegendAlt") + "</span>";
+  const data = bisData(ph);
+  const box = $("bisCaps");
+  if (data.totals && data.caps) {
+    box.hidden = false;
+    box.innerHTML = "<strong>" + t("capsTitle") + "</strong> " + Object.keys(data.caps).map((k) => {
+      const have = data.totals[k], cap = data.caps[k];
+      return '<span class="cap ' + (have >= cap ? "ok" : "low") + '">' + esc(partLabel(k)) + " " + have + " / " + cap + " · " + (have > cap ? t("capsOver") + " " + (have - cap) : have === cap ? t("capsEq") : t("capsMissing") + " " + (cap - have)) + "</span>";
+    }).join("") + "<small>" + t("capsNote") + "</small>";
+  } else box.hidden = true;
+  $("bisGrid").innerHTML = data.rows.map((r) => bisCard(r, data)).join("");
+  bisWarm();
+}
+// Calcula en segundo plano las demás fases para que el tooltip de objetos tenga todas las posiciones.
+function bisWarm() {
+  const token = ++bisWarmToken;
+  const step = () => {
+    if (token !== bisWarmToken) return;
+    const next = BIS_PHASES.find((p) => !bisCache.has(bisCtx() + "|" + p.key));
+    if (!next) return;
+    bisData(next);
+    setTimeout(step, 60);
+  };
+  setTimeout(step, 400);
+}
+const bisTipEl = $("bisTip");
+function bisTipHtml(id) {
+  const it = gearItem(id);
+  if (!it) return "";
+  let any = false;
+  const cells = BIS_PHASES.map((p) => {
+    const r = bisData(p).ranks[it.n];
+    if (r) any = true;
+    return "<span><em>" + p.key + "</em>" + (r ? rankPill(r.label) : '<b class="none">—</b>') + "</span>";
+  }).join("");
+  return "<strong>" + t("bisTipTitle") + "</strong><small>" + t("bisTipLv") + esc(state.cls + " " + state.spec) + "</small>" +
+    '<div class="bis-tip-row">' + cells + "</div>" + (any ? "" : '<small style="margin:4px 0 0">' + t("bisTipNone") + "</small>");
+}
+function bisTipShow(a) {
+  const m = /[?&]item=(\d+)/.exec(a.getAttribute("href") || "");
+  if (!m) return;
+  const html = bisTipHtml(m[1]);
+  if (!html) return;
+  bisTipEl.innerHTML = html;
+  bisTipEl.hidden = false;
+  const r = a.getBoundingClientRect(), w = bisTipEl.offsetWidth, h = bisTipEl.offsetHeight;
+  let top = r.top - h - 6;
+  if (top < 4) top = r.bottom + 6;
+  bisTipEl.style.top = Math.max(4, top) + "px";
+  bisTipEl.style.left = Math.max(4, Math.min(r.left, window.innerWidth - w - 8)) + "px";
+}
+document.addEventListener("mouseover", (e) => {
+  const a = e.target.closest && e.target.closest('a[href*="evowow.com/?item="]');
+  if (a) bisTipShow(a);
+});
+document.addEventListener("mouseout", (e) => {
+  if (e.target.closest && e.target.closest('a[href*="evowow.com/?item="]')) bisTipEl.hidden = true;
+});
+window.addEventListener("scroll", () => { bisTipEl.hidden = true; }, { passive: true });
 
 let refreshTimer = null;
 function scheduleRefresh() {
@@ -2436,7 +2626,7 @@ levelInput.addEventListener("blur", (e) => {
 });
 
 $("resetBtn").addEventListener("click", () => {
-  Object.assign(state, { cls: "Warrior", spec: "Arms", level: 20, scope: "noraid", phase: 0, pvp: false, alts: 2, dungeon: 0, lootSlot: "", lootSort: "boss", onlyUp: false, showOffspec: false, showHeirlooms: false, fresh: false });
+  Object.assign(state, { cls: "Warrior", spec: "Arms", level: 20, scope: "noraid", phase: 0, pvp: false, alts: 2, dungeon: 0, lootSlot: "", lootSort: "boss", onlyUp: false, showOffspec: false, showHeirlooms: false, fresh: false, bisPhase: "PR" });
   clearLootUndo();
   persist();
   renderClasses();

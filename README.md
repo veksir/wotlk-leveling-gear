@@ -29,6 +29,7 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 - **Class relics**: sigils, totems, idols, and librams are normal gear and are recommended when the guide lists them. They are separate from leveling heirlooms.
 - **Level 80 caps**: hit and expertise totals are shown; stats above the cap count for 15 %.
 - **Leveling coverage**: random-enchant items ("of the Bear") are estimated with the best suffix for your spec, white armor-only items fill empty slots, and slots without any useful item show the best available option with a notice. Checked by `python tests/leveling.py`.
+- **BiS by phase (BiS-Tooltip style)**: PR, T7, T8, T9 and T10 tabs (cumulative) ranking every slot at level 80: **BiS** (best), **BiS²** (second, for rings and trinkets) and **ALT1–ALT6**. Alternatives that "fill" hit or expertise are flagged when the phase's BiS is under the cap. Hovering any item shows its position in every phase, and the main sheet also labels BiS and ALT. Checked with `python tests/bis.py`.
 - **Loot browser**: enter what your character is wearing (or load the recommended set), pick a dungeon or raid, and see every item it can drop for your class and spec with the % change over your equipped piece. Off-spec items are hidden by default and can be revealed with a toggle.
 - **Faction-aware**: quests and vendors are filtered for Horde or Alliance.
 - **Bilingual UI**: Spanish and English.
@@ -80,6 +81,7 @@ python tests/check_reference.py
 python tests/check_reference.py --ref=reference_bis_ids.json
 python tests/check_reference.py --min=497
 python tests/fresh80.py
+python tests/bis.py
 python tests/heirlooms.py
 python tests/spec_weights.py
 python tests/features.py
