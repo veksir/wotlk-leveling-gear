@@ -397,9 +397,11 @@ var aowow_tooltips = {
   .loot-actions .mini-btn { white-space: nowrap; }
   .loot-why { margin: 2px 0 5px 136px; font-size: 10.5px; color: #c3d8e2; }
   .loot-why summary { cursor: pointer; color: var(--ice); }
-  .loot-why table { width: 100%; margin-top: 4px; border-collapse: collapse; }
+  .loot-why table { width: min(100%, 370px); margin-top: 4px; border-collapse: collapse; table-layout: auto; }
   .loot-why th, .loot-why td { padding: 1px 0; font-weight: 400; }
-  .loot-why th:nth-child(n+2), .loot-why td:nth-child(n+2) { text-align: right; }
+  .loot-why th:first-child, .loot-why td:first-child { padding-right: 14px; }
+  .loot-why th:nth-child(n+2), .loot-why td:nth-child(n+2) { text-align: right; padding-left: 12px; font-variant-numeric: tabular-nums; }
+  .loot-why tbody tr:nth-child(even) { background: rgba(117, 215, 239, .035); }
   .loot-why .up { color: #7fd49a; } .loot-why .dn { color: #d98a8a; }
   .loot-why p { margin: 4px 0 0; color: var(--muted); }
   .loot-empty { padding: 6px 0 2px; }
