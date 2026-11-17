@@ -406,6 +406,10 @@ var aowow_tooltips = {
   .loot-why p { margin: 4px 0 0; color: var(--muted); }
   .loot-empty { padding: 6px 0 2px; }
   .loot-empty-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .loot-hover { position: fixed; z-index: 60; width: min(370px, calc(100vw - 24px)); margin: 0; padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 8px; background: rgba(7, 23, 34, .98); box-shadow: 0 12px 32px rgba(0, 0, 0, .55); pointer-events: none; }
+  .loot-hover .loot-hover-title { margin-bottom: 4px; color: var(--ice); font-size: 12px; font-weight: 600; }
+  .loot-hover p { margin: 4px 0 0; }
+  .loot-hover p:not(:first-of-type):not(.warn) { display: none; }
   .delta { padding: 0 6px; border-radius: 3px; font-size: 10.5px; font-weight: 700; white-space: nowrap; }
   .delta.up { background: rgba(126, 212, 154, .18); color: #7fd49a; } .delta.eq { background: rgba(143, 173, 189, .15); color: var(--muted); } .delta.dn { background: rgba(211, 74, 74, .14); color: #d98a8a; } .delta.lv { background: rgba(217, 177, 95, .15); color: var(--gold); } .delta.off { background: rgba(143, 173, 189, .15); color: #9fb9c8; }
   .dungeon-list button { all: unset; display: flex; justify-content: space-between; gap: 8px; width: 100%; cursor: pointer; }
@@ -1791,6 +1795,41 @@ function lootSlotLabel(it, pk) {
   return lootSlotText(it.s);
 }
 const collapsedBosses = new Set();
+let lootHoverCard = null, lootHoverTimer = 0;
+function hideLootHover() {
+  clearTimeout(lootHoverTimer);
+  if (lootHoverCard) {
+    lootHoverCard.remove();
+    lootHoverCard = null;
+  }
+}
+function showLootHover(item) {
+  hideLootHover();
+  const why = item.querySelector(".loot-why");
+  if (!why) return;
+  const clone = why.cloneNode(true);
+  clone.open = true;
+  const summary = clone.querySelector("summary");
+  if (summary) summary.remove();
+  const card = document.createElement("div");
+  card.id = "lootHover";
+  card.className = "loot-why loot-hover";
+  card.setAttribute("role", "tooltip");
+  const link = item.querySelector(".loot-row a");
+  card.innerHTML = (link ? '<div class="loot-hover-title">' + esc(link.textContent) + "</div>" : "") + clone.innerHTML;
+  document.body.appendChild(card);
+  lootHoverCard = card;
+  const rect = item.getBoundingClientRect(), margin = 10;
+  const width = card.offsetWidth, height = card.offsetHeight;
+  let left = Math.min(Math.max(8, rect.left), window.innerWidth - width - 8);
+  let top = rect.top - height - margin;
+  if (top < 8) top = rect.bottom + margin;
+  if (top + height > window.innerHeight - 8) top = Math.max(8, window.innerHeight - height - 8);
+  card.style.left = left + "px";
+  card.style.top = top + "px";
+}
+window.addEventListener("scroll", hideLootHover, { passive: true });
+window.addEventListener("resize", hideLootHover);
 function lootPartVal(p) {
   if (!p || !p.v) return "—";
   if (p.k === "armor" || p.k === "dps") return String(p.v);
@@ -1952,6 +1991,17 @@ function bindLootEvents() {
   $("lootBody").querySelectorAll("details.boss").forEach((d) => d.addEventListener("toggle", () => {
     if (d.open) collapsedBosses.delete(d.dataset.boss); else collapsedBosses.add(d.dataset.boss);
   }));
+  hideLootHover();
+  if (window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    $("lootBody").querySelectorAll(".loot-item").forEach((item) => {
+      if (!item.querySelector(".loot-why")) return;
+      item.addEventListener("mouseenter", () => {
+        clearTimeout(lootHoverTimer);
+        lootHoverTimer = setTimeout(() => showLootHover(item), 180);
+      });
+      item.addEventListener("mouseleave", hideLootHover);
+    });
+  }
 }
 
 function renderClasses() {

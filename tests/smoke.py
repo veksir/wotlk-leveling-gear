@@ -207,9 +207,23 @@ def main():
         page.locator("#levelInput").dispatch_event("change")
         page.select_option("#dungeonSelect", value="4812")
         page.wait_for_timeout(400)
-        why = page.locator(".loot-why").first
+        item = page.locator(".loot-item").first
+        item.scroll_into_view_if_needed()
+        page.wait_for_timeout(150)
+        item.hover()
+        page.wait_for_timeout(350)
+        hover = page.locator("#lootHover")
+        assert hover.is_visible(), "pasar el ratón por el objeto debe mostrar una ventana flotante"
+        assert hover.locator("table tbody tr").count() > 0, "la ventana flotante debe comparar estadísticas"
+        assert "Puntuación" in hover.inner_text(), "la ventana flotante debe mostrar la puntuación"
+        assert not item.locator(".loot-why").evaluate("d => d.open"), "el hover no debe abrir el panel fijo"
+        page.mouse.move(0, 0)
+        page.wait_for_timeout(200)
+        assert page.locator("#lootHover").count() == 0, "salir del objeto debe cerrar la ventana flotante"
+        why = item.locator(".loot-why")
         why.locator("summary").click()
         page.wait_for_timeout(150)
+        assert why.evaluate("d => d.open"), "el clic debe abrir el desglose fijo"
         why_text = why.inner_text()
         assert why.locator("table tbody tr").count() > 0, "el desglose debe mostrar las estadísticas"
         assert "Puntuación" in why_text and "lootScore" not in why_text, "faltan textos traducidos en el desglose"
