@@ -1482,7 +1482,8 @@ function evalEquip(it, spec, w, o) {
   if (al === null) return null;
   const tiered = it.at && it.s !== "back" && ARMOR_KEYS.includes(it.s);
   const af = tiered ? softArmor(armorFactor(spec.cls, it.at, o.level), spec.role) : 1;
-  return { pk, al, score: Math.max(scoreParts(it, w).base, 0) * af };
+  const sp = scoreParts(it, w);
+  return { pk, al, parts: sp.parts, base: sp.base, af, score: Math.max(sp.base, 0) * af };
 }
 let candCache = { key: "", pools: null };
 let lastGear = null;
@@ -1507,9 +1508,59 @@ function equippedEntry(spec, slot) {
   if (!source) return null;
   const it = levelItem(source, state.level);
   const r = evalEquip(it, spec, weightsFor(spec, false, state.level), { level: state.level, faction: state.faction });
-  return { id, it, score: r ? r.score : 0 };
+  return { id, it, score: r ? r.score : 0, parts: r ? r.parts : [], base: r ? r.base : 0, af: r ? r.af : 1 };
 }
-function setEquipped(slot, id) {
+const lootFilterForSlot = (slot) => slot === "ring1" || slot === "ring2" ? "ring" : slot === "trinket1" || slot === "trinket2" ? "trinket" : slot;
+function slotScore(spec, slot) {
+  const e = equippedEntry(spec, slot);
+  return e ? e.score : 0;
+}
+function targetEquipSlot(spec, pk) {
+  const g = equippedMap(), empty = (s) => !g[s];
+  if (pk.includes("mainhand") && pk.includes("offhand")) {
+    if (empty("mainhand")) return "mainhand";
+    if (empty("offhand") && !equippedMainTwoHand(spec)) return "offhand";
+    if (equippedMainTwoHand(spec)) return "mainhand";
+    return slotScore(spec, "mainhand") <= slotScore(spec, "offhand") ? "mainhand" : "offhand";
+  }
+  if (pk.includes("ring")) {
+    if (empty("ring1")) return "ring1";
+    if (empty("ring2")) return "ring2";
+    return slotScore(spec, "ring1") <= slotScore(spec, "ring2") ? "ring1" : "ring2";
+  }
+  if (pk.includes("trinket")) {
+    if (empty("trinket1")) return "trinket1";
+    if (empty("trinket2")) return "trinket2";
+    return slotScore(spec, "trinket1") <= slotScore(spec, "trinket2") ? "trinket1" : "trinket2";
+  }
+  return pk[0] || "";
+}
+let lastEquip = null;
+function clearLootUndo() {
+  lastEquip = null;
+  const box = $("lootUndo");
+  if (box) box.hidden = true;
+}
+function renderLootUndo() {
+  const box = $("lootUndo");
+  if (!box) return;
+  if (!lastEquip || lastEquip.key !== gearKey()) { box.hidden = true; return; }
+  $("lootUndoText").textContent = t("lootEquipped") + ": " + lastEquip.name;
+  box.hidden = false;
+}
+function equipLoot(id) {
+  const spec = currentSpec(), source = gearItem(id);
+  if (!source) return;
+  const it = levelItem(source, state.level);
+  const r = evalEquip(it, spec, weightsFor(spec, false, state.level), { level: state.level, faction: state.faction });
+  if (!r || r.al > state.level) return;
+  const slot = targetEquipSlot(spec, r.pk);
+  if (!slot || (slot === "offhand" && equippedMainTwoHand(spec))) return;
+  lastEquip = { key: gearKey(), gear: JSON.parse(JSON.stringify(equippedMap())), name: it.n };
+  setEquipped(slot, id, { keepUndo: true });
+}
+function setEquipped(slot, id, opts) {
+  if (!opts || !opts.keepUndo) clearLootUndo();
   const g = (state.gear[gearKey()] = state.gear[gearKey()] || {}), spec = currentSpec();
   if (slot === "offhand" && equippedMainTwoHand(spec)) return;
   if (id) g[slot] = id; else delete g[slot];
@@ -1523,14 +1574,27 @@ function setEquipped(slot, id) {
 function renderEquip(spec) {
   const grid = $("eqGrid"), pools = candidates(spec);
   const labels = SLOT_LABEL[state.lang] || SLOT_LABEL.es;
-  grid.innerHTML = specSlots(spec).map((slot) => {
+  const order = specSlots(spec), used = new Set();
+  const pick = (slots) => slots.filter((slot) => {
+    if (!order.includes(slot) || used.has(slot)) return false;
+    used.add(slot);
+    return true;
+  });
+  const slotHtml = (slot) => {
     const blocked = slot === "offhand" && equippedMainTwoHand(spec);
     const cur = blocked ? null : equippedEntry(spec, slot);
     const ph = blocked ? t("offhandBlocked") : t("eqPlaceholder");
-    return '<div class="eq-slot"><label for="eq-' + slot + '">' + (labels[slot] || slot) + '</label><div class="eq-field"><input id="eq-' + slot +
+    const active = state.lootSlot && lootFilterForSlot(slot) === state.lootSlot;
+    return '<div class="eq-slot' + (active ? " is-active" : "") + '"><label for="eq-' + slot + '">' + (labels[slot] || slot) + '</label><div class="eq-field"><input id="eq-' + slot +
       '" type="text" autocomplete="off" data-slot="' + slot + '" placeholder="' + esc(ph) + '" value="' + esc(cur ? cur.it.n : "") + '"' + (blocked ? " disabled" : "") + '>' +
       (cur ? '<button type="button" class="eq-x" data-slot="' + slot + '" aria-label="' + esc(t("eqRemove")) + '">✕</button>' : "") + '<ul class="eq-sug" hidden></ul></div></div>';
-  }).join("");
+  };
+  const left = pick(["head", "neck", "shoulder", "back", "chest", "wrist"]);
+  const right = pick(["hands", "waist", "legs", "feet", "ring1", "ring2"]);
+  const bottom = pick(["mainhand", "offhand", "ranged", "relic", "trinket1", "trinket2"]).concat(order.filter((slot) => !used.has(slot)));
+  grid.innerHTML = '<div class="eq-doll"><div class="eq-doll-col">' + left.map(slotHtml).join("") +
+    '</div><div class="eq-doll-col">' + right.map(slotHtml).join("") +
+    '</div><div class="eq-doll-bottom">' + bottom.map(slotHtml).join("") + "</div></div>";
   grid.querySelectorAll("input").forEach((inp) => {
     const slot = inp.dataset.slot, ul = inp.parentNode.querySelector(".eq-sug");
     const curName = () => { const id = equippedMap()[slot], it = id && gearItem(id); return it ? it.n : ""; };
@@ -1548,7 +1612,18 @@ function renderEquip(spec) {
       ul.innerHTML = list.map((e) => '<li data-id="' + e.id + '"><span style="color:' + qColor(e.it.q) + '">' + esc(e.it.n) + "</span><small>iLvl " + e.it.ilvl + " · " + esc(obtainInfo(e.it).kind) + "</small></li>").join("") || '<li class="none">' + t("eqNone") + "</li>";
       ul.hidden = false;
     };
-    inp.addEventListener("focus", () => { inp.select(); show(); });
+    inp.addEventListener("focus", () => {
+      inp.select(); show();
+      const filter = lootFilterForSlot(slot);
+      if (state.lootSlot !== filter) {
+        state.lootSlot = filter;
+        persist();
+        const slotSel = $("lootSlot");
+        if (slotSel) slotSel.value = filter;
+        syncEquipHighlight();
+        renderLoot(currentSpec());
+      }
+    });
     inp.addEventListener("input", show);
     inp.addEventListener("blur", () => setTimeout(() => { ul.hidden = true; inp.value = curName(); }, 150));
     ul.addEventListener("mousedown", (ev) => {
@@ -1558,6 +1633,13 @@ function renderEquip(spec) {
     });
   });
   grid.querySelectorAll(".eq-x").forEach((b) => b.addEventListener("click", () => setEquipped(b.dataset.slot, null)));
+}
+function syncEquipHighlight() {
+  document.querySelectorAll("#eqGrid input[data-slot]").forEach((inp) => {
+    const slot = inp.dataset.slot;
+    const box = inp.closest(".eq-slot");
+    if (box) box.classList.toggle("is-active", !!state.lootSlot && lootFilterForSlot(slot) === state.lootSlot);
+  });
 }
 
 /* ---------- Explicaciones y fuentes ---------- */
@@ -1671,9 +1753,70 @@ function autoDungeon(level) {
   if (inRange.length) return inRange[inRange.length - 1].id;
   return ds.slice().sort((a, b) => Math.abs(level - a.lv[0]) - Math.abs(level - b.lv[0]))[0].id;
 }
-function lootSlotLabel(it) {
-  const extra = { ring: L("Anillo", "Ring"), trinket: L("Abalorio", "Trinket"), twohand: L("Dos manos", "Two-hand"), onehand: L("Una mano", "One-hand"), held: L("Mano sec.", "Off hand"), thrown: L("Arrojadiza", "Thrown") };
-  return extra[it.s] || (SLOT_LABEL[state.lang] || SLOT_LABEL.es)[it.s] || it.s;
+const LOOT_SLOT_LABEL = {
+  head: ["Cabeza", "Head"], neck: ["Cuello", "Neck"], shoulder: ["Hombros", "Shoulders"],
+  back: ["Espalda", "Back"], chest: ["Pecho", "Chest"], wrist: ["Muñecas", "Wrists"],
+  hands: ["Manos", "Hands"], waist: ["Cintura", "Waist"], legs: ["Piernas", "Legs"], feet: ["Pies", "Feet"],
+  ring: ["Anillo", "Ring"], trinket: ["Abalorio", "Trinket"],
+  mainhand: ["Mano principal", "Main hand"], offhand: ["Mano secundaria", "Off hand"],
+  ranged: ["A distancia", "Ranged"], relic: ["Reliquia de clase", "Class relic"]
+};
+function lootSlotText(slot) {
+  const v = LOOT_SLOT_LABEL[slot];
+  return v ? v[state.lang === "en" ? 1 : 0] : ((SLOT_LABEL[state.lang] || SLOT_LABEL.es)[slot] || slot);
+}
+function lootFilterValues(spec) {
+  const out = [];
+  specSlots(spec).forEach((slot) => {
+    const v = slot === "ring1" || slot === "ring2" ? "ring" : slot === "trinket1" || slot === "trinket2" ? "trinket" : slot;
+    if (!out.includes(v)) out.push(v);
+  });
+  return out;
+}
+function lootMatchesSlot(pk, filter) {
+  const want = filter === "ring" ? ["ring1", "ring2"] : filter === "trinket" ? ["trinket1", "trinket2"] : [filter];
+  return pk.some((p) => want.includes(p));
+}
+function lootSlotLabel(it, pk) {
+  if (it.s === "ring" || it.s === "trinket" || it.s === "relic") return lootSlotText(it.s);
+  if (it.s === "ranged" || it.s === "thrown") return lootSlotText("ranged");
+  if (["twohand", "onehand", "held", "mainhand", "offhand"].includes(it.s)) {
+    const p = pk || [];
+    if (p.includes("mainhand") && p.includes("offhand")) return L("Mano principal / secundaria", "Main / off hand");
+    if (p.includes("offhand") && !p.includes("mainhand")) return lootSlotText("offhand");
+    if (p.includes("mainhand")) return lootSlotText("mainhand");
+  }
+  return lootSlotText(it.s);
+}
+const collapsedBosses = new Set();
+function lootPartVal(p) {
+  if (!p || !p.v) return "—";
+  if (p.k === "armor" || p.k === "dps") return String(p.v);
+  return (p.fx ? "≈+" : "+") + p.v;
+}
+function lootWhyHtml(r, capText, isSet) {
+  const cur = r.vs, curParts = cur && cur.parts ? cur.parts : [], keys = [];
+  r.parts.forEach((p) => { if (p.k !== "ilvl" && !keys.includes(p.k)) keys.push(p.k); });
+  curParts.forEach((p) => { if (p.k !== "ilvl" && !keys.includes(p.k)) keys.push(p.k); });
+  const rows = keys.map((k) => {
+    const a = r.parts.find((p) => p.k === k) || { v: 0 }, b = curParts.find((p) => p.k === k) || { v: 0 };
+    if (!a.v && !b.v) return "";
+    const d = (a.v || 0) - (b.v || 0), cls = d > 0 ? "up" : d < 0 ? "dn" : "";
+    return "<tr><td>" + esc(partLabel(k)) + "</td><td>" + lootPartVal(a) + "</td><td>" + lootPartVal(b) + '</td><td class="' + cls + '">' + (d > 0 ? "+" : "") + d + "</td></tr>";
+  }).join("");
+  const diff = cur ? pctDiff(r.score, cur.score) : 100;
+  const score = t("scoreWord") + ": " + r.score.toFixed(1) + (cur ? " · " + t("lootWearing") + ": " + cur.score.toFixed(1) + " · " + (diff >= 0 ? "+" : "") + diff + "%" : "");
+  return '<details class="loot-why"><summary>' + t("lootWhy") + '</summary><table><thead><tr><th></th><th>' + t("lootThis") + "</th><th>" + t("lootWearing") + "</th><th>" + t("lootDiff") + "</th></tr></thead><tbody>" + rows + "</tbody></table><p><b>" + score + "</b></p><p>" + t("lootNoteGems") + "</p><p>" + t("lootNoteCaps") + "</p>" + (isSet ? "<p>" + t("lootSetNote") + "</p>" : "") + (capText ? '<p class="warn">' + esc(capText) + "</p>" : "") + "</details>";
+}
+function capWarning(r, targetSlot, totals, eq) {
+  const caps = lastGear && lastGear.caps;
+  if (!caps) return "";
+  const cur = eq[targetSlot], old = cur && cur.it ? (cur.it.st || {}) : {};
+  const keys = Object.keys(caps).filter((k) => ((r.it.st || {})[k] || 0) || old[k]);
+  if (!keys.length) return "";
+  const over = keys.filter((k) => (totals[k] || 0) - (old[k] || 0) + ((r.it.st || {})[k] || 0) > caps[k]);
+  if (!over.length) return "";
+  return t("lootCapsWarn") + over.map(partLabel).join(", ") + t("lootCapsSuffix");
 }
 function renderLoot(spec) {
   const level = state.level, w = weightsFor(spec, false, level);
@@ -1684,11 +1827,29 @@ function renderLoot(spec) {
     '<optgroup label="' + esc(t("lootDungeons")) + '">' + DATA.dungeons.map((d) => '<option value="' + d.id + '">' + esc(d.n) + " (" + d.lv[0] + "–" + d.lv[1] + ")</option>").join("") + "</optgroup>" +
     '<optgroup label="' + esc(t("lootRaids")) + '">' + (DATA.raids || []).map((d) => '<option value="' + d.id + '">' + esc(d.n) + " (" + d.lv[0] + (d.lv[1] !== d.lv[0] ? "–" + d.lv[1] : "") + ")</option>").join("") + "</optgroup>";
   sel.value = String(state.dungeon || 0);
+  const slotSel = $("lootSlot"), filterValues = lootFilterValues(spec);
+  if (state.lootSlot && !filterValues.includes(state.lootSlot)) state.lootSlot = "";
+  slotSel.innerHTML = '<option value="">' + esc(t("lootSlotAll")) + "</option>" +
+    filterValues.map((v) => '<option value="' + v + '">' + esc(lootSlotText(v)) + "</option>").join("");
+  slotSel.value = state.lootSlot;
+  const sortSel = $("lootSort");
+  if (!["boss", "upgrade", "ilvl"].includes(state.lootSort)) state.lootSort = "boss";
+  sortSel.innerHTML = '<option value="boss">' + esc(t("lootSortBoss")) + '</option><option value="upgrade">' + esc(t("lootSortUpgrade")) + '</option><option value="ilvl">' + esc(t("lootSortIlvl")) + "</option>";
+  sortSel.value = state.lootSort;
   $("onlyUp").checked = state.onlyUp;
   $("showOffspec").checked = state.showOffspec;
+  const slotFilter = state.lootSlot;
   const eq = {};
   specSlots(spec).forEach((sl) => { eq[sl] = equippedEntry(spec, sl); });
   const anyEq = Object.values(eq).some(Boolean);
+  const eqTotals = {};
+  specSlots(spec).forEach((sl) => {
+    const e = eq[sl];
+    if (!e) return;
+    Object.entries(e.it.st || {}).forEach(([k, v]) => { eqTotals[k] = (eqTotals[k] || 0) + v; });
+  });
+  const setInfo = (ENG.setBonus || {})[spec.cls + "|" + spec.name];
+  const setIds = new Set(((setInfo && setInfo.ids) || []).map(String));
   const slotsOf = (p) => (p === "ring" ? ["ring1", "ring2"] : p === "trinket" ? ["trinket1", "trinket2"] : [p]).filter((sl) => sl in eq);
   const bosses = {};
   let ups = 0, hidden = 0;
@@ -1702,6 +1863,7 @@ function renderLoot(spec) {
     if (state.phase && it.ph > state.phase) continue;
     const r = evalItem(it, spec, w, { level, faction: state.faction }, false);
     if (!r) continue;
+    if (slotFilter && !lootMatchesSlot(r.pk, slotFilter)) continue;
     if (equippedMainTwoHand(spec) && r.pk.length === 1 && r.pk[0] === "offhand") continue;
     if (!r.rel && !state.showOffspec) { hidden++; continue; }
     const offspec = !r.rel;
@@ -1718,25 +1880,76 @@ function renderLoot(spec) {
     if (up) ups++;
     if (state.onlyUp && !up) continue;
     const s = it.src || {};
-    (bosses[boss] = bosses[boss] || []).push({ id, it, delta: bestD, usable, al: r.al, df: tags.filter((x) => x !== fac).join("/"), dc: s.n === boss ? s.dc : null, vs, offspec });
+    const target = targetEquipSlot(spec, r.pk);
+    (bosses[boss] = bosses[boss] || []).push({
+      id, it, pk: r.pk, parts: r.parts, score: r.score, delta: bestD, usable, al: r.al, target,
+      df: tags.filter((x) => x !== fac).join("/"), dc: s.n === boss ? s.dc : null, vs, offspec,
+      isSet: setIds.has(String(id))
+    });
   }
   $("lootCount").textContent = ups + t("lootUps") + (hidden ? " · " + hidden + t("lootHidden") : "");
   const hint = anyEq ? "" : '<p class="note">' + t("eqHintNone") + "</p>";
-  const names = Object.keys(bosses).sort((a, b) => (a === "" ? 1 : b === "" ? -1 : a.localeCompare(b)));
-  if (!names.length) { $("lootBody").innerHTML = hint + '<p class="note">' + t("lootEmpty") + "</p>"; return; }
+  const rowCmp = (a, b) => {
+    if (a.offspec !== b.offspec) return a.offspec - b.offspec;
+    if (a.usable !== b.usable) return b.usable - a.usable;
+    if (state.lootSort === "ilvl") return b.it.ilvl - a.it.ilvl || b.delta - a.delta;
+    return b.delta - a.delta || b.it.ilvl - a.it.ilvl;
+  };
+  const sortedRows = (n) => bosses[n].slice().sort(rowCmp);
+  const alpha = (a, b) => (a === "" ? 1 : b === "" ? -1 : a.localeCompare(b));
+  const names = Object.keys(bosses);
+  if (state.lootSort === "upgrade") names.sort((a, b) => sortedRows(b)[0].delta - sortedRows(a)[0].delta || alpha(a, b));
+  else if (state.lootSort === "ilvl") names.sort((a, b) => sortedRows(b)[0].it.ilvl - sortedRows(a)[0].it.ilvl || alpha(a, b));
+  else names.sort(alpha);
+  if (!names.length) {
+    const actions = [];
+    if (slotFilter) actions.push('<button type="button" class="mini-btn" data-loot-action="slot">' + esc(t("lootClearSlotFilter")) + "</button>");
+    if (state.onlyUp) actions.push('<button type="button" class="mini-btn" data-loot-action="onlyup">' + esc(t("lootClearOnlyUp")) + "</button>");
+    if (hidden) actions.push('<button type="button" class="mini-btn" data-loot-action="offspec">' + esc(t("lootShowOffspec")) + "</button>");
+    if (anyEq && slotFilter) actions.push('<button type="button" class="mini-btn" data-loot-action="clearslot">' + esc(t("lootClearSlot")) + "</button>");
+    const msg = (slotFilter || state.onlyUp) ? t("lootEmptyFiltered") : t("lootEmpty");
+    $("lootBody").innerHTML = hint + '<div class="loot-empty"><p class="note">' + msg + "</p>" + (actions.length ? '<div class="loot-empty-actions">' + actions.join("") + "</div>" : "") + "</div>";
+    bindLootEvents();
+    renderLootUndo();
+    return;
+  }
   $("lootBody").innerHTML = hint + names.map((n) => {
-    const rows = bosses[n].sort((a, b) => (a.offspec - b.offspec) || (b.usable - a.usable) || (b.delta - a.delta)).map((r) => {
+    const rows = sortedRows(n).map((r) => {
       const badge = r.offspec ? '<span class="delta off">' + t("offspecTag") + "</span>"
         : !r.usable ? '<span class="delta lv">' + t("level") + (r.al || "?") + "</span>"
         : !r.vs ? '<span class="delta up">' + t("eqEmpty") + "</span>"
         : r.delta >= 3 ? '<span class="delta up">↑ +' + r.delta + "%</span>"
         : r.delta > -3 ? '<span class="delta eq">≈</span>' : '<span class="delta dn">↓ ' + r.delta + "%</span>";
       const vs = r.vs ? " · vs " + esc(r.vs.it.n) : "";
-      return '<div class="loot-row' + (r.usable ? "" : " na") + (r.offspec ? " offspec" : "") + '"><span class="m">' + esc(lootSlotLabel(r.it)) + "</span><span>" + itemLink(r.id, false, "") +
-        ' <span class="m">iLvl ' + r.it.ilvl + (r.df ? " · " + diffLabel(r.df) : "") + (r.dc ? " · " + r.dc + "%" : "") + vs + "</span></span>" + badge + "</div>";
+      const equip = r.usable ? '<button type="button" class="mini-btn loot-equip" data-id="' + r.id + '" data-slot="' + r.target + '">' + esc(t("lootEquip")) + "</button>" : "";
+      return '<div class="loot-item"><div class="loot-row' + (r.usable ? "" : " na") + (r.offspec ? " offspec" : "") + '"><span class="m">' + esc(lootSlotLabel(r.it, r.pk)) + "</span><span>" + itemLink(r.id, false, "") +
+        ' <span class="m">iLvl ' + r.it.ilvl + (r.df ? " · " + diffLabel(r.df) : "") + (r.dc ? " · " + r.dc + "%" : "") + vs + '</span></span><span class="loot-actions">' + badge + equip + "</span></div>" +
+        lootWhyHtml(r, capWarning(r, r.target, eqTotals, eq), r.isSet) + "</div>";
     }).join("");
-    return '<div class="boss"><h3>' + esc(n || t("zoneDrops")) + "</h3>" + rows + "</div>";
+    return '<details class="boss"' + (collapsedBosses.has(n) ? "" : " open") + ' data-boss="' + esc(n) + '"><summary><h3>' + esc(n || t("zoneDrops")) + "</h3></summary>" + rows + "</details>";
   }).join("");
+  bindLootEvents();
+  renderLootUndo();
+}
+function bindLootEvents() {
+  $("lootBody").querySelectorAll(".loot-equip").forEach((btn) => btn.addEventListener("click", () => equipLoot(btn.dataset.id)));
+  $("lootBody").querySelectorAll("[data-loot-action]").forEach((btn) => btn.addEventListener("click", () => {
+    const action = btn.dataset.lootAction;
+    if (action === "slot") state.lootSlot = "";
+    else if (action === "onlyup") state.onlyUp = false;
+    else if (action === "offspec") state.showOffspec = true;
+    else if (action === "clearslot") {
+      const g = (state.gear[gearKey()] = state.gear[gearKey()] || {});
+      const slots = state.lootSlot === "ring" ? ["ring1", "ring2"] : state.lootSlot === "trinket" ? ["trinket1", "trinket2"] : [state.lootSlot];
+      slots.forEach((slot) => delete g[slot]);
+      clearLootUndo();
+    }
+    persist();
+    render();
+  }));
+  $("lootBody").querySelectorAll("details.boss").forEach((d) => d.addEventListener("toggle", () => {
+    if (d.open) collapsedBosses.delete(d.dataset.boss); else collapsedBosses.add(d.dataset.boss);
+  }));
 }
 
 function renderClasses() {
@@ -1753,6 +1966,7 @@ function renderClasses() {
       state.cls = name;
       state.spec = allSpecsFor(name)[0];
       if (state.level < DATA.classMeta[name].min) state.level = DATA.classMeta[name].min;
+      clearLootUndo();
       persist();
       renderClasses();
       renderSpecs();
@@ -1797,6 +2011,7 @@ function renderSpecs() {
     btn.textContent = name;
     btn.addEventListener("click", () => {
       state.spec = name;
+      clearLootUndo();
       persist();
       renderSpecs();
       render();
@@ -1849,6 +2064,8 @@ function persist() {
   save(STORE.pvp, state.pvp ? "1" : "0");
   save(STORE.alts, String(state.alts));
   save(STORE.dungeon, String(state.dungeon));
+  save(STORE.lootSlot, state.lootSlot || "");
+  save(STORE.lootSort, state.lootSort || "boss");
   save(STORE.onlyUp, state.onlyUp ? "1" : "0");
   save(STORE.showOffspec, state.showOffspec ? "1" : "0");
   save(STORE.showHeirlooms, state.showHeirlooms ? "1" : "0");
@@ -1857,7 +2074,9 @@ function persist() {
 }
 
 function setLevel(value) {
-  state.level = clampLevel(value);
+  const next = clampLevel(value);
+  if (next === state.level) return;
+  state.level = next;
   if (state.level !== 80) state.fresh = false;
   levelInput.value = state.level;
   levelRange.value = state.level;
@@ -2056,10 +2275,13 @@ function scheduleRefresh() {
 
 levelRange.addEventListener("input", (e) => setLevel(e.target.value));
 levelInput.addEventListener("change", (e) => setLevel(e.target.value));
-levelInput.addEventListener("blur", (e) => setLevel(e.target.value));
+levelInput.addEventListener("blur", (e) => {
+  if (Number(e.target.value) !== state.level) setLevel(e.target.value);
+});
 
 $("resetBtn").addEventListener("click", () => {
-  Object.assign(state, { cls: "Warrior", spec: "Arms", level: 20, scope: "noraid", phase: 0, pvp: false, alts: 2, dungeon: 0, onlyUp: false, showOffspec: false, showHeirlooms: false, fresh: false });
+  Object.assign(state, { cls: "Warrior", spec: "Arms", level: 20, scope: "noraid", phase: 0, pvp: false, alts: 2, dungeon: 0, lootSlot: "", lootSort: "boss", onlyUp: false, showOffspec: false, showHeirlooms: false, fresh: false });
+  clearLootUndo();
   persist();
   renderClasses();
   renderSpecs();
@@ -2069,6 +2291,15 @@ $("resetBtn").addEventListener("click", () => {
 });
 
 $("dungeonSelect").addEventListener("change", (e) => { state.dungeon = Number(e.target.value) || 0; persist(); render(); });
+$("lootSlot").addEventListener("change", (e) => { state.lootSlot = e.target.value; persist(); render(); });
+$("lootSort").addEventListener("change", (e) => { state.lootSort = e.target.value; persist(); render(); });
+$("lootUndoBtn").addEventListener("click", () => {
+  if (!lastEquip || lastEquip.key !== gearKey()) return;
+  state.gear[gearKey()] = lastEquip.gear;
+  lastEquip = null;
+  persist();
+  render();
+});
 $("onlyUp").addEventListener("change", (e) => { state.onlyUp = e.target.checked; persist(); render(); });
 $("showOffspec").addEventListener("change", (e) => { state.showOffspec = e.target.checked; persist(); render(); });
 $("showHeirlooms").addEventListener("change", (e) => { state.showHeirlooms = e.target.checked; persist(); render(); });
@@ -2085,11 +2316,12 @@ $("eqUseRec").addEventListener("click", () => {
   specSlots(spec).forEach((sl) => { const e = lastGear.slots[sl] && lastGear.slots[sl].list[0]; if (e) g[sl] = e.id; });
   const mh = g.mainhand && gearItem(g.mainhand);
   if (mh && itemHands(mh) === 2 && !titanGrip(spec, state.level)) delete g.offhand;
+  clearLootUndo();
   state.gear[gearKey()] = g;
   persist();
   render();
 });
-$("eqClear").addEventListener("click", () => { state.gear[gearKey()] = {}; persist(); render(); });
+$("eqClear").addEventListener("click", () => { clearLootUndo(); state.gear[gearKey()] = {}; persist(); render(); });
 
 document.querySelectorAll(".lang-switch button").forEach((btn) => {
   btn.addEventListener("click", () => {
