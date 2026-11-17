@@ -70,9 +70,29 @@ def main():
         assert tip.is_visible()
         text = tip.inner_text()
         assert "BiS-Tooltip" in text and all(k in text for k in ["PR", "T7", "T8", "T9", "T10"]), text
+        # El tooltip no tapa el objeto sobre el que está el cursor
+        box = page.evaluate("""() => { const a = document.querySelector('.bis-card a.bis-name').getBoundingClientRect(); const t = document.getElementById('bisTip').getBoundingClientRect();
+          return { overlap: !(t.right <= a.left || t.left >= a.right || t.bottom <= a.top || t.top >= a.bottom) }; }""")
+        assert not box["overlap"], box
         page.mouse.move(5, 5)
         page.wait_for_timeout(150)
         assert not tip.is_visible()
+
+        # Piezas puestas: se marcan en el ranking y el ranking no depende del iLvl medio (puerta de heroicas)
+        res = page.evaluate("""() => {
+          const spec = currentSpec();
+          const empty = bisData(BIS_PHASES[3]).rows.map((r) => r.list.map((e) => e.it.n).join(',')).join('|');
+          const top = bisData(BIS_PHASES[3]).rows[0].list[0];
+          state.gear[gearKey()] = { head: top.id };
+          bisCache.clear();
+          const withGear = bisData(BIS_PHASES[3]).rows.map((r) => r.list.map((e) => e.it.n).join(',')).join('|');
+          render();
+          return { same: empty === withGear, owned: document.querySelectorAll('.bis-card li.owned').length, note: document.getElementById('bisOwnedNote').textContent };
+        }""")
+        assert res["same"] and res["owned"] >= 1, res
+        assert "1 /" in res["note"] or "slots" in res["note"], res
+        assert "Lo llevas" in page.locator(".bis-card li.owned").first.inner_text()
+        page.evaluate("state.gear = {}; persist(); render();")
 
         # Etiquetas BiS / ALT también en la ficha principal
         assert page.locator("#slots .slot .rank-bis").count() >= 10
