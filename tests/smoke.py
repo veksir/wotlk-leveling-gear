@@ -162,11 +162,68 @@ def main():
         assert page.locator("#eqGrid input").first.input_value() != "", "Usar el recomendado debe llenar el equipo"
         assert page.locator(".loot-row").count() > 0
         assert page.locator(".loot-row .delta.up").count() <= empty_rows, "con equipo puesto hay menos mejoras que con slots vacíos"
+        assert page.locator("#eqGrid .eq-doll").count() == 1, "el equipo actual debe usar el layout de paper-doll"
+        assert page.locator("#eqGrid .eq-doll-col").count() == 2, "el paper-doll debe tener dos columnas laterales"
+        assert page.locator("#eqGrid .eq-doll-bottom .eq-slot").count() >= 3, "el paper-doll debe agrupar armas y abalorios abajo"
+        slot_options = page.locator("#lootSlot option").all_inner_texts()
+        assert "Todas las partes" in slot_options and "Cabeza" in slot_options, "el filtro de botín debe listar las partes"
+        page.select_option("#lootSlot", "head")
+        page.wait_for_timeout(200)
+        head_labels = page.locator(".loot-row > .m:first-child").all_inner_texts()
+        assert head_labels and set(head_labels) == {"Cabeza"}, "el filtro de botín debe dejar solo la parte elegida"
+        page.select_option("#lootSlot", "")
+        page.wait_for_timeout(200)
+        assert page.locator(".loot-row").count() > 0, "quitar el filtro debe recuperar el botín"
+        page.locator("#eq-head").focus()
+        page.wait_for_timeout(250)
+        assert page.locator("#lootSlot").input_value() == "head", "enfocar un slot debe filtrar el botín"
+        assert page.locator(".eq-slot.is-active #eq-head").count() == 1, "el slot enfocado debe resaltarse"
+        page.select_option("#lootSlot", "")
+        page.wait_for_timeout(200)
         page.locator("#eqGrid input").first.click()
         assert page.locator(".eq-sug li").count() > 0, "el buscador de equipo debe sugerir objetos"
         page.locator("#eqClear").click()
-        page.wait_for_timeout(200)
+        page.select_option("#lootSlot", "")
+        page.wait_for_timeout(250)
         assert page.locator("#eqGrid input").first.input_value() == ""
+        assert page.locator("#lootSort option").count() == 3, "el selector de orden debe tener tres opciones"
+        page.select_option("#lootSort", "upgrade")
+        page.wait_for_timeout(250)
+        assert page.locator("#lootSort").input_value() == "upgrade"
+        first_boss = page.locator("details.boss").first
+        first_boss.locator("> summary").click()
+        page.wait_for_timeout(150)
+        assert not first_boss.evaluate("d => d.open"), "el jefe debe poder plegarse"
+        first_boss.locator("> summary").click()
+        page.wait_for_timeout(150)
+        assert first_boss.evaluate("d => d.open"), "el jefe debe poder desplegarse"
+        page.select_option("#lootSlot", "neck")
+        page.wait_for_timeout(250)
+        assert page.locator("#lootBody .loot-empty").is_visible(), "un filtro sin resultados debe mostrar estado vacío"
+        page.locator('[data-loot-action="slot"]').click()
+        page.wait_for_timeout(250)
+        assert page.locator("#lootSlot").input_value() == ""
+        page.locator("#levelInput").fill("80")
+        page.locator("#levelInput").dispatch_event("change")
+        page.select_option("#dungeonSelect", value="4812")
+        page.wait_for_timeout(400)
+        why = page.locator(".loot-why").first
+        why.locator("summary").click()
+        page.wait_for_timeout(150)
+        why_text = why.inner_text()
+        assert why.locator("table tbody tr").count() > 0, "el desglose debe mostrar las estadísticas"
+        assert "Puntuación" in why_text and "lootScore" not in why_text, "faltan textos traducidos en el desglose"
+        equip = page.locator(".loot-equip").first
+        assert equip.count() == 1, "los drops usables deben tener botón Equipar"
+        equip_slot = equip.get_attribute("data-slot")
+        equip.click()
+        page.wait_for_timeout(300)
+        assert page.locator("#eq-" + equip_slot).input_value() != "", "Equipar debe llenar el slot correcto"
+        assert page.locator("#lootUndo").is_visible(), "Equipar debe ofrecer deshacer"
+        page.locator("#lootUndoBtn").click()
+        page.wait_for_timeout(300)
+        assert page.locator("#eq-" + equip_slot).input_value() == "", "Deshacer debe restaurar el equipo"
+        assert page.locator("#lootUndo").is_hidden(), "Deshacer debe ocultar el aviso"
         for zone, name in (("4812", "Icecrown Citadel"), ("4273", "Ulduar"), ("4722", "Trial of the Crusader")):
             page.locator("#levelInput").fill("80")
             page.locator("#levelInput").dispatch_event("change")
@@ -174,6 +231,26 @@ def main():
             page.wait_for_timeout(300)
             assert page.locator(".boss h3").count() >= 3, name + ": el botín de banda debe mostrar jefes"
             assert page.locator(".loot-row").count() > 20, name + ": faltan objetos"
+        page.select_option("#dungeonSelect", value="4812")
+        page.wait_for_timeout(300)
+        raw_slots = {"head", "neck", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet",
+                     "ring", "trinket", "mainhand", "offhand", "ranged", "relic", "onehand", "twohand", "held", "thrown"}
+        for value in page.locator("#lootSlot option").evaluate_all("els => els.map((e) => e.value).filter(Boolean)"):
+            page.select_option("#lootSlot", value)
+            page.wait_for_timeout(80)
+            labels = set(page.locator(".loot-row > .m:first-child").all_inner_texts())
+            bad = labels & raw_slots
+            assert not bad, "etiqueta de slot sin traducir: " + ", ".join(sorted(bad))
+        page.select_option("#lootSlot", "head")
+        page.select_option("#lootSort", "upgrade")
+        page.wait_for_timeout(300)
+        page.reload(wait_until="load")
+        page.wait_for_timeout(700)
+        assert page.locator("#lootSlot").input_value() == "head", "el filtro de parte debe persistir"
+        assert page.locator("#lootSort").input_value() == "upgrade", "el orden del botín debe persistir"
+        page.select_option("#lootSlot", "")
+        page.select_option("#lootSort", "boss")
+        page.wait_for_timeout(250)
         page.select_option("#dungeonSelect", value="0")
         assert page.locator(".loot-row").count() > 0
         assert page.locator("details.calc").count() == 1 and page.locator(".side details.calc").count() == 0
