@@ -380,11 +380,30 @@ var aowow_tooltips = {
   .loot-ctl select { padding: 6px 8px; border: 1px solid var(--line-2); border-radius: 6px; background: #071722; color: var(--text); font: inherit; font-size: 13px; }
   .loot-ctl label { font-size: 12px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
   .loot-body { padding: 8px 16px 14px; }
-  .boss h3 { margin: 12px 0 4px; font-size: 13px; color: var(--ice); font-family: Cinzel, Georgia, serif; font-weight: 600; }
-  .loot-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; padding: 3px 0; border-bottom: 1px solid rgba(26, 61, 80, .35); font-size: 12px; }
+  .loot-undo { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; padding: 7px 16px; border-bottom: 1px solid var(--line); background: rgba(117, 215, 239, .06); color: #c3d8e2; font-size: 12px; }
+  .loot-undo[hidden] { display: none; }
+  .boss { margin-top: 8px; }
+  .boss > summary { display: flex; align-items: center; gap: 7px; cursor: pointer; list-style: none; }
+  .boss > summary::-webkit-details-marker { display: none; }
+  .boss > summary::before { content: "▸"; color: var(--ice); font-size: 10px; }
+  .boss[open] > summary::before { content: "▾"; }
+  .boss h3 { margin: 10px 0 4px; font-size: 13px; color: var(--ice); font-family: Cinzel, Georgia, serif; font-weight: 600; }
+  .loot-item { padding: 3px 0; border-bottom: 1px solid rgba(26, 61, 80, .35); }
+  .loot-row { display: grid; grid-template-columns: 128px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; font-size: 12px; }
   .loot-row .m { color: var(--muted); font-size: 11px; }
   .loot-row.na { opacity: .55; }
   .loot-row.offspec { opacity: .62; }
+  .loot-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: flex-end; }
+  .loot-actions .mini-btn { white-space: nowrap; }
+  .loot-why { margin: 2px 0 5px 136px; font-size: 10.5px; color: #c3d8e2; }
+  .loot-why summary { cursor: pointer; color: var(--ice); }
+  .loot-why table { width: 100%; margin-top: 4px; border-collapse: collapse; }
+  .loot-why th, .loot-why td { padding: 1px 0; font-weight: 400; }
+  .loot-why th:nth-child(n+2), .loot-why td:nth-child(n+2) { text-align: right; }
+  .loot-why .up { color: #7fd49a; } .loot-why .dn { color: #d98a8a; }
+  .loot-why p { margin: 4px 0 0; color: var(--muted); }
+  .loot-empty { padding: 6px 0 2px; }
+  .loot-empty-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
   .delta { padding: 0 6px; border-radius: 3px; font-size: 10.5px; font-weight: 700; white-space: nowrap; }
   .delta.up { background: rgba(126, 212, 154, .18); color: #7fd49a; } .delta.eq { background: rgba(143, 173, 189, .15); color: var(--muted); } .delta.dn { background: rgba(211, 74, 74, .14); color: #d98a8a; } .delta.lv { background: rgba(217, 177, 95, .15); color: var(--gold); } .delta.off { background: rgba(143, 173, 189, .15); color: #9fb9c8; }
   .dungeon-list button { all: unset; display: flex; justify-content: space-between; gap: 8px; width: 100%; cursor: pointer; }
@@ -399,8 +418,14 @@ var aowow_tooltips = {
   details.eq { padding: 10px 16px 14px; border-bottom: 1px solid var(--line); }
   details.eq summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ice); }
   .eq-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
-  .eq-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 12px; }
+  .eq-grid { display: block; }
+  .eq-doll { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px 26px; }
+  .eq-doll-col { display: grid; gap: 8px; align-content: start; }
+  .eq-doll-col + .eq-doll-col { border-left: 1px solid var(--line); padding-left: 26px; }
+  .eq-doll-bottom { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 12px; margin-top: 2px; padding-top: 10px; border-top: 1px solid var(--line); }
   .eq-slot label { display: block; margin-bottom: 3px; color: var(--muted); font-size: 11px; }
+  .eq-slot.is-active label { color: var(--ice); }
+  .eq-slot.is-active .eq-field input { border-color: var(--ice); background: rgba(117, 215, 239, .07); }
   .eq-field { position: relative; }
   .eq-field input { width: 100%; padding: 6px 26px 6px 8px; border: 1px solid var(--line-2); border-radius: 6px; background: #071722; color: var(--text); font: inherit; font-size: 12.5px; }
   .eq-field input:focus { outline: 2px solid var(--ice); outline-offset: 1px; }
@@ -411,8 +436,17 @@ var aowow_tooltips = {
   .eq-sug li { display: flex; flex-direction: column; padding: 5px 8px; border-radius: 4px; font-size: 12px; cursor: pointer; }
   .eq-sug li:hover { background: rgba(117, 215, 239, .12); }
   .eq-sug small { color: var(--muted); font-size: 10.5px; }
-  @media (max-width: 1000px) { .eq-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 680px) { .eq-grid, .row2 { grid-template-columns: 1fr; } }
+  @media (max-width: 1000px) { .eq-doll { gap: 8px 18px; } .eq-doll-col + .eq-doll-col { padding-left: 18px; } }
+  @media (max-width: 680px) {
+    .eq-doll { grid-template-columns: 1fr; }
+    .eq-doll-col + .eq-doll-col { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 10px; }
+    .eq-doll-bottom { grid-template-columns: 1fr; }
+    .loot-ctl { position: sticky; top: 0; z-index: 25; background: rgba(11, 34, 48, .97); backdrop-filter: blur(8px); }
+    .loot-row { grid-template-columns: minmax(0, 1fr) auto; }
+    .loot-row > .m:first-child { grid-column: 1 / -1; }
+    .loot-why { margin-left: 0; }
+    .row2 { grid-template-columns: 1fr; }
+  }
   .caps { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; padding: 8px 16px; border-bottom: 1px solid var(--line); font-size: 12px; }
   .caps .cap { padding: 1px 8px; border-radius: 4px; background: rgba(143, 173, 189, .12); }
   .caps .cap.ok { color: #7fd49a; } .caps .cap.low { color: var(--gold); }
@@ -575,10 +609,13 @@ var aowow_tooltips = {
       </details>
       <div class="loot-ctl">
         <label><span data-i18n="lootPick">Mazmorra</span> <select id="dungeonSelect"></select></label>
+        <label><span data-i18n="lootSlot">Parte</span> <select id="lootSlot"></select></label>
+        <label><span data-i18n="lootSort">Ordenar</span> <select id="lootSort"></select></label>
         <label><input type="checkbox" id="onlyUp"> <span data-i18n="lootOnlyUp">Solo mejoras</span></label>
         <label><input type="checkbox" id="showOffspec"> <span data-i18n="showOffspec">Mostrar fuera de especialidad</span></label>
         <strong id="lootCount"></strong>
       </div>
+      <div class="loot-undo" id="lootUndo" hidden><span id="lootUndoText" aria-live="polite"></span><button type="button" class="mini-btn" id="lootUndoBtn" data-i18n="lootUndo">Deshacer</button></div>
       <div class="loot-body" id="lootBody"></div>
     </section>
   </main>
@@ -589,7 +626,7 @@ var aowow_tooltips = {
 </div>
 <script>
 const DATA = /*__DATA__*/;
-const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup", showOffspec: "wotlk-gear-show-offspec", showHeirlooms: "wotlk-gear-show-heirlooms", fresh: "wotlk-gear-fresh" };
+const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup", showOffspec: "wotlk-gear-show-offspec", showHeirlooms: "wotlk-gear-show-heirlooms", fresh: "wotlk-gear-fresh", lootSlot: "wotlk-gear-loot-slot", lootSort: "wotlk-gear-loot-sort" };
 
 const I18N = {
   es: {
@@ -666,7 +703,7 @@ const STATS_EN = {
 Object.assign(I18N.es, {
 
   eqTitle: "Mi equipo actual", eqUseRec: "Usar el recomendado", eqClear: "Vaciar",
-  eqHint: "Busca por nombre cada pieza que llevas puesta (también de banda, si tu clase y nivel la permiten).",
+  eqHint: "Cada campo corresponde a una parte: escribe el objeto que llevas y elige la sugerencia. Al enfocar un slot, el botín se filtra a esa parte. Usa «Usar el recomendado» para comparar el botín contra la recomendación.",
   eqPlaceholder: "Buscar objeto…", eqRemove: "Quitar", eqNone: "Sin resultados", eqEmpty: "Slot vacío",
   eqHintNone: "Aún no indicaste tu equipo: mientras tanto, todo objeto cuenta como mejora.", lootUps: " mejoras para ti",
   sheetIntroPvp: "Equipo útil para PvP en cada slot, nivel ", sourcesPvpOnly: "Solo equipo PvP",
@@ -695,8 +732,15 @@ Object.assign(I18N.es, {
   calcText: "Cada objeto se puntúa con las estadísticas que importan a tu especialidad (más el DPS del arma y la armadura) y se ordena por esa puntuación; el nivel de objeto solo desempata. La armadura de un tipo que no es el ideal para tu clase se penaliza. «Sin bandas» oculta el botín y las cadenas de misión de banda, el equipo PvP se ve aparte en el modo «Solo PvP» (con peso a la resiliencia) y la fase limita el contenido disponible. Los procs y efectos de uso de los abalorios se promedian según su duración y enfriamiento (≈). Las gemas se eligen por color y el bonus de socket solo se activa si se respetan los colores. El bonus de set T10 se reparte solo entre las piezas que recomienda la guía, y los abalorios y reliquias de clase curados mandan en su slot. A nivel 80 el golpe y la pericia por encima del tope valen un 15 %, y para las especialidades de «cualquier arma» se compara dos manos contra una mano + secundaria. Los épicos sin fuente registrada de nivel 213 o más se tratan como de banda. Las reliquias de subida (heirlooms) quedan fuera del ranking salvo que marques «Incluir reliquias de subida (heirlooms) que ya tengo»; las reliquias de clase son equipo normal. Aún no se calculan encantamientos ni objetos con encantamiento aleatorio. A nivel 80 la armadura y los anillos se eligen a la vez (búsqueda en haz): bonus de set exacto, topes de golpe y pericia, gemas por color y meta-gema solo si compensa su coste; armas, abalorios y reliquias mantienen sus reglas. Al subir de nivel, los objetos con encantamiento aleatorio («of the Bear»…) se estiman con el mejor sufijo para tu especialidad (≈), los objetos blancos solo con armadura rellenan slots sin nada mejor, y si un slot no tiene ningún objeto útil se muestra la mejor opción disponible con un aviso.",
   whyTitle: "¿Por qué este objeto?", scoreWord: "Puntuación", ilvlTie: "Nivel de objeto (desempate)",
   howTo: "Cómo conseguirlo ↗", moreAlts: "Alternativas",
-  lootTitle: "Botín de mazmorra según tu equipo", lootIntro: "Indica lo que llevas puesto y verás qué objetos de cada mazmorra te sirven y cuánto mejoran tu equipo actual.",
-  lootPick: "Mazmorra", lootAuto: "Según tu nivel", lootOnlyUp: "Solo mejoras",
+  lootTitle: "Botín de mazmorra según tu equipo", lootIntro: "Indica tu equipo actual —o pulsa «Usar el recomendado» para comparar contra la recomendación— y verás qué objetos de cada mazmorra mejoran cada parte y cuánto.",
+  lootPick: "Mazmorra", lootSlot: "Parte", lootSlotAll: "Todas las partes", lootAuto: "Según tu nivel", lootOnlyUp: "Solo mejoras",
+  lootSort: "Ordenar", lootSortBoss: "Jefe", lootSortUpgrade: "Mejora", lootSortIlvl: "iLvl",
+  lootEquip: "Equipar", lootEquipped: "Equipado", lootUndo: "Deshacer",
+  lootWhy: "Ver desglose", lootThis: "Este objeto", lootWearing: "Tu equipo", lootDiff: "Diferencia",
+  lootNoteGems: "Incluye gemas y bonus de socket; no encantamientos.", lootNoteCaps: "El porcentaje no descuenta topes de golpe o pericia; se avisa si este objeto te pasaría.",
+  lootSetNote: "El bonus de set T10 no se suma a este porcentaje.", lootCapsWarn: "Con este objeto superarías el tope de ", lootCapsSuffix: " (sin gemas ni encantamientos).",
+  lootEmptyFiltered: "Ningún objeto coincide con estos filtros.", lootClearSlotFilter: "Ver todas las partes", lootClearOnlyUp: "Quitar Solo mejoras",
+  lootShowOffspec: "Mostrar fuera de especialidad", lootClearSlot: "Limpiar este slot",
   showOffspec: "Mostrar fuera de especialidad", offspecTag: "Off-spec",
   showHeirlooms: "Incluir reliquias de subida (heirlooms) que ya tengo",
   heirloomNote: "Las reliquias de subida (heirlooms) se compran con Emblemas de Heroísmo o Marcas de la Conquista del Invierno, que se obtienen a nivel 80. No entran en las recomendaciones salvo que marques «Incluir reliquias de subida (heirlooms) que ya tengo». Las reliquias de clase (sigilo, tótem, ídolo y libram) son equipo normal y sí entran en el ranking.",
@@ -706,7 +750,7 @@ Object.assign(I18N.es, {
 Object.assign(I18N.en, {
 
   eqTitle: "My current gear", eqUseRec: "Use recommended", eqClear: "Clear all",
-  eqHint: "Search each piece you are wearing by name (raid items too, if your class and level allow it).",
+  eqHint: "Each field is one slot: type the item you are wearing and pick a suggestion. Focusing a slot filters the loot to that slot. Use \"Use recommended\" to compare loot against the recommendation.",
   eqPlaceholder: "Search item…", eqRemove: "Remove", eqNone: "No results", eqEmpty: "Empty slot",
   eqHintNone: "You have not entered your gear yet: until then every item counts as an upgrade.", lootUps: " upgrades for you",
   sheetIntroPvp: "PvP-useful gear for each slot, level ", sourcesPvpOnly: "PvP gear only",
@@ -735,8 +779,15 @@ Object.assign(I18N.en, {
   calcText: "Each item is scored with the stats that matter to your spec (plus weapon DPS and armor) and sorted by that score; item level only breaks ties. Armor of a type that is not ideal for your class is penalized. \"No raids\" hides raid loot and raid quest chains, PvP gear is shown separately in \"PvP only\" mode (resilience is weighted), and the phase limits available content. Proc and on-use effects of trinkets are averaged by duration and cooldown (≈). Gems are chosen by color and the socket bonus only activates when the colors are respected. The Tier 10 set bonus is shared only among the pieces recommended by the guide, and curated trinkets and class relics rule their slot. At level 80, hit and expertise above the cap count for 15 %, and for \"any weapon\" specs a two-hander is compared against one-hand + off hand. Epics with no recorded source at item level 213 or higher are treated as raid loot. Leveling heirlooms stay out of the ranking unless you check «Include leveling heirlooms I already own»; class relics are normal gear. Enchants and random-enchant items are not scored yet. At level 80 armor and rings are chosen together (beam search): exact set bonus, hit and expertise caps, gems by socket color, and a meta gem only when it pays for its activation; weapons, trinkets, and relics keep their curated/greedy rules. While leveling, random-enchant items (\"of the Bear\"...) are estimated with the best suffix for your spec (≈), white armor-only items fill slots with nothing better, and if a slot has no useful item the best available option is shown with a notice.",
   whyTitle: "Why this item?", scoreWord: "Score", ilvlTie: "Item level (tiebreaker)",
   howTo: "How to get it ↗", moreAlts: "Alternatives",
-  lootTitle: "Dungeon loot for your gear", lootIntro: "Tell us what you are wearing and see which dungeon items help you, and by how much over your current gear.",
-  lootPick: "Dungeon", lootAuto: "By your level", lootOnlyUp: "Upgrades only",
+  lootTitle: "Dungeon loot for your gear", lootIntro: "Enter your current gear —or press \"Use recommended\" to compare against the recommendation— and see which items in each dungeon improve each slot and by how much.",
+  lootPick: "Dungeon", lootSlot: "Slot", lootSlotAll: "All slots", lootAuto: "By your level", lootOnlyUp: "Upgrades only",
+  lootSort: "Sort", lootSortBoss: "Boss", lootSortUpgrade: "Upgrade", lootSortIlvl: "iLvl",
+  lootEquip: "Equip", lootEquipped: "Equipped", lootUndo: "Undo",
+  lootWhy: "Show breakdown", lootThis: "This item", lootWearing: "Your gear", lootDiff: "Difference",
+  lootNoteGems: "Includes gems and socket bonuses; not enchants.", lootNoteCaps: "The percentage does not subtract hit or expertise caps; you are warned if this item would exceed one.",
+  lootSetNote: "The Tier 10 set bonus is not added to this percentage.", lootCapsWarn: "This item would put you over the ", lootCapsSuffix: " cap (before gems or enchants).",
+  lootEmptyFiltered: "No item matches these filters.", lootClearSlotFilter: "Show all slots", lootClearOnlyUp: "Turn off Upgrades only",
+  lootShowOffspec: "Show off-spec items", lootClearSlot: "Clear this slot",
   showOffspec: "Show off-spec items", offspecTag: "Off-spec",
   showHeirlooms: "Include leveling heirlooms I already own",
   heirloomNote: "Leveling heirlooms cost Emblems of Heroism or Wintergrasp Marks, which are earned at level 80. They stay out of recommendations unless you check «Include leveling heirlooms I already own». Class relics (sigil, totem, idol, and libram) are normal gear and do appear in the ranking.",
@@ -786,6 +837,8 @@ let state = {
   pvp: load(STORE.pvp, "0") === "1",
   alts: Number(load(STORE.alts, 2)) || 2,
   dungeon: Number(load(STORE.dungeon, 0)) || 0,
+  lootSlot: load(STORE.lootSlot, ""),
+  lootSort: load(STORE.lootSort, "boss"),
   onlyUp: load(STORE.onlyUp, "0") === "1",
   showOffspec: load(STORE.showOffspec, "0") === "1",
   showHeirlooms: load(STORE.showHeirlooms, "0") === "1",
@@ -797,6 +850,7 @@ if (state.level !== 80 || state.pvp || state.scope === "raid") state.fresh = fal
 if (![0, 1, 2, 3, 4].includes(state.phase)) state.phase = 0;
 if (![2, 5, 10].includes(state.alts)) state.alts = 2;
 if (!DATA.factions.includes(state.faction)) state.faction = "horde";
+if (!["boss", "upgrade", "ilvl"].includes(state.lootSort)) state.lootSort = "boss";
 if (!I18N[state.lang]) state.lang = "es";
 if (!DATA.specs[state.cls + "|" + state.spec]) {
   state.cls = "Warrior";
