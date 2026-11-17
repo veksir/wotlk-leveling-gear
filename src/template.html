@@ -245,6 +245,8 @@ var aowow_tooltips = {
     font-weight: 600;
   }
   .panel-head p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+  .panel-head p.heroic-status { color: #e8cf93; }
+  .panel-head p.heroic-status.ok { color: #a7e0b8; }
   .slot-count { color: var(--muted); font-size: 11px; white-space: nowrap; }
   .slots {
     display: grid;
@@ -379,6 +381,10 @@ var aowow_tooltips = {
   .loot-ctl { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--line); }
   .loot-ctl select { padding: 6px 8px; border: 1px solid var(--line-2); border-radius: 6px; background: #071722; color: var(--text); font: inherit; font-size: 13px; }
   .loot-ctl label { font-size: 12px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+  .loot-access { padding: 7px 16px; border-bottom: 1px solid var(--line); background: rgba(217, 177, 95, .08); color: #e8cf93; font-size: 12px; line-height: 1.45; }
+  .loot-access.ok { background: rgba(126, 212, 154, .07); color: #a7e0b8; }
+  .loot-access[hidden] { display: none; }
+  .loot-access b { color: var(--text); }
   .loot-body { padding: 8px 16px 14px; }
   .loot-undo { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; padding: 7px 16px; border-bottom: 1px solid var(--line); background: rgba(117, 215, 239, .06); color: #c3d8e2; font-size: 12px; }
   .loot-undo[hidden] { display: none; }
@@ -575,6 +581,7 @@ var aowow_tooltips = {
           <div>
             <h2 id="sheetHeading" data-i18n="sheetTitle">Equipamiento recomendado</h2>
             <p id="sheetIntro">El mejor objeto usable en cada slot para tu nivel.</p>
+            <p class="heroic-status" id="heroicStatus" hidden></p>
           </div>
           <span class="slot-count" id="slotCount"></span>
         </div>
@@ -621,6 +628,7 @@ var aowow_tooltips = {
         <label><input type="checkbox" id="showOffspec"> <span data-i18n="showOffspec">Mostrar fuera de especialidad</span></label>
         <strong id="lootCount"></strong>
       </div>
+      <div class="loot-access" id="lootAccess" role="status" aria-live="polite" hidden></div>
       <div class="loot-undo" id="lootUndo" hidden><span id="lootUndoText" aria-live="polite"></span><button type="button" class="mini-btn" id="lootUndoBtn" data-i18n="lootUndo">Deshacer</button></div>
       <div class="loot-body" id="lootBody"></div>
     </section>
@@ -742,6 +750,16 @@ Object.assign(I18N.es, {
   lootPick: "Mazmorra", lootSlot: "Parte", lootSlotAll: "Todas las partes", lootAuto: "Según tu nivel", lootOnlyUp: "Solo mejoras",
   lootSort: "Ordenar", lootSortBoss: "Jefe", lootSortUpgrade: "Mejora", lootSortIlvl: "iLvl",
   lootEquip: "Equipar", lootEquipped: "Equipado", lootUndo: "Deshacer",
+  lootHeroicNeedGear: "Acceso a heroicas: introduce tu equipo actual para calcular tu iLvl medio. Esta heroica pide {req}.",
+  lootHeroicLocked: "Heroica por Buscador: pide iLvl medio {req} y tienes {avg}. Se ocultan los objetos exclusivos de heroica; sigue con normales, misiones y emblemas hasta llegar.",
+  lootHeroicOpen: "Heroica por Buscador: desbloqueada (iLvl medio {avg} ≥ {req}).",
+  lootHeroicNote: "Cálculo tipo Buscador: los slots vacíos cuentan 0 y las reliquias de subida cuentan iLvl 1.",
+  lootHeroicHidden: " objetos heroicos ocultos",
+  lootHeroicEmpty: "Los objetos exclusivos de esta heroica están ocultos hasta que alcances iLvl medio {req}.",
+  heroicGeneralNeedGear: "Heroicas: introduce tu equipo actual para comprobar el acceso por iLvl medio.",
+  heroicGeneralLocked: "Heroicas: bloqueadas con iLvl medio {avg}; todas piden al menos 180.",
+  heroicGeneralPartial: "Heroicas: acceso parcial con iLvl medio {avg}; ToC5, FoS y PoS piden 200, HoR pide 219.",
+  heroicGeneralOpen: "Heroicas: desbloqueadas con iLvl medio {avg}.",
   lootWhy: "Ver desglose", lootThis: "Este objeto", lootWearing: "Tu equipo", lootDiff: "Diferencia",
   lootNoteGems: "Incluye gemas y bonus de socket; no encantamientos.", lootNoteCaps: "El porcentaje no descuenta topes de golpe o pericia; se avisa si este objeto te pasaría.",
   lootSetNote: "El bonus de set T10 no se suma a este porcentaje.", lootCapsWarn: "Con este objeto superarías el tope de ", lootCapsSuffix: " (sin gemas ni encantamientos).",
@@ -789,6 +807,16 @@ Object.assign(I18N.en, {
   lootPick: "Dungeon", lootSlot: "Slot", lootSlotAll: "All slots", lootAuto: "By your level", lootOnlyUp: "Upgrades only",
   lootSort: "Sort", lootSortBoss: "Boss", lootSortUpgrade: "Upgrade", lootSortIlvl: "iLvl",
   lootEquip: "Equip", lootEquipped: "Equipped", lootUndo: "Undo",
+  lootHeroicNeedGear: "Heroic access: enter your current gear to calculate your average item level. This heroic requires {req}.",
+  lootHeroicLocked: "Heroic Dungeon Finder: requires average item level {req}; you have {avg}. Heroic-only items are hidden; keep gearing through normals, quests, and emblems.",
+  lootHeroicOpen: "Heroic Dungeon Finder: unlocked (average item level {avg} ≥ {req}).",
+  lootHeroicNote: "Dungeon Finder-style calculation: empty slots count as 0 and leveling heirlooms count as item level 1.",
+  lootHeroicHidden: " heroic items hidden",
+  lootHeroicEmpty: "Heroic-only items for this dungeon are hidden until you reach average item level {req}.",
+  heroicGeneralNeedGear: "Heroics: enter your current gear to check access by average item level.",
+  heroicGeneralLocked: "Heroics: locked at average item level {avg}; all require at least 180.",
+  heroicGeneralPartial: "Heroics: partial access at average item level {avg}; ToC5, FoS, and PoS require 200, HoR requires 219.",
+  heroicGeneralOpen: "Heroics: unlocked at average item level {avg}.",
   lootWhy: "Show breakdown", lootThis: "This item", lootWearing: "Your gear", lootDiff: "Difference",
   lootNoteGems: "Includes gems and socket bonuses; not enchants.", lootNoteCaps: "The percentage does not subtract hit or expertise caps; you are warned if this item would exceed one.",
   lootSetNote: "The Tier 10 set bonus is not added to this percentage.", lootCapsWarn: "This item would put you over the ", lootCapsSuffix: " cap (before gems or enchants).",
@@ -1255,6 +1283,7 @@ function computeGear(spec, o) {
   const specKey = spec.cls + "|" + spec.name;
   const cur = (ENG.curated || {})[specKey];
   const curatedRelic = new Set((cur && cur.relic) || []);
+  const avgIlvl = averageItemLevel(spec);
   const pools = {}, info = {}, fallback = {};
   for (const id in GEAR_ITEMS) {
     if (!state.showHeirlooms && DATA.heirlooms[id]) continue;
@@ -1278,6 +1307,7 @@ function computeGear(spec, o) {
       if (it.raid && o.scope !== "raid") reasons.push("raid");
     }
     if (o.phase && it.ph > o.phase) reasons.push("phase");
+    if (o.level === 80 && !o.pvp && avgIlvl != null && isHeroicOnlyDrop(it) && avgIlvl < heroicRequirement(it.src.zid)) reasons.push("heroic");
     if (reasons.length) e.reasons = reasons;
     r.pk.forEach((p) => {
       const inf = info[p] || (info[p] = { top: null, blocked: null });
@@ -1516,6 +1546,49 @@ function equippedEntry(spec, slot) {
   const r = evalEquip(it, spec, weightsFor(spec, false, state.level), { level: state.level, faction: state.faction });
   return { id, it, score: r ? r.score : 0, parts: r ? r.parts : [], base: r ? r.base : 0, af: r ? r.af : 1 };
 }
+const HEROIC_REQ = { 4723: 200, 4809: 200, 4813: 200, 4820: 219 };
+const HEROIC_REQ_DEFAULT = 180;
+const heroicReqCache = {};
+function heroicRequirement(zoneId) {
+  zoneId = Number(zoneId);
+  if (!zoneId) return 0;
+  if (zoneId in heroicReqCache) return heroicReqCache[zoneId];
+  let req = 0;
+  if (DATA.dungeons.some((d) => d.id === zoneId)) {
+    const loot = (DATA.loot || {})[zoneId] || {};
+    outer: for (const boss in loot) for (const id in loot[boss]) {
+      if (loot[boss][id].includes("H")) { req = HEROIC_REQ[zoneId] || HEROIC_REQ_DEFAULT; break outer; }
+    }
+  }
+  return (heroicReqCache[zoneId] = req);
+}
+function isHeroicOnlyDrop(it) {
+  const s = it.src || {};
+  if (s.t !== "Drop" || s.zc !== "Dungeon" || !s.zid || !heroicRequirement(s.zid)) return false;
+  const df = String(s.df || "").split("/");
+  return df.includes("H") && !df.includes("N");
+}
+function equippedItemLevel(id) {
+  const it = gearItem(id);
+  if (!it) return 0;
+  return it.hl ? (it.ilvl || 1) : (it.ilvl || 0);
+}
+function averageItemLevel(spec) {
+  const g = equippedMap(), slots = specSlots(spec);
+  if (!slots.some((slot) => g[slot])) return null;
+  const counted = equippedMainTwoHand(spec) ? slots.filter((slot) => slot !== "offhand") : slots;
+  const denom = !g.mainhand && !g.offhand ? 16 : counted.length;
+  const sum = counted.reduce((total, slot) => total + (g[slot] ? equippedItemLevel(g[slot]) : 0), 0);
+  return sum / denom;
+}
+function heroicAccess(spec, zoneId) {
+  if (state.level !== 80) return null;
+  const req = heroicRequirement(zoneId);
+  if (!req) return null;
+  const avg = averageItemLevel(spec);
+  return { req, avg, known: avg != null, locked: avg != null && avg < req };
+}
+const fmtIlvl = (v) => (v == null ? "—" : (Math.round(v * 10) / 10).toFixed(1));
 const lootFilterForSlot = (slot) => slot === "ring1" || slot === "ring2" ? "ring" : slot === "trinket1" || slot === "trinket2" ? "trinket" : slot;
 function slotScore(spec, slot) {
   const e = equippedEntry(spec, slot);
@@ -1665,6 +1738,10 @@ function reasonText(e) {
   if (e.reasons.includes("raid")) out.push(L("es de banda y estás en «Sin bandas»", "is a raid item and you are in \"No raids\""));
   if (e.reasons.includes("pvp")) out.push(L("es de PvP, que se ve en el modo «Solo PvP»", "is PvP gear, shown in \"PvP only\" mode"));
   if (e.reasons.includes("phase")) out.push(L("es de la fase " + e.it.ph + ", posterior a la fase " + state.phase, "is from phase " + e.it.ph + ", later than phase " + state.phase));
+  if (e.reasons.includes("heroic")) {
+    const req = heroicRequirement((e.it.src || {}).zid), avg = averageItemLevel(currentSpec());
+    out.push(L("es de una heroica que pide iLvl medio " + req + (avg == null ? "" : " (tienes " + fmtIlvl(avg) + ")"), "is from a heroic that requires average item level " + req + (avg == null ? "" : " (you have " + fmtIlvl(avg) + ")")));
+  }
   return out.join(L(" y ", " and "));
 }
 function rivalNote(best, inf) {
@@ -1862,6 +1939,7 @@ function capWarning(r, targetSlot, totals, eq) {
 function renderLoot(spec) {
   const level = state.level, w = weightsFor(spec, false, level);
   const cur = state.dungeon || autoDungeon(level);
+  const access = heroicAccess(spec, cur), heroicLocked = !!(access && access.known && access.locked);
   const sel = $("dungeonSelect");
   const autoName = (zoneOf(autoDungeon(level)) || {}).n || "";
   sel.innerHTML = '<option value="0">' + esc(t("lootAuto") + ": " + autoName) + "</option>" +
@@ -1879,6 +1957,16 @@ function renderLoot(spec) {
   sortSel.value = state.lootSort;
   $("onlyUp").checked = state.onlyUp;
   $("showOffspec").checked = state.showOffspec;
+  const accessEl = $("lootAccess");
+  if (!access) accessEl.hidden = true;
+  else {
+    const fill = (key, values) => t(key).replace(/\{(\w+)\}/g, (m, k) => values[k] != null ? "<b>" + values[k] + "</b>" : m);
+    accessEl.hidden = false;
+    accessEl.className = "loot-access" + (access.known && !access.locked ? " ok" : "");
+    if (!access.known) accessEl.innerHTML = fill("lootHeroicNeedGear", { req: access.req });
+    else if (access.locked) accessEl.innerHTML = fill("lootHeroicLocked", { req: access.req, avg: fmtIlvl(access.avg) }) + ' <span class="note">' + esc(t("lootHeroicNote")) + "</span>";
+    else accessEl.innerHTML = fill("lootHeroicOpen", { req: access.req, avg: fmtIlvl(access.avg) });
+  }
   const slotFilter = state.lootSlot;
   const eq = {};
   specSlots(spec).forEach((sl) => { eq[sl] = equippedEntry(spec, sl); });
@@ -1893,7 +1981,7 @@ function renderLoot(spec) {
   const setIds = new Set(((setInfo && setInfo.ids) || []).map(String));
   const slotsOf = (p) => (p === "ring" ? ["ring1", "ring2"] : p === "trinket" ? ["trinket1", "trinket2"] : [p]).filter((sl) => sl in eq);
   const bosses = {};
-  let ups = 0, hidden = 0;
+  let ups = 0, hidden = 0, heroicHidden = 0;
   const zoneLoot = (DATA.loot || {})[cur] || {};
   for (const boss in zoneLoot) for (const id in zoneLoot[boss]) {
     const it = DATA.items[id];
@@ -1902,6 +1990,7 @@ function renderLoot(spec) {
     const fac = tags.find((x) => x === "horde" || x === "alliance");
     if (fac && fac !== state.faction) continue;
     if (state.phase && it.ph > state.phase) continue;
+    if (heroicLocked && tags.includes("H") && !tags.includes("N")) { heroicHidden++; continue; }
     const r = evalItem(it, spec, w, { level, faction: state.faction }, false);
     if (!r) continue;
     if (slotFilter && !lootMatchesSlot(r.pk, slotFilter)) continue;
@@ -1928,7 +2017,7 @@ function renderLoot(spec) {
       isSet: setIds.has(String(id))
     });
   }
-  $("lootCount").textContent = ups + t("lootUps") + (hidden ? " · " + hidden + t("lootHidden") : "");
+  $("lootCount").textContent = ups + t("lootUps") + (hidden ? " · " + hidden + t("lootHidden") : "") + (heroicHidden ? " · " + heroicHidden + t("lootHeroicHidden") : "");
   const hint = anyEq ? "" : '<p class="note">' + t("eqHintNone") + "</p>";
   const rowCmp = (a, b) => {
     if (a.offspec !== b.offspec) return a.offspec - b.offspec;
@@ -1948,7 +2037,7 @@ function renderLoot(spec) {
     if (state.onlyUp) actions.push('<button type="button" class="mini-btn" data-loot-action="onlyup">' + esc(t("lootClearOnlyUp")) + "</button>");
     if (hidden) actions.push('<button type="button" class="mini-btn" data-loot-action="offspec">' + esc(t("lootShowOffspec")) + "</button>");
     if (anyEq && slotFilter) actions.push('<button type="button" class="mini-btn" data-loot-action="clearslot">' + esc(t("lootClearSlot")) + "</button>");
-    const msg = (slotFilter || state.onlyUp) ? t("lootEmptyFiltered") : t("lootEmpty");
+    const msg = (slotFilter || state.onlyUp) ? t("lootEmptyFiltered") : (heroicLocked && heroicHidden) ? t("lootHeroicEmpty").replace("{req}", access.req) : t("lootEmpty");
     $("lootBody").innerHTML = hint + '<div class="loot-empty"><p class="note">' + msg + "</p>" + (actions.length ? '<div class="loot-empty-actions">' + actions.join("") + "</div>" : "") + "</div>";
     bindLootEvents();
     renderLootUndo();
@@ -2183,6 +2272,18 @@ function renderCaps(spec, gear) {
   }).join("") + '<small>' + t("capsNote") + "</small>";
 }
 
+function renderHeroicStatus(spec, level) {
+  const el = $("heroicStatus");
+  if (level !== 80) { el.hidden = true; return; }
+  const avg = averageItemLevel(spec);
+  el.hidden = false;
+  el.classList.toggle("ok", avg != null && avg >= 219);
+  if (avg == null) el.textContent = t("heroicGeneralNeedGear");
+  else if (avg >= 219) el.textContent = t("heroicGeneralOpen").replace("{avg}", fmtIlvl(avg));
+  else if (avg >= 180) el.textContent = t("heroicGeneralPartial").replace("{avg}", fmtIlvl(avg));
+  else el.textContent = t("heroicGeneralLocked").replace("{avg}", fmtIlvl(avg));
+}
+
 function renderSlots(spec, level) {
   const gear = computeGear(spec, { level, faction: state.faction, scope: state.scope, phase: state.phase, pvp: state.pvp, fresh: state.fresh });
   const order = specSlots(spec);
@@ -2296,6 +2397,7 @@ function render() {
   $("sourcesValue").textContent = state.pvp ? t("sourcesPvpOnly") : fresh ? t("sourcesFresh") : t(state.scope === "raid" ? "sourcesRaid" : "sourcesValue");
   $("bracketAdvice").textContent = bracketAdvice(bracket);
   updateClassNote();
+  renderHeroicStatus(spec, level);
   const gear = renderSlots(spec, level);
   renderCaps(spec, gear);
   lastGear = gear;

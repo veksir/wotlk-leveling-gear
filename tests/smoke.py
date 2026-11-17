@@ -269,6 +269,53 @@ def main():
         assert page.locator(".loot-row").count() > 0
         assert page.locator("details.calc").count() == 1 and page.locator(".side details.calc").count() == 0
 
+        reqs = page.evaluate("""() => ({
+          uk: heroicRequirement(206), toc: heroicRequirement(4723), fos: heroicRequirement(4809),
+          pos: heroicRequirement(4813), hor: heroicRequirement(4820), raid: heroicRequirement(4812)
+        })""")
+        assert reqs == {"uk": 180, "toc": 200, "fos": 200, "pos": 200, "hor": 219, "raid": 0}, reqs
+        access = page.evaluate("""() => {
+          state.cls = "Warrior"; state.spec = "Arms"; state.level = 80; state.faction = "horde";
+          state.dungeon = 206; state.lootSlot = ""; state.lootSort = "boss"; state.onlyUp = false; state.showOffspec = true;
+          const spec = DATA.specs["Warrior|Arms"], slots = specSlots(spec);
+          const low = {}; slots.forEach((s) => low[s] = "42944");
+          state.gear["Warrior|Arms"] = low; render();
+          const lowAvg = averageItemLevel(spec);
+          const lowRows = [...document.querySelectorAll("#lootBody .loot-row a")].map((a) => a.getAttribute("href").split("=")[1]);
+          const lowAccess = document.getElementById("lootAccess").innerText;
+          const lowGeneral = document.getElementById("heroicStatus").innerText;
+          const lowRec = computeGear(spec, {level: 80, faction: "horde", scope: "noraid", phase: 0, pvp: false});
+          const lowRecH = Object.values(lowRec.slots).flatMap((s) => s.list).filter((e) => isHeroicOnlyDrop(e.it)).length;
+          const highId = Object.keys(DATA.items).find((id) => DATA.items[id].ilvl >= 219 && !DATA.items[id].hl);
+          const high = {}; slots.forEach((s) => high[s] = highId);
+          state.gear["Warrior|Arms"] = high; render();
+          const highAvg = averageItemLevel(spec);
+          const highRows = [...document.querySelectorAll("#lootBody .loot-row a")].map((a) => a.getAttribute("href").split("=")[1]);
+          const highAccess = document.getElementById("lootAccess").innerText;
+          const highGeneral = document.getElementById("heroicStatus").innerText;
+          const highRec = computeGear(spec, {level: 80, faction: "horde", scope: "noraid", phase: 0, pvp: false});
+          const highRecH = Object.values(highRec.slots).flatMap((s) => s.list).filter((e) => isHeroicOnlyDrop(e.it)).length;
+          const loot = DATA.loot[206] || {}, byId = {};
+          for (const boss in loot) for (const id in loot[boss]) {
+            const tags = loot[boss][id].filter((t) => t !== "horde" && t !== "alliance");
+            (byId[id] = byId[id] || []).push(tags);
+          }
+          const heroicIds = Object.keys(byId).filter((id) => byId[id].every((tags) => tags.includes("H") && !tags.includes("N")));
+          return {lowAvg, highAvg, lowAccess, highAccess, lowGeneral, highGeneral,
+                  lowHeroicRows: lowRows.filter((id) => heroicIds.includes(id)).length,
+                  highHeroicRows: highRows.filter((id) => heroicIds.includes(id)).length,
+                  lowRecH, highRecH};
+        }""")
+        assert access["lowAvg"] < 180 and access["highAvg"] >= 219, access
+        assert "180" in access["lowAccess"] and "1.0" in access["lowAccess"], access["lowAccess"]
+        assert "bloqueadas" in access["lowGeneral"], access["lowGeneral"]
+        assert access["lowHeroicRows"] == 0, "con iLvl bajo no deben verse objetos exclusivos de heroica"
+        assert access["lowRecH"] == 0, "las recomendaciones deben evitar heroicas si no puedes entrar"
+        assert access["highHeroicRows"] > 0, "con iLvl alto deben volver a verse las heroicas"
+        assert access["highRecH"] > 0, "con iLvl alto las heroicas deben volver a las recomendaciones"
+        assert "desbloqueada" in access["highAccess"], access["highAccess"]
+        assert "desbloqueadas" in access["highGeneral"], access["highGeneral"]
+
         assert not errors, errors
         print("smoke ok:", page.locator(".slot").count(), "slots")
         browser.close()
