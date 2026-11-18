@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equipo óptimo por nivel - WotLK 3.3.5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://wotlk.evowow.com/static/widgets/power.js?lang=en"></script>
+<script>
+var aowow_tooltips = {
+  "colorlinks": true,
+  "iconizelinks": false,
+  "renamelinks": false,
+  "hide": { "reagents": true, "sellprice": true }
+};
+</script>
+<link rel="stylesheet" href="./styles/app.css">
+
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">W</div>
+      <div>
+        <strong data-i18n="brandTitle">Equipo óptimo</strong>
+        <small>World of Warcraft 3.3.5 · Wrath of the Lich King</small>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-switch" role="group" aria-label="Idioma">
+        <button type="button" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="ghost" id="resetBtn" type="button" data-i18n="reset">Reiniciar</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p class="eyebrow" data-i18n="eyebrow">El mejor objeto disponible hasta tu nivel</p>
+      <h1 data-i18n="h1">Qué llevar en cada slot, sin adivinar.</h1>
+      <p data-i18n="intro">Elige clase, especialidad, facción y nivel. Cada slot muestra el mejor objeto que puedes usar en ese punto, cómo conseguirlo, por qué se recomienda y varias alternativas. Activa «Con bandas» para ver el mejor equipo de raid, o consulta abajo qué te puede tocar en cada mazmorra.</p>
+    </section>
+
+    <section class="deck" aria-label="Configuración">
+      <div class="deck-main">
+        <div class="box"><span class="field-label" id="classLabel" data-i18n="classLabel">Clase</span>
+          <div class="chips" id="classes" role="group" aria-labelledby="classLabel"></div></div>
+        <div class="row2">
+          <div class="box"><span class="field-label" id="specLabel" data-i18n="specLabel">Especialidad</span>
+            <div class="seg" id="specs" role="group" aria-labelledby="specLabel"></div></div>
+          <div class="box"><span class="field-label" id="factionLabel" data-i18n="factionLabel">Facción</span>
+            <div class="seg" id="factions" role="group" aria-labelledby="factionLabel"></div></div>
+        </div>
+        <div class="box">
+          <div class="opts">
+            <div><span class="field-label" id="modeLabel" data-i18n="modeLabel">Contenido</span><div class="seg" id="modes" role="group" aria-labelledby="modeLabel"></div></div>
+            <div><span class="field-label" id="phaseLabel" data-i18n="phaseLabel">Fase</span><div class="seg" id="phases" role="group" aria-labelledby="phaseLabel"></div></div>
+            <div><span class="field-label" id="pvpLabel" data-i18n="pvpLabel">Tipo de equipo</span><div class="seg" id="pvps" role="group" aria-labelledby="pvpLabel"></div></div>
+            <div><span class="field-label" id="altsLabel" data-i18n="altsLabel">Alternativas por slot</span><div class="seg" id="alts" role="group" aria-labelledby="altsLabel"></div></div>
+            <label class="opt-check"><input type="checkbox" id="showHeirlooms"> <span data-i18n="showHeirlooms">Incluir reliquias de subida (heirlooms) que ya tengo</span></label>
+            <label class="opt-check"><input type="checkbox" id="fresh80"> <span data-i18n="fresh80">Modo recién 80 (sin Frost ni fichas de raid)</span></label>
+          </div>
+          <p class="opts-hint" data-i18n="optsHint"></p>
+        </div>
+        <p class="class-note" id="classNote"></p>
+      </div>
+      <div class="deck-side">
+        <div class="level-line">
+          <div class="level-big"><span id="levelNumber">20</span><small data-i18n="levelWord">NIVEL</small></div>
+          <input class="level-input" id="levelInput" type="number" min="1" max="80" value="20" inputmode="numeric" aria-label="Nivel exacto">
+        </div>
+        <input class="level-range" id="levelRange" type="range" min="1" max="80" value="20" aria-label="Nivel de subida">
+        <div class="range-labels"><span>1</span><span>20</span><span>40</span><span>60</span><span>80</span></div>
+        <span class="bracket" id="bracketLabel">Aprendizaje</span>
+        <p class="bracket-advice" id="bracketAdvice"></p>
+      </div>
+    </section>
+
+    <details class="panel fresh-route" id="freshRoute" hidden>
+      <summary data-i18n="freshRouteTitle">Ruta recién 80 (sin Frost ni fichas de raid)</summary>
+      <p class="note" data-i18n="freshRouteIntro">El modo filtra el equipo que puedes conseguir con Triunfo o inferior. Esta es la ruta recomendada:</p>
+      <ol>
+        <li data-i18n="freshRouteStep1">Nivel 80 y reputaciones: misiones de Icecrown y Storm Peaks; Kirin Tor, Wyrmrest, Ebon Blade, Cruzada Argenta y Kalu'ak.</li>
+        <li data-i18n="freshRouteStep2">Mazmorras: normales 80, ToC5 e ICC5; después heroicas y la diaria de Triunfo.</li>
+        <li data-i18n="freshRouteStep3">Emblemas de Triunfo: T9 232 (Dubin Clay, Horace Hunderland, Rueben Lauren, Rafael Langrom) y complementos 245 (Ninsianna, Debbi Moore, Jarold Puller, Abra Cadabra).</li>
+        <li data-i18n="freshRouteStep4">Oro, reputación y crafting: anillos de Kirin Tor de Harold Winston, capas crafteadas, reliquias y complementos.</li>
+        <li data-i18n="freshRouteStep5">Arma: cadena de Quel'Delar (251) en mazmorras de 5 si puedes completarla.</li>
+      </ol>
+      <p class="note" data-i18n="freshRouteConvert">Puedes convertir Triunfo en Conquista, Valor y Heroísmo 1:1; por eso el modo incluye equipo de emblemas anteriores.</p>
+      <p class="note" data-i18n="freshRouteAvoid">Evita hasta tener Frost: T10 251/264/277, capas 264 de Norvin Alderman y T9 245 (requiere Trophy of the Crusade de raid).</p>
+    </details>
+
+    <section class="summary" aria-label="Resumen">
+      <div><span data-i18n="statusPhase">Fase de subida</span><strong id="statusBracket">Aprendizaje · 1 a 19</strong></div>
+      <div><span data-i18n="statusArmor">Armadura</span><strong id="statusArmor">Malla (placa al 40)</strong></div>
+      <div><span data-i18n="statusNext">Siguiente hito</span><strong id="statusNext">Nivel 20 · primeras mazmorras</strong></div>
+      <div><span data-i18n="statusSources">Fuentes incluidas</span><strong id="sourcesValue" data-i18n="sourcesValue">Misiones, mazmorras, vendedores y drops</strong></div>
+    </section>
+
+    <details class="panel calc">
+      <summary data-i18n="calcTitle">Cómo se calcula</summary>
+      <p class="note" data-i18n="calcText"></p>
+    </details>
+
+    <div class="main">
+      <section class="panel" aria-labelledby="sheetHeading">
+        <div class="panel-head">
+          <div>
+            <h2 id="sheetHeading" data-i18n="sheetTitle">Equipamiento recomendado</h2>
+            <p id="sheetIntro">El mejor objeto usable en cada slot para tu nivel.</p>
+            <p class="heroic-status" id="heroicStatus" hidden></p>
+          </div>
+          <span class="slot-count" id="slotCount"></span>
+        </div>
+        <div class="caps" id="capsBox" hidden></div>
+      <div class="slots" id="slots"></div>
+      </section>
+
+      <aside class="side">
+        <section class="panel" aria-labelledby="statsHeading">
+          <h2 id="statsHeading" data-i18n="statsTitle">Prioridad de estadísticas</h2>
+          <ol class="stat-list" id="statList"></ol>
+          <p class="hint" id="statsHint"></p>
+        </section>
+
+        <section class="panel" aria-labelledby="dungeonHeading">
+          <h2 id="dungeonHeading" data-i18n="dungeonsTitle">Mazmorras del tramo</h2>
+          <ul class="dungeon-list" id="dungeonList"></ul>
+        </section>
+
+        <details class="panel" id="heirloomPanel">
+          <summary data-i18n="heirloomTitle">Reliquias de subida (heirlooms)</summary>
+          <div id="heirloomList" style="margin-top:8px"></div>
+        </details>
+
+      </aside>
+    </div>
+
+    <section class="panel bis" style="margin-top:14px" aria-labelledby="bisHeading">
+      <div class="panel-head">
+        <div><h2 id="bisHeading" data-i18n="bisTitle">BiS por fase</h2><p id="bisIntro" data-i18n="bisIntro"></p></div>
+        <span class="slot-count" id="bisSpec"></span>
+      </div>
+      <div class="bis-tabs seg" id="bisTabs" role="group" aria-labelledby="bisHeading"></div>
+      <p class="bis-phase-note" id="bisPhaseNote"></p>
+      <p class="bis-phase-note bis-owned-note" id="bisOwnedNote"></p>
+      <div class="caps" id="bisCaps" hidden></div>
+      <div class="bis-legend" id="bisLegend"></div>
+      <div class="bis-grid" id="bisGrid"></div>
+      <p class="note" style="padding:0 16px 12px" data-i18n="bisHint"></p>
+    </section>
+
+    <section class="panel" style="margin-top:14px" aria-labelledby="gemHeading">
+      <div class="panel-head">
+        <div><h2 id="gemHeading" data-i18n="gemTitle">Gemas y encantamientos</h2><p data-i18n="gemIntro"></p></div>
+        <span class="slot-count" id="gemSpec"></span>
+      </div>
+      <div id="gemBody"></div>
+    </section>
+
+    <section class="panel" style="margin-top:14px" aria-labelledby="lootHeading">
+      <div class="panel-head"><div><h2 id="lootHeading" data-i18n="lootTitle">Botín de mazmorra</h2><p id="lootIntro" data-i18n="lootIntro"></p></div></div>
+      <details class="eq" id="eqPanel" open>
+        <summary data-i18n="eqTitle">Mi equipo actual</summary>
+        <div class="eq-tools">
+          <button type="button" class="mini-btn" id="eqUseRec" data-i18n="eqUseRec">Usar el recomendado</button>
+          <button type="button" class="mini-btn" id="eqClear" data-i18n="eqClear">Vaciar</button>
+          <span class="note" data-i18n="eqHint"></span>
+        </div>
+        <div class="eq-grid" id="eqGrid"></div>
+      </details>
+      <div class="loot-ctl">
+        <label><span data-i18n="lootPick">Mazmorra</span> <select id="dungeonSelect"></select></label>
+        <label><span data-i18n="lootSlot">Parte</span> <select id="lootSlot"></select></label>
+        <label><span data-i18n="lootSort">Ordenar</span> <select id="lootSort"></select></label>
+        <label><input type="checkbox" id="onlyUp"> <span data-i18n="lootOnlyUp">Solo mejoras</span></label>
+        <label><input type="checkbox" id="showOffspec"> <span data-i18n="showOffspec">Mostrar fuera de especialidad</span></label>
+        <strong id="lootCount"></strong>
+      </div>
+      <div class="loot-access" id="lootAccess" role="status" aria-live="polite" hidden></div>
+      <div class="loot-undo" id="lootUndo" hidden><span id="lootUndoText" aria-live="polite"></span><button type="button" class="mini-btn" id="lootUndoBtn" data-i18n="lootUndo">Deshacer</button></div>
+      <div class="loot-body" id="lootBody"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p data-i18n="footer">Las ventanas de objeto se cargan desde EVOWOW. Pasa el cursor sobre un objeto para ver su ficha completa.</p>
+  </footer>
+</div>
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>
