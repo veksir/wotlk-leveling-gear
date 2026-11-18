@@ -45,7 +45,7 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 1. `scripts/fetch_raw.py` descarga los datos crudos de objetos y zonas, `scripts/fetch_heirloom_stats.py` añade las estadísticas de las reliquias nivel a nivel, y `scripts/fetch_atlasloot.py` + `scripts/build_loot.py` añaden las tablas de botín por jefe de WotLK (Ulduar, Trial of the Crusader, Icecrown Citadel, mazmorras heroicas, 10/25) desde AtlasLootClassic.
 2. `scripts/build_item_db.py` normaliza objetos, estadísticas (incluidos los procs y efectos de uso de abalorios, promediados, colores de socket y socket meta), niveles requeridos, armadura/armas y fuentes.
 3. `scripts/build_recommendations.py` genera la base de objetos, las definiciones de especialidad, los pesos de estadísticas, las gemas de referencia y meta-gemas, los bonus de set T10, los abalorios y reliquias curados y la lista de mazmorras. A nivel 80 se usa la prioridad de Icy Veins de cada especialidad, calibrada con WowSims cuando hay datos; por debajo de 80, los pesos por rol mantienen el equipo de subida coherente. Las reliquias de subida solo se rankean si activas «Incluir reliquias de subida (heirlooms) que ya tengo»; las reliquias de clase son equipo normal. El ranking se calcula en el navegador, así que los filtros de modo, fase, PvP y facción se aplican al instante. A nivel 80 el navegador elige a la vez armadura y anillos con una búsqueda en haz; armas, abalorios y reliquias mantienen sus reglas.
-4. `scripts/build_page.py` inyecta el JSON generado en `src/template.html` y escribe `tolltip.html`.
+4. `scripts/build_page.py` ejecuta la compilación de Vite sobre la fuente modular de `src/` (HTML, CSS y módulos ES) y copia la página autocontenida generada a `tolltip.html`.
 
 El ranking es una heurística práctica, no un simulador de combate: ordena por una puntuación ponderada de estadísticas (el nivel de objeto solo desempata), usa prioridades por especialidad a nivel 80 y pesos por rol durante la subida, penaliza los tipos de armadura que no son ideales para la clase, promedia los procs y efectos de uso de los abalorios según duración y enfriamiento, elige gemas por color, activa el bonus de socket solo si se respetan los colores, usa la meta-gema solo si cumple sus requisitos y compensa su coste, reparte el bonus de set T10 solo entre las piezas recomendadas, aplica los topes de golpe/pericia a nivel 80 y compara dos manos contra una mano + secundaria. Un arma a dos manos bloquea la mano secundaria salvo en especialidades con Titan's Grip. Los épicos sin fuente registrada de nivel de objeto 213 o más se tratan como botín de banda («banda probable»). Aún no se puntúan encantamientos ni objetos con encantamiento aleatorio.
 
@@ -60,9 +60,11 @@ Necesitas conexión a internet para las fuentes de Google y los tooltips de EVOW
 Requisitos:
 
 - Python 3.10+
+- Node.js 22.12+ (o 20.19+) y npm
 - Playwright + Chromium para la prueba de humo
 
 ```bash
+npm install
 python -m pip install playwright
 python -m playwright install chromium
 
@@ -90,7 +92,7 @@ python tests/reference_sets.py
 python tests/reference_ids.py
 ```
 
-`build_page.py` escribe `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis_ids.json` (por ID, Icy Veins + Wowhead) e informa de aciertos y coincidencias exactas; `--min=497` exige el gate actual y `--strict` es el objetivo final de 518/518. `sockets.py` comprueba los colores y el socket meta, `gems.py` la activación de la meta-gema y el bonus de socket, y `optimizer.py` la búsqueda en haz, el rendimiento (<750 ms) y que el nivel 79 no la use. `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `features.py` cubre gemas/sockets, bonus de set y reliquias curadas; `reference_sets.py` valida las piezas de los sets T10; `reference_ids.py` valida la referencia por ID; `spec_weights.py` comprueba las 31 especialidades a nivel 80; `fresh80.py` comprueba el filtro Recién 80 en las 31 especialidades y ambas facciones, además del checkbox, la ruta, la persistencia y su desactivación en PvP/«Con bandas».
+`build_page.py` ejecuta `npm run build` con Vite y escribe la página autocontenida `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis_ids.json` (por ID, Icy Veins + Wowhead) e informa de aciertos y coincidencias exactas; `--min=497` exige el gate actual y `--strict` es el objetivo final de 518/518. `sockets.py` comprueba los colores y el socket meta, `gems.py` la activación de la meta-gema y el bonus de socket, y `optimizer.py` la búsqueda en haz, el rendimiento (<750 ms) y que el nivel 79 no la use. `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `features.py` cubre gemas/sockets, bonus de set y reliquias curadas; `reference_sets.py` valida las piezas de los sets T10; `reference_ids.py` valida la referencia por ID; `spec_weights.py` comprueba las 31 especialidades a nivel 80; `fresh80.py` comprueba el filtro Recién 80 en las 31 especialidades y ambas facciones, además del checkbox, la ruta, la persistencia y su desactivación en PvP/«Con bandas».
 
 ## Estructura del proyecto
 
@@ -100,9 +102,11 @@ python tests/reference_ids.py
 ├── docs/                  # capturas para el README
 ├── legacy/                # implementación anterior, solo reliquias
 ├── scripts/               # pipeline de datos, ranking y generador de página
-├── src/                   # plantilla HTML/CSS/JS
+├── src/                   # fuente Vite: index.html, styles/, js/
 ├── tests/                 # pruebas de humo y regresión con Playwright
 ├── tolltip.html           # página final autocontenida
+├── package.json           # dependencias y scripts de Vite
+├── vite.config.js         # configuración del build single-file
 ├── README.md              # README en inglés
 ├── CONTRIBUTING.md        # guía de contribución en inglés
 ├── CONTRIBUTING.es.md     # guía de contribución en español

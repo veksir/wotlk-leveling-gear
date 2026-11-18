@@ -45,7 +45,7 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 1. `scripts/fetch_raw.py` downloads the raw item and zone data, `scripts/fetch_heirloom_stats.py` adds level-by-level heirloom stats, and `scripts/fetch_atlasloot.py` + `scripts/build_loot.py` add per-boss loot tables for WotLK (Ulduar, Trial of the Crusader, Icecrown Citadel, heroic dungeons, 10/25) from AtlasLootClassic.
 2. `scripts/build_item_db.py` normalizes items, stats (including averaged trinket procs, on-use effects, socket colors, and meta sockets), required levels, armor/weapon metadata, and sources.
 3. `scripts/build_recommendations.py` emits the item database, spec definitions, stat weights, reference gems and meta gems, T10 set bonuses, curated trinkets/relics, and the dungeon list. Level-80 weights follow each spec's Icy Veins priority, calibrated with WowSims where available; below 80 the role weights keep leveling gear sensible. Heirlooms are ranked only when the “already own” toggle is enabled; class relics are normal gear. The ranking itself runs in the browser, so mode, phase, PvP, and faction filters apply instantly. At level 80 the browser chooses armor and rings together with a beam search; weapons, trinkets, and relics keep their own rules.
-4. `scripts/build_page.py` injects the generated JSON into `src/template.html` and writes `tolltip.html`.
+4. `scripts/build_page.py` runs the Vite build over the modular source in `src/` (HTML, CSS, and ES modules) and copies the generated single-file page to `tolltip.html`.
 
 The ranking is a practical heuristic, not a combat simulator: it sorts by a weighted stat score (item level only breaks ties), uses per-spec priorities at level 80 and role weights while leveling, penalizes armor types that are not ideal for the class, averages trinket procs and on-use effects by duration and cooldown, chooses gems by color, activates the socket bonus only when the colors are respected, uses a meta gem only when it meets its requirements and pays for its activation cost, shares the T10 set bonus only among the recommended pieces, applies hit/expertise caps at level 80, and compares two-handers against one-hand + off-hand. A two-hander blocks the off-hand slot unless the spec uses Titan's Grip. Epic items with no recorded source at item level 213 or higher are treated as raid loot ("likely raid"). Enchants and random-enchant items are not scored yet.
 
@@ -60,9 +60,11 @@ Internet access is required for Google Fonts and EVOWOW item tooltips. The page 
 Requirements:
 
 - Python 3.10+
+- Node.js 22.12+ (or 20.19+) and npm
 - Playwright + Chromium for the smoke test
 
 ```bash
+npm install
 python -m pip install playwright
 python -m playwright install chromium
 
@@ -90,7 +92,7 @@ python tests/reference_sets.py
 python tests/reference_ids.py
 ```
 
-`build_page.py` writes `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` audits all 31 level-80 specializations against the Icy Veins BiS lists in `tests/reference_bis_ids.json` (ID-based, Icy Veins + Wowhead) and reports hit/exact rates; `--min=497` enforces the current gate and `--strict` is the final 518/518 target. `sockets.py` covers socket colors and meta sockets, `gems.py` covers meta-gem activation and socket bonuses, and `optimizer.py` covers the beam search, performance (<750 ms), and that level 79 does not use it. `heirlooms.py` covers level scaling, off-spec filtering, two-handed weapons, and relic search; `features.py` covers gems/sockets, set bonuses, and curated relics; `reference_sets.py` validates the T10 set pieces; `reference_ids.py` validates the ID-based reference; `spec_weights.py` checks all 31 level-80 specializations; `fresh80.py` checks the Fresh 80 filter across all 31 specializations and both factions, plus the checkbox, route, persistence, and disabling in PvP/With raids.
+`build_page.py` runs `npm run build` with Vite and writes the single-file `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` audits all 31 level-80 specializations against the Icy Veins BiS lists in `tests/reference_bis_ids.json` (ID-based, Icy Veins + Wowhead) and reports hit/exact rates; `--min=497` enforces the current gate and `--strict` is the final 518/518 target. `sockets.py` covers socket colors and meta sockets, `gems.py` covers meta-gem activation and socket bonuses, and `optimizer.py` covers the beam search, performance (<750 ms), and that level 79 does not use it. `heirlooms.py` covers level scaling, off-spec filtering, two-handed weapons, and relic search; `features.py` covers gems/sockets, set bonuses, and curated relics; `reference_sets.py` validates the T10 set pieces; `reference_ids.py` validates the ID-based reference; `spec_weights.py` checks all 31 level-80 specializations; `fresh80.py` checks the Fresh 80 filter across all 31 specializations and both factions, plus the checkbox, route, persistence, and disabling in PvP/With raids.
 
 ## Project structure
 
@@ -100,9 +102,11 @@ python tests/reference_ids.py
 ├── docs/                  # README screenshots
 ├── legacy/                # previous heirloom-only implementation
 ├── scripts/               # data pipeline, ranking, and page builder
-├── src/                   # HTML/CSS/JS template
+├── src/                   # Vite source: index.html, styles/, js/
 ├── tests/                 # Playwright smoke and regression tests
 ├── tolltip.html           # generated standalone page
+├── package.json           # Vite build dependencies and scripts
+├── vite.config.js         # single-file build configuration
 ├── CONTRIBUTING.md        # contribution guide (English)
 ├── CONTRIBUTING.es.md     # contribution guide (Spanish)
 └── LICENSE

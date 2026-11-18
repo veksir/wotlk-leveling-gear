@@ -21,11 +21,13 @@ For small fixes, open a pull request directly. For larger changes (new features,
 Requirements:
 
 - Python 3.10+
+- Node.js 22.12+ (or 20.19+) and npm
 - Playwright with Chromium for the smoke test
 
 ```bash
 git clone https://github.com/veksir/wotlk-leveling-gear.git
 cd wotlk-leveling-gear
+npm install
 python -m pip install playwright
 python -m playwright install chromium
 ```
@@ -62,11 +64,13 @@ python tests/reference_ids.py
 
 ## Where to make changes
 
-- `src/template.html`: HTML, CSS, and client-side JavaScript. This is the source for the page.
+- `src/index.html`: page shell and DOM. It loads `styles/app.css` and `js/main.js`.
+- `src/styles/app.css`: all page styles.
+- `src/js/`: client-side ES modules (`core`, `data`, `engine`, `heroic`, `equipment`, `format`, `loot`, `bis`, `render`, `main`). `data.js` imports `data/gear_data.json`; `main.js` wires events and exposes the test globals.
 - `scripts/build_item_db.py`: item parsing, stats, required levels, armor/weapon metadata, and sources.
 - `scripts/build_recommendations.py`: class/spec rules, faction filtering, armor/weapon eligibility, scoring, and ranking. Level-80 priorities live in `data/spec_weights.json`.
 - `scripts/fetch_heirloom_stats.py`: level-by-level heirloom stats from the WoWWiki archive and Wowhead.
-- `scripts/build_page.py`: injects data into the template and writes `tolltip.html`.
+- `scripts/build_page.py`: runs the Vite single-file build and copies `dist/index.html` to `tolltip.html`.
 - `tests/smoke.py`: browser smoke test.
 - `tests/sockets.py`: socket colors, meta sockets, and exceptions such as item 23232.
 - `tests/gems.py`: meta-gem activation, gem choice by color, and socket bonuses.
@@ -80,7 +84,7 @@ python tests/reference_ids.py
 - `tests/spec_weights.py`: all 31 level-80 specializations.
 - `tests/fresh80.py`: Fresh 80 coverage for all 31 specializations and both factions, plus the checkbox, route, persistence, and disabling in PvP/With raids.
 
-Do **not** edit `tolltip.html` by hand. It is generated. After changing the template or data, run the build again.
+Do **not** edit `tolltip.html` by hand. It is generated. After changing the source modules, styles, or data, run the build again.
 
 ## Data rules
 
@@ -95,7 +99,7 @@ Do **not** edit `tolltip.html` by hand. It is generated. After changing the temp
 
 ## Interface rules
 
-- Add new UI text to the `I18N` object in `src/template.html` for **both** Spanish and English.
+- Add new UI text to the `I18N` object in `src/js/core.js` for **both** Spanish and English.
 - Keep slot, stat, source, and bracket labels consistent between languages.
 - Check the page at desktop and mobile widths.
 - Preserve the item tooltip behavior (`rel="lvl=N noopener"` for heirlooms, `rel="noopener"` for regular items).

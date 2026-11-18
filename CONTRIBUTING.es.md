@@ -21,11 +21,13 @@ Para cambios pequeños, abre directamente un pull request. Para cambios grandes 
 Requisitos:
 
 - Python 3.10+
+- Node.js 22.12+ (o 20.19+) y npm
 - Playwright con Chromium para la prueba de humo
 
 ```bash
 git clone https://github.com/veksir/wotlk-leveling-gear.git
 cd wotlk-leveling-gear
+npm install
 python -m pip install playwright
 python -m playwright install chromium
 ```
@@ -62,11 +64,13 @@ python tests/reference_ids.py
 
 ## Dónde hacer los cambios
 
-- `src/template.html`: HTML, CSS y JavaScript del cliente. Es la fuente de la página.
+- `src/index.html`: estructura de la página y DOM. Carga `styles/app.css` y `js/main.js`.
+- `src/styles/app.css`: todos los estilos de la página.
+- `src/js/`: módulos ES del cliente (`core`, `data`, `engine`, `heroic`, `equipment`, `format`, `loot`, `bis`, `render`, `main`). `data.js` importa `data/gear_data.json`; `main.js` conecta los eventos y expone los globals de las pruebas.
 - `scripts/build_item_db.py`: parseo de objetos, estadísticas, niveles requeridos, armadura/armas y fuentes.
 - `scripts/build_recommendations.py`: reglas por clase/especialidad, filtro de facción, elegibilidad de armadura/armas, puntuación y ranking. Las prioridades de nivel 80 están en `data/spec_weights.json`.
 - `scripts/fetch_heirloom_stats.py`: estadísticas de reliquias nivel a nivel desde WoWWiki archive y Wowhead.
-- `scripts/build_page.py`: inyecta los datos en la plantilla y escribe `tolltip.html`.
+- `scripts/build_page.py`: ejecuta el build single-file de Vite y copia `dist/index.html` a `tolltip.html`.
 - `tests/smoke.py`: prueba de humo en navegador.
 - `tests/sockets.py`: colores de socket, sockets meta y excepciones como el objeto 23232.
 - `tests/gems.py`: activación de meta-gemas, elección de gemas por color y bonus de socket.
@@ -80,7 +84,7 @@ python tests/reference_ids.py
 - `tests/spec_weights.py`: las 31 especialidades a nivel 80.
 - `tests/fresh80.py`: cobertura de Recién 80 en las 31 especialidades y ambas facciones, además del checkbox, la ruta, la persistencia y su desactivación en PvP/«Con bandas».
 
-**No** edites `tolltip.html` a mano. Es generado. Después de cambiar la plantilla o los datos, vuelve a ejecutar la generación.
+**No** edites `tolltip.html` a mano. Es generado. Después de cambiar los módulos, los estilos o los datos, vuelve a ejecutar la generación.
 
 ## Reglas de datos
 
@@ -95,7 +99,7 @@ python tests/reference_ids.py
 
 ## Reglas de interfaz
 
-- Añade los textos nuevos al objeto `I18N` de `src/template.html` para **español e inglés**.
+- Añade los textos nuevos al objeto `I18N` de `src/js/core.js` para **español e inglés**.
 - Mantén coherentes las etiquetas de slots, estadísticas, fuentes y tramos entre idiomas.
 - Revisa la página en escritorio y en móvil.
 - Conserva el comportamiento de los tooltips (`rel="lvl=N noopener"` para reliquias, `rel="noopener"` para objetos normales).
