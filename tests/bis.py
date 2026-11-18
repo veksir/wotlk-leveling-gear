@@ -63,20 +63,28 @@ def main():
         assert page.locator(".bis-card .rank-bis").count() >= 14
         assert page.locator(".bis-card .rank-bis2").count() == 2
 
-        # Tooltip: pasar el cursor por un objeto muestra su posición en cada fase
-        page.locator(".bis-card a.bis-name").first.hover()
-        page.wait_for_timeout(300)
-        tip = page.locator("#bisTip")
-        assert tip.is_visible()
-        text = tip.inner_text()
-        assert "BiS-Tooltip" in text and all(k in text for k in ["PR", "T7", "T8", "T9", "T10"]), text
-        # El tooltip no tapa el objeto sobre el que está el cursor
-        box = page.evaluate("""() => { const a = document.querySelector('.bis-card a.bis-name').getBoundingClientRect(); const t = document.getElementById('bisTip').getBoundingClientRect();
-          return { overlap: !(t.right <= a.left || t.left >= a.right || t.bottom <= a.top || t.top >= a.bottom) }; }""")
-        assert not box["overlap"], box
-        page.mouse.move(5, 5)
-        page.wait_for_timeout(150)
-        assert not tip.is_visible()
+        # El tooltip flotante se eliminó: no debe existir
+        assert page.locator("#bisTip").count() == 0
+
+        # Gemas y encantamientos: panel por especialidad y líneas en cada slot del BiS
+        assert page.locator("#gemBody .bis-card").count() == 5
+        assert page.locator("#gemBody .gem-ench li").count() >= 8
+        assert page.locator(".bis-card .bis-fx").count() >= 8
+        assert "encantamiento" in page.locator(".bis-card .bis-fx").first.inner_text().lower()
+        res = page.evaluate("""() => {
+          const bad = [], mark = ES_MARK;
+          state.lang = 'en';
+          for (const key of Object.keys(DATA.specs)) {
+            const ref = ENG.refGems[key];
+            if (!ref) { bad.push(key + ' sin refGems'); continue; }
+            if (!ref.meta || !ref.red.length || Object.keys(ref.enchants).length < 8) bad.push(key + ' datos incompletos');
+            const all = [].concat(ref.red, ref.yellow, ref.blue, ref.meta ? [ref.meta] : [], Object.values(ref.enchants));
+            all.forEach((g) => { const n = noteText(g.stats); if (mark.test(n.replace(/\\(.*?\\)/g, ''))) bad.push(key + ' ' + g.name + ': ' + n); });
+          }
+          state.lang = 'es';
+          return bad;
+        }""")
+        assert not res, res[:6]
 
         # Piezas puestas: se marcan en el ranking y el ranking no depende del iLvl medio (puerta de heroicas)
         res = page.evaluate("""() => {

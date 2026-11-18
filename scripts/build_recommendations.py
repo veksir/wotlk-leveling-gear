@@ -320,6 +320,25 @@ def build_gems():
     return out
 
 
+def build_ref_gems():
+    """Gemas y encantamientos recomendados por especialidad, tal cual vienen de data/reference_gems.json (Icy Veins/Wowhead).
+
+    ENG.refGems[spec] = {meta, red, yellow, blue, rule, enchants: {slot: {id, name, stats}}} para mostrarlos en la página."""
+    path = ROOT / "data" / "reference_gems.json"
+    if not path.exists():
+        return {}
+    out = {}
+    for spec, v in json.loads(path.read_text(encoding="utf-8")).items():
+        pick = lambda g: {"id": g.get("id"), "name": g.get("name"), "stats": g.get("stats") or ""}
+        entry = {"meta": pick(v["meta_gem"]) if v.get("meta_gem") else None,
+                 "rule": v.get("socket_bonus_rule") or "",
+                 "enchants": {slot: pick(e) for slot, e in (v.get("enchants") or {}).items() if e}}
+        for color in ("red", "yellow", "blue"):
+            entry[color] = [pick(g) for g in v.get(f"{color}_socket") or []]
+        out[spec] = entry
+    return out
+
+
 CAPS_OVERRIDE = {"Mage|Fire": {"hit": 289}}
 
 
@@ -414,6 +433,7 @@ def main():
         "setBonus": build_set_bonus(),
         "curated": build_curated(),
         "gems": build_gems(),
+        "refGems": build_ref_gems(),
         "metaGems": {"wildcard": load_meta_gems().get("wildcard")},
         "caps": CAPS,
         "capsBySpec": build_caps_by_spec(),

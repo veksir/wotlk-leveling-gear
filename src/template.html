@@ -487,16 +487,20 @@ var aowow_tooltips = {
   .bis-card li.owned { background: rgba(126, 212, 154, .09); box-shadow: inset 3px 0 0 #7fd49a; border-radius: 4px; }
   .bis-have { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 4px; background: #7fd49a; color: #06210f; font-size: 10px; font-weight: 800; }
   .bis-owned-note { padding-top: 0; color: #a7e0b8; }
+  .bis-fx { margin-top: 6px; padding-top: 6px; border-top: 1px dashed rgba(40, 88, 110, .7); font-size: 11px; color: #9fb9c8; }
+  .bis-fx-row { padding: 1px 0; line-height: 1.5; }
+  .bis-fx-row b { color: var(--muted); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; margin-right: 4px; }
+  .bis-fx-st { color: #7d9bab; }
+  .gem { display: inline-block; width: 9px; height: 9px; margin-right: 4px; border-radius: 2px; transform: rotate(45deg); vertical-align: baseline; }
+  .g-red { background: #e5484d; } .g-yellow { background: #f5c542; } .g-blue { background: #4f8ef7; } .g-prismatic { background: linear-gradient(135deg, #e5484d, #f5c542, #4f8ef7); } .g-meta { background: #c3b2f0; }
+  .gem-link { color: #bfe3ff; text-decoration: none; font-weight: 600; } .gem-link:hover { text-decoration: underline; }
+  .gem-list li { grid-template-columns: 34px minmax(0, 1fr); }
+  .gem-ench { grid-column: span 2; } .gem-ench .gem-list li { grid-template-columns: 96px minmax(0, 1fr); }
+  .gem-slot { color: var(--muted); font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .gem-rule { margin: 0; padding: 4px 16px 14px; color: #c3d8e2; font-size: 12px; line-height: 1.5; }
+  .gem-rule b { color: var(--gold); }
   .bis-empty { color: var(--muted); font-size: 12px; padding: 4px 0; }
-  .bis-tip { position: fixed; z-index: 2147483000; max-width: 300px; pointer-events: none; padding: 8px 10px; border: 1px solid var(--gold); border-radius: 6px; background: rgba(6, 19, 29, .97); box-shadow: 0 6px 20px rgba(0, 0, 0, .5); font-size: 12px; color: var(--text); }
-  .bis-tip[hidden] { display: none; }
-  .bis-tip strong { display: block; color: var(--gold); font-size: 11px; letter-spacing: .04em; }
-  .bis-tip small { display: block; color: var(--muted); font-size: 10.5px; margin-bottom: 4px; }
-  .bis-tip-row { display: flex; flex-wrap: wrap; gap: 4px 10px; }
-  .bis-tip-row span { display: inline-flex; gap: 5px; align-items: center; }
-  .bis-tip-row em { font-style: normal; color: var(--muted); font-size: 11px; }
-  .bis-tip-row .none { color: #5d7a8a; }
-  @media (max-width: 680px) { .bis-grid { grid-template-columns: 1fr; padding: 9px; } }
+  @media (max-width: 680px) { .bis-grid { grid-template-columns: 1fr; padding: 9px; } .gem-ench { grid-column: auto; } }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -656,6 +660,14 @@ var aowow_tooltips = {
       <p class="note" style="padding:0 16px 12px" data-i18n="bisHint"></p>
     </section>
 
+    <section class="panel" style="margin-top:14px" aria-labelledby="gemHeading">
+      <div class="panel-head">
+        <div><h2 id="gemHeading" data-i18n="gemTitle">Gemas y encantamientos</h2><p data-i18n="gemIntro"></p></div>
+        <span class="slot-count" id="gemSpec"></span>
+      </div>
+      <div id="gemBody"></div>
+    </section>
+
     <section class="panel" style="margin-top:14px" aria-labelledby="lootHeading">
       <div class="panel-head"><div><h2 id="lootHeading" data-i18n="lootTitle">Botín de mazmorra</h2><p id="lootIntro" data-i18n="lootIntro"></p></div></div>
       <details class="eq" id="eqPanel" open>
@@ -685,7 +697,6 @@ var aowow_tooltips = {
     <p data-i18n="footer">Las ventanas de objeto se cargan desde EVOWOW. Pasa el cursor sobre un objeto para ver su ficha completa.</p>
   </footer>
 </div>
-<div class="bis-tip" id="bisTip" hidden role="tooltip"></div>
 <script>
 const DATA = /*__DATA__*/;
 const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup", showOffspec: "wotlk-gear-show-offspec", showHeirlooms: "wotlk-gear-show-heirlooms", fresh: "wotlk-gear-fresh", lootSlot: "wotlk-gear-loot-slot", lootSort: "wotlk-gear-loot-sort", bisPhase: "wotlk-gear-bis-phase" };
@@ -776,8 +787,10 @@ Object.assign(I18N.es, {
   phaseLabel: "Fase", phaseAll: "Todas",
   bisTitle: "BiS por fase", bisIntro: "Ranking de objetos por slot y fase de banda, como el addon BiS-Tooltip. Se calcula siempre para nivel 80 con tu clase, especialidad y facción.",
   bisLegendBis: "mejor objeto de la fase", bisLegendBis2: "segundo mejor (anillos y abalorios, se llevan dos)", bisLegendAlt: "siguientes alternativas, de mejor a peor",
-  bisHint: "Es una guía general: un objeto ALT puede rendirte más que el BiS si te ayuda a completar golpe o pericia. Los objetos marcados con «completa…» aportan a un tope que el equipo BiS de esta fase todavía no alcanza. Pasa el cursor sobre cualquier objeto de la página para ver su posición en cada fase.",
-  bisEmptySlot: "Sin objeto en este slot", bisTipTitle: "BiS-Tooltip", bisTipNone: "No está en el top de tu especialidad", bisTipLv: "Posiciones a nivel 80 · ", bisSpecWord: "Especialidad",
+  bisHint: "Es una guía general: un objeto ALT puede rendirte más que el BiS si te ayuda a completar golpe o pericia. Los objetos marcados con «completa…» aportan a un tope que el equipo BiS de esta fase todavía no alcanza.",
+  bisEmptySlot: "Sin objeto en este slot", bisSpecWord: "Especialidad",
+  gemTitle: "Gemas y encantamientos", gemIntro: "Qué gemar y encantar según tu especialidad (guías de Icy Veins y Wowhead). Las gemas dependen del color del socket de cada pieza y no cambian por fase; en cada slot del BiS verás sus sockets y su encantamiento.",
+  gemSockets: "Sockets", gemEnchant: "Encantamiento", gemMeta: "Meta-gema", gemEnchants: "Encantamientos por slot", gemRule: "Cómo gemar:",
   bisHave: "Lo llevas", bisOwnedPre: "Con tu equipo actual llevas piezas de este ranking en ", bisOwnedPost: " slots. Marca lo que ya tienes en «Mi equipo actual».", bisOwnedNone: "Indica tu equipo en «Mi equipo actual» y aquí se marcarán las piezas que ya tienes.", bisPairRing: "Anillos", bisPairTrinket: "Abalorios", bisAltTitle: "Alternativa", bisBisTitle: "Mejor objeto", pvpLabel: "Tipo de equipo", pvpOff: "PvE", pvpOn: "Solo PvP",
   altsLabel: "Alternativas por slot",
   optsHint: "«Sin bandas» sirve para subir de nivel o jugar sin raid; «Con bandas» muestra el mejor equipo de raid; «Solo PvP» muestra únicamente equipo útil para PvP, sin mezclarlo con el PvE. La fase limita el contenido disponible hasta esa fase del juego. «Recién 80» oculta Frost, T10 y fichas de raid, y deja el equipo comprable con Triunfo o inferior.",
@@ -838,8 +851,10 @@ Object.assign(I18N.en, {
   phaseLabel: "Phase", phaseAll: "All",
   bisTitle: "BiS by phase", bisIntro: "Item ranking per slot and raid phase, like the BiS-Tooltip addon. It is always computed for level 80 with your class, spec and faction.",
   bisLegendBis: "best item of the phase", bisLegendBis2: "second best (rings and trinkets, you wear two)", bisLegendAlt: "next alternatives, best to worst",
-  bisHint: "This is a general guide: an ALT item can perform better than the BiS if it helps you reach hit or expertise. Items tagged «fills…» add to a cap that this phase's BiS gear does not reach yet. Hover any item on the page to see its position in each phase.",
-  bisEmptySlot: "No item in this slot", bisTipTitle: "BiS-Tooltip", bisTipNone: "Not in the top list for your spec", bisTipLv: "Level 80 positions · ", bisSpecWord: "Spec",
+  bisHint: "This is a general guide: an ALT item can perform better than the BiS if it helps you reach hit or expertise. Items tagged «fills…» add to a cap that this phase's BiS gear does not reach yet.",
+  bisEmptySlot: "No item in this slot", bisSpecWord: "Spec",
+  gemTitle: "Gems and enchants", gemIntro: "What to gem and enchant for your spec (Icy Veins and Wowhead guides). Gems depend on each piece's socket colors and do not change by phase; each BiS slot shows its sockets and enchant.",
+  gemSockets: "Sockets", gemEnchant: "Enchant", gemMeta: "Meta gem", gemEnchants: "Enchants by slot", gemRule: "Gemming notes:",
   bisHave: "Equipped", bisOwnedPre: "With your current gear you wear pieces from this ranking in ", bisOwnedPost: " slots. Set what you own in \"My current gear\".", bisOwnedNone: "Enter your gear in \"My current gear\" and the pieces you already own will be marked here.", bisPairRing: "Rings", bisPairTrinket: "Trinkets", bisAltTitle: "Alternative", bisBisTitle: "Best item", pvpLabel: "Gear type", pvpOff: "PvE", pvpOn: "PvP only",
   altsLabel: "Alternatives per slot",
   optsHint: "\"No raids\" is for leveling or playing without raiding; \"With raids\" shows the best raid gear; \"PvP only\" shows only PvP-useful gear, never mixed with PvE. The phase limits content to what is available up to that game phase. \"Fresh 80\" hides Frost, Tier 10, and raid tokens, leaving gear buyable with Triumph or lower.",
@@ -2489,7 +2504,6 @@ const BIS_PHASES = [
 ];
 const BIS_ALTS = 6;
 const bisCache = new Map();
-let bisWarmToken = 0;
 const bisCtx = () => [state.cls, state.spec, state.faction, state.showHeirlooms ? 1 : 0].join("|");
 
 function bisRows(spec, gear) {
@@ -2539,6 +2553,60 @@ function bisOwned(r) {
   const names = new Set(slots.map((sl) => g[sl] && gearItem(g[sl]) && gearItem(g[sl]).n).filter(Boolean));
   return names;
 }
+/* ---------- Gemas y encantamientos (Icy Veins / Wowhead por especialidad) ---------- */
+const GEM_COLORS = { red: ["Roja", "Red"], yellow: ["Amarilla", "Yellow"], blue: ["Azul", "Blue"], prismatic: ["Prismática", "Prismatic"], meta: ["Meta", "Meta"] };
+const ES_MARK = /\b(si|para|el|la|los|las|con|una|un|solo|ranura|ranuras|gema|gemas|cuando|hasta|tras|una vez|que|del|en|de|se|ya|aún|alcanzado|alcanzó|llegó|falta|bonus es|variante|perfil|máximo|amenaza|menor|inferior|débiles|ignorando|alternativa|ignora|busca|tiene|está|por|mejor|pieza|demás|resto|azules|azul|roja|rojas|activa|activar)\b/i;
+const NOTE_EN = [
+  [/\+1 ranura/g, "+1 socket"], [/\bo (?=[A-Z+])/g, "or "], [/ o (?=[A-Z+])/g, " or "], [/si falta golpe/g, "if hit is missing"], [/si falta Hit para el cap de/g, "if short of Hit for the cap of"],
+  [/si falta Hit para los/g, "if short of Hit for"], [/si falta Hit/g, "if Hit is missing"], [/si falta Defense/g, "if Defense is missing"], [/si se ignora el bonus/g, "if the socket bonus is ignored"],
+  [/en el resto de ranuras azules/g, "in the remaining blue sockets"], [/en todas las demás ranuras azules/g, "in all other blue sockets"], [/en las demás ranuras azules/g, "in the other blue sockets"],
+  [/1 sola en la pieza con mejor bonus de (\w+) para activar/g, "just 1 on the piece with the best $1 bonus to activate"], [/1 sola en la pieza con mejor bonus para activar/g, "just 1 on the piece with the best bonus to activate"],
+  [/1 sola para activar/g, "just 1 to activate"], [/1 sola/g, "just 1"], [/una vez alcanzado el hard cap de/g, "once the hard cap of"], [/una vez alcanzado el cap de/g, "once the cap of"],
+  [/hasta alcanzar exactamente/g, "up to exactly"], [/hasta alcanzar/g, "up to"], [/hasta el cap de/g, "up to the cap of"], [/solo si falta para el cap de/g, "only if short of the cap of"],
+  [/o bonus >= /g, "or bonus >= "], [/para activar meta o bonus >= /g, "to activate the meta or bonus >= "], [/para máximo EHP/g, "for maximum EHP"], [/para amenaza/g, "for threat"],
+  [/si el bonus es >= /g, "if the bonus is >= "], [/cuando el bonus sea >= /g, "when the bonus is >= "], [/para activar la meta/g, "to activate the meta"], [/para activar/g, "to activate"]
+];
+function noteText(str) {
+  if (!str) return "";
+  if (state.lang !== "en") return str.replace(/ ID: \d+/g, "");
+  return str.replace(/\(([^)]*)\)/g, (m, g) => {
+    let x = g;
+    NOTE_EN.forEach(([re, to]) => { x = x.replace(re, to); });
+    return ES_MARK.test(x) ? "" : "(" + x + ")";
+  }).replace(/ ID: \d+/g, "").replace(/\s+\(\)/g, "").replace(/\s+$/, "");
+}
+const gemColorName = (c) => (GEM_COLORS[c] || [c, c])[state.lang === "en" ? 1 : 0];
+const gemLink = (g) => '<a class="gem-link" href="https://wotlk.evowow.com/?item=' + g.id + '" target="_blank" rel="noopener">' + esc(g.name) + "</a>";
+const enchLink = (g) => '<a class="gem-link" href="https://wotlk.evowow.com/?search=' + encodeURIComponent(g.name) + '" target="_blank" rel="noopener">' + esc(g.name) + "</a>";
+const refFor = () => (ENG.refGems || {})[state.cls + "|" + state.spec] || null;
+function bisFx(r) {
+  const ref = refFor(), e = r.list[0];
+  if (!ref || !e) return "";
+  const parts = [];
+  const sg = e.it.sg || [];
+  if (sg.length || e.it.mt) {
+    const gems = sg.map((c) => { const list = ref[c === "prismatic" ? "red" : c] || []; return list[0] ? '<span class="gem g-' + esc(c) + '"></span>' + gemLink(list[0]) : ""; }).filter(Boolean);
+    if (e.it.mt && ref.meta) gems.unshift('<span class="gem g-meta"></span>' + gemLink(ref.meta));
+    if (gems.length) parts.push('<div class="bis-fx-row"><b>' + t("gemSockets") + "</b> " + gems.join(" · ") + "</div>");
+  }
+  const en = ref.enchants[r.slot] || (r.slot === "ring1" ? null : null);
+  if (en) parts.push('<div class="bis-fx-row"><b>' + t("gemEnchant") + "</b> " + enchLink(en) + ' <span class="bis-fx-st">' + esc(noteText(en.stats)) + "</span></div>");
+  return parts.length ? '<div class="bis-fx">' + parts.join("") + "</div>" : "";
+}
+function renderGems() {
+  const ref = refFor(), box = $("gemBody");
+  $("gemSpec").textContent = state.cls + " · " + state.spec;
+  if (!ref) { box.innerHTML = ""; return; }
+  const col = (title, list) => '<article class="bis-card"><h3>' + esc(title) + "</h3>" + (list.length ? "<ol class=\"gem-list\">" + list.map((g, i) => "<li>" + (i === 0 ? rankPill("1ª") : rankPill(i + 1 + "ª")) + "<div>" + gemLink(g) + '<span class="bis-sub">' + esc(noteText(g.stats)) + "</span></div></li>").join("") + "</ol>" : '<div class="bis-empty">—</div>') + "</article>";
+  const metaList = ref.meta ? [ref.meta] : [];
+  const slotsOrder = ["head", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet", "mainhand", "offhand", "ranged"];
+  const labels = SLOT_LABEL[state.lang] || SLOT_LABEL.es;
+  const ench = slotsOrder.filter((k) => ref.enchants[k]).map((k) => "<li><span class=\"gem-slot\">" + esc(labels[k] || k) + "</span><div>" + enchLink(ref.enchants[k]) + '<span class="bis-sub">' + esc(noteText(ref.enchants[k].stats)) + "</span></div></li>").join("");
+  const rule = state.lang === "en" ? "" : ref.rule;
+  box.innerHTML = '<div class="bis-grid">' + col(t("gemMeta"), metaList) + col(gemColorName("red"), ref.red) + col(gemColorName("yellow"), ref.yellow) + col(gemColorName("blue"), ref.blue) +
+    '<article class="bis-card gem-ench"><h3>' + t("gemEnchants") + "</h3><ol class=\"gem-list\">" + ench + "</ol></article></div>" +
+    (rule ? '<p class="gem-rule"><b>' + t("gemRule") + "</b> " + esc(rule) + "</p>" : "");
+}
 function bisCard(r, data) {
   const owned = bisOwned(r);
   const items = r.list.map((e, i) => {
@@ -2548,7 +2616,7 @@ function bisCard(r, data) {
     return '<li' + (have ? ' class="owned"' : "") + ">" + rankPill(lab) + icon + "<div>" + itemLink(e.id, false, "bis-name") + (have ? '<span class="bis-have">✓ ' + t("bisHave") + "</span>" : "") + (isAlt ? bisCompletes(e, data) : "") +
       '<span class="bis-sub">iLvl ' + e.it.ilvl + " · " + badgeHtml(obtainInfo(e.it)) + "</span></div></li>";
   }).join("");
-  return '<article class="bis-card"><h3>' + esc(bisPairLabel(r.slot)) + "</h3>" + (items ? "<ol>" + items + "</ol>" : '<div class="bis-empty">' + t("bisEmptySlot") + "</div>") + "</article>";
+  return '<article class="bis-card"><h3>' + esc(bisPairLabel(r.slot)) + "</h3>" + (items ? "<ol>" + items + "</ol>" + bisFx(r) : '<div class="bis-empty">' + t("bisEmptySlot") + "</div>") + "</article>";
 }
 function renderBis(spec) {
   const ph = BIS_PHASES.find((p) => p.key === state.bisPhase) || BIS_PHASES[0];
@@ -2566,59 +2634,10 @@ function renderBis(spec) {
     }).join("") + "<small>" + t("capsNote") + "</small>";
   } else box.hidden = true;
   $("bisGrid").innerHTML = data.rows.map((r) => bisCard(r, data)).join("");
+  renderGems();
   const haveN = data.rows.filter((r) => bisOwned(r).size && r.list.some((e) => bisOwned(r).has(e.it.n))).length;
   $("bisOwnedNote").textContent = Object.keys(equippedMap()).length ? t("bisOwnedPre") + haveN + " / " + data.rows.length + t("bisOwnedPost") : t("bisOwnedNone");
-  bisWarm();
 }
-// Calcula en segundo plano las demás fases para que el tooltip de objetos tenga todas las posiciones.
-function bisWarm() {
-  const token = ++bisWarmToken;
-  const step = () => {
-    if (token !== bisWarmToken) return;
-    const next = BIS_PHASES.find((p) => !bisCache.has(bisCtx() + "|" + p.key));
-    if (!next) return;
-    bisData(next);
-    setTimeout(step, 60);
-  };
-  setTimeout(step, 400);
-}
-const bisTipEl = $("bisTip");
-function bisTipHtml(id) {
-  const it = gearItem(id);
-  if (!it) return "";
-  let any = false;
-  const cells = BIS_PHASES.map((p) => {
-    const r = bisData(p).ranks[it.n];
-    if (r) any = true;
-    return "<span><em>" + p.key + "</em>" + (r ? rankPill(r.label) : '<b class="none">—</b>') + "</span>";
-  }).join("");
-  return "<strong>" + t("bisTipTitle") + "</strong><small>" + t("bisTipLv") + esc(state.cls + " " + state.spec) + "</small>" +
-    '<div class="bis-tip-row">' + cells + "</div>" + (any ? "" : '<small style="margin:4px 0 0">' + t("bisTipNone") + "</small>");
-}
-function bisTipShow(a) {
-  const m = /[?&]item=(\d+)/.exec(a.getAttribute("href") || "");
-  if (!m) return;
-  const html = bisTipHtml(m[1]);
-  if (!html) return;
-  bisTipEl.innerHTML = html;
-  bisTipEl.hidden = false;
-  const r = a.getBoundingClientRect(), w = bisTipEl.offsetWidth, h = bisTipEl.offsetHeight;
-  let left = r.right + 10;
-  if (left + w > window.innerWidth - 6) left = r.left - w - 10;
-  if (left < 6) left = Math.max(6, Math.min(r.left, window.innerWidth - w - 6));
-  const top = Math.max(6, Math.min(r.top - 4, window.innerHeight - h - 6));
-  bisTipEl.style.left = left + "px";
-  bisTipEl.style.top = top + "px";
-}
-document.addEventListener("mouseover", (e) => {
-  const a = e.target.closest && e.target.closest('a[href*="evowow.com/?item="]');
-  if (a) bisTipShow(a);
-});
-document.addEventListener("mouseout", (e) => {
-  if (e.target.closest && e.target.closest('a[href*="evowow.com/?item="]')) bisTipEl.hidden = true;
-});
-window.addEventListener("scroll", () => { bisTipEl.hidden = true; }, { passive: true });
-
 let refreshTimer = null;
 function scheduleRefresh() {
   clearTimeout(refreshTimer);
