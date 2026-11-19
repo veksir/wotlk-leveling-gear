@@ -109,22 +109,17 @@ def main():
         assert equipped["mask"], "los objetos sin estadísticas parseadas deben poder seleccionarse como equipo actual"
         assert equipped["random"] and equipped["common"] and equipped["restricted"], equipped
 
+        # El equipo actual con sufijo aleatorio debe puntuarse con el mismo sufijo que el botín.
         suffix = page.evaluate("""() => {
-          const pal = DATA.specs["Paladin|Protection"];
-          state.cls = pal.cls; state.spec = pal.name; state.level = 70; state.faction = "horde";
-          state.scope = "noraid"; state.phase = 0; state.pvp = false;
-          state.gear[gearKey()] = {chest: "10384"};
-          const w = weightsFor(pal, false, 70);
-          const equippedItem = equippedEntry(pal, "chest");
-          const scored = evalItem(DATA.items["10384"], pal, w, {level: 70, faction: "horde"}, false);
-          return {
-            equippedScore: equippedItem && equippedItem.score,
-            itemScore: scored && scored.score,
-            parts: equippedItem && equippedItem.parts.map((p) => p.k),
-          };
+          const spec = DATA.specs["Paladin|Protection"];
+          const w = weightsFor(spec, false, 70);
+          const it = gearItem("10384");
+          const eq = evalEquip(it, spec, w, {level: 70, faction: "horde"});
+          const cand = evalItem(it, spec, w, {level: 70, faction: "horde"});
+          return {eq: eq && eq.score, cand: cand && cand.score, parts: eq && eq.parts.map((p) => p.k)};
         }""")
-        assert suffix["equippedScore"] == suffix["itemScore"], suffix
-        assert {"str", "sta"} <= set(suffix["parts"]), suffix
+        assert suffix["eq"] == suffix["cand"], suffix
+        assert "str" in suffix["parts"] and "sta" in suffix["parts"], suffix
 
         assert not errors, errors
         print("features ok: gems, set bonus, curated relic, proc fallback, unique rings, equipped search")

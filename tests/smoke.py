@@ -211,8 +211,8 @@ def main():
         item.scroll_into_view_if_needed()
         page.wait_for_timeout(150)
         item.hover()
-        page.wait_for_timeout(350)
         hover = page.locator("#lootHover")
+        hover.wait_for(state="visible", timeout=5000)
         assert hover.is_visible(), "pasar el ratón por el objeto debe mostrar una ventana flotante"
         assert hover.locator("table tbody tr").count() > 0, "la ventana flotante debe comparar estadísticas"
         assert "Puntuación" in hover.inner_text(), "la ventana flotante debe mostrar la puntuación"
