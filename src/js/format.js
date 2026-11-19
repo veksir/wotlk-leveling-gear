@@ -1,7 +1,6 @@
 import { DATA } from "./data.js";
 import { state, L, esc, t, STAT_LABEL, SLOT_LABEL, currentSpec, zoneOf, pctDiff } from "./core.js";
 import { heroicRequirement, averageItemLevel, fmtIlvl } from "./heroic.js";
-
 function partLabel(k) {
   if (k === "armor") return L("Armadura", "Armor");
   if (k === "dps") return L("DPS del arma", "Weapon DPS");
@@ -11,6 +10,7 @@ function partLabel(k) {
   if (k === "feralap") return L("Poder de ataque (feral)", "Attack power (feral)");
   return (STAT_LABEL[state.lang] || STAT_LABEL.es)[k] || k;
 }
+
 function reasonText(e) {
   const out = [];
   if (e.reasons.includes("fresh")) out.push(L("requiere Frost o una ficha de raid", "requires Frost or a raid token"));
@@ -23,6 +23,7 @@ function reasonText(e) {
   }
   return out.join(L(" y ", " and "));
 }
+
 function rivalNote(best, inf) {
   const r = inf && inf.top;
   if (!r || r.id === best.id || r.it.ilvl - best.it.ilvl < 5) return "";
@@ -37,6 +38,7 @@ function rivalNote(best, inf) {
   });
   return L("Tiene menos nivel de objeto que ", "It has a lower item level than ") + r.it.n + L(", pero más ", ", but more ") + (key ? partLabel(key) : L("valor", "value")) + L(" y mejor mezcla de estadísticas.", " and a better stat mix.");
 }
+
 function whyHtml(e, next, inf) {
   const rows = e.parts.slice().sort((a, b) => b.c - a.c).map((p) =>
     "<tr><td>" + esc(partLabel(p.k)) + " " + (p.k === "armor" || p.k === "dps" ? p.v : (p.fx ? "≈+" : "+") + p.v) + (p.fx ? " " + (e.it.est ? L("(estimado, sufijo aleatorio)", "(estimated, random suffix)") : L("(proc/uso)", "(proc/use)")) : "") + "</td><td>" + p.c.toFixed(1) + "</td></tr>").join("") +
@@ -52,6 +54,7 @@ function whyHtml(e, next, inf) {
   if (b && b.score > e.score) extra += "<p>" + L("Oculto por tus filtros: «", "Hidden by your filters: \"") + esc(b.it.n) + L("» (+", "\" (+") + pctDiff(b.score, e.score) + L("% de puntuación): ", "% score): ") + esc(reasonText(b)) + ".</p>";
   return '<details class="why"><summary>' + t("whyTitle") + "</summary><table>" + rows + "</table><p><b>" + t("scoreWord") + ": " + e.score.toFixed(1) + "</b></p>" + extra + "</details>";
 }
+
 const CURRENCY_LABEL = {
   heroism: ["Emblema de Heroísmo", "Emblem of Heroism"],
   valor: ["Emblema de Valor", "Emblem of Valor"],
@@ -64,13 +67,16 @@ const CURRENCY_LABEL = {
   honor: ["Honor", "Honor"],
   arena: ["Arena", "Arena"]
 };
+
 function currencyLabel(cur) {
   const v = CURRENCY_LABEL[cur];
   return v ? v[state.lang === "en" ? 1 : 0] : cur;
 }
+
 function goldLabel(copper) {
   return Math.round((copper || 0) / 10000).toLocaleString(state.lang === "en" ? "en-US" : "es-ES") + " g";
 }
+
 function obtainInfo(it) {
   const s = it.src || {};
   if (s.t === "Quest") {
@@ -102,21 +108,23 @@ function obtainInfo(it) {
   if (s.t === "Rare") return { cls: "rare", kind: L("Drop raro", "Rare drop"), detail: s.dc ? "~" + s.dc + "%" : L("monstruos raros o élite", "rare or elite mobs") };
   return { cls: "other", kind: L("Otra fuente", "Other source"), detail: L("profesión, evento o fuente no registrada", "profession, event, or unrecorded source") };
 }
+
 const badgeHtml = (o) => '<span class="src-badge src-' + o.cls + '">' + esc(o.kind) + "</span>" + esc(o.detail);
 
 /* ---------- Botín de mazmorra ---------- */
+
 const DIFF_LABEL = { N: ["Normal", "Normal"], H: ["Heroica", "Heroic"], "10": ["10", "10"], "25": ["25", "25"], "10H": ["10 heroica", "10 heroic"], "25H": ["25 heroica", "25 heroic"] };
+
 const diffLabel = (df) => String(df).split("/").map((d) => (DIFF_LABEL[d] ? DIFF_LABEL[d][state.lang === "en" ? 1 : 0] : d)).join(" / ");
+
 const normName = (n) => String(n).toLowerCase().replace(/^the /, "").replace(/[^a-z0-9]/g, "");
+
 const dungeonByName = (n) => DATA.dungeons.find((d) => normName(d.n) === normName(n));
 
-
 const bisLabel = (i, pair) => (i === 0 ? "BiS" : pair && i === 1 ? "BiS²" : "ALT" + (i - (pair ? 1 : 0)));
+
 const rankClass = (lab) => (lab === "BiS" ? "rank-bis" : lab === "BiS²" ? "rank-bis2" : "rank-alt");
+
 const rankPill = (lab, title) => '<span class="rank ' + rankClass(lab) + '"' + (title ? ' title="' + esc(title) + '"' : "") + ">" + lab + "</span>";
 
-export {
-  partLabel, reasonText, rivalNote, whyHtml, CURRENCY_LABEL, currencyLabel,
-  goldLabel, obtainInfo, badgeHtml, DIFF_LABEL, diffLabel, normName, dungeonByName,
-  bisLabel, rankClass, rankPill
-};
+export { partLabel, reasonText, rivalNote, whyHtml, CURRENCY_LABEL, currencyLabel, goldLabel, obtainInfo, badgeHtml, DIFF_LABEL, diffLabel, normName, dungeonByName, bisLabel, rankClass, rankPill };

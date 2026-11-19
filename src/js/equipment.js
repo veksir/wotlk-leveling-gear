@@ -1,11 +1,13 @@
 import { DATA } from "./data.js";
-import { state, gearItem, itemHands, equippedMap, currentSpec, titanGrip, equippedMainTwoHand, specSlots, poolOfSlot, levelItem } from "./core.js";
+import { state, gearItem, itemHands, levelItem, specSlots, poolOfSlot, gearKey, equippedMap, currentSpec, titanGrip, equippedMainTwoHand, runtime, clearLootUndo, renderLootUndo, persist, SLOT_LABEL, esc, t, qColor } from "./core.js";
 import { ENG, GEAR_ITEMS, ARMOR_KEYS, itemFactions, availableLevel, armorFactor, softArmor, scoreParts, weightsFor, withSuffix } from "./engine.js";
-
 const SHIELD_CLASSES = ["Warrior", "Paladin", "Shaman"];
+
 const DW_CLASSES = ["Rogue", "Warrior", "Death Knight", "Hunter", "Shaman"];
+
 const CLASS_RELIC = {}, CLASS_RANGED = {};
 Object.values(DATA.specs).forEach((sp) => { if (sp.relic) CLASS_RELIC[sp.cls] = sp.relic; if (sp.ranged) CLASS_RANGED[sp.cls] = sp.ranged; });
+
 function equipPools(it, spec, level) {
   const cls = spec.cls, slot = it.s, sub = it.sub;
   if (ARMOR_KEYS.includes(slot)) {
@@ -37,6 +39,7 @@ function equipPools(it, spec, level) {
   if (slot === "relic" && CLASS_RELIC[cls] === sub) return ["relic"];
   return [];
 }
+
 function evalEquip(it, spec, w, o) {
   if (it.re) it = withSuffix(it, w);
   if (it.cl && !it.cl.includes(spec.cls)) return null;
@@ -51,9 +54,11 @@ function evalEquip(it, spec, w, o) {
   const sp = scoreParts(it, w);
   return { pk, al, parts: sp.parts, base: sp.base, af, score: Math.max(sp.base, 0) * af };
 }
+
 let candCache = { key: "", pools: null };
+
 function candidates(spec) {
-  const key = [spec.cls, spec.name, state.level, state.faction].join("|");
+  const key = [spec.cls, spec.name, state.level, state.faction, JSON.stringify((state.wOverride || {})[spec.cls + "|" + spec.name] || 0)].join("|");
   if (candCache.key === key) return candCache.pools;
   const w = weightsFor(spec, false, state.level);
   const pools = {};
@@ -68,6 +73,7 @@ function candidates(spec) {
   candCache = { key, pools };
   return pools;
 }
+
 function equippedEntry(spec, slot) {
   const id = equippedMap()[slot], source = id && gearItem(id);
   if (!source) return null;
@@ -76,12 +82,13 @@ function equippedEntry(spec, slot) {
   return { id, it, score: r ? r.score : 0, parts: r ? r.parts : [], base: r ? r.base : 0, af: r ? r.af : 1 };
 }
 
-
 const lootFilterForSlot = (slot) => slot === "ring1" || slot === "ring2" ? "ring" : slot === "trinket1" || slot === "trinket2" ? "trinket" : slot;
+
 function slotScore(spec, slot) {
   const e = equippedEntry(spec, slot);
   return e ? e.score : 0;
 }
+
 function targetEquipSlot(spec, pk) {
   const g = equippedMap(), empty = (s) => !g[s];
   if (pk.includes("mainhand") && pk.includes("offhand")) {
@@ -103,7 +110,4 @@ function targetEquipSlot(spec, pk) {
   return pk[0] || "";
 }
 
-export {
-  SHIELD_CLASSES, DW_CLASSES, CLASS_RELIC, CLASS_RANGED, equipPools, evalEquip,
-  candCache, candidates, equippedEntry, lootFilterForSlot, slotScore, targetEquipSlot
-};
+export { SHIELD_CLASSES, DW_CLASSES, CLASS_RELIC, CLASS_RANGED, equipPools, evalEquip, candCache, candidates, equippedEntry, lootFilterForSlot, slotScore, targetEquipSlot };

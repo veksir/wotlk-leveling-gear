@@ -1,18 +1,31 @@
-import { state, $, t, L, esc, currentSpec, specSlots, equippedMap, gearItem, itemLink, persist, renderSeg, scheduleRefresh, SLOT_LABEL } from "./core.js";
-import { ENG, computeGear } from "./engine.js";
-import { partLabel, badgeHtml, obtainInfo, bisLabel, rankPill } from "./format.js";
-
-/* ---------- BiS por fase (estilo BiS-Tooltip) ---------- */
+import { DATA } from "./data.js";
+import { state, $, t, L, esc, currentSpec, specSlots, equippedMap, gearItem, itemLink, persist, renderSeg, scheduleRefresh, SLOT_LABEL, levelItem } from "./core.js";
+import { ENG, computeGear, weightsFor } from "./engine.js";
+import { evalEquip } from "./equipment.js";
+import { averageItemLevel, fmtIlvl } from "./heroic.js";
+import { partLabel, badgeHtml, obtainInfo, bisLabel, rankPill, diffLabel, currencyLabel } from "./format.js";
 const BIS_PHASES = [
-  { key: "PR", scope: "noraid", phase: 1, es: "Pre-banda: mazmorras heroicas, reputaciones, profesiones y emblemas, sin entrar a banda.", en: "Pre-raid: heroic dungeons, reputations, professions and emblems, without raiding." },
+  { key: "PR", scope: "noraid", phase: 1, es: "Pre-banda: añade las mazmorras heroicas (entra con iLvl medio 180, o 200/219 en las más difíciles), reputaciones, profesiones y emblemas, sin entrar a banda.", en: "Pre-raid: adds heroic dungeons (enter at average item level 180, or 200/219 for the hardest), reputations, professions and emblems, without raiding." },
   { key: "T7", scope: "raid", phase: 1, es: "Fase 1: Naxxramas, Obsidian Sanctum y Eye of Eternity, más todo lo anterior.", en: "Phase 1: Naxxramas, Obsidian Sanctum and Eye of Eternity, plus everything before." },
   { key: "T8", scope: "raid", phase: 2, es: "Fase 2: Ulduar, más todo lo anterior.", en: "Phase 2: Ulduar, plus everything before." },
   { key: "T9", scope: "raid", phase: 3, es: "Fase 3: Trial of the Crusader, más todo lo anterior.", en: "Phase 3: Trial of the Crusader, plus everything before." },
   { key: "T10", scope: "raid", phase: 5, es: "Fases 4 y 5: Icecrown Citadel y Ruby Sanctum, más todo lo anterior.", en: "Phases 4 and 5: Icecrown Citadel and Ruby Sanctum, plus everything before." }
 ];
+
+const BIS_F80 = { key: "F80", fresh: true, scope: "noraid", phase: 0,
+  es: "Primer paso a nivel 80, sin heroicas: misiones, reputaciones, mazmorras normales, emblemas de Triunfo y crafting. Pasa a «PR» cuando tu iLvl medio llegue a 180 (200 para ToC5, FoS y PoS; 219 para HoR).",
+  en: "First step at level 80, no heroics: quests, reputations, normal dungeons, Triumph emblems and crafting. Move on to \"PR\" once your average item level reaches 180 (200 for ToC5, FoS and PoS; 219 for HoR)." };
+
+const BIS_TABS = [BIS_F80].concat(BIS_PHASES);
+
+const bisTabLabel = (p) => (p.key === "F80" ? L("Recién 80", "Fresh 80") : p.key);
+
 const BIS_ALTS = 6;
+
 const bisCache = new Map();
-const bisCtx = () => [state.cls, state.spec, state.faction, state.showHeirlooms ? 1 : 0].join("|");
+
+const bisCtx = () => [state.cls, state.spec, state.faction, state.showHeirlooms ? 1 : 0, state.bisGuide ? 1 : 0, JSON.stringify((state.wOverride || {})[state.cls + "|" + state.spec] || 0)].join("|");
+
 
 function bisRows(spec, gear) {
   const rows = [];
@@ -34,12 +47,37 @@ function bisRows(spec, gear) {
   });
   return rows;
 }
+
+function applyRefBis(rows) {
+  const ref = (ENG.refBis || {})[state.cls + "|" + state.spec];
+  if (!ref) return;
+  rows.forEach((r) => {
+    const ids = ref[r.pair ? (r.slot === "ring1" ? "ring" : "trinket") : r.slot === "relic" ? "ranged" : r.slot];
+    if (!ids || !ids.length) return;
+    const seen = new Set(), head = [];
+    ids.forEach((id) => {
+      const it = gearItem(id);
+      if (!it || seen.has(it.n)) return;
+      const f = itemFactions(it);
+      if (!f.has("both") && !f.has(state.faction)) return;
+      seen.add(it.n);
+      const found = r.list.find((e) => e.it.n === it.n);
+      head.push(Object.assign({}, found || { id, it, score: 0 }, { curated: true }));
+    });
+    if (!head.length) return;
+    r.list = head.concat(r.list.filter((e) => !seen.has(e.it.n))).slice(0, (r.pair ? 2 : 1) + BIS_ALTS);
+  });
+}
+
 function bisData(ph) {
   const key = bisCtx() + "|" + ph.key;
   if (bisCache.has(key)) return bisCache.get(key);
   const spec = currentSpec();
-  const gear = computeGear(spec, { level: 80, faction: state.faction, scope: ph.scope, phase: ph.phase, pvp: false, fresh: false, noHeroicGate: true });
+  const gear = computeGear(spec, ph.fresh
+    ? { level: 80, faction: state.faction, scope: "noraid", phase: 0, pvp: false, fresh: true, assumeAvg: 0 }
+    : { level: 80, faction: state.faction, scope: ph.scope, phase: ph.phase, pvp: false, fresh: false, noHeroicGate: true });
   const rows = bisRows(spec, gear);
+  if (ph.key === "T10" && state.bisGuide) applyRefBis(rows);
   const ranks = {};
   rows.forEach((r) => r.list.forEach((e, i) => {
     const prev = ranks[e.it.n];
@@ -50,20 +88,26 @@ function bisData(ph) {
   if (bisCache.size > 60) bisCache.delete(bisCache.keys().next().value);
   return data;
 }
+
 function bisCompletes(e, data) {
   if (!data.totals || !data.caps) return "";
   const ks = Object.keys(data.caps).filter((k) => (data.totals[k] || 0) < data.caps[k] && ((e.it.st || {})[k] || 0) > 0);
   return ks.length ? '<span class="bis-fill">' + L("completa ", "fills ") + esc(ks.map((k) => partLabel(k).toLowerCase()).join(" + ")) + "</span>" : "";
 }
+
 function bisPairLabel(slot) { return slot === "ring1" ? t("bisPairRing") : slot === "trinket1" ? t("bisPairTrinket") : (SLOT_LABEL[state.lang] || SLOT_LABEL.es)[slot] || slot; }
+
 function bisOwned(r) {
   const g = equippedMap(), slots = r.pair ? [r.slot, r.slot.slice(0, -1) + "2"] : [r.slot];
   const names = new Set(slots.map((sl) => g[sl] && gearItem(g[sl]) && gearItem(g[sl]).n).filter(Boolean));
   return names;
 }
 /* ---------- Gemas y encantamientos (Icy Veins / Wowhead por especialidad) ---------- */
+
 const GEM_COLORS = { red: ["Roja", "Red"], yellow: ["Amarilla", "Yellow"], blue: ["Azul", "Blue"], prismatic: ["Prismática", "Prismatic"], meta: ["Meta", "Meta"] };
+
 const ES_MARK = /\b(si|para|el|la|los|las|con|una|un|solo|ranura|ranuras|gema|gemas|cuando|hasta|tras|una vez|que|del|en|de|se|ya|aún|alcanzado|alcanzó|llegó|falta|bonus es|variante|perfil|máximo|amenaza|menor|inferior|débiles|ignorando|alternativa|ignora|busca|tiene|está|por|mejor|pieza|demás|resto|azules|azul|roja|rojas|activa|activar)\b/i;
+
 const NOTE_EN = [
   [/\+1 ranura/g, "+1 socket"], [/\bo (?=[A-Z+])/g, "or "], [/ o (?=[A-Z+])/g, " or "], [/si falta golpe/g, "if hit is missing"], [/si falta Hit para el cap de/g, "if short of Hit for the cap of"],
   [/si falta Hit para los/g, "if short of Hit for"], [/si falta Hit/g, "if Hit is missing"], [/si falta Defense/g, "if Defense is missing"], [/si se ignora el bonus/g, "if the socket bonus is ignored"],
@@ -74,33 +118,69 @@ const NOTE_EN = [
   [/o bonus >= /g, "or bonus >= "], [/para activar meta o bonus >= /g, "to activate the meta or bonus >= "], [/para máximo EHP/g, "for maximum EHP"], [/para amenaza/g, "for threat"],
   [/si el bonus es >= /g, "if the bonus is >= "], [/cuando el bonus sea >= /g, "when the bonus is >= "], [/para activar la meta/g, "to activate the meta"], [/para activar/g, "to activate"]
 ];
+
 function noteText(str) {
   if (!str) return "";
   if (state.lang !== "en") return str.replace(/ ID: \d+/g, "");
+  const dict = ENG.gemNotesEn || {};
   return str.replace(/\(([^)]*)\)/g, (m, g) => {
+    const k = g.replace(/ ID: \d+/g, "").trim();
+    if (dict[k]) return "(" + dict[k] + ")";
     let x = g;
     NOTE_EN.forEach(([re, to]) => { x = x.replace(re, to); });
     return ES_MARK.test(x) ? "" : "(" + x + ")";
   }).replace(/ ID: \d+/g, "").replace(/\s+\(\)/g, "").replace(/\s+$/, "");
 }
+
 const gemColorName = (c) => (GEM_COLORS[c] || [c, c])[state.lang === "en" ? 1 : 0];
+
 const gemLink = (g) => '<a class="gem-link" href="https://wotlk.evowow.com/?item=' + g.id + '" target="_blank" rel="noopener">' + esc(g.name) + "</a>";
+
 const enchLink = (g) => '<a class="gem-link" href="https://wotlk.evowow.com/?search=' + encodeURIComponent(g.name) + '" target="_blank" rel="noopener">' + esc(g.name) + "</a>";
+
 const refFor = () => (ENG.refGems || {})[state.cls + "|" + state.spec] || null;
+
+function gemPlan(it, ref, w) {
+  const cols = it.sg || [];
+  if (!cols.length) return null;
+  const gv = (g) => Object.entries(g.st || {}).reduce((a, [k, v]) => a + v * (w[k] || 0), 0);
+  const best = (list) => (list || []).reduce((m, g) => (!m || gv(g) > gv(m) ? g : m), null);
+  const any = best([].concat(ref.red, ref.yellow, ref.blue));
+  const matched = cols.map((c) => (c === "prismatic" ? any : best(ref[c]) || any));
+  const bonusVal = Object.entries(it.sb || {}).reduce((a, [k, v]) => a + v * (w[k] || 0), 0);
+  const sumM = matched.reduce((a, g) => a + (g ? gv(g) : 0), 0) + bonusVal;
+  const sumA = cols.length * (any ? gv(any) : 0);
+  const respect = bonusVal > 0 && sumM >= sumA;
+  return { gems: respect ? matched : cols.map(() => any), respect, bonus: it.sb || {} };
+}
+
+const gemColorOf = (ref, g) => (ref.red.includes(g) ? "red" : ref.yellow.includes(g) ? "yellow" : ref.blue.includes(g) ? "blue" : "prismatic");
+
 function bisFx(r) {
   const ref = refFor(), e = r.list[0];
   if (!ref || !e) return "";
-  const parts = [];
-  const sg = e.it.sg || [];
-  if (sg.length || e.it.mt) {
-    const gems = sg.map((c) => { const list = ref[c === "prismatic" ? "red" : c] || []; return list[0] ? '<span class="gem g-' + esc(c) + '"></span>' + gemLink(list[0]) : ""; }).filter(Boolean);
+  const parts = [], spec = currentSpec(), w = weightsFor(spec, false, 80);
+  const plan = gemPlan(e.it, ref, w);
+  if (plan || e.it.mt) {
+    const counts = [];
+    (plan ? plan.gems : []).filter(Boolean).forEach((g) => { const f = counts.find((c) => c.g === g); if (f) f.n++; else counts.push({ g, n: 1 }); });
+    const gems = counts.map((c) => '<span class="gem g-' + gemColorOf(ref, c.g) + '"></span>' + (c.n > 1 ? c.n + "× " : "") + gemLink(c.g));
     if (e.it.mt && ref.meta) gems.unshift('<span class="gem g-meta"></span>' + gemLink(ref.meta));
-    if (gems.length) parts.push('<div class="bis-fx-row"><b>' + t("gemSockets") + "</b> " + gems.join(" · ") + "</div>");
+    const bonusTxt = plan && Object.keys(plan.bonus).length ? Object.entries(plan.bonus).map(([k, v]) => "+" + v + " " + partLabel(k)).join(" ") : "";
+    const how = !plan || !bonusTxt ? "" : plan.respect ? ' <span class="bis-fx-st">· ' + L("respeta los colores: bonus ", "match colors: bonus ") + esc(bonusTxt) + "</span>" : ' <span class="bis-fx-st">· ' + L("ignora el bonus (", "ignore the bonus (") + esc(bonusTxt) + ")</span>";
+    if (gems.length) parts.push('<div class="bis-fx-row"><b>' + t("gemSockets") + "</b> " + gems.join(" · ") + how + "</div>");
   }
-  const en = ref.enchants[r.slot] || (r.slot === "ring1" ? null : null);
-  if (en) parts.push('<div class="bis-fx-row"><b>' + t("gemEnchant") + "</b> " + enchLink(en) + ' <span class="bis-fx-st">' + esc(noteText(en.stats)) + "</span></div>");
+  const en = ref.enchants[r.slot];
+  if (en) parts.push('<div class="bis-fx-row"><b>' + t("gemEnchant") + "</b> " + enchLink(en) + ' <span class="bis-fx-st">' + esc(noteText(en.stats)) + enchValueText(en, spec, w) + "</span></div>");
   return parts.length ? '<div class="bis-fx">' + parts.join("") + "</div>" : "";
 }
+
+function enchValueText(en, spec, w) {
+  const total = Object.entries(en.st || {}).reduce((a, [k, v]) => a + v * (w[k] || 0), 0), main = w[spec.primary] || 0;
+  if (!total || !main) return "";
+  return " · ≈ " + Math.round(total / main) + " " + partLabel(spec.primary);
+}
+
 function renderGems() {
   const ref = refFor(), box = $("gemBody");
   $("gemSpec").textContent = state.cls + " · " + state.spec;
@@ -109,28 +189,77 @@ function renderGems() {
   const metaList = ref.meta ? [ref.meta] : [];
   const slotsOrder = ["head", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet", "mainhand", "offhand", "ranged"];
   const labels = SLOT_LABEL[state.lang] || SLOT_LABEL.es;
-  const ench = slotsOrder.filter((k) => ref.enchants[k]).map((k) => "<li><span class=\"gem-slot\">" + esc(labels[k] || k) + "</span><div>" + enchLink(ref.enchants[k]) + '<span class="bis-sub">' + esc(noteText(ref.enchants[k].stats)) + "</span></div></li>").join("");
-  const rule = state.lang === "en" ? "" : ref.rule;
+  const ench = slotsOrder.filter((k) => ref.enchants[k]).map((k) => "<li><span class=\"gem-slot\">" + esc(labels[k] || k) + "</span><div>" + enchLink(ref.enchants[k]) + '<span class="bis-sub">' + esc(noteText(ref.enchants[k].stats)) + enchValueText(ref.enchants[k], currentSpec(), weightsFor(currentSpec(), false, 80)) + "</span></div></li>").join("");
+  const rule = state.lang === "en" ? ref.ruleEn || "" : ref.rule;
   box.innerHTML = '<div class="bis-grid">' + col(t("gemMeta"), metaList) + col(gemColorName("red"), ref.red) + col(gemColorName("yellow"), ref.yellow) + col(gemColorName("blue"), ref.blue) +
     '<article class="bis-card gem-ench"><h3>' + t("gemEnchants") + "</h3><ol class=\"gem-list\">" + ench + "</ol></article></div>" +
     (rule ? '<p class="gem-rule"><b>' + t("gemRule") + "</b> " + esc(rule) + "</p>" : "");
 }
+
+function bisScore(spec, w, it) {
+  const r = evalEquip(levelItem(it, 80), spec, w, { level: 80, faction: state.faction });
+  return r ? r.score : 0;
+}
+
+function sourceGroup(it) {
+  const s = it.src || {}, o = obtainInfo(it);
+  if (s.t === "Drop") return { key: "D|" + (s.zid || s.z) + "|" + (s.n || ""), title: [s.z, s.n || L("drop de la zona", "zone drop"), s.df ? diffLabel(s.df) : ""].filter(Boolean).join(" · "), o };
+  if (s.t === "Vendor") return { key: "V|" + (s.n || "") + "|" + (s.cur || ""), title: [s.n, s.cur === "gold" ? L("Oro", "Gold") : s.cur === "reputation" ? L("Reputación", "Reputation") : s.cur ? currencyLabel(s.cur) : ""].filter(Boolean).join(" · "), o };
+  return { key: "X|" + s.t + "|" + o.detail, title: o.detail, o };
+}
+
+function renderPlan(data) {
+  const spec = currentSpec(), w = weightsFor(spec, false, 80), box = $("bisPlan");
+  const have = new Set(), groups = new Map();
+  let target = 0, got = 0, missing = 0;
+  const labels = SLOT_LABEL[state.lang] || SLOT_LABEL.es;
+  data.rows.forEach((r) => {
+    const owned = bisOwned(r), take = r.pair ? 2 : 1;
+    const eq = equippedMap(), slots = r.pair ? [r.slot, r.slot.slice(0, -1) + "2"] : [r.slot];
+    const haveScore = slots.reduce((a, sl) => a + (eq[sl] && gearItem(eq[sl]) ? bisScore(spec, w, gearItem(eq[sl])) : 0), 0);
+    const top = r.list.slice(0, take), tScore = top.reduce((a, e) => a + bisScore(spec, w, e.it), 0);
+    target += tScore; got += Math.min(haveScore, tScore);
+    top.forEach((e) => {
+      if (owned.has(e.it.n)) return;
+      missing++;
+      const g = sourceGroup(e.it);
+      if (!groups.has(g.key)) groups.set(g.key, Object.assign({ items: [] }, g));
+      groups.get(g.key).items.push({ slot: r.pair ? labels[r.slot.slice(0, -1) + "1"] || bisPairLabel(r.slot) : labels[r.slot] || r.slot, e });
+    });
+  });
+  const pct = target ? Math.round((got / target) * 100) : 0;
+  const list = [...groups.values()].sort((a, b) => b.items.length - a.items.length || a.title.localeCompare(b.title));
+  const hasGear = Object.keys(equippedMap()).length > 0;
+  box.innerHTML = "<h3>" + L("Plan de farmeo", "Farming plan") + "</h3>" +
+    '<p class="bis-phase-note" style="padding:0 0 8px">' + (hasGear ? L("Tu equipo actual equivale a un " + pct + " % del BiS de esta fase (por puntuación de objeto, sin contar encantamientos).", "Your current gear is worth " + pct + "% of this phase's BiS (by item score, enchants not counted).") : L("Indica tu equipo en «Mi equipo actual» para calcular qué te falta.", "Enter your gear in \"My current gear\" to work out what you are missing.")) + "</p>" +
+    (missing ? '<p class="bis-phase-note" style="padding:0 0 8px">' + L("Te faltan " + missing + " piezas BiS, repartidas en " + list.length + " fuentes. Primero las fuentes que más piezas dan:", missing + " BiS pieces missing across " + list.length + " sources. Sources giving the most pieces first:") + "</p>" : '<p class="bis-phase-note" style="padding:0 0 8px">' + L("Ya llevas todo el BiS de esta fase.", "You already wear this phase's whole BiS.") + "</p>") +
+    '<div class="plan-grid">' + list.map((g) => '<article class="bis-card"><p class="card-title"><span class="src-badge src-' + g.o.cls + '">' + esc(g.o.kind) + "</span> " + esc(g.title) + " · " + g.items.length + "</p><ol class=\"plan-list\">" + g.items.map((x) => "<li><span class=\"gem-slot\">" + esc(x.slot) + "</span><div>" + itemLink(x.e.id, false, "bis-name") + '<span class="bis-sub">iLvl ' + x.e.it.ilvl + "</span></div></li>").join("") + "</ol></article>").join("") + "</div>";
+}
+
 function bisCard(r, data) {
   const owned = bisOwned(r);
   const items = r.list.map((e, i) => {
     const lab = bisLabel(i, r.pair), isAlt = lab.startsWith("ALT");
     const icon = e.it.i ? '<img class="bis-ic" src="https://wotlk.evowow.com/static/images/wow/icons/medium/' + esc(e.it.i) + '.jpg" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">' : '<span class="bis-ic"></span>';
     const have = owned.has(e.it.n);
-    return '<li' + (have ? ' class="owned"' : "") + ">" + rankPill(lab) + icon + "<div>" + itemLink(e.id, false, "bis-name") + (have ? '<span class="bis-have">✓ ' + t("bisHave") + "</span>" : "") + (isAlt ? bisCompletes(e, data) : "") +
+    return '<li' + (have ? ' class="owned"' : "") + ">" + rankPill(lab) + icon + "<div>" + itemLink(e.id, false, "bis-name") + (e.curated ? '<span class="bis-guide-tag" title="Icy Veins">' + L("guía", "guide") + "</span>" : "") + (have ? '<span class="bis-have">✓ ' + t("bisHave") + "</span>" : "") + (isAlt ? bisCompletes(e, data) : "") +
       '<span class="bis-sub">iLvl ' + e.it.ilvl + " · " + badgeHtml(obtainInfo(e.it)) + "</span></div></li>";
   }).join("");
   return '<article class="bis-card"><h3>' + esc(bisPairLabel(r.slot)) + "</h3>" + (items ? "<ol>" + items + "</ol>" + bisFx(r) : '<div class="bis-empty">' + t("bisEmptySlot") + "</div>") + "</article>";
 }
+
 function renderBis(spec) {
-  const ph = BIS_PHASES.find((p) => p.key === state.bisPhase) || BIS_PHASES[0];
-  renderSeg($("bisTabs"), BIS_PHASES.map((p) => ({ value: p.key, label: p.key })), ph.key, (v) => { state.bisPhase = v; persist(); renderBis(currentSpec()); scheduleRefresh(); });
+  const ph = BIS_TABS.find((p) => p.key === state.bisPhase) || BIS_TABS[0];
+  renderSeg($("bisTabs"), BIS_TABS.map((p) => ({ value: p.key, label: bisTabLabel(p) })), ph.key, (v) => { state.bisPhase = v; persist(); renderBis(currentSpec()); scheduleRefresh(); });
   $("bisSpec").textContent = state.cls + " · " + state.spec;
-  $("bisPhaseNote").textContent = ph[state.lang === "en" ? "en" : "es"];
+  $("bisPhaseNote").textContent = ph[state.lang === "en" ? "en" : "es"] + " " + (ph.key === "T10" ? (state.bisGuide && (ENG.refBis || {})[state.cls + "|" + state.spec] ? L("BiS según la guía de Icy Veins; las alternativas se completan con el cálculo de la herramienta.", "BiS from the Icy Veins guide; alternatives are filled in by the tool's calculation.") : L("Calculado por el motor de la herramienta.", "Calculated by the tool's engine.")) : ph.key === "F80" ? "" : L("Calculado por el motor (no hay guía de referencia para esta fase).", "Calculated by the engine (no reference guide for this phase)."));
+  if (ph.key === "F80" || ph.key === "PR") {
+    const avg = averageItemLevel(spec);
+    if (avg != null) $("bisPhaseNote").textContent += " " + L("Tu iLvl medio: ", "Your average item level: ") + fmtIlvl(avg) + ".";
+  }
+  $("bisGuideBox").hidden = ph.key !== "T10";
+  $("bisGuide").checked = state.bisGuide;
+  $("bisGuideText").textContent = L("Usar la guía de Icy Veins como BiS", "Use the Icy Veins guide as BiS");
   $("bisLegend").innerHTML = "<span>" + rankPill("BiS") + t("bisLegendBis") + "</span><span>" + rankPill("BiS²") + t("bisLegendBis2") + "</span><span>" + rankPill("ALT1") + "–" + rankPill("ALT" + BIS_ALTS) + t("bisLegendAlt") + "</span>";
   const data = bisData(ph);
   const box = $("bisCaps");
@@ -143,12 +272,10 @@ function renderBis(spec) {
   } else box.hidden = true;
   $("bisGrid").innerHTML = data.rows.map((r) => bisCard(r, data)).join("");
   renderGems();
+  renderPlan(data);
   const haveN = data.rows.filter((r) => bisOwned(r).size && r.list.some((e) => bisOwned(r).has(e.it.n))).length;
   $("bisOwnedNote").textContent = Object.keys(equippedMap()).length ? t("bisOwnedPre") + haveN + " / " + data.rows.length + t("bisOwnedPost") : t("bisOwnedNone");
 }
+/* ---------- Pesos de estadísticas editables ---------- */
 
-export {
-  BIS_PHASES, BIS_ALTS, bisCache, bisCtx, bisRows, bisData, bisCompletes,
-  bisPairLabel, bisOwned, GEM_COLORS, ES_MARK, NOTE_EN, noteText, gemColorName,
-  gemLink, enchLink, refFor, bisFx, renderGems, bisCard, renderBis
-};
+export { BIS_PHASES, BIS_F80, BIS_TABS, bisTabLabel, BIS_ALTS, bisCache, bisCtx, bisRows, applyRefBis, bisData, bisCompletes, bisPairLabel, bisOwned, GEM_COLORS, ES_MARK, NOTE_EN, noteText, gemColorName, gemLink, enchLink, refFor, gemPlan, gemColorOf, bisFx, enchValueText, renderGems, bisScore, sourceGroup, renderPlan, bisCard, renderBis };

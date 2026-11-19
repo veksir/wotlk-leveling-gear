@@ -1,18 +1,18 @@
 import { DATA } from "./data.js";
 import {
-  state, $, t, L, esc, SLOT_LABEL, STATS_EN, FACTION_HEIRLOOM, classesEl,
+  state, $, t, L, esc, SLOT_LABEL, STATS_EN, STAT_ORDER, FACTION_HEIRLOOM, classesEl,
   specsEl, factionsEl, slotsEl, levelInput, levelRange, levelNumber,
   bracketLabel, classNote, statList, statsHint, dungeonList, heirloomPanel,
   heirloomList, slotCount, allSpecsFor, specFor, clampLevel, armorText,
-  bracketName, bracketAdvice, bracketFor, qColor, iconHtml, itemLink, statLine,
-  specSlots, runtime, persist, renderSeg, scheduleRefresh, clearLootUndo
+  bracketName, bracketAdvice, bracketFor, qColor, iconHtml, itemLink, statLine, ITEM_URL,
+  specSlots, runtime, persist, renderSeg, scheduleRefresh, clearLootUndo, load, save, STORE, applyLanguage
 } from "./core.js";
-import { computeGear } from "./engine.js";
+import { ENG, computeGear } from "./engine.js";
 import { averageItemLevel, fmtIlvl } from "./heroic.js";
 import { partLabel, rivalNote, whyHtml, badgeHtml, obtainInfo, dungeonByName, bisLabel, rankPill } from "./format.js";
 import { renderLoot, renderEquip } from "./loot.js";
-import { renderBis } from "./bis.js";
-
+import { renderBis, bisCache } from "./bis.js";
+import { candCache } from "./equipment.js";
 function renderClasses() {
   classesEl.innerHTML = "";
   DATA.classOrder.forEach((name) => {
@@ -38,7 +38,6 @@ function renderClasses() {
 }
 
 
-
 function renderOptions() {
   $("showHeirlooms").checked = state.showHeirlooms;
   $("fresh80").checked = state.fresh;
@@ -50,6 +49,7 @@ function renderOptions() {
   renderSeg($("pvps"), [{ value: false, label: t("pvpOff") }, { value: true, label: t("pvpOn") }], state.pvp, set("pvp", (v) => { state.pvp = v; if (v) state.fresh = false; }));
   renderSeg($("alts"), [2, 5, 10].map((n) => ({ value: n, label: String(n) })), state.alts, set("alts", (v) => { state.alts = v; }));
 }
+
 
 function renderSpecs() {
   specsEl.innerHTML = "";
@@ -71,6 +71,7 @@ function renderSpecs() {
   updateClassNote();
 }
 
+
 function renderFactions() {
   factionsEl.innerHTML = "";
   DATA.factions.forEach((faction) => {
@@ -90,6 +91,7 @@ function renderFactions() {
   });
 }
 
+
 function updateClassNote() {
   const meta = DATA.classMeta[state.cls];
   if (state.lang === "en") {
@@ -104,7 +106,6 @@ function updateClassNote() {
 }
 
 
-
 function setLevel(value) {
   const next = clampLevel(value);
   if (next === state.level) return;
@@ -115,7 +116,6 @@ function setLevel(value) {
   persist();
   render();
 }
-
 
 
 function renderSlot(spec, gear, slot) {
@@ -154,6 +154,7 @@ function renderSlot(spec, gear, slot) {
     whyHtml(e, alts[0], sl.info) + altHtml + "</article>";
 }
 
+
 function renderCaps(spec, gear) {
   const box = $("capsBox");
   if (!gear.totals) { box.hidden = true; return; }
@@ -164,6 +165,7 @@ function renderCaps(spec, gear) {
     return '<span class="cap ' + (have >= cap ? "ok" : "low") + '">' + esc(partLabel(k)) + " " + have + " / " + cap + " · " + state2 + "</span>";
   }).join("") + '<small>' + t("capsNote") + "</small>";
 }
+
 
 function renderHeroicStatus(spec, level) {
   const el = $("heroicStatus");
@@ -177,6 +179,7 @@ function renderHeroicStatus(spec, level) {
   else el.textContent = t("heroicGeneralLocked").replace("{avg}", fmtIlvl(avg));
 }
 
+
 function renderSlots(spec, level) {
   const gear = computeGear(spec, { level, faction: state.faction, scope: state.scope, phase: state.phase, pvp: state.pvp, fresh: state.fresh });
   const order = specSlots(spec);
@@ -184,6 +187,7 @@ function renderSlots(spec, level) {
   slotsEl.innerHTML = order.map((slot) => renderSlot(spec, gear, slot)).join("");
   return gear;
 }
+
 
 function renderStats(spec) {
   const key = DATA.stats[spec.role] ? spec.role : "str";
@@ -209,6 +213,7 @@ function renderStats(spec) {
   statsHint.textContent = hints[key] || "";
 }
 
+
 function renderDungeons(bracket, level) {
   const anyActive = bracket.dungeons.some((d) => level >= d[1] && level <= d[2]);
   const upcoming = !anyActive ? bracket.dungeons.find((d) => d[1] > level) : null;
@@ -228,6 +233,7 @@ function renderDungeons(bracket, level) {
     $("lootHeading").scrollIntoView({ behavior: "smooth", block: "start" });
   }));
 }
+
 
 function renderHeirlooms(key, level) {
   const hs = DATA.heirloomSets[key];
@@ -253,6 +259,7 @@ function renderHeirlooms(key, level) {
     return '<div class="heirloom-group"><b>' + g[0] + "</b>" + links + "</div>";
   }).join("");
 }
+
 
 function render() {
   const level = state.level;
@@ -297,6 +304,9 @@ function render() {
   renderEquip(spec);
   renderLoot(spec);
   renderBis(spec);
+  renderWeights(spec);
+  renderEqTools();
+  renderNav();
   renderStats(spec);
   renderDungeons(bracket, level);
   renderHeirlooms(state.cls + "|" + state.spec, level);
@@ -306,8 +316,87 @@ function render() {
   scheduleRefresh();
 }
 
-export {
-  renderClasses, renderOptions, renderSpecs, renderFactions, updateClassNote,
-  setLevel, renderSlot, renderCaps, renderHeroicStatus, renderSlots, renderStats,
-  renderDungeons, renderHeirlooms, render
-};
+/* ---------- BiS por fase (estilo BiS-Tooltip) ---------- */
+
+function baseWeights(spec) {
+  const specW = (ENG.specWeights || {})[spec.cls + "|" + spec.name] || {};
+  return Object.assign({}, ENG.weights[spec.role] || {}, specW);
+}
+
+function renderWeights(spec) {
+  const key = spec.cls + "|" + spec.name;
+  $("wHeading").textContent = L("Ajustar pesos de estadísticas", "Adjust stat weights");
+  $("wHint").textContent = L("Valores relativos: cambian el ranking de la ficha, el BiS por fase y el plan de farmeo (la guía de T10 sigue mandando en el BiS si está activada).", "Relative values: they change the sheet ranking, the BiS by phase and the farming plan (the T10 guide still leads the BiS when enabled).");
+  $("wReset").textContent = L("Restablecer pesos", "Reset weights");
+  const base = baseWeights(spec), ov = (state.wOverride || {})[key] || {};
+  const keys = STAT_ORDER.filter((k) => (base[k] || 0) > 0 || ov[k] != null);
+  const sig = key + "|" + L("es", "en") + "|" + JSON.stringify(ov);
+  const grid = $("wGrid");
+  if (grid.dataset.sig === sig) return;
+  grid.dataset.sig = sig;
+  grid.innerHTML = keys.map((k) => "<label for=\"w_" + k + "\">" + esc(partLabel(k)) + '</label><input id="w_' + k + '" data-k="' + k + '" type="number" min="0" max="10" step="0.05" value="' + (ov[k] != null ? ov[k] : base[k]) + '">').join("");
+  grid.querySelectorAll("input").forEach((inp) => inp.addEventListener("change", () => {
+    const k = inp.dataset.k, v = parseFloat(inp.value), cur = (state.wOverride[key] = state.wOverride[key] || {});
+    if (!isFinite(v) || v < 0 || Math.abs(v - (base[k] || 0)) < 1e-9) delete cur[k]; else cur[k] = v;
+    if (!Object.keys(cur).length) delete state.wOverride[key];
+    bisCache.clear(); candCache.key = ""; persist(); render();
+  }));
+}
+$("bisGuide").addEventListener("change", (e) => { state.bisGuide = e.target.checked; bisCache.clear(); persist(); render(); });
+$("wReset").addEventListener("click", () => {
+  delete state.wOverride[state.cls + "|" + state.spec];
+  $("wGrid").dataset.sig = ""; bisCache.clear(); candCache.key = ""; persist(); render();
+});
+
+/* ---------- Exportar, importar y compartir el equipo ---------- */
+
+function renderEqTools() {
+  $("eqExport").textContent = L("Copiar equipo", "Copy gear");
+  $("eqImport").textContent = L("Importar", "Import");
+  $("eqLink").textContent = L("Copiar enlace", "Copy link");
+  $("eqApply").textContent = L("Aplicar", "Apply");
+}
+
+function arrangeSections() {
+  const main = document.querySelector(".main"), bis = $("bisPanel"), gem = $("gemPanel"), loot = $("lootPanel");
+  if (!main || !bis || !gem || !loot) return;
+  const top80 = state.level === 80;
+  if (top80 && main.previousElementSibling !== gem) main.before(bis, gem);
+  else if (!top80 && gem.nextElementSibling !== loot) loot.before(bis, gem);
+  document.body.classList.toggle("lvl80", top80);
+  const nav = $("jump");
+  (top80 ? ["bis", "gem", "sheet", "loot", "top"] : ["sheet", "bis", "gem", "loot", "top"]).forEach((k) => nav.appendChild(nav.querySelector('[data-j="' + k + '"]')));
+}
+
+function renderNav() {
+  arrangeSections();
+  const names = { sheet: L("Equipo recomendado", "Recommended gear"), bis: L("BiS por fase", "BiS by phase"), gem: L("Gemas y encantamientos", "Gems and enchants"), loot: L("Botín y mi equipo", "Loot and my gear"), top: L("↑ Arriba", "↑ Top") };
+  document.querySelectorAll("#jump a").forEach((a) => { a.textContent = names[a.dataset.j]; });
+  const fac = (state.faction === "alliance" ? L("Alianza", "Alliance") : L("Horda", "Horde"));
+  $("deckToggle").innerHTML = "<span>" + esc(state.cls + " · " + state.spec + " · " + fac + " · " + L("Nivel ", "Level ") + state.level) + "</span><span>" + (state.deckCollapsed ? L("Cambiar ▾", "Change ▾") : L("Ocultar ▴", "Hide ▴")) + "</span>";
+  $("deckToggle").setAttribute("aria-expanded", String(!state.deckCollapsed));
+  $("advLabel").textContent = L("Más opciones", "More options");
+  const act = [state.scope === "raid" ? L("Con bandas", "With raids") : L("Sin bandas", "No raids")];
+  if (state.phase) act.push(L("Fase ", "Phase ") + state.phase);
+  if (state.pvp) act.push("PvP");
+  if (state.fresh) act.push(L("Recién 80", "Fresh 80"));
+  if (state.alts !== 2) act.push(state.alts + " alt.");
+  $("advState").textContent = act.join(" · ");
+  $("deck").classList.toggle("collapsed", state.deckCollapsed);
+}
+STORE.adv = "wotlk-gear-adv-open";
+$("advOpts").open = load(STORE.adv, "1") === "1";
+$("advOpts").addEventListener("toggle", () => save(STORE.adv, $("advOpts").open ? "1" : "0"));
+$("deckToggle").addEventListener("click", () => { state.deckCollapsed = !state.deckCollapsed; save(STORE.deck, state.deckCollapsed ? "1" : "0"); renderNav(); });
+if ("IntersectionObserver" in window) {
+  const ids = ["sheetPanel", "bisPanel", "gemPanel", "lootPanel"], seen = new Set();
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) seen.add(e.target.id); else seen.delete(e.target.id); });
+    const cur = ids.find((id) => seen.has(id));
+    document.querySelectorAll("#jump a").forEach((a) => a.setAttribute("aria-current", String(cur && a.getAttribute("href") === "#" + cur)));
+  }, { rootMargin: "-20% 0px -60% 0px" });
+  ids.forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+}
+
+
+export { renderClasses, renderOptions, renderSpecs, renderFactions, updateClassNote, setLevel, renderSlot, renderCaps, renderHeroicStatus, renderSlots, renderStats, renderDungeons, renderHeirlooms, render, baseWeights, renderWeights, renderEqTools, arrangeSections, renderNav };

@@ -270,7 +270,7 @@ def build_curated():
 GEM_STAT_NAMES = {"spell power": "sp", "attack power": "ap", "strength": "str", "agility": "agi", "intellect": "int", "stamina": "sta",
                   "spirit": "spi", "critical strike rating": "crit", "crit rating": "crit", "haste rating": "haste", "hit rating": "hit",
                   "expertise rating": "exp", "armor penetration rating": "arp", "defense rating": "def", "dodge rating": "dodge",
-                  "parry rating": "parry", "resilience rating": "res", "mp5": "mp5", "mana per 5 sec": "mp5"}
+                  "parry rating": "parry", "resilience rating": "res", "armor": "armor", "block value": "block", "mp5": "mp5", "mana per 5 sec": "mp5"}
 
 
 def parse_gem_stats(text):
@@ -323,19 +323,35 @@ def build_gems():
 def build_ref_gems():
     """Gemas y encantamientos recomendados por especialidad, tal cual vienen de data/reference_gems.json (Icy Veins/Wowhead).
 
-    ENG.refGems[spec] = {meta, red, yellow, blue, rule, enchants: {slot: {id, name, stats}}} para mostrarlos en la página."""
+    ENG.refGems[spec] = {meta, red, yellow, blue, rule, ruleEn, enchants: {slot: {id, name, stats, st}}}; «st» son las
+    estadísticas numéricas parseadas para puntuar. Las traducciones al inglés vienen de data/gem_text_en.json."""
     path = ROOT / "data" / "reference_gems.json"
     if not path.exists():
         return {}
+    en_path = ROOT / "data" / "gem_text_en.json"
+    en = json.loads(en_path.read_text(encoding="utf-8")) if en_path.exists() else {"rules": {}, "notes": {}}
     out = {}
     for spec, v in json.loads(path.read_text(encoding="utf-8")).items():
-        pick = lambda g: {"id": g.get("id"), "name": g.get("name"), "stats": g.get("stats") or ""}
+        pick = lambda g: {"id": g.get("id"), "name": g.get("name"), "stats": g.get("stats") or "", "st": parse_gem_stats(g.get("stats"))}
         entry = {"meta": pick(v["meta_gem"]) if v.get("meta_gem") else None,
-                 "rule": v.get("socket_bonus_rule") or "",
+                 "rule": v.get("socket_bonus_rule") or "", "ruleEn": en["rules"].get(spec, ""),
                  "enchants": {slot: pick(e) for slot, e in (v.get("enchants") or {}).items() if e}}
         for color in ("red", "yellow", "blue"):
             entry[color] = [pick(g) for g in v.get(f"{color}_socket") or []]
         out[spec] = entry
+    return out
+
+
+def build_ref_bis():
+    """BiS de referencia (Icy Veins, fase 4) por especialidad y slot, solo IDs en el orden de la guía.
+    ENG.refBis[spec] = {slot: [id, ...]}; los anillos y abalorios van bajo «ring» y «trinket»."""
+    path = ROOT / "tests" / "reference_bis_ids.json"
+    if not path.exists():
+        return {}
+    out = {}
+    for spec, v in json.loads(path.read_text(encoding="utf-8")).items():
+        slots = v.get("slots") or {}
+        out[spec] = {slot: [str(e["id"]) if isinstance(e, dict) else str(e) for e in lst] for slot, lst in slots.items()}
     return out
 
 
@@ -434,6 +450,8 @@ def main():
         "curated": build_curated(),
         "gems": build_gems(),
         "refGems": build_ref_gems(),
+        "refBis": build_ref_bis(),
+        "gemNotesEn": (json.loads((ROOT / "data" / "gem_text_en.json").read_text(encoding="utf-8")).get("notes", {}) if (ROOT / "data" / "gem_text_en.json").exists() else {}),
         "metaGems": {"wildcard": load_meta_gems().get("wildcard")},
         "caps": CAPS,
         "capsBySpec": build_caps_by_spec(),

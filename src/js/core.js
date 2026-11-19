@@ -1,8 +1,8 @@
 import { DATA } from "./data.js";
 
 const runtime = { lastGear: null, lastEquip: null, render: null };
+const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup", showOffspec: "wotlk-gear-show-offspec", showHeirlooms: "wotlk-gear-show-heirlooms", fresh: "wotlk-gear-fresh", lootSlot: "wotlk-gear-loot-slot", lootSort: "wotlk-gear-loot-sort", bisPhase: "wotlk-gear-bis-phase", weights: "wotlk-gear-weights", bisGuide: "wotlk-gear-bis-guide" };
 
-const STORE = { cls: "wotlk-gear-class", spec: "wotlk-gear-spec", level: "wotlk-gear-level", faction: "wotlk-gear-faction", lang: "wotlk-gear-lang", scope: "wotlk-gear-scope", phase: "wotlk-gear-phase", pvp: "wotlk-gear-pvp", alts: "wotlk-gear-alts", dungeon: "wotlk-gear-dungeon", gear: "wotlk-gear-equipped", onlyUp: "wotlk-gear-onlyup", showOffspec: "wotlk-gear-show-offspec", showHeirlooms: "wotlk-gear-show-heirlooms", fresh: "wotlk-gear-fresh", lootSlot: "wotlk-gear-loot-slot", lootSort: "wotlk-gear-loot-sort", bisPhase: "wotlk-gear-bis-phase" };
 
 const I18N = {
   es: {
@@ -55,15 +55,18 @@ const I18N = {
   }
 };
 
+
 const SLOT_LABEL = {
   es: { head: "Cabeza", neck: "Cuello", shoulder: "Hombros", back: "Espalda", chest: "Pecho", wrist: "Muñecas", hands: "Manos", waist: "Cintura", legs: "Piernas", feet: "Pies", ring1: "Anillo 1", ring2: "Anillo 2", trinket1: "Abalorio 1", trinket2: "Abalorio 2", mainhand: "Mano principal", offhand: "Mano secundaria", ranged: "A distancia", relic: "Reliquia de clase" },
   en: { head: "Head", neck: "Neck", shoulder: "Shoulders", back: "Back", chest: "Chest", wrist: "Wrists", hands: "Hands", waist: "Waist", legs: "Legs", feet: "Feet", ring1: "Ring 1", ring2: "Ring 2", trinket1: "Trinket 1", trinket2: "Trinket 2", mainhand: "Main hand", offhand: "Off hand", ranged: "Ranged", relic: "Class relic" }
 };
 
+
 const STAT_LABEL = {
   es: { hs: "Mejor estadística", str: "Fuerza", agi: "Agilidad", int: "Intelecto", sta: "Aguante", spi: "Espíritu", sp: "Poder de hechizos", ap: "Poder de ataque", heal: "Sanación", hit: "Golpe", crit: "Crítico", haste: "Celeridad", exp: "Pericia", arp: "Pen. armadura", def: "Defensa", dodge: "Esquiva", parry: "Parada", block: "Bloqueo", blockval: "Valor de bloqueo", mp5: "Maná/5s", res: "Resiliencia", spen: "Pen. hechizos" },
   en: { hs: "Highest stat", str: "Strength", agi: "Agility", int: "Intellect", sta: "Stamina", spi: "Spirit", sp: "Spell power", ap: "Attack power", heal: "Healing", hit: "Hit", crit: "Crit", haste: "Haste", exp: "Expertise", arp: "Armor pen.", def: "Defense", dodge: "Dodge", parry: "Parry", block: "Block", blockval: "Block value", mp5: "Mana/5s", res: "Resilience", spen: "Spell pen." }
 };
+
 
 const STATS_EN = {
   caster: ["Intellect", "Spell power", "Spell hit", "Crit", "Haste"],
@@ -88,11 +91,11 @@ Object.assign(I18N.es, {
   lootDungeons: "Mazmorras", lootRaids: "Bandas",
   modeLabel: "Contenido", modeNoRaid: "Sin bandas", modeRaid: "Con bandas",
   phaseLabel: "Fase", phaseAll: "Todas",
-  bisTitle: "BiS por fase", bisIntro: "Ranking de objetos por slot y fase de banda, como el addon BiS-Tooltip. Se calcula siempre para nivel 80 con tu clase, especialidad y facción.",
+  bisTitle: "BiS por fase", bisIntro: "Ranking de objetos por slot y fase, como el addon BiS-Tooltip: empieza por «Recién 80» y avanza por las pestañas. Se calcula siempre para nivel 80 con tu clase, especialidad y facción.",
   bisLegendBis: "mejor objeto de la fase", bisLegendBis2: "segundo mejor (anillos y abalorios, se llevan dos)", bisLegendAlt: "siguientes alternativas, de mejor a peor",
   bisHint: "Es una guía general: un objeto ALT puede rendirte más que el BiS si te ayuda a completar golpe o pericia. Los objetos marcados con «completa…» aportan a un tope que el equipo BiS de esta fase todavía no alcanza.",
   bisEmptySlot: "Sin objeto en este slot", bisSpecWord: "Especialidad",
-  gemTitle: "Gemas y encantamientos", gemIntro: "Qué gemar y encantar según tu especialidad (guías de Icy Veins y Wowhead). Las gemas dependen del color del socket de cada pieza y no cambian por fase; en cada slot del BiS verás sus sockets y su encantamiento.",
+  gemTitle: "Gemas y encantamientos", gemIntro: "Qué gemar y encantar según tu especialidad (guías de Icy Veins y Wowhead). En cada slot del BiS verás los sockets de la pieza con la gema que conviene según su bonus de socket, y su encantamiento.",
   gemSockets: "Sockets", gemEnchant: "Encantamiento", gemMeta: "Meta-gema", gemEnchants: "Encantamientos por slot", gemRule: "Cómo gemar:",
   bisHave: "Lo llevas", bisOwnedPre: "Con tu equipo actual llevas piezas de este ranking en ", bisOwnedPost: " slots. Marca lo que ya tienes en «Mi equipo actual».", bisOwnedNone: "Indica tu equipo en «Mi equipo actual» y aquí se marcarán las piezas que ya tienes.", bisPairRing: "Anillos", bisPairTrinket: "Abalorios", bisAltTitle: "Alternativa", bisBisTitle: "Mejor objeto", pvpLabel: "Tipo de equipo", pvpOff: "PvE", pvpOn: "Solo PvP",
   altsLabel: "Alternativas por slot",
@@ -152,11 +155,11 @@ Object.assign(I18N.en, {
   lootDungeons: "Dungeons", lootRaids: "Raids",
   modeLabel: "Content", modeNoRaid: "No raids", modeRaid: "With raids",
   phaseLabel: "Phase", phaseAll: "All",
-  bisTitle: "BiS by phase", bisIntro: "Item ranking per slot and raid phase, like the BiS-Tooltip addon. It is always computed for level 80 with your class, spec and faction.",
+  bisTitle: "BiS by phase", bisIntro: "Item ranking per slot and phase, like the BiS-Tooltip addon: start with \"Fresh 80\" and move along the tabs. It is always computed for level 80 with your class, spec and faction.",
   bisLegendBis: "best item of the phase", bisLegendBis2: "second best (rings and trinkets, you wear two)", bisLegendAlt: "next alternatives, best to worst",
   bisHint: "This is a general guide: an ALT item can perform better than the BiS if it helps you reach hit or expertise. Items tagged «fills…» add to a cap that this phase's BiS gear does not reach yet.",
   bisEmptySlot: "No item in this slot", bisSpecWord: "Spec",
-  gemTitle: "Gems and enchants", gemIntro: "What to gem and enchant for your spec (Icy Veins and Wowhead guides). Gems depend on each piece's socket colors and do not change by phase; each BiS slot shows its sockets and enchant.",
+  gemTitle: "Gems and enchants", gemIntro: "What to gem and enchant for your spec (Icy Veins and Wowhead guides). Each BiS slot shows the piece's sockets with the gem that fits its socket bonus, and its enchant.",
   gemSockets: "Sockets", gemEnchant: "Enchant", gemMeta: "Meta gem", gemEnchants: "Enchants by slot", gemRule: "Gemming notes:",
   bisHave: "Equipped", bisOwnedPre: "With your current gear you wear pieces from this ranking in ", bisOwnedPost: " slots. Set what you own in \"My current gear\".", bisOwnedNone: "Enter your gear in \"My current gear\" and the pieces you already own will be marked here.", bisPairRing: "Rings", bisPairTrinket: "Trinkets", bisAltTitle: "Alternative", bisBisTitle: "Best item", pvpLabel: "Gear type", pvpOff: "PvE", pvpOn: "PvP only",
   altsLabel: "Alternatives per slot",
@@ -205,36 +208,57 @@ Object.assign(I18N.en, {
   lootEmpty: "No useful item for your spec in this dungeon.", zoneDrops: "Zone loot"
 });
 
+
 const FACTION_HEIRLOOM = { "44097": "horde", "44098": "alliance" };
 
+
 const $ = (id) => document.getElementById(id);
+
 const classesEl = $("classes");
+
 const specsEl = $("specs");
+
 const factionsEl = $("factions");
+
 const slotsEl = $("slots");
+
 const levelInput = $("levelInput");
+
 const levelRange = $("levelRange");
+
 const levelNumber = $("levelNumber");
+
 const bracketLabel = $("bracketLabel");
+
 const classNote = $("classNote");
+
 const statList = $("statList");
+
 const statsHint = $("statsHint");
+
 const dungeonList = $("dungeonList");
+
 const heirloomPanel = $("heirloomPanel");
+
 const heirloomList = $("heirloomList");
+
 const slotCount = $("slotCount");
+
 
 function load(key, fallback) {
   try { return localStorage.getItem(key) || fallback; } catch (err) { return fallback; }
 }
+
 function save(key, value) {
   try { localStorage.setItem(key, value); } catch (err) { /* sin almacenamiento */ }
 }
+
 function esc(value) {
   return String(value == null ? "" : value).replace(/[&<>"']/g, (c) => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
   }[c]));
 }
+
 
 let state = {
   cls: load(STORE.cls, "Warrior"),
@@ -253,14 +277,16 @@ let state = {
   showOffspec: load(STORE.showOffspec, "0") === "1",
   showHeirlooms: load(STORE.showHeirlooms, "0") === "1",
   fresh: load(STORE.fresh, "0") === "1",
-  bisPhase: load(STORE.bisPhase, "PR"),
+  bisPhase: load(STORE.bisPhase, "F80"),
+  bisGuide: load(STORE.bisGuide, "1") === "1",
+  wOverride: (() => { try { return JSON.parse(load(STORE.weights, "{}")) || {}; } catch (e) { return {}; } })(),
   gear: (() => { try { return JSON.parse(load(STORE.gear, "{}")) || {}; } catch (e) { return {}; } })()
 };
 if (state.scope !== "raid") state.scope = "noraid";
 if (state.level !== 80 || state.pvp || state.scope === "raid") state.fresh = false;
 if (![0, 1, 2, 3, 4].includes(state.phase)) state.phase = 0;
 if (![2, 5, 10].includes(state.alts)) state.alts = 2;
-if (!["PR", "T7", "T8", "T9", "T10"].includes(state.bisPhase)) state.bisPhase = "PR";
+if (!["F80", "PR", "T7", "T8", "T9", "T10"].includes(state.bisPhase)) state.bisPhase = "F80";
 if (!DATA.factions.includes(state.faction)) state.faction = "horde";
 if (!["boss", "upgrade", "ilvl"].includes(state.lootSort)) state.lootSort = "boss";
 if (!I18N[state.lang]) state.lang = "es";
@@ -270,12 +296,15 @@ if (!DATA.specs[state.cls + "|" + state.spec]) {
 }
 if (!DATA.classMeta[state.cls]) state.cls = "Warrior";
 
+
 const STAT_ORDER = [
   "str", "agi", "int", "sta", "sp", "ap", "hit", "crit", "haste", "exp",
   "arp", "def", "dodge", "parry", "block", "mp5", "spi", "heal", "blockval", "res", "spen"
 ];
 
+
 const QUALITY_COLOR = { 2: "#1eff00", 3: "#2f9bff", 4: "#b45cff", 7: "#32d6ff" };
+
 
 function allSpecsFor(cls) {
   const prefix = cls + "|";
@@ -284,16 +313,20 @@ function allSpecsFor(cls) {
     .map((key) => key.slice(prefix.length));
 }
 
+
 function specFor(cls, name) {
   return DATA.specs[cls + "|" + name];
 }
+
 
 function clampLevel(value) {
   const min = DATA.classMeta[state.cls].min;
   return Math.max(min, Math.min(80, Number(value) || min));
 }
 
+
 function t(key) { return (I18N[state.lang] && I18N[state.lang][key]) || key; }
+
 
 function applyLanguage() {
   document.documentElement.lang = state.lang;
@@ -307,6 +340,7 @@ function applyLanguage() {
   });
 }
 
+
 function armorText(cls, level) {
   if (state.lang === "en") {
     if (cls === "Hunter" || cls === "Shaman") return level < 40 ? "Leather (mail at 40)" : "Mail";
@@ -318,24 +352,30 @@ function armorText(cls, level) {
   return DATA.classMeta[cls].armor;
 }
 
+
 function bracketName(bracket) {
   return state.lang === "en" ? (bracket.nameEn || bracket.name) : bracket.name;
 }
+
 
 function bracketAdvice(bracket) {
   return state.lang === "en" ? (bracket.adviceEn || bracket.advice) : bracket.advice;
 }
 
+
 function bracketFor(level) {
   return DATA.brackets.find((b) => level >= b.min && level <= b.max) || DATA.brackets[0];
 }
 
+
 function qColor(q) { return QUALITY_COLOR[q] || "#9fb9c8"; }
+
 
 function iconHtml(item) {
   if (!item || !item.i) return '<div class="item-icon placeholder">?</div>';
   return '<img class="item-icon" src="https://wotlk.evowow.com/static/images/wow/icons/medium/' + esc(item.i) + '.jpg" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">';
 }
+
 
 function itemLink(id, scaled, className) {
   const item = DATA.items[id] || DATA.heirlooms[id];
@@ -343,6 +383,7 @@ function itemLink(id, scaled, className) {
   const rel = scaled ? ' rel="lvl=' + state.level + ' noopener"' : ' rel="noopener"';
   return '<a class="' + (className || "") + '" style="color:' + qColor(item.q) + '" href="https://wotlk.evowow.com/?item=' + id + '" target="_blank"' + rel + '>' + esc(item.n) + "</a>";
 }
+
 
 
 function statLine(item) {
@@ -355,11 +396,17 @@ function statLine(item) {
 }
 
 
+/* ---------- Motor de recomendaciones (se calcula en el navegador) ---------- */
+
 const ITEM_URL = "https://wotlk.evowow.com/?item=";
+
 const L = (es, en) => (state.lang === "en" ? en : es);
+
 const gearItem = (id) => DATA.items[id] || DATA.heirlooms[id];
+
 const itemHands = (it) => (it.s === "twohand" ? 2 : (it.s === "onehand" || it.s === "mainhand" || it.s === "offhand" ? 1 : 0));
 // Las reliquias escalan con el nivel y las de malla/placa cambian de tipo antes del 40.
+
 function levelItem(it, level) {
   if (!it.hl) return it;
   let stage = it.hl[0];
@@ -368,6 +415,7 @@ function levelItem(it, level) {
   const at = level < 40 ? (it.at === "Plate" ? "Mail" : it.at === "Mail" ? "Leather" : it.at) : it.at;
   return Object.assign({}, it, { ar: data.ar || 0, dps: data.dps || 0, st: data.st || {}, at, ilvl: level });
 }
+
 const zoneOf = (id) => DATA.dungeons.find((d) => d.id === id) || (DATA.raids || []).find((d) => d.id === id);
 
 
@@ -375,27 +423,36 @@ function specSlots(spec) {
   return DATA.slotOrder.filter((s) => (s === "offhand" ? !!spec.off : s === "ranged" ? !!spec.ranged : s === "relic" ? !!spec.relic : true));
 }
 
+// La armadura de un tipo inferior se penaliza por completo en físicos y tanques; en casters, sanadores, cazadores y
+// pícaros/chamanes de agilidad pesa menos, porque las guías usan a menudo tela o cuero en slots sin set.
 
 const poolOfSlot = (s) => (s.startsWith("ring") ? "ring" : s.startsWith("trinket") ? "trinket" : s);
+
 const gearKey = () => state.cls + "|" + state.spec;
+
 const equippedMap = () => state.gear[gearKey()] || {};
+
 function currentSpec() {
   return DATA.specs[state.cls + "|" + state.spec];
 }
+
 function titanGrip(spec, level) {
   return !!spec && spec.mode === "tg" && level >= 60;
 }
+
 function equippedMainTwoHand(spec) {
   const id = equippedMap().mainhand, it = id && gearItem(id);
   return !!(it && itemHands(it) === 2 && !titanGrip(spec || currentSpec(), state.level));
 }
-
+/* El equipo que ya llevas puesto puede ser cualquier cosa que tu clase pueda equipar,
+   aunque no sea ideal para la especialidad (armas de dos manos, otro tipo de armadura, etc.). */
 
 function clearLootUndo() {
   runtime.lastEquip = null;
   const box = $("lootUndo");
   if (box) box.hidden = true;
 }
+
 function renderLootUndo() {
   const box = $("lootUndo");
   if (!box) return;
@@ -404,9 +461,7 @@ function renderLootUndo() {
   box.hidden = false;
 }
 
-
 const pctDiff = (a, b) => (b > 0 ? Math.round((a / b - 1) * 100) : 0);
-
 
 function renderSeg(el, options, current, onPick) {
   el.innerHTML = "";
@@ -439,12 +494,15 @@ function persist() {
   save(STORE.showOffspec, state.showOffspec ? "1" : "0");
   save(STORE.showHeirlooms, state.showHeirlooms ? "1" : "0");
   save(STORE.fresh, state.fresh ? "1" : "0");
-  save(STORE.bisPhase, state.bisPhase || "PR");
+  save(STORE.bisPhase, state.bisPhase || "F80");
+  save(STORE.bisGuide, state.bisGuide ? "1" : "0");
+  save(STORE.weights, JSON.stringify(state.wOverride || {}));
   save(STORE.gear, JSON.stringify(state.gear));
 }
 
 
 let refreshTimer = null;
+
 function scheduleRefresh() {
   clearTimeout(refreshTimer);
   refreshTimer = setTimeout(() => {
@@ -459,15 +517,4 @@ function scheduleRefresh() {
   }, 600);
 }
 
-export {
-  STORE, I18N, SLOT_LABEL, STAT_LABEL, STATS_EN, FACTION_HEIRLOOM,
-  $, classesEl, specsEl, factionsEl, slotsEl, levelInput, levelRange,
-  levelNumber, bracketLabel, classNote, statList, statsHint, dungeonList,
-  heirloomPanel, heirloomList, slotCount, load, save, esc, state,
-  STAT_ORDER, QUALITY_COLOR, allSpecsFor, specFor, clampLevel, t,
-  applyLanguage, armorText, bracketName, bracketAdvice, bracketFor, qColor,
-  iconHtml, itemLink, statLine, ITEM_URL, L, gearItem, itemHands, levelItem,
-  zoneOf, specSlots, poolOfSlot, gearKey, equippedMap, currentSpec, titanGrip,
-  equippedMainTwoHand, pctDiff, renderSeg, persist, scheduleRefresh, runtime,
-  clearLootUndo, renderLootUndo
-};
+export { runtime, STORE, I18N, SLOT_LABEL, STAT_LABEL, STATS_EN, FACTION_HEIRLOOM, $, classesEl, specsEl, factionsEl, slotsEl, levelInput, levelRange, levelNumber, bracketLabel, classNote, statList, statsHint, dungeonList, heirloomPanel, heirloomList, slotCount, load, save, esc, state, STAT_ORDER, QUALITY_COLOR, allSpecsFor, specFor, clampLevel, t, applyLanguage, armorText, bracketName, bracketAdvice, bracketFor, qColor, iconHtml, itemLink, statLine, ITEM_URL, L, gearItem, itemHands, levelItem, zoneOf, specSlots, poolOfSlot, gearKey, equippedMap, currentSpec, titanGrip, equippedMainTwoHand, clearLootUndo, renderLootUndo, pctDiff, renderSeg, persist, refreshTimer, scheduleRefresh };

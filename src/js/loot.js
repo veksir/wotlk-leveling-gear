@@ -2,13 +2,12 @@ import { DATA } from "./data.js";
 import {
   state, $, t, L, esc, SLOT_LABEL, gearKey, gearItem, itemHands, currentSpec, specSlots,
   equippedMap, equippedMainTwoHand, levelItem, poolOfSlot, titanGrip, persist, runtime,
-  clearLootUndo, renderLootUndo, qColor, itemLink, pctDiff
+  clearLootUndo, renderLootUndo, qColor, itemLink, pctDiff, ITEM_URL, zoneOf
 } from "./core.js";
 import { ENG, weightsFor, evalItem } from "./engine.js";
 import { evalEquip, candidates, equippedEntry, targetEquipSlot, lootFilterForSlot } from "./equipment.js";
 import { heroicAccess, fmtIlvl } from "./heroic.js";
-import { badgeHtml, obtainInfo, diffLabel, partLabel } from "./format.js";
-
+import { badgeHtml, obtainInfo, diffLabel, partLabel, DIFF_LABEL } from "./format.js";
 function equipLoot(id) {
   const spec = currentSpec(), source = gearItem(id);
   if (!source) return;
@@ -20,6 +19,7 @@ function equipLoot(id) {
   runtime.lastEquip = { key: gearKey(), gear: JSON.parse(JSON.stringify(equippedMap())), name: it.n };
   setEquipped(slot, id, { keepUndo: true });
 }
+
 function setEquipped(slot, id, opts) {
   if (!opts || !opts.keepUndo) clearLootUndo();
   const g = (state.gear[gearKey()] = state.gear[gearKey()] || {}), spec = currentSpec();
@@ -32,6 +32,7 @@ function setEquipped(slot, id, opts) {
   persist();
   runtime.render();
 }
+
 function renderEquip(spec) {
   const grid = $("eqGrid"), pools = candidates(spec);
   const labels = SLOT_LABEL[state.lang] || SLOT_LABEL.es;
@@ -95,6 +96,7 @@ function renderEquip(spec) {
   });
   grid.querySelectorAll(".eq-x").forEach((b) => b.addEventListener("click", () => setEquipped(b.dataset.slot, null)));
 }
+
 function syncEquipHighlight() {
   document.querySelectorAll("#eqGrid input[data-slot]").forEach((inp) => {
     const slot = inp.dataset.slot;
@@ -105,13 +107,13 @@ function syncEquipHighlight() {
 
 /* ---------- Explicaciones y fuentes ---------- */
 
-
 function autoDungeon(level) {
   const ds = DATA.dungeons;
   const inRange = ds.filter((d) => level >= d.lv[0] && level <= d.lv[1]);
   if (inRange.length) return inRange[inRange.length - 1].id;
   return ds.slice().sort((a, b) => Math.abs(level - a.lv[0]) - Math.abs(level - b.lv[0]))[0].id;
 }
+
 const LOOT_SLOT_LABEL = {
   head: ["Cabeza", "Head"], neck: ["Cuello", "Neck"], shoulder: ["Hombros", "Shoulders"],
   back: ["Espalda", "Back"], chest: ["Pecho", "Chest"], wrist: ["Muñecas", "Wrists"],
@@ -120,10 +122,12 @@ const LOOT_SLOT_LABEL = {
   mainhand: ["Mano principal", "Main hand"], offhand: ["Mano secundaria", "Off hand"],
   ranged: ["A distancia", "Ranged"], relic: ["Reliquia de clase", "Class relic"]
 };
+
 function lootSlotText(slot) {
   const v = LOOT_SLOT_LABEL[slot];
   return v ? v[state.lang === "en" ? 1 : 0] : ((SLOT_LABEL[state.lang] || SLOT_LABEL.es)[slot] || slot);
 }
+
 function lootFilterValues(spec) {
   const out = [];
   specSlots(spec).forEach((slot) => {
@@ -132,10 +136,12 @@ function lootFilterValues(spec) {
   });
   return out;
 }
+
 function lootMatchesSlot(pk, filter) {
   const want = filter === "ring" ? ["ring1", "ring2"] : filter === "trinket" ? ["trinket1", "trinket2"] : [filter];
   return pk.some((p) => want.includes(p));
 }
+
 function lootSlotLabel(it, pk) {
   if (it.s === "ring" || it.s === "trinket" || it.s === "relic") return lootSlotText(it.s);
   if (it.s === "ranged" || it.s === "thrown") return lootSlotText("ranged");
@@ -147,8 +153,11 @@ function lootSlotLabel(it, pk) {
   }
   return lootSlotText(it.s);
 }
+
 const collapsedBosses = new Set();
+
 let lootHoverCard = null, lootHoverTimer = 0;
+
 function hideLootHover() {
   clearTimeout(lootHoverTimer);
   if (lootHoverCard) {
@@ -156,6 +165,7 @@ function hideLootHover() {
     lootHoverCard = null;
   }
 }
+
 function showLootHover(item) {
   hideLootHover();
   const why = item.querySelector(".loot-why");
@@ -183,11 +193,13 @@ function showLootHover(item) {
 }
 window.addEventListener("scroll", hideLootHover, { passive: true });
 window.addEventListener("resize", hideLootHover);
+
 function lootPartVal(p) {
   if (!p || !p.v) return "—";
   if (p.k === "armor" || p.k === "dps") return String(p.v);
   return (p.fx ? "≈+" : "+") + p.v;
 }
+
 function lootWhyHtml(r, capText, isSet) {
   const cur = r.vs, curParts = cur && cur.parts ? cur.parts : [], keys = [];
   r.parts.forEach((p) => { if (p.k !== "ilvl" && !keys.includes(p.k)) keys.push(p.k); });
@@ -202,6 +214,7 @@ function lootWhyHtml(r, capText, isSet) {
   const score = t("scoreWord") + ": " + r.score.toFixed(1) + (cur ? " · " + t("lootWearing") + ": " + cur.score.toFixed(1) + " · " + (diff >= 0 ? "+" : "") + diff + "%" : "");
   return '<details class="loot-why"><summary>' + t("lootWhy") + '</summary><table><thead><tr><th></th><th>' + t("lootThis") + "</th><th>" + t("lootWearing") + "</th><th>" + t("lootDiff") + "</th></tr></thead><tbody>" + rows + "</tbody></table><p><b>" + score + "</b></p><p>" + t("lootNoteGems") + "</p><p>" + t("lootNoteCaps") + "</p>" + (isSet ? "<p>" + t("lootSetNote") + "</p>" : "") + (capText ? '<p class="warn">' + esc(capText) + "</p>" : "") + "</details>";
 }
+
 function capWarning(r, targetSlot, totals, eq) {
   const caps = runtime.lastGear && runtime.lastGear.caps;
   if (!caps) return "";
@@ -212,6 +225,7 @@ function capWarning(r, targetSlot, totals, eq) {
   if (!over.length) return "";
   return t("lootCapsWarn") + over.map(partLabel).join(", ") + t("lootCapsSuffix");
 }
+
 function renderLoot(spec) {
   const level = state.level, w = weightsFor(spec, false, level);
   const cur = state.dungeon || autoDungeon(level);
@@ -337,6 +351,7 @@ function renderLoot(spec) {
   bindLootEvents();
   renderLootUndo();
 }
+
 function bindLootEvents() {
   $("lootBody").querySelectorAll(".loot-equip").forEach((btn) => btn.addEventListener("click", () => equipLoot(btn.dataset.id)));
   $("lootBody").querySelectorAll("[data-loot-action]").forEach((btn) => btn.addEventListener("click", () => {
@@ -369,9 +384,5 @@ function bindLootEvents() {
   }
 }
 
-export {
-  equipLoot, setEquipped, renderEquip, syncEquipHighlight, autoDungeon,
-  LOOT_SLOT_LABEL, lootSlotText, lootFilterValues, lootMatchesSlot, lootSlotLabel,
-  collapsedBosses, hideLootHover, showLootHover, lootPartVal, lootWhyHtml,
-  capWarning, renderLoot, bindLootEvents
-};
+
+export { equipLoot, setEquipped, renderEquip, syncEquipHighlight, autoDungeon, LOOT_SLOT_LABEL, lootSlotText, lootFilterValues, lootMatchesSlot, lootSlotLabel, collapsedBosses, lootHoverCard, lootHoverTimer, hideLootHover, showLootHover, lootPartVal, lootWhyHtml, capWarning, renderLoot, bindLootEvents };

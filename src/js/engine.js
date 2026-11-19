@@ -1,11 +1,11 @@
 import { DATA } from "./data.js";
-import { state, levelItem, itemHands, specSlots, poolOfSlot, titanGrip, pctDiff } from "./core.js";
+import { state, gearItem, itemHands, levelItem, specSlots, poolOfSlot, titanGrip, pctDiff, zoneOf, L, ITEM_URL, t } from "./core.js";
 import { averageItemLevel, isHeroicOnlyDrop, heroicRequirement } from "./heroic.js";
-
 const ENG = DATA.engine;
-const GEAR_ITEMS = Object.assign({}, DATA.items, DATA.heirlooms);
-const ARMOR_KEYS = ["head", "shoulder", "chest", "wrist", "hands", "waist", "legs", "feet", "back"];
 
+const GEAR_ITEMS = Object.assign({}, DATA.items, DATA.heirlooms);
+
+const ARMOR_KEYS = ["head", "shoulder", "chest", "wrist", "hands", "waist", "legs", "feet", "back"];
 
 function itemFactions(it) {
   const src = it.src || {};
@@ -16,7 +16,9 @@ function itemFactions(it) {
   if (!set.size) set.add("both");
   return set;
 }
+
 function armorUnlock(cls, at) { const m = ENG.armorUnlock[at]; return (m && m[cls]) || 1; }
+
 function preferredArmor(cls, level) {
   if (["Mage", "Priest", "Warlock"].includes(cls)) return "Cloth";
   if (["Druid", "Rogue"].includes(cls)) return "Leather";
@@ -24,6 +26,7 @@ function preferredArmor(cls, level) {
   if (["Warrior", "Paladin"].includes(cls)) return level < 40 ? "Mail" : "Plate";
   return "Plate";
 }
+
 function armorFactor(cls, at, level) {
   const tiers = ENG.armorTiers[cls] || ["Cloth"];
   if (!tiers.includes(at)) return 0;
@@ -32,9 +35,10 @@ function armorFactor(cls, at, level) {
   const diff = tiers.indexOf(at) - tiers.indexOf(pref);
   return diff >= 0 ? [1, 0.6, 0.35, 0.2][Math.min(diff, 3)] : 0.4;
 }
+
 function weightsFor(spec, pvp, level) {
   const specW = level === 80 ? (ENG.specWeights || {})[spec.cls + "|" + spec.name] : null;
-  const w = Object.assign({}, ENG.weights[spec.role] || {}, specW || {});
+  const w = Object.assign({}, ENG.weights[spec.role] || {}, specW || {}, (state.wOverride || {})[spec.cls + "|" + spec.name] || {});
   w.hs = w[spec.primary] || 0; // «mejor estadística» de un proc: la principal de la especialidad
   // Valor de un socket por debajo de nivel 80: la mejor de las gemas que recomiendan las guías para esta especialidad.
   const G = (ENG.gems || {})[spec.cls + "|" + spec.name] || null;
@@ -47,6 +51,7 @@ function weightsFor(spec, pvp, level) {
 /* Modelo de gemas por color (nivel 80): valor de la mejor gema de cada color y de la meta-gema, que solo cuenta si
    compensa lo que cuesta activarla (poner gemas de un color que quizá no sean las mejores, o un Nightmare Tear, que cuenta
    como una gema de cada color pero es único). */
+
 function gemContext(G, w, spec, gemVal) {
   const best = (list) => Math.max.apply(null, [0].concat((list || []).map(gemVal)));
   const ctx = { red: best(G.red), yellow: best(G.yellow), blue: best(G.blue), meta: 0, metaCost: 0, metaPlan: null };
@@ -65,6 +70,7 @@ function gemContext(G, w, spec, gemVal) {
   }
   return ctx;
 }
+
 function scoreParts(it, w) {
   const parts = [];
   const add = (k, v, wt, fx) => { if (v && wt) parts.push({ k, v, c: v * wt, fx: !!fx }); };
@@ -100,6 +106,7 @@ function scoreParts(it, w) {
 // Relevancia: un objeto puede ser equipable por la clase y aun así no aportar nada a la
 // especialidad (por ejemplo, plate de heal para un paladín tanque). La puntuación no cambia;
 // solo se usa para decidir qué mostrar como recomendación o botín útil.
+
 function isRelevant(it, spec, w) {
   const ignore = new Set(["sta", "armor"]);
   let signature = 0, foreign = 0;
@@ -130,11 +137,13 @@ function isRelevant(it, spec, w) {
   }
   return foreign === 0 || signature >= foreign * 0.5;
 }
+
 function availableLevel(it, spec) {
   let lv = Math.max(it.req > 0 ? it.req : 1, spec.min);
   if (it.at) lv = Math.max(lv, armorUnlock(spec.cls, it.at));
   return lv <= 80 ? lv : null;
 }
+
 function poolsFor(it, spec, level) {
   const { cls, off, ranged, relic, mode } = spec;
   const slot = it.s, sub = it.sub, at = it.at, hands = itemHands(it);
@@ -169,19 +178,24 @@ function poolsFor(it, spec, level) {
   return [];
 }
 
-
 const ARMOR_PENALTY_SCALE = { caster: 0.1, healer: 0.1, hunter: 0.1, agi: 0.5, feral: 0.5 };
+
 const softArmor = (f, role) => (f > 0 && ARMOR_PENALTY_SCALE[role] !== undefined ? 1 - (1 - f) * ARMOR_PENALTY_SCALE[role] : f);
+
 const SUFFIX_SLOPE = { head: 0.31, legs: 0.30, chest: 0.28, shoulder: 0.227, hands: 0.22, feet: 0.215, waist: 0.22, back: 0.157, wrist: 0.16, neck: 0.16, ring: 0.158, offhand: 0.158, held: 0.158, onehand: 0.125, mainhand: 0.14, twohand: 0.275, ranged: 0.1, thrown: 0.1 };
+
 const SUFFIXES = [["agi", "sta", "of the Monkey"], ["sta", "int", "of the Eagle"], ["str", "sta", "of the Bear"], ["sta", "spi", "of the Whale"], ["int", "spi", "of the Owl"],
   ["str", "int", "of the Gorilla"], ["agi", "int", "of the Falcon"], ["str", "spi", "of the Boar"], ["agi", "spi", "of the Wolf"], ["str", "agi", "of the Tiger"]];
+
 function withSuffix(it, w) {
   const val = Math.max(1, Math.round((SUFFIX_SLOPE[it.s] || 0.15) * Math.max(0, (it.ilvl || 0) - 6)));
   let best = SUFFIXES[0], bestV = -1;
   SUFFIXES.forEach((s) => { const v = val * ((w[s[0]] || 0) + (w[s[1]] || 0)); if (v > bestV) { bestV = v; best = s; } });
   return Object.assign({}, it, { n: it.n + " " + best[2], px: { [best[0]]: val, [best[1]]: val }, est: 1 });
 }
+
 const FRESH_CURRENCIES = new Set(["heroism", "valor", "conquest", "triumph", "gold", "reputation"]);
+
 function freshAccessible(it) {
   if (it.raid || it.pvp) return false;
   const s = it.src || {};
@@ -192,6 +206,7 @@ function freshAccessible(it) {
   }
   return true;
 }
+
 function evalItem(it, spec, w, o, cap, curated) {
   if (it.x) return null;
   if (it.re) it = withSuffix(it, w);
@@ -214,7 +229,9 @@ function evalItem(it, spec, w, o, cap, curated) {
 }
 
 /* opts: { level, faction, scope: "noraid"|"raid", phase: 0 (todas)|1-4, pvp: bool (solo equipo PvP), fresh: bool (recién 80) } */
+
 const BEAM_SLOTS = ["head", "neck", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet", "ring1", "ring2"];
+
 function jointOptimize(spec, w, caps, sb, slots, pools, opts) {
   const width = (opts && opts.width) || 60, K = (opts && opts.k) || 8;
   const capN = opts && opts.capN != null ? opts.capN : 2;
@@ -285,6 +302,7 @@ function jointOptimize(spec, w, caps, sb, slots, pools, opts) {
   return out;
 }
 
+
 function computeGear(spec, o) {
   const w = weightsFor(spec, o.pvp, o.level);
   const caps = o.level === 80 ? ((ENG.capsBySpec || {})[spec.cls + "|" + spec.name] || (ENG.caps || {})[spec.role] || null) : null;
@@ -292,7 +310,7 @@ function computeGear(spec, o) {
   const specKey = spec.cls + "|" + spec.name;
   const cur = (ENG.curated || {})[specKey];
   const curatedRelic = new Set((cur && cur.relic) || []);
-  const avgIlvl = o.noHeroicGate ? null : averageItemLevel(spec);
+  const avgIlvl = o.noHeroicGate ? null : o.assumeAvg != null ? o.assumeAvg : averageItemLevel(spec);
   const pools = {}, info = {}, fallback = {};
   for (const id in GEAR_ITEMS) {
     if (!state.showHeirlooms && DATA.heirlooms[id]) continue;
@@ -466,9 +484,6 @@ function computeGear(spec, o) {
   return { pools, info, slots, loadout, totals, caps };
 }
 
-export {
-  ENG, GEAR_ITEMS, ARMOR_KEYS, itemFactions, armorUnlock, preferredArmor,
-  armorFactor, weightsFor, gemContext, scoreParts, isRelevant, availableLevel,
-  poolsFor, ARMOR_PENALTY_SCALE, softArmor, SUFFIX_SLOPE, SUFFIXES, withSuffix,
-  FRESH_CURRENCIES, freshAccessible, evalItem, BEAM_SLOTS, jointOptimize, computeGear
-};
+/* ---------- Equipo actual del personaje ---------- */
+
+export { ENG, GEAR_ITEMS, ARMOR_KEYS, itemFactions, armorUnlock, preferredArmor, armorFactor, weightsFor, gemContext, scoreParts, isRelevant, availableLevel, poolsFor, ARMOR_PENALTY_SCALE, softArmor, SUFFIX_SLOPE, SUFFIXES, withSuffix, FRESH_CURRENCIES, freshAccessible, evalItem, BEAM_SLOTS, jointOptimize, computeGear };

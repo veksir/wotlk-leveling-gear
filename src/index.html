@@ -4,10 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Equipo óptimo por nivel - WotLK 3.3.5</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script type="text/javascript" src="https://wotlk.evowow.com/static/widgets/power.js?lang=en"></script>
+<meta name="description" content="Qué equipar en cada slot en WotLK 3.3.5 según clase, especialidad, facción y nivel: BiS por fase, gemas, encantamientos y plan de farmeo.">
+<meta name="theme-color" content="#06131d">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b2230'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' text-anchor='middle' fill='%2375d7ef'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="./styles/fonts.css">
+<script type="text/javascript" src="https://wotlk.evowow.com/static/widgets/power.js?lang=en" defer></script>
 <script>
 var aowow_tooltips = {
   "colorlinks": true,
@@ -17,11 +19,10 @@ var aowow_tooltips = {
 };
 </script>
 <link rel="stylesheet" href="./styles/app.css">
-
 </head>
 <body>
 <div class="app">
-  <header class="topbar">
+  <header class="topbar" id="top">
     <div class="brand">
       <div class="brand-mark" aria-hidden="true">W</div>
       <div>
@@ -38,6 +39,10 @@ var aowow_tooltips = {
     </div>
   </header>
 
+  <nav class="jump" id="jump" aria-label="Secciones">
+    <a href="#sheetPanel" data-j="sheet"></a><a href="#bisPanel" data-j="bis"></a><a href="#gemPanel" data-j="gem"></a><a href="#lootPanel" data-j="loot"></a><a href="#top" class="jump-top" data-j="top"></a>
+  </nav>
+
   <main>
     <section class="intro">
       <p class="eyebrow" data-i18n="eyebrow">El mejor objeto disponible hasta tu nivel</p>
@@ -45,8 +50,9 @@ var aowow_tooltips = {
       <p data-i18n="intro">Elige clase, especialidad, facción y nivel. Cada slot muestra el mejor objeto que puedes usar en ese punto, cómo conseguirlo, por qué se recomienda y varias alternativas. Activa «Con bandas» para ver el mejor equipo de raid, o consulta abajo qué te puede tocar en cada mazmorra.</p>
     </section>
 
-    <section class="deck" aria-label="Configuración">
-      <div class="deck-main">
+    <section class="deck" id="deck" aria-label="Configuración">
+      <button type="button" class="deck-toggle" id="deckToggle" aria-expanded="true" aria-controls="deckMain"></button>
+      <div class="deck-main" id="deckMain">
         <div class="box"><span class="field-label" id="classLabel" data-i18n="classLabel">Clase</span>
           <div class="chips" id="classes" role="group" aria-labelledby="classLabel"></div></div>
         <div class="row2">
@@ -55,7 +61,8 @@ var aowow_tooltips = {
           <div class="box"><span class="field-label" id="factionLabel" data-i18n="factionLabel">Facción</span>
             <div class="seg" id="factions" role="group" aria-labelledby="factionLabel"></div></div>
         </div>
-        <div class="box">
+        <details class="box adv" id="advOpts" open>
+          <summary><span id="advLabel"></span><span class="adv-state" id="advState"></span></summary>
           <div class="opts">
             <div><span class="field-label" id="modeLabel" data-i18n="modeLabel">Contenido</span><div class="seg" id="modes" role="group" aria-labelledby="modeLabel"></div></div>
             <div><span class="field-label" id="phaseLabel" data-i18n="phaseLabel">Fase</span><div class="seg" id="phases" role="group" aria-labelledby="phaseLabel"></div></div>
@@ -65,7 +72,7 @@ var aowow_tooltips = {
             <label class="opt-check"><input type="checkbox" id="fresh80"> <span data-i18n="fresh80">Modo recién 80 (sin Frost ni fichas de raid)</span></label>
           </div>
           <p class="opts-hint" data-i18n="optsHint"></p>
-        </div>
+        </details>
         <p class="class-note" id="classNote"></p>
       </div>
       <div class="deck-side">
@@ -107,7 +114,7 @@ var aowow_tooltips = {
     </details>
 
     <div class="main">
-      <section class="panel" aria-labelledby="sheetHeading">
+      <section class="panel" id="sheetPanel" aria-labelledby="sheetHeading">
         <div class="panel-head">
           <div>
             <h2 id="sheetHeading" data-i18n="sheetTitle">Equipamiento recomendado</h2>
@@ -127,6 +134,15 @@ var aowow_tooltips = {
           <p class="hint" id="statsHint"></p>
         </section>
 
+        <section class="panel" aria-labelledby="wHeading">
+          <details id="wDetails">
+            <summary id="wHeading"></summary>
+            <p class="hint" id="wHint"></p>
+            <div class="w-grid" id="wGrid"></div>
+            <button type="button" class="mini-btn" id="wReset"></button>
+          </details>
+        </section>
+
         <section class="panel" aria-labelledby="dungeonHeading">
           <h2 id="dungeonHeading" data-i18n="dungeonsTitle">Mazmorras del tramo</h2>
           <ul class="dungeon-list" id="dungeonList"></ul>
@@ -140,21 +156,23 @@ var aowow_tooltips = {
       </aside>
     </div>
 
-    <section class="panel bis" style="margin-top:14px" aria-labelledby="bisHeading">
+    <section class="panel bis" id="bisPanel" style="margin-top:14px" aria-labelledby="bisHeading">
       <div class="panel-head">
         <div><h2 id="bisHeading" data-i18n="bisTitle">BiS por fase</h2><p id="bisIntro" data-i18n="bisIntro"></p></div>
         <span class="slot-count" id="bisSpec"></span>
       </div>
       <div class="bis-tabs seg" id="bisTabs" role="group" aria-labelledby="bisHeading"></div>
       <p class="bis-phase-note" id="bisPhaseNote"></p>
+      <label class="bis-guide-toggle" id="bisGuideBox" hidden><input type="checkbox" id="bisGuide"> <span id="bisGuideText"></span></label>
       <p class="bis-phase-note bis-owned-note" id="bisOwnedNote"></p>
       <div class="caps" id="bisCaps" hidden></div>
       <div class="bis-legend" id="bisLegend"></div>
       <div class="bis-grid" id="bisGrid"></div>
+      <div class="bis-plan" id="bisPlan"></div>
       <p class="note" style="padding:0 16px 12px" data-i18n="bisHint"></p>
     </section>
 
-    <section class="panel" style="margin-top:14px" aria-labelledby="gemHeading">
+    <section class="panel" id="gemPanel" style="margin-top:14px" aria-labelledby="gemHeading">
       <div class="panel-head">
         <div><h2 id="gemHeading" data-i18n="gemTitle">Gemas y encantamientos</h2><p data-i18n="gemIntro"></p></div>
         <span class="slot-count" id="gemSpec"></span>
@@ -162,14 +180,21 @@ var aowow_tooltips = {
       <div id="gemBody"></div>
     </section>
 
-    <section class="panel" style="margin-top:14px" aria-labelledby="lootHeading">
+    <section class="panel" id="lootPanel" style="margin-top:14px" aria-labelledby="lootHeading">
       <div class="panel-head"><div><h2 id="lootHeading" data-i18n="lootTitle">Botín de mazmorra</h2><p id="lootIntro" data-i18n="lootIntro"></p></div></div>
       <details class="eq" id="eqPanel" open>
         <summary data-i18n="eqTitle">Mi equipo actual</summary>
         <div class="eq-tools">
           <button type="button" class="mini-btn" id="eqUseRec" data-i18n="eqUseRec">Usar el recomendado</button>
           <button type="button" class="mini-btn" id="eqClear" data-i18n="eqClear">Vaciar</button>
+          <button type="button" class="mini-btn" id="eqExport"></button>
+          <button type="button" class="mini-btn" id="eqImport"></button>
+          <button type="button" class="mini-btn" id="eqLink"></button>
           <span class="note" data-i18n="eqHint"></span>
+        </div>
+        <div class="eq-io" id="eqIo" hidden>
+          <textarea id="eqText" rows="9" spellcheck="false" aria-label="equipo"></textarea>
+          <div><button type="button" class="mini-btn" id="eqApply"></button><span class="eq-io-msg" id="eqIoMsg" role="status" aria-live="polite"></span></div>
         </div>
         <div class="eq-grid" id="eqGrid"></div>
       </details>
@@ -192,5 +217,6 @@ var aowow_tooltips = {
   </footer>
 </div>
 <script type="module" src="./js/main.js"></script>
+
 </body>
 </html>
