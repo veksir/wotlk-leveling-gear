@@ -38,6 +38,7 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 - **Reliquias de subida (heirlooms) opcionales**: las 35 reliquias de subida tienen estadísticas exactas por nivel y cambio de tipo de armadura antes del nivel 40. Quedan fuera de las recomendaciones salvo que marques «Incluir reliquias de subida (heirlooms) que ya tengo», porque sus vendedores requieren moneda de nivel 80.
 - **Tooltips de EVOWOW** para todos los objetos.
 - **Diseño responsive** y selección guardada en `localStorage`.
+- **Build autocontenido y comprimido**: la página generada incrusta los datos y comprime su JavaScript con gzip, y Cinzel / Source Sans 3 se incluyen en local.
 - **Sin backend** y sin compilación para ver la página.
 
 ## Cómo funciona
@@ -53,7 +54,7 @@ El ranking es una heurística práctica, no un simulador de combate: ordena por 
 
 Clona el repositorio y abre `tolltip.html` en el navegador.
 
-Necesitas conexión a internet para las fuentes de Google y los tooltips de EVOWOW. La página funciona sin servidor local.
+Solo necesitas conexión a internet para los tooltips de EVOWOW; las fuentes se incluyen en local. La página funciona sin servidor local.
 
 ## Generar desde el código
 
@@ -64,8 +65,9 @@ Requisitos:
 - Playwright + Chromium para la prueba de humo
 
 ```bash
-npm install
-python -m pip install playwright
+npm ci
+python -m pip install -r requirements.txt
+python -m playwright install chromium
 python -m playwright install chromium
 
 python scripts/fetch_raw.py
@@ -90,6 +92,9 @@ python tests/spec_weights.py
 python tests/features.py
 python tests/reference_sets.py
 python tests/reference_ids.py
+python tests/extras.py
+python tests/ux.py
+python tests/run_all.py
 ```
 
 `build_page.py` ejecuta `npm run build` con Vite y escribe la página autocontenida `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis_ids.json` (por ID, Icy Veins + Wowhead) e informa de aciertos y coincidencias exactas; `--min=497` exige el gate actual y `--strict` es el objetivo final de 518/518. `sockets.py` comprueba los colores y el socket meta, `gems.py` la activación de la meta-gema y el bonus de socket, y `optimizer.py` la búsqueda en haz, el rendimiento (<750 ms) y que el nivel 79 no la use. `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `features.py` cubre gemas/sockets, bonus de set y reliquias curadas; `reference_sets.py` valida las piezas de los sets T10; `reference_ids.py` valida la referencia por ID; `spec_weights.py` comprueba las 31 especialidades a nivel 80; `fresh80.py` comprueba el filtro Recién 80 en las 31 especialidades y ambas facciones, además del checkbox, la ruta, la persistencia y su desactivación en PvP/«Con bandas».
@@ -98,6 +103,7 @@ python tests/reference_ids.py
 
 ```text
 .
+├── assets/fonts/          # Cinzel y Source Sans 3 incluidas (OFL)
 ├── data/                  # gear_data.json generado (los datos crudos se ignoran)
 ├── docs/                  # capturas para el README
 ├── legacy/                # implementación anterior, solo reliquias
@@ -143,7 +149,7 @@ Este proyecto no está afiliado a Blizzard Entertainment. World of Warcraft y Wr
 - Algunos slots de niveles muy bajos pueden no tener objetos con estadísticas conocidas.
 - La página muestra el mejor objeto y alternativas por slot, no todos los objetos. Un legendario solo aparece si puntúa para la especialidad, nivel, facción, modo, fase y filtro PvP seleccionados. Los legendarios de nivel bajo o que dependen de una combinación no modelada pueden no aparecer.
 - Las combinaciones de armas cubren Frost Death Knight con dos armas de una mano y Titan's Grip de Fury (dos armas a dos manos). Otros setups especiales siguen simplificados, así que aún pueden faltar algunos objetos BiS.
-- La página final incluye los datos incrustados, así que `tolltip.html` pesa alrededor de 6,3 MB.
+- La página final incluye los datos incrustados y comprime su código con gzip; `tolltip.html` pesa alrededor de 1,4 MB (el build de Vite sin comprimir ronda los 6,6 MB).
 
 ## Contribuir
 

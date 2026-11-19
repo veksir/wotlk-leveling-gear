@@ -38,6 +38,7 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 - **Optional heirlooms**: all 35 leveling heirlooms have exact stats per level and armor-type changes before level 40. They stay out of recommendations unless you mark “Include leveling heirlooms I already own”, because their vendors require level-80 currency.
 - **EVOWOW tooltips** for every item.
 - **Responsive layout** and persisted selection (`localStorage`).
+- **Self-contained, compressed build**: the generated page inlines the data and compresses its JavaScript with gzip, and Cinzel / Source Sans 3 are bundled locally.
 - **No backend** and no build step required to view the page.
 
 ## How it works
@@ -53,7 +54,7 @@ The ranking is a practical heuristic, not a combat simulator: it sorts by a weig
 
 Clone the repository and open `tolltip.html` in a browser.
 
-Internet access is required for Google Fonts and EVOWOW item tooltips. The page itself works without a local server.
+Internet access is required only for EVOWOW item tooltips; the fonts are bundled locally. The page itself works without a local server.
 
 ## Build from source
 
@@ -64,8 +65,9 @@ Requirements:
 - Playwright + Chromium for the smoke test
 
 ```bash
-npm install
-python -m pip install playwright
+npm ci
+python -m pip install -r requirements.txt
+python -m playwright install chromium
 python -m playwright install chromium
 
 python scripts/fetch_raw.py
@@ -90,6 +92,9 @@ python tests/spec_weights.py
 python tests/features.py
 python tests/reference_sets.py
 python tests/reference_ids.py
+python tests/extras.py
+python tests/ux.py
+python tests/run_all.py
 ```
 
 `build_page.py` runs `npm run build` with Vite and writes the single-file `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` audits all 31 level-80 specializations against the Icy Veins BiS lists in `tests/reference_bis_ids.json` (ID-based, Icy Veins + Wowhead) and reports hit/exact rates; `--min=497` enforces the current gate and `--strict` is the final 518/518 target. `sockets.py` covers socket colors and meta sockets, `gems.py` covers meta-gem activation and socket bonuses, and `optimizer.py` covers the beam search, performance (<750 ms), and that level 79 does not use it. `heirlooms.py` covers level scaling, off-spec filtering, two-handed weapons, and relic search; `features.py` covers gems/sockets, set bonuses, and curated relics; `reference_sets.py` validates the T10 set pieces; `reference_ids.py` validates the ID-based reference; `spec_weights.py` checks all 31 level-80 specializations; `fresh80.py` checks the Fresh 80 filter across all 31 specializations and both factions, plus the checkbox, route, persistence, and disabling in PvP/With raids.
@@ -98,6 +103,7 @@ python tests/reference_ids.py
 
 ```text
 .
+├── assets/fonts/          # bundled Cinzel and Source Sans 3 (OFL)
 ├── data/                  # generated gear_data.json (raw data is ignored)
 ├── docs/                  # README screenshots
 ├── legacy/                # previous heirloom-only implementation
@@ -142,7 +148,7 @@ This project is not affiliated with Blizzard Entertainment. World of Warcraft an
 - Some very low-level slots may legitimately have no item with known stats.
 - The page shows the best item plus alternatives per slot, not every item. A legendary only appears if it ranks for the selected spec, level, faction, mode, phase, and PvP filter. Low-level legendaries or ones that depend on an unmodeled setup may not appear.
 - Weapon combinations cover dual-wield Frost Death Knights and Fury's Titan's Grip (two two-handed weapons). Other special setups remain simplified, so some BiS items may still be missing.
-- The generated page embeds the item data, so `tolltip.html` is intentionally large (around 6.3 MB).
+- The generated page embeds the item data and gzip-compresses its code; `tolltip.html` is about 1.4 MB (the uncompressed Vite build is about 6.6 MB).
 
 ## Contributing
 
