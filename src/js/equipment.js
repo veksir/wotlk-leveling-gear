@@ -1,6 +1,6 @@
 import { DATA } from "./data.js";
 import { state, gearItem, itemHands, equippedMap, currentSpec, titanGrip, equippedMainTwoHand, specSlots, poolOfSlot, levelItem } from "./core.js";
-import { ENG, GEAR_ITEMS, ARMOR_KEYS, itemFactions, availableLevel, armorFactor, softArmor, scoreParts, weightsFor } from "./engine.js";
+import { ENG, GEAR_ITEMS, ARMOR_KEYS, itemFactions, availableLevel, armorFactor, softArmor, scoreParts, weightsFor, withSuffix } from "./engine.js";
 
 const SHIELD_CLASSES = ["Warrior", "Paladin", "Shaman"];
 const DW_CLASSES = ["Rogue", "Warrior", "Death Knight", "Hunter", "Shaman"];
@@ -38,6 +38,7 @@ function equipPools(it, spec, level) {
   return [];
 }
 function evalEquip(it, spec, w, o) {
+  if (it.re) it = withSuffix(it, w);
   if (it.cl && !it.cl.includes(spec.cls)) return null;
   const fs = itemFactions(it);
   if (!(fs.has("both") || fs.has(o.faction))) return null;
