@@ -389,6 +389,14 @@ function renderNav() {
   $("advState").textContent = act.join(" · ");
   $("deck").classList.toggle("collapsed", state.deckCollapsed);
 }
+STORE.rank = "wotlk-gear-rank-open";
+$("rankDetails").open = load(STORE.rank, "0") === "1";
+$("rankDetails").addEventListener("toggle", () => save(STORE.rank, $("rankDetails").open ? "1" : "0"));
+$("routeSummary").addEventListener("click", (e) => {
+  if (e.target.id !== "openRank") return;
+  $("rankDetails").open = true;
+  $("bisGrid").scrollIntoView({ behavior: "smooth", block: "start" });
+});
 STORE.adv = "wotlk-gear-adv-open";
 $("advOpts").open = load(STORE.adv, "1") === "1";
 $("advOpts").addEventListener("toggle", () => save(STORE.adv, $("advOpts").open ? "1" : "0"));

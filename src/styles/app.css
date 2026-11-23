@@ -546,6 +546,12 @@
   .up-done { margin: 8px 0 0; font-size: 12.5px; color: #a7e0b8; }
   .rank-details > summary { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 14px 16px; cursor: pointer; font-family: Cinzel, Georgia, serif; font-size: 17px; font-weight: 600; color: var(--text); }
   .rank-intro { margin: 0; padding: 0 16px 8px; color: var(--muted); font-size: 12.5px; }
+  .bis-fx-note { display: block; margin-top: 2px; color: #7d9bab; font-size: 11.5px; }
+  .gem-ench-cell { display: grid; gap: 2px; }
+  .up-mine { display: inline-block; padding: 0 6px; border-radius: 4px; background: #7fd49a; color: #06210f; font-size: 11px; font-weight: 800; }
+  .up-out { color: #7d9bab; font-size: 11px; }
+  .up-chip { display: inline-flex; gap: 4px; align-items: center; margin: 2px 6px 2px 0; padding: 1px 8px; border-radius: 999px; background: rgba(127, 212, 154, .12); color: #c3e8d0; font-size: 12px; }
+  .route-summary .mini-btn { margin-left: 8px; }
   .bis-empty { color: var(--muted); font-size: 12px; padding: 4px 0; }
   @media (max-width: 680px) { .bis-grid { grid-template-columns: 1fr; padding: 9px; } .gem-ench { grid-column: auto; } }
   a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible, textarea:focus-visible { outline: 2px solid var(--ice); outline-offset: 2px; border-radius: 4px; }

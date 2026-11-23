@@ -147,7 +147,7 @@ const gemColorName = (c) => (GEM_COLORS[c] || [c, c])[state.lang === "en" ? 1 : 
 
 const gemLink = (g) => '<a class="gem-link" href="https://wotlk.evowow.com/?item=' + g.id + '" target="_blank" rel="noopener">' + esc(g.name) + "</a>";
 
-const enchLink = (g) => '<a class="gem-link" href="https://wotlk.evowow.com/?' + (g.id && g.id < 30000 ? "spell" : "item") + "=" + g.id + '" target="_blank" rel="noopener">' + esc(g.name) + "</a>";
+const enchLink = (g) => (g.kind === "item" && g.id ? '<a class="gem-link" href="https://wotlk.evowow.com/?item=' + g.id + '" target="_blank" rel="noopener">' + esc(g.name) + "</a>" : '<a class="gem-link" href="https://wotlk.evowow.com/?search=' + encodeURIComponent(g.name) + '" target="_blank" rel="noopener">' + esc(g.name) + "</a>");
 
 const refFor = () => (ENG.refGems || {})[state.cls + "|" + state.spec] || null;
 
@@ -166,6 +166,39 @@ function gemPlan(it, ref, w) {
 }
 
 const gemColorOf = (ref, g) => (ref.red.includes(g) ? "red" : ref.yellow.includes(g) ? "yellow" : ref.blue.includes(g) ? "blue" : "prismatic");
+// Kit de armadura de peletería (+18 Aguante): alternativa para tanques en pecho y pies (ID de objeto confirmado en Wowhead).
+
+const ENCH_EXTRA = [{ name: "Heavy Borean Armor Kit", id: 38376, kind: "item", slots: ["chest", "feet"], st: { sta: 18 }, stats: "+18 Stamina", kit: true }];
+
+const sameStatKeys = (a, b) => { const ka = Object.keys(a.st || {}).sort().join(), kb = Object.keys(b.st || {}).sort().join(); return !!ka && ka === kb; };
+
+const statTotal = (g) => Object.values(g.st || {}).reduce((a, v) => a + v, 0);
+
+function enchChoices(slot, ref, spec) {
+  const prim = ref.enchants[slot];
+  if (!prim) return null;
+  const extras = spec.role === "tank" ? ENCH_EXTRA.filter((x) => x.slots.includes(slot)) : [];
+  const others = (prim.alts || []).concat(extras).filter((x, i, arr) => x.name !== prim.name && arr.findIndex((y) => y.name === x.name) === i);
+  let best = prim;
+  others.forEach((x) => { if (sameStatKeys(best, x) && statTotal(x) > statTotal(best)) best = x; });
+  const key = (x) => (sameStatKeys(best, x) ? statTotal(x) : -1);
+  return { prim, best, others: [prim].concat(others).filter((x) => x !== best).sort((a, b) => key(b) - key(a)) };
+}
+
+function enchHtml(slot, ref, spec, w, compact) {
+  const c = enchChoices(slot, ref, spec);
+  if (!c) return "";
+  const stat = (g) => (g.stats ? " " + noteText(g.stats) : "");
+  const val = (g) => enchValueText(g, spec, w);
+  let h = enchLink(c.best) + ' <span class="bis-fx-st">' + esc(noteText(c.best.stats || "")) + val(c.best) + "</span>";
+  const short = (g) => noteText(g.stats || "").replace(/\s*\(.*$/, "");
+  if (c.best !== c.prim) {
+    const stName = partLabel(Object.keys(c.best.st)[0]).toLowerCase(), why = /speed/i.test(c.prim.stats || "") ? L("por la velocidad", "for the speed") : L("por su efecto extra", "for its extra effect");
+    h += '<span class="bis-fx-note">' + L("La guía de Icy Veins recomienda " + c.prim.name + " (" + short(c.prim) + ") " + why + "; esta opción da más " + stName + ".", "The Icy Veins guide recommends " + c.prim.name + " (" + short(c.prim) + ") " + why + "; this option gives more " + stName + ".") + "</span>";
+  }
+  if (!compact && c.others.length) h += '<span class="bis-fx-note">' + L("Otras opciones: ", "Other options: ") + c.others.map((x) => esc(x.name) + (short(x) ? " (" + esc(short(x)) + ")" : "")).join(" · ") + "</span>";
+  return h;
+}
 
 function bisFx(r) {
   const ref = refFor(), e = r.list[0];
@@ -181,15 +214,14 @@ function bisFx(r) {
     const how = !plan || !bonusTxt ? "" : plan.respect ? ' <span class="bis-fx-st">· ' + L("respeta los colores: bonus ", "match colors: bonus ") + esc(bonusTxt) + "</span>" : ' <span class="bis-fx-st">· ' + L("ignora el bonus (", "ignore the bonus (") + esc(bonusTxt) + ")</span>";
     if (gems.length) parts.push('<div class="bis-fx-row"><b>' + t("gemSockets") + "</b> " + gems.join(" · ") + how + "</div>");
   }
-  const en = ref.enchants[r.slot];
-  if (en) parts.push('<div class="bis-fx-row"><b>' + t("gemEnchant") + "</b> " + enchLink(en) + ' <span class="bis-fx-st">' + esc(noteText(en.stats)) + enchValueText(en, spec, w) + "</span></div>");
+  if (ref.enchants[r.slot]) parts.push('<div class="bis-fx-row"><b>' + t("gemEnchant") + "</b> " + enchHtml(r.slot, ref, spec, w, true) + "</div>");
   return parts.length ? '<div class="bis-fx">' + parts.join("") + "</div>" : "";
 }
 
 function enchValueText(en, spec, w) {
   const total = Object.entries(en.st || {}).reduce((a, [k, v]) => a + v * (w[k] || 0), 0), main = w[spec.primary] || 0;
   if (!total || !main) return "";
-  return " · ≈ " + Math.round(total / main) + " " + partLabel(spec.primary);
+  return " · " + L("equivale a ≈ ", "worth ≈ ") + Math.round(total / main) + " " + partLabel(spec.primary);
 }
 
 function renderGems() {
@@ -200,7 +232,7 @@ function renderGems() {
   const metaList = ref.meta ? [ref.meta] : [];
   const slotsOrder = ["head", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet", "mainhand", "offhand", "ranged"];
   const labels = SLOT_LABEL[state.lang] || SLOT_LABEL.es;
-  const ench = slotsOrder.filter((k) => ref.enchants[k]).map((k) => "<li><span class=\"gem-slot\">" + esc(labels[k] || k) + "</span><div>" + enchLink(ref.enchants[k]) + '<span class="bis-sub">' + esc(noteText(ref.enchants[k].stats)) + enchValueText(ref.enchants[k], currentSpec(), weightsFor(currentSpec(), false, 80)) + "</span></div></li>").join("");
+  const ench = slotsOrder.filter((k) => ref.enchants[k]).map((k) => "<li><span class=\"gem-slot\">" + esc(labels[k] || k) + '</span><div class="gem-ench-cell">' + enchHtml(k, ref, currentSpec(), weightsFor(currentSpec(), false, 80), false) + "</div></li>").join("");
   const rule = state.lang === "en" ? ref.ruleEn || "" : ref.rule;
   box.innerHTML = '<div class="bis-grid">' + col(t("gemMeta"), metaList) + col(gemColorName("red"), ref.red) + col(gemColorName("yellow"), ref.yellow) + col(gemColorName("blue"), ref.blue) +
     '<article class="bis-card gem-ench"><h3>' + t("gemEnchants") + "</h3><ol class=\"gem-list\">" + ench + "</ol></article></div>" +
@@ -217,6 +249,11 @@ const ROUTE_MIN_GAIN = 0.03;
 const rowSlots = (r) => (r.pair ? [r.slot, r.slot.slice(0, -1) + "2"] : [r.slot]);
 
 const rowPool = (r) => (r.slot === "relic" ? "ranged" : r.slot.replace(/\d$/, ""));
+
+function equippedMark(r, it) {
+  const i = r.list.findIndex((e) => e.it.n === it.n);
+  return ' <span class="up-mine">✓ ' + L("lo llevas", "equipped") + "</span>" + (i >= 0 ? " " + rankPill(bisLabel(i, r.pair)) : ' <span class="up-out">' + L("fuera del top", "outside the top") + "</span>");
+}
 
 function rowCurrent(r, spec, w) {
   const eq = equippedMap(), items = rowSlots(r).map((sl) => (eq[sl] && gearItem(eq[sl])) || null);
@@ -272,13 +309,14 @@ function renderRoute(data, ph) {
   $("routeSummary").innerHTML = hasGear
     ? L("En <b>" + esc(stage) + "</b> tu equipo actual cubre un <b>" + pct + " %</b> del BiS. Tienes mejoras posibles en <b>" + withUps.length + "</b> de " + rows.length + " slots; empieza por los de arriba (mayor mejora).", "In <b>" + esc(stage) + "</b> your current gear covers <b>" + pct + "%</b> of the BiS. You have possible upgrades in <b>" + withUps.length + "</b> of " + rows.length + " slots; start with the ones on top (biggest upgrade).")
     : L("Aún no indicaste tu equipo (paso 1). Esto es lo primero que te conviene conseguir en cada slot en <b>" + esc(stage) + "</b>.", "You have not entered your gear yet (step 1). This is what to get first in each slot in <b>" + esc(stage) + "</b>.");
+  if (hasGear) $("routeSummary").insertAdjacentHTML("beforeend", ' <button type="button" class="mini-btn" id="openRank">' + L("Ver el ranking con tus piezas marcadas", "See the ranking with your pieces marked") + "</button>");
   const shown = hasGear ? 3 : 2;
   $("routeUpgrades").innerHTML = withUps.map((x) => {
-    const have = x.cur.hasAny ? L("Llevas: ", "You wear: ") + x.cur.items.map((it) => esc(it.n) + " (iLvl " + it.ilvl + ")").join(" · ") : L("Sin pieza", "Nothing equipped");
+    const have = x.cur.hasAny ? L("Llevas: ", "You wear: ") + x.cur.items.map((it) => esc(it.n) + " (iLvl " + it.ilvl + ")" + equippedMark(x.r, it)).join(" · ") : L("Sin pieza", "Nothing equipped");
     const head = x.ups.slice(0, shown), rest = hasGear ? x.ups.slice(shown, 30) : [];
     return '<div class="up-row"><div class="up-head"><span class="up-slot">' + esc(x.label) + '</span><span class="up-have">' + have + '</span></div><ul class="up-list">' + head.map((u) => upLine(u, x.r, hasGear)).join("") + "</ul>" +
       (rest.length ? '<details class="up-more"><summary>' + L("Ver " + rest.length + " mejoras más", "See " + rest.length + " more upgrades") + '</summary><ul class="up-list">' + rest.map((u) => upLine(u, x.r, hasGear)).join("") + "</ul></details>" : "") + "</div>";
-  }).join("") + (hasGear && without.length ? '<p class="up-done">✓ ' + L("Sin mejoras en esta etapa: ", "No upgrades in this stage: ") + esc(without.map((x) => x.label).join(", ")) + ".</p>" : "");
+  }).join("") + (hasGear && without.length ? '<div class="up-done">✓ ' + L("Sin mejoras en esta etapa (ya llevas lo mejor): ", "No upgrades in this stage (you already wear the best): ") + without.map((x) => '<span class="up-chip">' + esc(x.label) + (x.cur.items[0] ? equippedMark(x.r, x.cur.items[0]).replace(/<span class="up-mine">.*?<\/span>/, "") : "") + "</span>").join(" ") + "</div>" : "");
   renderPlan(withUps, hasGear);
 }
 
@@ -547,4 +585,4 @@ function renderBis(spec) {
 }
 /* ---------- Pesos de estadísticas editables ---------- */
 
-export { BIS_PHASES, BIS_F80, BIS_TABS, bisTabShort, bisTabLabel, bisOpts, BIS_ALTS, bisCache, bisCtx, bisRows, bisGuideFor, applyRefBis, bisData, bisCompletes, bisPairLabel, bisOwned, GEM_COLORS, ES_MARK, NOTE_EN, noteText, gemColorName, gemLink, enchLink, refFor, gemPlan, gemColorOf, bisFx, enchValueText, renderGems, bisScore, ROUTE_MIN_GAIN, rowSlots, rowPool, rowCurrent, rowUpgrades, upLine, gameId, renderRoute, sourceGroup, renderPlan, bisLater, bisLaterHtml, bisCard, GEM_FAMILY, gemColors, colorWord, colorNoun, metaPlan, BIS_FIRST, bisItemStatus, bisStatusText, bisFindShow, bisFindMatches, bisFindSearch, renderBisFind, renderBis };
+export { BIS_PHASES, BIS_F80, BIS_TABS, bisTabShort, bisTabLabel, bisOpts, BIS_ALTS, bisCache, bisCtx, bisRows, bisGuideFor, applyRefBis, bisData, bisCompletes, bisPairLabel, bisOwned, GEM_COLORS, ES_MARK, NOTE_EN, noteText, gemColorName, gemLink, enchLink, refFor, gemPlan, gemColorOf, ENCH_EXTRA, sameStatKeys, statTotal, enchChoices, enchHtml, bisFx, enchValueText, renderGems, bisScore, ROUTE_MIN_GAIN, rowSlots, rowPool, equippedMark, rowCurrent, rowUpgrades, upLine, gameId, renderRoute, sourceGroup, renderPlan, bisLater, bisLaterHtml, bisCard, GEM_FAMILY, gemColors, colorWord, colorNoun, metaPlan, BIS_FIRST, bisItemStatus, bisStatusText, bisFindShow, bisFindMatches, bisFindSearch, renderBisFind, renderBis };
