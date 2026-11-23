@@ -371,9 +371,13 @@ function bracketFor(level) {
 function qColor(q) { return QUALITY_COLOR[q] || "#9fb9c8"; }
 
 
+const ICON_LOCAL = typeof ICON_DATA !== "undefined" ? ICON_DATA : {};
+
+const iconSrc = (name) => (ICON_LOCAL[name] ? "data:image/jpeg;base64," + ICON_LOCAL[name] : "https://wotlk.evowow.com/static/images/wow/icons/medium/" + name + ".jpg");
+
 function iconHtml(item) {
   if (!item || !item.i) return '<div class="item-icon placeholder">?</div>';
-  return '<img class="item-icon" src="https://wotlk.evowow.com/static/images/wow/icons/medium/' + esc(item.i) + '.jpg" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">';
+  return '<img class="item-icon" src="' + esc(iconSrc(item.i)) + '" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">';
 }
 
 
@@ -501,6 +505,8 @@ function persist() {
 }
 
 
+const eqNorm = (n) => String(n || "").replace(/[\u2018\u2019]/g, "'").trim().toLowerCase();
+
 let refreshTimer = null;
 
 function scheduleRefresh() {
@@ -517,4 +523,4 @@ function scheduleRefresh() {
   }, 600);
 }
 
-export { runtime, STORE, I18N, SLOT_LABEL, STAT_LABEL, STATS_EN, FACTION_HEIRLOOM, $, classesEl, specsEl, factionsEl, slotsEl, levelInput, levelRange, levelNumber, bracketLabel, classNote, statList, statsHint, dungeonList, heirloomPanel, heirloomList, slotCount, load, save, esc, state, STAT_ORDER, QUALITY_COLOR, allSpecsFor, specFor, clampLevel, t, applyLanguage, armorText, bracketName, bracketAdvice, bracketFor, qColor, iconHtml, itemLink, statLine, ITEM_URL, L, gearItem, itemHands, levelItem, zoneOf, specSlots, poolOfSlot, gearKey, equippedMap, currentSpec, titanGrip, equippedMainTwoHand, clearLootUndo, renderLootUndo, pctDiff, renderSeg, persist, refreshTimer, scheduleRefresh };
+export { runtime, STORE, I18N, SLOT_LABEL, STAT_LABEL, STATS_EN, FACTION_HEIRLOOM, $, classesEl, specsEl, factionsEl, slotsEl, levelInput, levelRange, levelNumber, bracketLabel, classNote, statList, statsHint, dungeonList, heirloomPanel, heirloomList, slotCount, load, save, esc, state, STAT_ORDER, QUALITY_COLOR, allSpecsFor, specFor, clampLevel, t, applyLanguage, armorText, bracketName, bracketAdvice, bracketFor, qColor, ICON_LOCAL, iconSrc, iconHtml, itemLink, statLine, ITEM_URL, L, gearItem, itemHands, levelItem, zoneOf, specSlots, poolOfSlot, gearKey, equippedMap, currentSpec, titanGrip, equippedMainTwoHand, clearLootUndo, renderLootUndo, pctDiff, renderSeg, persist, eqNorm, refreshTimer, scheduleRefresh };

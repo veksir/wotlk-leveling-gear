@@ -1,8 +1,8 @@
 import { DATA } from "./data.js";
-import { state, $, t, L, esc, currentSpec, specSlots, equippedMap, gearItem, itemLink, persist, renderSeg, scheduleRefresh, SLOT_LABEL, levelItem } from "./core.js";
-import { ENG, computeGear, weightsFor } from "./engine.js";
+import { state, $, t, L, esc, currentSpec, specSlots, equippedMap, gearItem, itemLink, persist, renderSeg, scheduleRefresh, SLOT_LABEL, levelItem, eqNorm, iconSrc, STORE, load, save } from "./core.js";
+import { ENG, computeGear, weightsFor, freshAccessible } from "./engine.js";
 import { evalEquip } from "./equipment.js";
-import { averageItemLevel, fmtIlvl } from "./heroic.js";
+import { averageItemLevel, fmtIlvl, isHeroicOnlyDrop, heroicRequirement } from "./heroic.js";
 import { partLabel, badgeHtml, obtainInfo, bisLabel, rankPill, diffLabel, currencyLabel } from "./format.js";
 const BIS_PHASES = [
   { key: "PR", scope: "noraid", phase: 1, es: "Pre-banda: añade las mazmorras heroicas (entra con iLvl medio 180, o 200/219 en las más difíciles), reputaciones, profesiones y emblemas, sin entrar a banda.", en: "Pre-raid: adds heroic dungeons (enter at average item level 180, or 200/219 for the hardest), reputations, professions and emblems, without raiding." },
@@ -48,8 +48,13 @@ function bisRows(spec, gear) {
   return rows;
 }
 
-function applyRefBis(rows) {
-  const ref = (ENG.refBis || {})[state.cls + "|" + state.spec];
+const bisGuideFor = (ph) => {
+  const key = state.cls + "|" + state.spec;
+  return ((ENG.refBisPhases || {})[key] || {})[ph.key] || (ph.key === "T10" ? (ENG.refBis || {})[key] : null) || null;
+};
+
+function applyRefBis(rows, ph) {
+  const ref = bisGuideFor(ph);
   if (!ref) return;
   rows.forEach((r) => {
     const ids = ref[r.pair ? (r.slot === "ring1" ? "ring" : "trinket") : r.slot === "relic" ? "ranged" : r.slot];
@@ -77,7 +82,7 @@ function bisData(ph) {
     ? { level: 80, faction: state.faction, scope: "noraid", phase: 0, pvp: false, fresh: true, assumeAvg: 0 }
     : { level: 80, faction: state.faction, scope: ph.scope, phase: ph.phase, pvp: false, fresh: false, noHeroicGate: true });
   const rows = bisRows(spec, gear);
-  if (ph.key === "T10" && state.bisGuide) applyRefBis(rows);
+  if (state.bisGuide) applyRefBis(rows, ph);
   const ranks = {};
   rows.forEach((r) => r.list.forEach((e, i) => {
     const prev = ranks[e.it.n];
@@ -136,7 +141,7 @@ const gemColorName = (c) => (GEM_COLORS[c] || [c, c])[state.lang === "en" ? 1 : 
 
 const gemLink = (g) => '<a class="gem-link" href="https://wotlk.evowow.com/?item=' + g.id + '" target="_blank" rel="noopener">' + esc(g.name) + "</a>";
 
-const enchLink = (g) => '<a class="gem-link" href="https://wotlk.evowow.com/?search=' + encodeURIComponent(g.name) + '" target="_blank" rel="noopener">' + esc(g.name) + "</a>";
+const enchLink = (g) => '<a class="gem-link" href="https://wotlk.evowow.com/?' + (g.id && g.id < 30000 ? "spell" : "item") + "=" + g.id + '" target="_blank" rel="noopener">' + esc(g.name) + "</a>";
 
 const refFor = () => (ENG.refGems || {})[state.cls + "|" + state.spec] || null;
 
@@ -240,7 +245,7 @@ function bisCard(r, data) {
   const owned = bisOwned(r);
   const items = r.list.map((e, i) => {
     const lab = bisLabel(i, r.pair), isAlt = lab.startsWith("ALT");
-    const icon = e.it.i ? '<img class="bis-ic" src="https://wotlk.evowow.com/static/images/wow/icons/medium/' + esc(e.it.i) + '.jpg" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">' : '<span class="bis-ic"></span>';
+    const icon = e.it.i ? '<img class="bis-ic" src="' + esc(iconSrc(e.it.i)) + '" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">' : '<span class="bis-ic"></span>';
     const have = owned.has(e.it.n);
     return '<li' + (have ? ' class="owned"' : "") + ">" + rankPill(lab) + icon + "<div>" + itemLink(e.id, false, "bis-name") + (e.curated ? '<span class="bis-guide-tag" title="Icy Veins">' + L("guía", "guide") + "</span>" : "") + (have ? '<span class="bis-have">✓ ' + t("bisHave") + "</span>" : "") + (isAlt ? bisCompletes(e, data) : "") +
       '<span class="bis-sub">iLvl ' + e.it.ilvl + " · " + badgeHtml(obtainInfo(e.it)) + "</span></div></li>";
@@ -248,18 +253,84 @@ function bisCard(r, data) {
   return '<article class="bis-card"><h3>' + esc(bisPairLabel(r.slot)) + "</h3>" + (items ? "<ol>" + items + "</ol>" + bisFx(r) : '<div class="bis-empty">' + t("bisEmptySlot") + "</div>") + "</article>";
 }
 
+const GEM_FAMILY = [[/Cardinal Ruby/i, ["red"]], [/Majestic Zircon/i, ["blue"]], [/King's Amber/i, ["yellow"]], [/Dreadstone/i, ["red", "blue"]], [/Ametrine/i, ["red", "yellow"]], [/Eye of Zul/i, ["yellow", "blue"]], [/Nightmare Tear/i, ["red", "yellow", "blue"]]];
+
+const gemColors = (name) => { const f = GEM_FAMILY.find(([re]) => re.test(name || "")); return f ? f[1] : []; };
+
+const colorWord = (c, n) => ({ red: ["roja", "rojas", "red"], yellow: ["amarilla", "amarillas", "yellow"], blue: ["azul", "azules", "blue"] }[c] || [c, c, c]);
+
+const colorNoun = (c, n) => { const w = colorWord(c, n); return state.lang === "en" ? w[2] : n > 1 ? w[1] : w[0]; };
+/* Plan de meta-gema del set BiS: parte de las gemas recomendadas por pieza, cuenta los colores REALES de cada gema
+   (una morada cuenta como roja y azul; el Nightmare Tear, como las tres) y, si falta alguno, cambia las gemas que
+   menos valor pierdan, cuidando de no perder el bonus de socket donde ya se aprovechaba. */
+
+function metaPlan(data) {
+  const spec = currentSpec(), G = (ENG.gems || {})[state.cls + "|" + state.spec], M = G && G.meta, ref = refFor();
+  if (!M || !M.requires || !ref) return "";
+  const w = weightsFor(spec, false, 80);
+  if (!w.gc || !(w.gc.meta > 0) || !data.rows.some((r) => r.list[0] && r.list[0].it.mt)) return "";
+  const labels = SLOT_LABEL[state.lang] || SLOT_LABEL.es;
+  const gv = (g) => Object.entries(g.st || {}).reduce((a, [k, v]) => a + v * (w[k] || 0), 0);
+  const socks = [];
+  data.rows.forEach((r) => r.list.slice(0, r.pair ? 2 : 1).forEach((e) => {
+    const plan = gemPlan(e.it, ref, w);
+    if (!plan) return;
+    const bonus = Object.entries(e.it.sb || {}).reduce((a, [k, v]) => a + v * (w[k] || 0), 0);
+    (e.it.sg || []).forEach((c, i) => socks.push({ slot: r.pair ? bisPairLabel(r.slot) : labels[r.slot] || r.slot, name: e.it.n, c, gem: plan.gems[i], bonus: plan.respect ? bonus / Math.max(1, (e.it.sg || []).length) : 0, swap: null }));
+  }));
+  if (!socks.length) return "";
+  const have = { red: 0, yellow: 0, blue: 0 };
+  socks.forEach((x) => gemColors(x.gem && x.gem.name).forEach((c) => { have[c]++; }));
+  const need = {};
+  Object.entries(M.requires).forEach(([c, n]) => { need[c] = Math.max(0, n - have[c]); });
+  const pool = [].concat(ref.red, ref.yellow, ref.blue).filter((g, i, a) => a.findIndex((h) => h.name === g.name) === i);
+  const tear = ENG.metaGems && ENG.metaGems.wildcard ? { id: ENG.metaGems.wildcard.id, name: ENG.metaGems.wildcard.name, st: ENG.metaGems.wildcard.st } : null;
+  if (tear) pool.push(tear);
+  let tearUsed = false;
+  const unmet = () => Object.values(need).reduce((a, n) => a + n, 0);
+  const fits = (g, c) => c === "prismatic" || gemColors(g.name).includes(c);
+  while (unmet() > 0) {
+    let best = null;
+    socks.forEach((x) => {
+      if (x.swap) return;
+      pool.forEach((g) => {
+        if (g === tear && tearUsed) return;
+        const gain = gemColors(g.name).filter((c) => need[c] > 0).length;
+        if (!gain) return;
+        const loss = Math.max(0, gv(x.gem || {}) - gv(g)) + (x.bonus && !fits(g, x.c) ? x.bonus : 0);
+        const score = loss / gain;
+        if (!best || score < best.score - 1e-9 || (Math.abs(score - best.score) < 1e-9 && gain > best.gain)) best = { x, g, gain, score };
+      });
+    });
+    if (!best) break;
+    best.x.swap = best.g;
+    if (best.g === tear) tearUsed = true;
+    gemColors(best.g.name).forEach((c) => { if (need[c] > 0) need[c]--; });
+  }
+  const reqTxt = Object.entries(M.requires).map(([c, n]) => n + " " + colorNoun(c, n)).join(" + ");
+  const head = "<b>" + L("Meta-gema", "Meta gem") + ": " + esc(M.name) + "</b> — " + L("requiere ", "requires ") + esc(reqTxt) + ". ";
+  const swaps = socks.filter((x) => x.swap);
+  if (!swaps.length) return head + L("Con las gemas recomendadas de este set ya se activa, sin cambios.", "The recommended gems of this set already activate it, no changes needed.");
+  const groups = new Map();
+  swaps.forEach((x) => { const k = x.swap.name; if (!groups.has(k)) groups.set(k, { g: x.swap, where: [] }); groups.get(k).where.push(x.slot + " (" + x.name + ")"); });
+  const colorsOf = (g) => gemColors(g.name).map((c) => colorNoun(c, 1)).join("/");
+  const steps = [...groups.values()].map(({ g, where }) => where.length + " × " + g.name + (g.name === (tear && tear.name) ? "" : " (" + colorsOf(g) + ")") + " " + L("en ", "in ") + where.join(", "));
+  return head + L("Para activarla cambia ", "To activate it, swap in ") + esc(steps.join(" · ")) + (unmet() > 0 ? " " + L("(con las gemas de la guía no llega a cubrir todo el requisito).", "(the guide's gems cannot cover the whole requirement).") : ".");
+}
+
 function renderBis(spec) {
   const ph = BIS_TABS.find((p) => p.key === state.bisPhase) || BIS_TABS[0];
   renderSeg($("bisTabs"), BIS_TABS.map((p) => ({ value: p.key, label: bisTabLabel(p) })), ph.key, (v) => { state.bisPhase = v; persist(); renderBis(currentSpec()); scheduleRefresh(); });
   $("bisSpec").textContent = state.cls + " · " + state.spec;
-  $("bisPhaseNote").textContent = ph[state.lang === "en" ? "en" : "es"] + " " + (ph.key === "T10" ? (state.bisGuide && (ENG.refBis || {})[state.cls + "|" + state.spec] ? L("BiS según la guía de Icy Veins; las alternativas se completan con el cálculo de la herramienta.", "BiS from the Icy Veins guide; alternatives are filled in by the tool's calculation.") : L("Calculado por el motor de la herramienta.", "Calculated by the tool's engine.")) : ph.key === "F80" ? "" : L("Calculado por el motor (no hay guía de referencia para esta fase).", "Calculated by the engine (no reference guide for this phase)."));
+  const hasGuide = !!bisGuideFor(ph);
+  $("bisPhaseNote").textContent = ph[state.lang === "en" ? "en" : "es"] + " " + (hasGuide ? (state.bisGuide ? L("BiS según la guía de referencia; las alternativas se completan con el cálculo de la herramienta.", "BiS from the reference guide; alternatives are filled in by the tool's calculation.") : L("Calculado por el motor de la herramienta.", "Calculated by the tool's engine.")) : ph.key === "F80" ? "" : L("Calculado por el motor (no hay guía de referencia para esta fase).", "Calculated by the engine (no reference guide for this phase)."));
   if (ph.key === "F80" || ph.key === "PR") {
     const avg = averageItemLevel(spec);
     if (avg != null) $("bisPhaseNote").textContent += " " + L("Tu iLvl medio: ", "Your average item level: ") + fmtIlvl(avg) + ".";
   }
-  $("bisGuideBox").hidden = ph.key !== "T10";
+  $("bisGuideBox").hidden = !hasGuide;
   $("bisGuide").checked = state.bisGuide;
-  $("bisGuideText").textContent = L("Usar la guía de Icy Veins como BiS", "Use the Icy Veins guide as BiS");
+  $("bisGuideText").textContent = L("Usar la guía de referencia como BiS", "Use the reference guide as BiS");
   $("bisLegend").innerHTML = "<span>" + rankPill("BiS") + t("bisLegendBis") + "</span><span>" + rankPill("BiS²") + t("bisLegendBis2") + "</span><span>" + rankPill("ALT1") + "–" + rankPill("ALT" + BIS_ALTS) + t("bisLegendAlt") + "</span>";
   const data = bisData(ph);
   const box = $("bisCaps");
@@ -271,6 +342,9 @@ function renderBis(spec) {
     }).join("") + "<small>" + t("capsNote") + "</small>";
   } else box.hidden = true;
   $("bisGrid").innerHTML = data.rows.map((r) => bisCard(r, data)).join("");
+  const mp = metaPlan(data);
+  $("bisMeta").hidden = !mp;
+  $("bisMeta").innerHTML = mp;
   renderGems();
   renderPlan(data);
   const haveN = data.rows.filter((r) => bisOwned(r).size && r.list.some((e) => bisOwned(r).has(e.it.n))).length;
@@ -278,4 +352,4 @@ function renderBis(spec) {
 }
 /* ---------- Pesos de estadísticas editables ---------- */
 
-export { BIS_PHASES, BIS_F80, BIS_TABS, bisTabLabel, BIS_ALTS, bisCache, bisCtx, bisRows, applyRefBis, bisData, bisCompletes, bisPairLabel, bisOwned, GEM_COLORS, ES_MARK, NOTE_EN, noteText, gemColorName, gemLink, enchLink, refFor, gemPlan, gemColorOf, bisFx, enchValueText, renderGems, bisScore, sourceGroup, renderPlan, bisCard, renderBis };
+export { BIS_PHASES, BIS_F80, BIS_TABS, bisTabLabel, BIS_ALTS, bisCache, bisCtx, bisRows, bisGuideFor, applyRefBis, bisData, bisCompletes, bisPairLabel, bisOwned, GEM_COLORS, ES_MARK, NOTE_EN, noteText, gemColorName, gemLink, enchLink, refFor, gemPlan, gemColorOf, bisFx, enchValueText, renderGems, bisScore, sourceGroup, renderPlan, bisCard, GEM_FAMILY, gemColors, colorWord, colorNoun, metaPlan, renderBis };

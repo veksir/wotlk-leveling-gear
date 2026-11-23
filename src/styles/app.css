@@ -500,6 +500,9 @@
   .adv-state { margin-left: auto; color: var(--ice); font-size: 12px; font-weight: 600; text-align: right; }
   .adv[open] > summary { margin-bottom: 12px; }
   .lvl80 .main { margin-top: 14px; }
+  .bis-meta { margin: 0; padding: 8px 16px; font-size: 12.5px; line-height: 1.5; color: #c3d8e2; border-bottom: 1px solid var(--line); }
+  .bis-meta[hidden] { display: none; }
+  .bis-meta b { color: var(--gold); }
   .bis-empty { color: var(--muted); font-size: 12px; padding: 4px 0; }
   @media (max-width: 680px) { .bis-grid { grid-template-columns: 1fr; padding: 9px; } .gem-ench { grid-column: auto; } }
   a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible, textarea:focus-visible { outline: 2px solid var(--ice); outline-offset: 2px; border-radius: 4px; }
