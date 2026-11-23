@@ -16,9 +16,17 @@ const BIS_F80 = { key: "F80", fresh: true, scope: "noraid", phase: 0,
   es: "Primer paso a nivel 80, sin heroicas: misiones, reputaciones, mazmorras normales, emblemas de Triunfo y crafting. Pasa a «PR» cuando tu iLvl medio llegue a 180 (200 para ToC5, FoS y PoS; 219 para HoR).",
   en: "First step at level 80, no heroics: quests, reputations, normal dungeons, Triumph emblems and crafting. Move on to \"PR\" once your average item level reaches 180 (200 for ToC5, FoS and PoS; 219 for HoR)." };
 
-const BIS_TABS = [BIS_F80].concat(BIS_PHASES);
+const BIS_ND = { key: "ND", scope: "noraid", phase: 0,
+  es: "Todo el equipo que no es de banda, de todas las fases: heroicas de ToC, Forja/Foso/Salas de ICC, reputaciones, profesiones y emblemas. Es lo mismo que ves en «Equipamiento recomendado» con «Sin bandas» y «Fase: Todas».",
+  en: "All non-raid gear from every phase: ToC, Forge/Pit/Halls of ICC heroics, reputations, professions and emblems. It is the same you see in \"Recommended gear\" with \"No raids\" and \"Phase: All\"." };
 
-const bisTabLabel = (p) => (p.key === "F80" ? L("Recién 80", "Fresh 80") : p.key);
+const BIS_TABS = [BIS_F80, BIS_PHASES[0], BIS_ND].concat(BIS_PHASES.slice(1));
+
+const bisTabLabel = (p) => (p.key === "F80" ? L("Recién 80", "Fresh 80") : p.key === "ND" ? L("Sin bandas", "No raids") : p.key);
+
+const bisOpts = (ph) => (ph.fresh
+  ? { level: 80, faction: state.faction, scope: "noraid", phase: 0, pvp: false, fresh: true, assumeAvg: 0 }
+  : { level: 80, faction: state.faction, scope: ph.scope, phase: ph.phase, pvp: false, fresh: false, noHeroicGate: true });
 
 const BIS_ALTS = 6;
 
@@ -78,9 +86,7 @@ function bisData(ph) {
   const key = bisCtx() + "|" + ph.key;
   if (bisCache.has(key)) return bisCache.get(key);
   const spec = currentSpec();
-  const gear = computeGear(spec, ph.fresh
-    ? { level: 80, faction: state.faction, scope: "noraid", phase: 0, pvp: false, fresh: true, assumeAvg: 0 }
-    : { level: 80, faction: state.faction, scope: ph.scope, phase: ph.phase, pvp: false, fresh: false, noHeroicGate: true });
+  const gear = computeGear(spec, bisOpts(ph));
   const rows = bisRows(spec, gear);
   if (state.bisGuide) applyRefBis(rows, ph);
   const ranks = {};
@@ -88,7 +94,9 @@ function bisData(ph) {
     const prev = ranks[e.it.n];
     if (!prev || prev.i > i) ranks[e.it.n] = { i, label: bisLabel(i, r.pair) };
   }));
-  const data = { rows, ranks, totals: gear.totals, caps: gear.caps };
+  const pos = {};
+  Object.entries(gear.pools).forEach(([pk, list]) => list.forEach((e, i) => { const prev = pos[e.it.n]; if (!prev || i < prev.i) pos[e.it.n] = { i, n: list.length, pk }; }));
+  const data = { rows, ranks, totals: gear.totals, caps: gear.caps, pos };
   bisCache.set(key, data);
   if (bisCache.size > 60) bisCache.delete(bisCache.keys().next().value);
   return data;
@@ -317,6 +325,87 @@ function metaPlan(data) {
   const steps = [...groups.values()].map(({ g, where }) => where.length + " × " + g.name + (g.name === (tear && tear.name) ? "" : " (" + colorsOf(g) + ")") + " " + L("en ", "in ") + where.join(", "));
   return head + L("Para activarla cambia ", "To activate it, swap in ") + esc(steps.join(" · ")) + (unmet() > 0 ? " " + L("(con las gemas de la guía no llega a cubrir todo el requisito).", "(the guide's gems cannot cover the whole requirement).") : ".");
 }
+/* ---------- Buscador: ¿me sirve este objeto? ---------- */
+
+function bisItemStatus(it, ph) {
+  const spec = currentSpec(), w = weightsFor(spec, false, 80), o = bisOpts(ph), it80 = levelItem(it, 80);
+  const r = evalItem(it80, spec, w, o, true, false);
+  if (!r) return { kind: "class" };
+  if (!r.rel) return { kind: "useless" };
+  const rs = [];
+  if (o.fresh && !freshAccessible(it80)) rs.push("fresh");
+  if (it80.pvp) rs.push("pvp");
+  if (it80.raid && o.scope !== "raid") rs.push("raid");
+  if (o.phase && it80.ph > o.phase) rs.push("phase");
+  const avg = o.noHeroicGate ? null : o.assumeAvg != null ? o.assumeAvg : averageItemLevel(spec);
+  if (avg != null && isHeroicOnlyDrop(it80) && avg < heroicRequirement(it80.src.zid)) rs.push("heroic");
+  if (rs.length) return { kind: "blocked", reasons: rs, it: it80 };
+  const p = bisData(ph).pos[it.n];
+  return p ? { kind: "pos", i: p.i, n: p.n } : { kind: "useless" };
+}
+
+function bisStatusText(st, ph) {
+  if (st.kind === "top") return rankPill(st.label);
+  if (st.kind === "pos") return L("puesto " + (st.i + 1) + " de " + st.n + " (fuera del top)", "rank " + (st.i + 1) + " of " + st.n + " (outside the top)");
+  if (st.kind === "blocked") {
+    const it = st.it, why = { phase: L("aún no existe en esta fase (fase " + it.ph + ")", "not available in this phase yet (phase " + it.ph + ")"), raid: L("es de banda", "raid item"), pvp: "PvP",
+      fresh: L("no entra en Recién 80", "not part of Fresh 80"), heroic: L("heroica: se abre con iLvl medio " + (it.src && it.src.zid ? heroicRequirement(it.src.zid) : "?"), "heroic: opens at average item level " + (it.src && it.src.zid ? heroicRequirement(it.src.zid) : "?")) };
+    return st.reasons.map((r) => why[r] || r).join(" · ");
+  }
+  return "—";
+}
+
+function bisFindShow(id) {
+  const it = gearItem(id), out = $("bisFindOut");
+  if (!it) { out.innerHTML = ""; return; }
+  const spec = currentSpec(), who = state.cls + " " + state.spec;
+  const rows = BIS_TABS.map((ph) => {
+    const data = bisData(ph);
+    for (const r of data.rows) { const i = r.list.findIndex((e) => e.it.n === it.n); if (i >= 0) return { ph, st: { kind: "top", label: bisLabel(i, r.pair) } }; }
+    return { ph, st: bisItemStatus(it, ph) };
+  });
+  const tops = rows.filter((x) => x.st.kind === "top").length, poss = rows.filter((x) => x.st.kind === "pos");
+  const hard = rows.every((x) => x.st.kind === "class" || x.st.kind === "useless");
+  let cls = "maybe", msg;
+  if (tops) { cls = "yes"; msg = L("Sí te sirve (" + who + "): entra en el top de " + tops + " de " + rows.length + " pestañas.", "Yes, it suits you (" + who + "): it makes the top in " + tops + " of " + rows.length + " tabs."); }
+  else if (poss.length) { const b = poss.slice().sort((a, c) => a.st.i / a.st.n - c.st.i / c.st.n)[0]; msg = L("Te sirve, pero hay mejores opciones: en su mejor pestaña (" + bisTabLabel(b.ph) + ") queda en el puesto " + (b.st.i + 1) + " de " + b.st.n + ".", "It works for you, but there are better options: in its best tab (" + bisTabLabel(b.ph) + ") it ranks " + (b.st.i + 1) + " of " + b.st.n + "."); }
+  else if (hard) { cls = "no"; const noClass = rows.every((x) => x.st.kind === "class"); msg = noClass ? L("No te sirve (" + who + "): tu clase no puede equiparlo (tipo de armadura o de arma).", "It does not suit you (" + who + "): your class cannot equip it (armor or weapon type).") : L("No te sirve (" + who + "): no aporta estadísticas útiles para esta especialidad.", "It does not suit you (" + who + "): it has no useful stats for this spec."); }
+  else msg = L("Podría servirte, pero ahora mismo está bloqueado con estos filtros (mira el motivo en cada pestaña).", "It could suit you, but it is currently blocked by these filters (see the reason in each tab).");
+  out.innerHTML = '<div class="bis-find-card"><div>' + itemLink(id, false, "bis-name") + ' <span class="bis-sub" style="display:inline">iLvl ' + it.ilvl + " · " + esc(it.sub || "") + " " + esc(((SLOT_LABEL[state.lang] || SLOT_LABEL.es)[it.s]) || it.s || "") + " · " + badgeHtml(obtainInfo(it)) + '</span></div><p class="verdict ' + cls + '">' + esc(msg) + '</p><ul class="bis-find-tabs">' +
+    rows.map((x) => "<li><b>" + esc(bisTabLabel(x.ph)) + "</b><span>" + bisStatusText(x.st, x.ph) + "</span></li>").join("") + "</ul></div>";
+}
+
+let bisFindMatches = [];
+
+function bisFindSearch(q) {
+  const list = $("bisFindList"), t = String(q || "").trim();
+  const num = /(?:item=)?(\d{4,6})\s*$/.exec(t);
+  if (num && gearItem(num[1])) { list.hidden = true; bisFindShow(num[1]); return; }
+  if (t.length < 3) { list.hidden = true; return; }
+  const k = eqNorm(t);
+  bisFindMatches = Object.keys(GEAR_ITEMS).filter((id) => { const it = GEAR_ITEMS[id]; return (it.ilvl >= 100 || it.req >= 60) && eqNorm(it.n).includes(k); })
+    .sort((a, b) => eqNorm(GEAR_ITEMS[a].n).indexOf(k) - eqNorm(GEAR_ITEMS[b].n).indexOf(k) || GEAR_ITEMS[b].ilvl - GEAR_ITEMS[a].ilvl).slice(0, 8);
+  list.innerHTML = bisFindMatches.map((id, i) => '<li role="option" data-id="' + id + '"' + (i === 0 ? ' aria-selected="true"' : "") + "><span>" + esc(GEAR_ITEMS[id].n) + "</span><small>iLvl " + GEAR_ITEMS[id].ilvl + " · " + esc(((SLOT_LABEL[state.lang] || SLOT_LABEL.es)[GEAR_ITEMS[id].s]) || GEAR_ITEMS[id].s || "") + "</small></li>").join("");
+  list.hidden = !bisFindMatches.length;
+}
+
+function renderBisFind() {
+  $("bisFindLabel").textContent = L("¿Te salió un objeto? ¿Te sirve?", "Got a drop? Does it suit you?");
+  $("bisFind").placeholder = L("Escribe el nombre (por ejemplo Titanium Links of Lore) o pega el enlace", "Type the name (for example Titanium Links of Lore) or paste the link");
+  const cur = $("bisFindOut").dataset.id;
+  if (cur) bisFindShow(cur);
+}
+$("bisFind").addEventListener("input", (e) => bisFindSearch(e.target.value));
+$("bisFind").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && bisFindMatches.length && !$("bisFindList").hidden) { e.preventDefault(); const id = bisFindMatches[0]; $("bisFindOut").dataset.id = id; $("bisFindList").hidden = true; bisFindShow(id); }
+  if (e.key === "Escape") $("bisFindList").hidden = true;
+});
+$("bisFindList").addEventListener("click", (e) => {
+  const li = e.target.closest("li[data-id]");
+  if (!li) return;
+  $("bisFindOut").dataset.id = li.dataset.id; $("bisFind").value = GEAR_ITEMS[li.dataset.id].n; $("bisFindList").hidden = true; bisFindShow(li.dataset.id);
+});
+document.addEventListener("click", (e) => { if (!e.target.closest(".bis-find")) $("bisFindList").hidden = true; });
 
 function renderBis(spec) {
   const ph = BIS_TABS.find((p) => p.key === state.bisPhase) || BIS_TABS[0];
@@ -342,6 +431,7 @@ function renderBis(spec) {
     }).join("") + "<small>" + t("capsNote") + "</small>";
   } else box.hidden = true;
   $("bisGrid").innerHTML = data.rows.map((r) => bisCard(r, data)).join("");
+  renderBisFind();
   const mp = metaPlan(data);
   $("bisMeta").hidden = !mp;
   $("bisMeta").innerHTML = mp;
@@ -352,4 +442,4 @@ function renderBis(spec) {
 }
 /* ---------- Pesos de estadísticas editables ---------- */
 
-export { BIS_PHASES, BIS_F80, BIS_TABS, bisTabLabel, BIS_ALTS, bisCache, bisCtx, bisRows, bisGuideFor, applyRefBis, bisData, bisCompletes, bisPairLabel, bisOwned, GEM_COLORS, ES_MARK, NOTE_EN, noteText, gemColorName, gemLink, enchLink, refFor, gemPlan, gemColorOf, bisFx, enchValueText, renderGems, bisScore, sourceGroup, renderPlan, bisCard, GEM_FAMILY, gemColors, colorWord, colorNoun, metaPlan, renderBis };
+export { BIS_PHASES, BIS_F80, BIS_ND, BIS_TABS, bisTabLabel, bisOpts, BIS_ALTS, bisCache, bisCtx, bisRows, bisGuideFor, applyRefBis, bisData, bisCompletes, bisPairLabel, bisOwned, GEM_COLORS, ES_MARK, NOTE_EN, noteText, gemColorName, gemLink, enchLink, refFor, gemPlan, gemColorOf, bisFx, enchValueText, renderGems, bisScore, sourceGroup, renderPlan, bisCard, GEM_FAMILY, gemColors, colorWord, colorNoun, metaPlan, bisItemStatus, bisStatusText, bisFindShow, bisFindMatches, bisFindSearch, renderBisFind, renderBis };

@@ -503,6 +503,20 @@
   .bis-meta { margin: 0; padding: 8px 16px; font-size: 12.5px; line-height: 1.5; color: #c3d8e2; border-bottom: 1px solid var(--line); }
   .bis-meta[hidden] { display: none; }
   .bis-meta b { color: var(--gold); }
+  .bis-find { position: relative; padding: 12px 16px 0; }
+  .bis-find label { display: block; margin-bottom: 4px; font-size: 12px; font-weight: 700; color: var(--muted); }
+  .bis-find input { width: 100%; max-width: 560px; box-sizing: border-box; padding: 8px 10px; border: 1px solid var(--line-2); border-radius: 6px; background: #071722; color: var(--text); font: inherit; font-size: 14px; }
+  #bisFindList { position: absolute; z-index: 25; left: 16px; width: min(560px, calc(100% - 32px)); margin: 2px 0 0; padding: 4px; list-style: none; border: 1px solid var(--line-2); border-radius: 6px; background: #081c2a; box-shadow: 0 8px 24px rgba(0, 0, 0, .5); }
+  #bisFindList[hidden] { display: none; }
+  #bisFindList li { display: flex; justify-content: space-between; gap: 10px; padding: 7px 8px; border-radius: 4px; cursor: pointer; font-size: 13px; }
+  #bisFindList li:hover, #bisFindList li[aria-selected="true"] { background: rgba(117, 215, 239, .14); }
+  #bisFindList small { color: var(--muted); white-space: nowrap; }
+  .bis-find-card { margin: 10px 0 0; padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 8px; background: rgba(8, 25, 36, .6); font-size: 13px; }
+  .bis-find-card .verdict { margin: 6px 0; font-weight: 600; }
+  .bis-find-card .verdict.yes { color: #7fd49a; } .bis-find-card .verdict.maybe { color: #f5c542; } .bis-find-card .verdict.no { color: #ff8f8f; }
+  .bis-find-tabs { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 4px 14px; margin: 6px 0 0; padding: 0; list-style: none; }
+  .bis-find-tabs li { display: flex; gap: 8px; align-items: center; font-size: 12px; color: #c3d8e2; }
+  .bis-find-tabs b { min-width: 74px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
   .bis-empty { color: var(--muted); font-size: 12px; padding: 4px 0; }
   @media (max-width: 680px) { .bis-grid { grid-template-columns: 1fr; padding: 9px; } .gem-ench { grid-column: auto; } }
   a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible, textarea:focus-visible { outline: 2px solid var(--ice); outline-offset: 2px; border-radius: 4px; }

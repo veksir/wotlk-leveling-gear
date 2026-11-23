@@ -161,6 +161,12 @@ var aowow_tooltips = {
         <div><h2 id="bisHeading" data-i18n="bisTitle">BiS por fase</h2><p id="bisIntro" data-i18n="bisIntro"></p></div>
         <span class="slot-count" id="bisSpec"></span>
       </div>
+      <div class="bis-find">
+        <label for="bisFind" id="bisFindLabel"></label>
+        <input id="bisFind" type="search" autocomplete="off" spellcheck="false">
+        <ul id="bisFindList" role="listbox" hidden></ul>
+        <div id="bisFindOut" aria-live="polite"></div>
+      </div>
       <div class="bis-tabs seg" id="bisTabs" role="group" aria-labelledby="bisHeading"></div>
       <p class="bis-phase-note" id="bisPhaseNote"></p>
       <label class="bis-guide-toggle" id="bisGuideBox" hidden><input type="checkbox" id="bisGuide"> <span id="bisGuideText"></span></label>

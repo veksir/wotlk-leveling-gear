@@ -91,7 +91,7 @@ Object.assign(I18N.es, {
   lootDungeons: "Mazmorras", lootRaids: "Bandas",
   modeLabel: "Contenido", modeNoRaid: "Sin bandas", modeRaid: "Con bandas",
   phaseLabel: "Fase", phaseAll: "Todas",
-  bisTitle: "BiS por fase", bisIntro: "Ranking de objetos por slot y fase, como el addon BiS-Tooltip: empieza por «Recién 80» y avanza por las pestañas. Se calcula siempre para nivel 80 con tu clase, especialidad y facción.",
+  bisTitle: "BiS por fase", bisIntro: "Ranking de objetos por slot y fase, como el addon BiS-Tooltip: empieza por «Recién 80» y avanza por las pestañas. Se calcula siempre para nivel 80 con tu clase, especialidad y facción. ¿Te salió un objeto? Búscalo abajo para ver si te sirve.",
   bisLegendBis: "mejor objeto de la fase", bisLegendBis2: "segundo mejor (anillos y abalorios, se llevan dos)", bisLegendAlt: "siguientes alternativas, de mejor a peor",
   bisHint: "Es una guía general: un objeto ALT puede rendirte más que el BiS si te ayuda a completar golpe o pericia. Los objetos marcados con «completa…» aportan a un tope que el equipo BiS de esta fase todavía no alcanza.",
   bisEmptySlot: "Sin objeto en este slot", bisSpecWord: "Especialidad",
@@ -155,7 +155,7 @@ Object.assign(I18N.en, {
   lootDungeons: "Dungeons", lootRaids: "Raids",
   modeLabel: "Content", modeNoRaid: "No raids", modeRaid: "With raids",
   phaseLabel: "Phase", phaseAll: "All",
-  bisTitle: "BiS by phase", bisIntro: "Item ranking per slot and phase, like the BiS-Tooltip addon: start with \"Fresh 80\" and move along the tabs. It is always computed for level 80 with your class, spec and faction.",
+  bisTitle: "BiS by phase", bisIntro: "Item ranking per slot and phase, like the BiS-Tooltip addon: start with \"Fresh 80\" and move along the tabs. It is always computed for level 80 with your class, spec and faction. Got a drop? Search it below to see if it suits you.",
   bisLegendBis: "best item of the phase", bisLegendBis2: "second best (rings and trinkets, you wear two)", bisLegendAlt: "next alternatives, best to worst",
   bisHint: "This is a general guide: an ALT item can perform better than the BiS if it helps you reach hit or expertise. Items tagged «fills…» add to a cap that this phase's BiS gear does not reach yet.",
   bisEmptySlot: "No item in this slot", bisSpecWord: "Spec",
@@ -286,7 +286,7 @@ if (state.scope !== "raid") state.scope = "noraid";
 if (state.level !== 80 || state.pvp || state.scope === "raid") state.fresh = false;
 if (![0, 1, 2, 3, 4].includes(state.phase)) state.phase = 0;
 if (![2, 5, 10].includes(state.alts)) state.alts = 2;
-if (!["F80", "PR", "T7", "T8", "T9", "T10"].includes(state.bisPhase)) state.bisPhase = "F80";
+if (!["F80", "PR", "ND", "T7", "T8", "T9", "T10"].includes(state.bisPhase)) state.bisPhase = "F80";
 if (!DATA.factions.includes(state.faction)) state.faction = "horde";
 if (!["boss", "upgrade", "ilvl"].includes(state.lootSort)) state.lootSort = "boss";
 if (!I18N[state.lang]) state.lang = "es";
