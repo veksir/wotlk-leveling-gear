@@ -1,6 +1,6 @@
 import { DATA } from "./data.js";
 import { state, $, t, L, esc, currentSpec, specSlots, equippedMap, gearItem, itemLink, persist, renderSeg, scheduleRefresh, SLOT_LABEL, levelItem, eqNorm, iconSrc, STORE, load, save } from "./core.js";
-import { ENG, computeGear, weightsFor, freshAccessible, raidGated, itemFactions } from "./engine.js";
+import { ENG, GEAR_ITEMS, computeGear, weightsFor, freshAccessible, raidGated, itemFactions } from "./engine.js";
 import { evalEquip } from "./equipment.js";
 import { averageItemLevel, fmtIlvl, isHeroicOnlyDrop, heroicRequirement } from "./heroic.js";
 import { partLabel, badgeHtml, obtainInfo, bisLabel, rankPill, diffLabel, currencyLabel } from "./format.js";
@@ -18,7 +18,9 @@ const BIS_F80 = { key: "F80", fresh: true, scope: "noraid", phase: 0,
 
 const BIS_TABS = [BIS_F80].concat(BIS_PHASES);
 
-const bisTabLabel = (p) => (p.key === "F80" ? L("Recién 80", "Fresh 80") : p.key);
+const bisTabShort = (p) => (p.key === "F80" ? L("Recién 80", "Fresh 80") : p.key);
+
+const bisTabLabel = (p) => ({ F80: L("Recién 80", "Fresh 80"), PR: L("Heroicas (PR)", "Heroics (PR)"), T7: "T7 Naxxramas", T8: "T8 Ulduar", T9: L("T9 Cruzado", "T9 Crusader"), T10: "T10 Icecrown" }[p.key] || p.key);
 
 const bisOpts = (ph) => (ph.fresh
   ? { level: 80, faction: state.faction, scope: "noraid", phase: 0, pvp: false, fresh: true, assumeAvg: 0 }
@@ -92,9 +94,9 @@ function bisData(ph) {
   }));
   const pos = {};
   Object.entries(gear.pools).forEach(([pk, list]) => list.forEach((e, i) => { const prev = pos[e.it.n]; if (!prev || i < prev.i) pos[e.it.n] = { i, n: list.length, pk }; }));
-  const data = { rows, ranks, totals: gear.totals, caps: gear.caps, pos };
+  const data = { rows, ranks, totals: gear.totals, caps: gear.caps, pos, pools: gear.pools };
   bisCache.set(key, data);
-  if (bisCache.size > 60) bisCache.delete(bisCache.keys().next().value);
+  if (bisCache.size > 18) bisCache.delete(bisCache.keys().next().value);
   return data;
 }
 
@@ -210,6 +212,76 @@ function bisScore(spec, w, it) {
   return r ? r.score : 0;
 }
 
+const ROUTE_MIN_GAIN = 0.03;
+
+const rowSlots = (r) => (r.pair ? [r.slot, r.slot.slice(0, -1) + "2"] : [r.slot]);
+
+const rowPool = (r) => (r.slot === "relic" ? "ranged" : r.slot.replace(/\d$/, ""));
+
+function rowCurrent(r, spec, w) {
+  const eq = equippedMap(), items = rowSlots(r).map((sl) => (eq[sl] && gearItem(eq[sl])) || null);
+  const scores = items.map((it) => (it ? bisScore(spec, w, it) : 0)), owned = items.filter(Boolean);
+  return { items: owned, names: new Set(owned.map((it) => it.n)), score: r.pair ? Math.min(...scores) : scores[0] || 0, sum: scores.reduce((a, c) => a + c, 0), hasAny: owned.length > 0 };
+}
+
+function rowUpgrades(r, data, spec, w, cur) {
+  const weapon = ["mainhand", "offhand", "ranged", "relic"].includes(r.slot);
+  const cands = (weapon ? [] : (data.pools[rowPool(r)] || []).slice(0, 90).map((e) => e.it)).concat(r.list.map((e) => e.it));
+  const seen = new Set(), out = [];
+  cands.forEach((it) => {
+    if (seen.has(it.n) || cur.names.has(it.n)) return;
+    seen.add(it.n);
+    const sc = bisScore(spec, w, it);
+    if (!sc) return;
+    const gain = cur.score > 0 ? (sc - cur.score) / cur.score : Infinity;
+    if (gain >= ROUTE_MIN_GAIN) out.push({ it, sc, gain });
+  });
+  return out.sort((a, b) => b.sc - a.sc);
+}
+
+function upLine(x, r, withGain) {
+  const i = r.list.findIndex((e) => e.it.n === x.it.n), lab = i >= 0 ? bisLabel(i, r.pair) : "";
+  const gain = !withGain ? '<span class="up-gain empty">' + L("conseguir", "get") + "</span>" : x.gain === Infinity ? '<span class="up-gain empty">' + L("pieza vacía", "empty slot") + "</span>" : '<span class="up-gain">+' + Math.round(x.gain * 100) + " %</span>";
+  return "<li>" + gain + "<span>" + itemLink(gameId(x.it), false, "bis-name") + ' <span class="bis-sub" style="display:inline">iLvl ' + x.it.ilvl + " · " + badgeHtml(obtainInfo(x.it)) + "</span>" + (lab ? " " + rankPill(lab) : "") + "</span></li>";
+}
+
+function gameId(it) { return Object.keys(GEAR_ITEMS).find((id) => GEAR_ITEMS[id] === it || GEAR_ITEMS[id].n === it.n) || ""; }
+
+function renderRoute(data, ph) {
+  const spec = currentSpec(), w = weightsFor(spec, false, 80), labels = SLOT_LABEL[state.lang] || SLOT_LABEL.es;
+  $("routeHeading").textContent = L("Tu ruta a nivel 80", "Your level 80 route");
+  $("routeIntro").textContent = L("Tres pasos: indica lo que ya tienes, elige hasta dónde está abierto tu servidor y mira qué te mejora y dónde conseguirlo. Todo se calcula para nivel 80.", "Three steps: enter what you already have, choose how far your server is open, and see what upgrades you and where to get it. Everything is calculated for level 80.");
+  $("routeSpec").textContent = state.cls + " · " + state.spec;
+  $("routeS1").textContent = L("Tu equipo actual", "Your current gear");
+  $("routeS1Hint").textContent = L("Marca lo que llevas puesto (o pulsa «Importar»). Si empiezas de cero, déjalo vacío y verás qué conseguir primero.", "Mark what you are wearing (or press \"Import\"). If you are starting from scratch, leave it empty and you will see what to get first.");
+  $("routeS2").textContent = L("Etapa de tu servidor", "Your server's stage");
+  $("routeS2Hint").textContent = L("Elige hasta dónde tienes abierto: «Recién 80» no usa heroicas; «Heroicas» suma todas las mazmorras; de T7 a T10 se van abriendo las bandas.", "Choose how far you are open: \"Fresh 80\" uses no heroics; \"Heroics\" adds every dungeon; T7 to T10 open the raids one by one.");
+  $("routeS3").textContent = L("Qué te mejora y dónde conseguirlo", "What upgrades you and where to get it");
+  const hasGear = Object.keys(equippedMap()).length > 0;
+  let tgt = 0, got = 0;
+  const rows = data.rows.filter((r) => r.list.length).map((r) => {
+    const cur = rowCurrent(r, spec, w), ups = rowUpgrades(r, data, spec, w, cur), take = r.pair ? 2 : 1;
+    tgt += r.list.slice(0, take).reduce((a, e) => a + bisScore(spec, w, e.it), 0);
+    got += cur.sum;
+    return { r, cur, ups, label: r.pair ? bisPairLabel(r.slot) : labels[r.slot] || r.slot };
+  });
+  const pct = tgt ? Math.min(100, Math.round((got / tgt) * 100)) : 0;
+  const withUps = rows.filter((x) => x.ups.length), without = rows.filter((x) => !x.ups.length);
+  withUps.sort((a, b) => (b.ups[0].gain === Infinity ? 1e9 : b.ups[0].gain) - (a.ups[0].gain === Infinity ? 1e9 : a.ups[0].gain));
+  const stage = bisTabLabel(ph);
+  $("routeSummary").innerHTML = hasGear
+    ? L("En <b>" + esc(stage) + "</b> tu equipo actual cubre un <b>" + pct + " %</b> del BiS. Tienes mejoras posibles en <b>" + withUps.length + "</b> de " + rows.length + " slots; empieza por los de arriba (mayor mejora).", "In <b>" + esc(stage) + "</b> your current gear covers <b>" + pct + "%</b> of the BiS. You have possible upgrades in <b>" + withUps.length + "</b> of " + rows.length + " slots; start with the ones on top (biggest upgrade).")
+    : L("Aún no indicaste tu equipo (paso 1). Esto es lo primero que te conviene conseguir en cada slot en <b>" + esc(stage) + "</b>.", "You have not entered your gear yet (step 1). This is what to get first in each slot in <b>" + esc(stage) + "</b>.");
+  const shown = hasGear ? 3 : 2;
+  $("routeUpgrades").innerHTML = withUps.map((x) => {
+    const have = x.cur.hasAny ? L("Llevas: ", "You wear: ") + x.cur.items.map((it) => esc(it.n) + " (iLvl " + it.ilvl + ")").join(" · ") : L("Sin pieza", "Nothing equipped");
+    const head = x.ups.slice(0, shown), rest = hasGear ? x.ups.slice(shown, 30) : [];
+    return '<div class="up-row"><div class="up-head"><span class="up-slot">' + esc(x.label) + '</span><span class="up-have">' + have + '</span></div><ul class="up-list">' + head.map((u) => upLine(u, x.r, hasGear)).join("") + "</ul>" +
+      (rest.length ? '<details class="up-more"><summary>' + L("Ver " + rest.length + " mejoras más", "See " + rest.length + " more upgrades") + '</summary><ul class="up-list">' + rest.map((u) => upLine(u, x.r, hasGear)).join("") + "</ul></details>" : "") + "</div>";
+  }).join("") + (hasGear && without.length ? '<p class="up-done">✓ ' + L("Sin mejoras en esta etapa: ", "No upgrades in this stage: ") + esc(without.map((x) => x.label).join(", ")) + ".</p>" : "");
+  renderPlan(withUps, hasGear);
+}
+
 function sourceGroup(it) {
   const s = it.src || {}, o = obtainInfo(it);
   if (s.t === "Drop") return { key: "D|" + (s.zid || s.z) + "|" + (s.n || ""), title: [s.z, s.n || L("drop de la zona", "zone drop"), s.df ? diffLabel(s.df) : ""].filter(Boolean).join(" · "), o };
@@ -217,32 +289,17 @@ function sourceGroup(it) {
   return { key: "X|" + s.t + "|" + o.detail, title: o.detail, o };
 }
 
-function renderPlan(data) {
-  const spec = currentSpec(), w = weightsFor(spec, false, 80), box = $("bisPlan");
-  const have = new Set(), groups = new Map();
-  let target = 0, got = 0, missing = 0;
-  const labels = SLOT_LABEL[state.lang] || SLOT_LABEL.es;
-  data.rows.forEach((r) => {
-    const owned = bisOwned(r), take = r.pair ? 2 : 1;
-    const eq = equippedMap(), slots = r.pair ? [r.slot, r.slot.slice(0, -1) + "2"] : [r.slot];
-    const haveScore = slots.reduce((a, sl) => a + (eq[sl] && gearItem(eq[sl]) ? bisScore(spec, w, gearItem(eq[sl])) : 0), 0);
-    const top = r.list.slice(0, take), tScore = top.reduce((a, e) => a + bisScore(spec, w, e.it), 0);
-    target += tScore; got += Math.min(haveScore, tScore);
-    top.forEach((e) => {
-      if (owned.has(e.it.n)) return;
-      missing++;
-      const g = sourceGroup(e.it);
-      if (!groups.has(g.key)) groups.set(g.key, Object.assign({ items: [] }, g));
-      groups.get(g.key).items.push({ slot: r.pair ? labels[r.slot.slice(0, -1) + "1"] || bisPairLabel(r.slot) : labels[r.slot] || r.slot, e });
-    });
+function renderPlan(withUps, hasGear) {
+  const groups = new Map();
+  withUps.forEach((x) => {
+    const u = x.ups[0], g = sourceGroup(u.it);
+    if (!groups.has(g.key)) groups.set(g.key, Object.assign({ items: [] }, g));
+    groups.get(g.key).items.push({ slot: x.label, u });
   });
-  const pct = target ? Math.round((got / target) * 100) : 0;
   const list = [...groups.values()].sort((a, b) => b.items.length - a.items.length || a.title.localeCompare(b.title));
-  const hasGear = Object.keys(equippedMap()).length > 0;
-  box.innerHTML = "<h3>" + L("Plan de farmeo", "Farming plan") + "</h3>" +
-    '<p class="bis-phase-note" style="padding:0 0 8px">' + (hasGear ? L("Tu equipo actual equivale a un " + pct + " % del BiS de esta fase (por puntuación de objeto, sin contar encantamientos).", "Your current gear is worth " + pct + "% of this phase's BiS (by item score, enchants not counted).") : L("Indica tu equipo en «Mi equipo actual» para calcular qué te falta.", "Enter your gear in \"My current gear\" to work out what you are missing.")) + "</p>" +
-    (missing ? '<p class="bis-phase-note" style="padding:0 0 8px">' + L("Te faltan " + missing + " piezas BiS, repartidas en " + list.length + " fuentes. Primero las fuentes que más piezas dan:", missing + " BiS pieces missing across " + list.length + " sources. Sources giving the most pieces first:") + "</p>" : '<p class="bis-phase-note" style="padding:0 0 8px">' + L("Ya llevas todo el BiS de esta fase.", "You already wear this phase's whole BiS.") + "</p>") +
-    '<div class="plan-grid">' + list.map((g) => '<article class="bis-card"><p class="card-title"><span class="src-badge src-' + g.o.cls + '">' + esc(g.o.kind) + "</span> " + esc(g.title) + " · " + g.items.length + "</p><ol class=\"plan-list\">" + g.items.map((x) => "<li><span class=\"gem-slot\">" + esc(x.slot) + "</span><div>" + itemLink(x.e.id, false, "bis-name") + '<span class="bis-sub">iLvl ' + x.e.it.ilvl + "</span></div></li>").join("") + "</ol></article>").join("") + "</div>";
+  $("bisPlan").innerHTML = !list.length ? "" : "<h3>" + L("Dónde farmearlo (mejor mejora por slot, agrupado por fuente)", "Where to farm it (best upgrade per slot, grouped by source)") + "</h3>" +
+    '<div class="plan-grid">' + list.map((g) => '<article class="bis-card"><p class="card-title"><span class="src-badge src-' + g.o.cls + '">' + esc(g.o.kind) + "</span> " + esc(g.title) + " · " + g.items.length + "</p><ol class=\"plan-list\">" +
+      g.items.map((x) => "<li><span class=\"gem-slot\">" + esc(x.slot) + "</span><div>" + itemLink(gameId(x.u.it), false, "bis-name") + '<span class="bis-sub">iLvl ' + x.u.it.ilvl + (x.u.gain === Infinity ? "" : " · +" + Math.round(x.u.gain * 100) + " %") + "</span></div></li>").join("") + "</ol></article>").join("") + "</div>";
 }
 
 function bisLater(r, ph) {
@@ -260,7 +317,7 @@ function bisLater(r, ph) {
 function bisLaterHtml(r, ph) {
   const later = bisLater(r, ph).slice(0, 3);
   if (!later.length) return "";
-  return '<div class="bis-later"><b>' + L("Más adelante", "Later") + "</b> " + later.map((x) => "<span><em>" + esc(bisTabLabel(x.tab)) + "</em> " + itemLink(x.id, false, "gem-link") + "</span>").join(" · ") + "</div>";
+  return '<div class="bis-later"><b>' + L("Más adelante", "Later") + "</b> " + later.map((x) => "<span><em>" + esc(bisTabShort(x.tab)) + "</em> " + itemLink(x.id, false, "gem-link") + "</span>").join(" · ") + "</div>";
 }
 
 function bisCard(r, data, ph) {
@@ -392,25 +449,32 @@ function bisFindShow(id) {
   } else if (tops.length) {
     cls = "yes";
     const byLabel = new Map();
-    tops.forEach((x) => { const k = x.st.label; byLabel.set(k, (byLabel.get(k) || []).concat(bisTabLabel(x.ph))); });
+    tops.forEach((x) => { const k = x.st.label; byLabel.set(k, (byLabel.get(k) || []).concat(bisTabShort(x.ph))); });
     msg = L("Sí te sirve (" + who + "): ", "Yes, it suits you (" + who + "): ") + [...byLabel].map(([k, v]) => k + L(" en ", " in ") + v.join(", ")).join("; ") + ".";
   } else if (poss.length) {
     const b = poss.slice().sort((a, c) => a.st.i / a.st.n - c.st.i / c.st.n)[0];
-    msg = L("Te sirve, pero hay mejores opciones: en su mejor pestaña (" + bisTabLabel(b.ph) + ") es el puesto " + (b.st.i + 1) + " de " + b.st.n + ".", "It works for you, but there are better options: in its best tab (" + bisTabLabel(b.ph) + ") it ranks " + (b.st.i + 1) + " of " + b.st.n + ".");
+    msg = L("Te sirve, pero hay mejores opciones: en su mejor pestaña (" + bisTabShort(b.ph) + ") es el puesto " + (b.st.i + 1) + " de " + b.st.n + ".", "It works for you, but there are better options: in its best tab (" + bisTabShort(b.ph) + ") it ranks " + (b.st.i + 1) + " of " + b.st.n + ".");
   } else msg = L("Podría servirte, pero hoy está bloqueado: " + bisStatusText(rows.find((x) => x.st.kind === "blocked").st) + ".", "It could suit you, but it is blocked today: " + bisStatusText(rows.find((x) => x.st.kind === "blocked").st) + ".");
   // comparación con el BiS de la pestaña que estás viendo
-  let cmp = "";
+  let cmp = "", rowSel = null;
   const cur = rows.find((x) => x.ph.key === state.bisPhase);
   if (cur && (cur.st.kind === "top" || cur.st.kind === "pos")) {
     const data = bisData(cur.ph), spec = currentSpec(), w = weightsFor(spec, false, 80);
-    const row = cur.st.kind === "top" ? cur.st.row : data.rows.find((r) => r.slot.replace(/\d$/, "") === cur.st.pk);
+    const row = (rowSel = cur.st.kind === "top" ? cur.st.row : data.rows.find((r) => r.slot.replace(/\d$/, "") === cur.st.pk));
     if (row && row.list[0] && row.list[0].it.n !== it.n) {
       const mine = bisScore(spec, w, it), best = bisScore(spec, w, row.list[0].it);
-      if (best > 0) cmp = '<p class="bis-find-cmp">' + L("En «" + bisTabLabel(cur.ph) + "» el BiS de " + (row.pair ? bisPairLabel(row.slot) : labels[row.slot] || row.slot) + " es " + row.list[0].it.n + ": tu objeto vale un " + Math.round((mine / best) * 100) + " % de ese BiS.", "In \"" + bisTabLabel(cur.ph) + "\" the BiS for " + (row.pair ? bisPairLabel(row.slot) : labels[row.slot] || row.slot) + " is " + row.list[0].it.n + ": your item is worth " + Math.round((mine / best) * 100) + "% of it.") + "</p>";
+      if (best > 0) cmp = '<p class="bis-find-cmp">' + L("En «" + bisTabShort(cur.ph) + "» el BiS de " + (row.pair ? bisPairLabel(row.slot) : labels[row.slot] || row.slot) + " es " + row.list[0].it.n + ": tu objeto vale un " + Math.round((mine / best) * 100) + " % de ese BiS.", "In \"" + bisTabShort(cur.ph) + "\" the BiS for " + (row.pair ? bisPairLabel(row.slot) : labels[row.slot] || row.slot) + " is " + row.list[0].it.n + ": your item is worth " + Math.round((mine / best) * 100) + "% of it.") + "</p>";
+    }
+  }
+  if (rowSel) {
+    const spec2 = currentSpec(), w2 = weightsFor(spec2, false, 80), c2 = rowCurrent(rowSel, spec2, w2);
+    if (c2.hasAny && c2.score > 0) {
+      const g = Math.round(((bisScore(spec2, w2, it) - c2.score) / c2.score) * 100), have = c2.items.map((x) => x.n).join(" · ");
+      cmp += '<p class="bis-find-cmp">' + (g >= 3 ? L("Frente a lo que llevas (" + have + "): te mejora un +" + g + " %.", "Compared with what you wear (" + have + "): it upgrades you by +" + g + "%.") : g <= -3 ? L("Frente a lo que llevas (" + have + "): es peor (" + g + " %), no te conviene.", "Compared with what you wear (" + have + "): it is worse (" + g + "%), not worth it.") : L("Frente a lo que llevas (" + have + "): es prácticamente igual (" + (g >= 0 ? "+" : "") + g + " %).", "Compared with what you wear (" + have + "): practically the same (" + (g >= 0 ? "+" : "") + g + "%).")) + "</p>";
     }
   }
   out.innerHTML = '<div class="bis-find-card"><div>' + itemLink(id, false, "bis-name") + ' <span class="bis-sub" style="display:inline">iLvl ' + it.ilvl + " · " + esc(it.sub || "") + " " + esc(labels[it.s] || it.s || "") + " · " + badgeHtml(obtainInfo(it)) + '</span></div><p class="bis-find-avail">' + esc(avail) + '</p><p class="verdict ' + cls + '">' + esc(msg) + "</p>" + cmp +
-    '<ul class="bis-find-tabs">' + rows.map((x) => "<li><b>" + esc(bisTabLabel(x.ph)) + "</b><span>" + bisStatusText(x.st) + "</span></li>").join("") + "</ul></div>";
+    '<ul class="bis-find-tabs">' + rows.map((x) => "<li><b>" + esc(bisTabShort(x.ph)) + "</b><span>" + bisStatusText(x.st) + "</span></li>").join("") + "</ul></div>";
   out.dataset.id = id;
 }
 
@@ -450,6 +514,8 @@ function renderBis(spec) {
   const ph = BIS_TABS.find((p) => p.key === state.bisPhase) || BIS_TABS[0];
   renderSeg($("bisTabs"), BIS_TABS.map((p) => ({ value: p.key, label: bisTabLabel(p) })), ph.key, (v) => { state.bisPhase = v; persist(); renderBis(currentSpec()); scheduleRefresh(); });
   $("bisSpec").textContent = state.cls + " · " + state.spec;
+  $("bisHeading").textContent = t("bisTitle");
+  $("bisIntro").textContent = t("bisIntro");
   const hasGuide = !!bisGuideFor(ph);
   $("bisPhaseNote").textContent = ph[state.lang === "en" ? "en" : "es"] + " " + (hasGuide ? (state.bisGuide ? L("BiS según la guía de referencia; las alternativas se completan con el cálculo de la herramienta.", "BiS from the reference guide; alternatives are filled in by the tool's calculation.") : L("Calculado por el motor de la herramienta.", "Calculated by the tool's engine.")) : ph.key === "F80" ? "" : L("Calculado por el motor (no hay guía de referencia para esta fase).", "Calculated by the engine (no reference guide for this phase)."));
   if (ph.key === "F80" || ph.key === "PR") {
@@ -475,10 +541,10 @@ function renderBis(spec) {
   $("bisMeta").hidden = !mp;
   $("bisMeta").innerHTML = mp;
   renderGems();
-  renderPlan(data);
+  renderRoute(data, ph);
   const haveN = data.rows.filter((r) => bisOwned(r).size && r.list.some((e) => bisOwned(r).has(e.it.n))).length;
   $("bisOwnedNote").textContent = Object.keys(equippedMap()).length ? t("bisOwnedPre") + haveN + " / " + data.rows.length + t("bisOwnedPost") : t("bisOwnedNone");
 }
 /* ---------- Pesos de estadísticas editables ---------- */
 
-export { BIS_PHASES, BIS_F80, BIS_TABS, bisTabLabel, bisOpts, BIS_ALTS, bisCache, bisCtx, bisRows, bisGuideFor, applyRefBis, bisData, bisCompletes, bisPairLabel, bisOwned, GEM_COLORS, ES_MARK, NOTE_EN, noteText, gemColorName, gemLink, enchLink, refFor, gemPlan, gemColorOf, bisFx, enchValueText, renderGems, bisScore, sourceGroup, renderPlan, bisLater, bisLaterHtml, bisCard, GEM_FAMILY, gemColors, colorWord, colorNoun, metaPlan, BIS_FIRST, bisItemStatus, bisStatusText, bisFindShow, bisFindMatches, bisFindSearch, renderBisFind, renderBis };
+export { BIS_PHASES, BIS_F80, BIS_TABS, bisTabShort, bisTabLabel, bisOpts, BIS_ALTS, bisCache, bisCtx, bisRows, bisGuideFor, applyRefBis, bisData, bisCompletes, bisPairLabel, bisOwned, GEM_COLORS, ES_MARK, NOTE_EN, noteText, gemColorName, gemLink, enchLink, refFor, gemPlan, gemColorOf, bisFx, enchValueText, renderGems, bisScore, ROUTE_MIN_GAIN, rowSlots, rowPool, rowCurrent, rowUpgrades, upLine, gameId, renderRoute, sourceGroup, renderPlan, bisLater, bisLaterHtml, bisCard, GEM_FAMILY, gemColors, colorWord, colorNoun, metaPlan, BIS_FIRST, bisItemStatus, bisStatusText, bisFindShow, bisFindMatches, bisFindSearch, renderBisFind, renderBis };

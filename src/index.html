@@ -40,7 +40,7 @@ var aowow_tooltips = {
   </header>
 
   <nav class="jump" id="jump" aria-label="Secciones">
-    <a href="#sheetPanel" data-j="sheet"></a><a href="#bisPanel" data-j="bis"></a><a href="#gemPanel" data-j="gem"></a><a href="#lootPanel" data-j="loot"></a><a href="#top" class="jump-top" data-j="top"></a>
+    <a href="#routePanel" data-j="route"></a><a href="#bisPanel" data-j="bis"></a><a href="#sheetPanel" data-j="sheet"></a><a href="#gemPanel" data-j="gem"></a><a href="#lootPanel" data-j="loot"></a><a href="#top" class="jump-top" data-j="top"></a>
   </nav>
 
   <main>
@@ -63,6 +63,7 @@ var aowow_tooltips = {
         </div>
         <details class="box adv" id="advOpts" open>
           <summary><span id="advLabel"></span><span class="adv-state" id="advState"></span></summary>
+          <p class="adv-note" id="advNote" hidden></p>
           <div class="opts">
             <div><span class="field-label" id="modeLabel" data-i18n="modeLabel">Contenido</span><div class="seg" id="modes" role="group" aria-labelledby="modeLabel"></div></div>
             <div><span class="field-label" id="phaseLabel" data-i18n="phaseLabel">Fase</span><div class="seg" id="phases" role="group" aria-labelledby="phaseLabel"></div></div>
@@ -156,27 +157,50 @@ var aowow_tooltips = {
       </aside>
     </div>
 
-    <section class="panel bis" id="bisPanel" style="margin-top:14px" aria-labelledby="bisHeading">
+    <section class="panel route" id="routePanel" style="margin-top:14px" aria-labelledby="routeHeading">
       <div class="panel-head">
-        <div><h2 id="bisHeading" data-i18n="bisTitle">BiS por fase</h2><p id="bisIntro" data-i18n="bisIntro"></p></div>
-        <span class="slot-count" id="bisSpec"></span>
+        <div><h2 id="routeHeading"></h2><p id="routeIntro"></p></div>
+        <span class="slot-count" id="routeSpec"></span>
       </div>
-      <div class="bis-find">
-        <label for="bisFind" id="bisFindLabel"></label>
-        <input id="bisFind" type="search" autocomplete="off" spellcheck="false">
-        <ul id="bisFindList" role="listbox" hidden></ul>
-        <div id="bisFindOut" aria-live="polite"></div>
-      </div>
-      <div class="bis-tabs seg" id="bisTabs" role="group" aria-labelledby="bisHeading"></div>
-      <p class="bis-phase-note" id="bisPhaseNote"></p>
-      <label class="bis-guide-toggle" id="bisGuideBox" hidden><input type="checkbox" id="bisGuide"> <span id="bisGuideText"></span></label>
-      <p class="bis-phase-note bis-owned-note" id="bisOwnedNote"></p>
-      <div class="caps" id="bisCaps" hidden></div>
-      <p class="bis-meta" id="bisMeta" hidden></p>
-      <div class="bis-legend" id="bisLegend"></div>
-      <div class="bis-grid" id="bisGrid"></div>
-      <div class="bis-plan" id="bisPlan"></div>
-      <p class="note" style="padding:0 16px 12px" data-i18n="bisHint"></p>
+      <ol class="route-steps">
+        <li class="route-step" id="routeStep1">
+          <h3><span class="route-n">1</span><span id="routeS1"></span></h3>
+          <p class="route-hint" id="routeS1Hint"></p>
+          <div id="routeEqSlot"></div>
+        </li>
+        <li class="route-step" id="routeStep2">
+          <h3><span class="route-n">2</span><span id="routeS2"></span></h3>
+          <p class="route-hint" id="routeS2Hint"></p>
+          <div class="bis-tabs seg" id="bisTabs" role="group" aria-labelledby="routeS2"></div>
+          <p class="bis-phase-note" id="bisPhaseNote"></p>
+        </li>
+        <li class="route-step" id="routeStep3">
+          <h3><span class="route-n">3</span><span id="routeS3"></span></h3>
+          <div id="routeSummary" class="route-summary"></div>
+          <div id="routeUpgrades"></div>
+          <div class="bis-plan" id="bisPlan"></div>
+          <div class="bis-find">
+            <label for="bisFind" id="bisFindLabel"></label>
+            <input id="bisFind" type="search" autocomplete="off" spellcheck="false">
+            <ul id="bisFindList" role="listbox" hidden></ul>
+            <div id="bisFindOut" aria-live="polite"></div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="panel bis" id="bisPanel" style="margin-top:14px" aria-labelledby="bisHeading">
+      <details class="rank-details" id="rankDetails">
+        <summary><span id="bisHeading"></span><span class="slot-count" id="bisSpec"></span></summary>
+        <p class="rank-intro" id="bisIntro"></p>
+        <label class="bis-guide-toggle" id="bisGuideBox" hidden><input type="checkbox" id="bisGuide"> <span id="bisGuideText"></span></label>
+        <p class="bis-phase-note bis-owned-note" id="bisOwnedNote"></p>
+        <div class="caps" id="bisCaps" hidden></div>
+        <p class="bis-meta" id="bisMeta" hidden></p>
+        <div class="bis-legend" id="bisLegend"></div>
+        <div class="bis-grid" id="bisGrid"></div>
+        <p class="note" style="padding:0 16px 12px" data-i18n="bisHint"></p>
+      </details>
     </section>
 
     <section class="panel" id="gemPanel" style="margin-top:14px" aria-labelledby="gemHeading">

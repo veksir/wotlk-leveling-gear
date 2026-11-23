@@ -358,19 +358,24 @@ function renderEqTools() {
 }
 
 function arrangeSections() {
-  const main = document.querySelector(".main"), bis = $("bisPanel"), gem = $("gemPanel"), loot = $("lootPanel");
-  if (!main || !bis || !gem || !loot) return;
+  const main = document.querySelector(".main"), route = $("routePanel"), bis = $("bisPanel"), gem = $("gemPanel"), loot = $("lootPanel");
+  if (!main || !route || !bis || !gem || !loot) return;
   const top80 = state.level === 80;
-  if (top80 && main.previousElementSibling !== gem) main.before(bis, gem);
-  else if (!top80 && gem.nextElementSibling !== loot) loot.before(bis, gem);
+  if (top80 && main.previousElementSibling !== gem) main.before(route, bis, gem);
+  else if (!top80 && gem.nextElementSibling !== loot) loot.before(route, bis, gem);
+  const eqp = $("eqPanel"), eqSlot = $("routeEqSlot");
+  if (top80 && eqp.parentElement !== eqSlot) eqSlot.appendChild(eqp);
+  else if (!top80 && eqp.parentElement === eqSlot) loot.querySelector(".loot-ctl").before(eqp);
+  $("advNote").hidden = !top80;
+  $("advNote").textContent = L("A nivel 80 estos filtros solo cambian la ficha «Equipamiento recomendado»; «Tu ruta» usa la etapa del paso 2.", "At level 80 these filters only change the \"Recommended gear\" sheet; \"Your route\" uses the stage from step 2.");
   document.body.classList.toggle("lvl80", top80);
   const nav = $("jump");
-  (top80 ? ["bis", "gem", "sheet", "loot", "top"] : ["sheet", "bis", "gem", "loot", "top"]).forEach((k) => nav.appendChild(nav.querySelector('[data-j="' + k + '"]')));
+  (top80 ? ["route", "bis", "gem", "sheet", "loot", "top"] : ["sheet", "route", "bis", "gem", "loot", "top"]).forEach((k) => nav.appendChild(nav.querySelector('[data-j="' + k + '"]')));
 }
 
 function renderNav() {
   arrangeSections();
-  const names = { sheet: L("Equipo recomendado", "Recommended gear"), bis: L("BiS por fase", "BiS by phase"), gem: L("Gemas y encantamientos", "Gems and enchants"), loot: L("Botín y mi equipo", "Loot and my gear"), top: L("↑ Arriba", "↑ Top") };
+  const names = { sheet: L("Equipo recomendado", "Recommended gear"), route: L("Tu ruta", "Your route"), bis: L("Ranking por slot", "Ranking by slot"), gem: L("Gemas y encantamientos", "Gems and enchants"), loot: L("Botín y mi equipo", "Loot and my gear"), top: L("↑ Arriba", "↑ Top") };
   document.querySelectorAll("#jump a").forEach((a) => { a.textContent = names[a.dataset.j]; });
   const fac = (state.faction === "alliance" ? L("Alianza", "Alliance") : L("Horda", "Horde"));
   $("deckToggle").innerHTML = "<span>" + esc(state.cls + " · " + state.spec + " · " + fac + " · " + L("Nivel ", "Level ") + state.level) + "</span><span>" + (state.deckCollapsed ? L("Cambiar ▾", "Change ▾") : L("Ocultar ▴", "Hide ▴")) + "</span>";
@@ -389,7 +394,7 @@ $("advOpts").open = load(STORE.adv, "1") === "1";
 $("advOpts").addEventListener("toggle", () => save(STORE.adv, $("advOpts").open ? "1" : "0"));
 $("deckToggle").addEventListener("click", () => { state.deckCollapsed = !state.deckCollapsed; save(STORE.deck, state.deckCollapsed ? "1" : "0"); renderNav(); });
 if ("IntersectionObserver" in window) {
-  const ids = ["sheetPanel", "bisPanel", "gemPanel", "lootPanel"], seen = new Set();
+  const ids = ["routePanel", "sheetPanel", "bisPanel", "gemPanel", "lootPanel"], seen = new Set();
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => { if (e.isIntersecting) seen.add(e.target.id); else seen.delete(e.target.id); });
     const cur = ids.find((id) => seen.has(id));
