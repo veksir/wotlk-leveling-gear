@@ -320,6 +320,31 @@ def build_gems():
     return out
 
 
+def parse_enchant_alts(text):
+    """Alternativas de encantamiento que Icy Veins anota en el texto como «(o Nombre +N Estadística ID: 123)».
+    Devuelve [{name, id, stats, st}] solo para las que traen nombre; «st» son las estadísticas numéricas parseadas."""
+    out, seen = [], set()
+    for chunk in re.findall(r"\(o ([^)]*)\)", text or ""):
+        for part in re.split(r"\s+/\s+", chunk):
+            part = re.sub(r"\s+(?:si|para|en)\s.*$", "", part).strip()
+            name = re.split(r"\s\+|\s+ID:|,", part, 1)[0].strip()
+            if not name or not name[0].isalpha() or name in seen:
+                continue
+            id_m = re.search(r"ID:\s*(\d+)", part)
+            tokens = re.findall(r"\+\d+%?\s+(?!ID\b|and\b)[A-Za-z]+(?:\s(?!ID\b|and\b)[A-Za-z]+)?", part)
+            st = {}
+            for t in tokens:
+                if "all stats" in t.lower():
+                    n = int(re.search(r"\d+", t).group())
+                    st.update({"str": n, "agi": n, "sta": n, "int": n, "spi": n})
+                else:
+                    for k, v in parse_gem_stats(t).items():
+                        st[k] = st.get(k, 0) + v
+            seen.add(name)
+            out.append({"name": name, "id": int(id_m.group(1)) if id_m else None, "stats": " and ".join(tokens), "st": st})
+    return out
+
+
 def build_ref_gems():
     """Gemas y encantamientos recomendados por especialidad, tal cual vienen de data/reference_gems.json (Icy Veins/Wowhead).
 
@@ -335,7 +360,7 @@ def build_ref_gems():
         pick = lambda g: {"id": g.get("id"), "name": g.get("name"), "stats": g.get("stats") or "", "st": parse_gem_stats(g.get("stats"))}
         entry = {"meta": pick(v["meta_gem"]) if v.get("meta_gem") else None,
                  "rule": v.get("socket_bonus_rule") or "", "ruleEn": en["rules"].get(spec, ""),
-                 "enchants": {slot: pick(e) for slot, e in (v.get("enchants") or {}).items() if e}}
+                 "enchants": {slot: dict(pick(e), alts=parse_enchant_alts(e.get("stats"))) for slot, e in (v.get("enchants") or {}).items() if e}}
         for color in ("red", "yellow", "blue"):
             entry[color] = [pick(g) for g in v.get(f"{color}_socket") or []]
         out[spec] = entry
