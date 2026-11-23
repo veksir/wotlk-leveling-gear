@@ -27,8 +27,8 @@ def main():
 
         # Navegación entre secciones: enlaces, destinos y sticky
         links = page.locator("#jump a")
-        assert links.count() == 5 and page.locator("nav[aria-label]").count() == 1
-        for sec in ("sheetPanel", "bisPanel", "gemPanel", "lootPanel", "top"):
+        assert links.count() == 6 and page.locator("nav[aria-label]").count() == 1
+        for sec in ("routePanel", "sheetPanel", "bisPanel", "gemPanel", "lootPanel", "top"):
             assert page.locator("#" + sec).count() == 1, sec
         page.locator("#jump a[data-j='gem']").click()
         page.wait_for_function("(() => { const y = document.getElementById('gemPanel').getBoundingClientRect().top; return y >= 0 && y < 200; })()", timeout=6000)

@@ -38,6 +38,7 @@ def main():
         page.on("pageerror", lambda e: errors.append(str(e)))
         page.goto(URL, wait_until="load")
         page.wait_for_timeout(1500)
+        page.evaluate("document.getElementById('rankDetails').open = true")
         page.get_by_role("button", name="Paladin", exact=True).click()
         page.get_by_role("button", name="Protection", exact=True).click()
 

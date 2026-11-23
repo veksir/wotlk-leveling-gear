@@ -19,6 +19,7 @@ def main():
         page.on("console", lambda m: errors.append(m.text) if m.type == "error" and "Failed to load resource" not in m.text else None)
         page.goto(URL, wait_until="load")
         page.wait_for_timeout(1500)
+        page.evaluate("document.getElementById('rankDetails').open = true")
         page.get_by_role("button", name="Paladin", exact=True).click()
         page.get_by_role("button", name="Protection", exact=True).click()
 
@@ -39,15 +40,17 @@ def main():
         assert page.locator(".bis-guide-tag").count() == 0
         page.locator("#bisGuide").check()
 
-        # 2. Plan de farmeo y porcentaje del BiS
+        # 2. Ruta: sin equipo muestra qué conseguir primero; con el BiS puesto, no quedan mejoras y cubre el 100 %
+        assert page.locator("#routeUpgrades .up-row").count() >= 12
+        assert "Aún no indicaste tu equipo" in page.locator("#routeSummary").inner_text()
         assert page.locator("#bisPlan .plan-grid .bis-card").count() >= 3
         res = page.evaluate("""() => {
           const d = bisData(BIS_PHASES[4]), g = {};
           d.rows.forEach((r) => { g[r.slot] = r.list[0].id; if (r.pair) g[r.slot.slice(0, -1) + '2'] = r.list[1].id; });
           state.gear[gearKey()] = g; render();
-          return document.getElementById('bisPlan').innerText;
+          return { summary: document.getElementById('routeSummary').innerText, ups: document.getElementById('routeUpgrades').innerText };
         }""")
-        assert ("100" in res and "todo el BiS" in res), res[:300]
+        assert "100 %" in res["summary"] and "Sin mejoras en esta etapa" in res["ups"], res
         page.evaluate("state.gear[gearKey()] = {}; persist(); render();")
 
         # 3. Gemas por pieza: respeta o ignora el bonus según el valor
@@ -190,11 +193,11 @@ def main():
         # 8. Orden de secciones: a nivel 80 el BiS va antes del equipo recomendado; por debajo, después
         page.locator("#levelInput").fill("80"); page.locator("#levelInput").dispatch_event("change"); page.wait_for_timeout(500)
         order = page.evaluate("[...document.querySelector('main').children].map((e) => e.id || e.className.split(' ')[0]).join('>')")
-        assert order.index("bisPanel") < order.index("gemPanel") < order.index("main") < order.index("lootPanel"), order
-        assert page.evaluate("[...document.querySelectorAll('#jump a')].map((a) => a.dataset.j).join()") == "bis,gem,sheet,loot,top"
+        assert order.index("routePanel") < order.index("bisPanel") < order.index("gemPanel") < order.index("main") < order.index("lootPanel"), order
+        assert page.evaluate("[...document.querySelectorAll('#jump a')].map((a) => a.dataset.j).join()") == "route,bis,gem,sheet,loot,top"
         page.locator("#levelInput").fill("60"); page.locator("#levelInput").dispatch_event("change"); page.wait_for_timeout(500)
         order = page.evaluate("[...document.querySelector('main').children].map((e) => e.id || e.className.split(' ')[0]).join('>')")
-        assert order.index("main") < order.index("bisPanel") < order.index("gemPanel") < order.index("lootPanel"), order
+        assert order.index("main") < order.index("routePanel") < order.index("bisPanel") < order.index("gemPanel") < order.index("lootPanel"), order
         page.locator("#bisTabs button", has_text="Recién").click()
         assert page.locator("#bisGuideBox").is_hidden(), "la casilla de la guía solo debe verse en T10"
         page.locator("#bisTabs button", has_text="T10").click()
@@ -204,6 +207,38 @@ def main():
         assert "Sin bandas" in page.locator("#advState").inner_text()
         assert page.evaluate("""Promise.all([document.fonts.load('700 16px Cinzel'), document.fonts.load('400 16px "Source Sans 3"')]).then((r) => r.every((f) => f.length > 0))"""), "las fuentes incrustadas no cargan"
         assert "fonts.googleapis" not in FILE.read_text(encoding="utf-8")
+
+        # 10. Ruta: ninguna mejora real queda fuera de la lista (el cinturón de ToC aparece si llevas uno peor) y la etapa cambia el resultado
+        res = page.evaluate("""() => {
+          state.cls = 'Warrior'; state.spec = 'Protection'; state.faction = 'horde'; bisCache.clear();
+          const spec = currentSpec(), w = weightsFor(spec, false, 80);
+          const worse = Object.keys(DATA.items).find((i) => DATA.items[i].n === 'Waistguard of Living Iron');
+          const belt = Object.keys(DATA.items).find((i) => DATA.items[i].n === 'Titanium Links of Lore');
+          state.gear[gearKey()] = { waist: worse }; state.bisPhase = 'PR'; render();
+          const data = bisData(BIS_PHASES[0]), row = data.rows.find((r) => r.slot === 'waist'), cur = rowCurrent(row, spec, w), ups = rowUpgrades(row, data, spec, w, cur);
+          const names = new Set(ups.map((u) => u.it.n));
+          const manual = (data.pools.waist || []).slice(0, 90).map((e) => e.it).filter((it) => !cur.names.has(it.n) && bisScore(spec, w, it) > cur.score * 1.03).map((it) => it.n);
+          const html = document.getElementById('routeUpgrades').innerHTML;
+          bisFindShow(belt);
+          const find = document.getElementById('bisFindOut').innerText;
+          state.bisPhase = 'F80'; render(); const f80 = document.getElementById('routeUpgrades').innerHTML;
+          state.bisPhase = 'T10'; render(); const t10 = document.getElementById('routeUpgrades').innerHTML;
+          state.gear[gearKey()] = {}; state.bisPhase = 'F80'; persist(); render();
+          return { missing: manual.filter((n) => !names.has(n)), nUp: ups.length, inHtml: html.includes('Titanium Links of Lore'), find, differ: f80 !== t10,
+                   allGain: ups.every((u) => u.gain >= 0.03) };
+        }""")
+        assert res["nUp"] >= 1 and not res["missing"] and res["allGain"], res
+        assert res["inHtml"], "el cinturón debe aparecer en las mejoras de la etapa PR"
+        assert "Frente a lo que llevas" in res["find"] and "Waistguard of Living Iron" in res["find"], res["find"]
+        assert res["differ"]
+        # el editor de equipo vive en el paso 1 a nivel 80 y vuelve al botín por debajo
+        page.locator("#levelInput").fill("80"); page.locator("#levelInput").dispatch_event("change"); page.wait_for_timeout(500)
+        assert page.evaluate("document.getElementById('eqPanel').parentElement.id") == "routeEqSlot"
+        page.locator("#levelInput").fill("60"); page.locator("#levelInput").dispatch_event("change"); page.wait_for_timeout(500)
+        assert page.evaluate("document.getElementById('eqPanel').parentElement.id") == "lootPanel"
+        assert page.locator("#advNote").is_hidden()
+        page.locator("#levelInput").fill("80"); page.locator("#levelInput").dispatch_event("change"); page.wait_for_timeout(500)
+        assert page.locator("#advNote").is_visible()
         browser.close()
     assert not errors, errors
     print("extras OK")

@@ -15,9 +15,10 @@ def main():
         page.on("console", lambda m: errors.append(m.text) if m.type == "error" and "Failed to load resource" not in m.text else None)
         page.goto(URL, wait_until="load")
         page.wait_for_timeout(1200)
+        page.evaluate("document.getElementById('rankDetails').open = true")
 
         # Pestañas de fase y leyenda
-        assert page.locator("#bisTabs button").all_inner_texts() == ["Recién 80", "PR", "T7", "T8", "T9", "T10"]
+        assert page.locator("#bisTabs button").all_inner_texts() == ["Recién 80", "Heroicas (PR)", "T7 Naxxramas", "T8 Ulduar", "T9 Cruzado", "T10 Icecrown"]
         legend = page.locator("#bisLegend").inner_text()
         assert "BiS²" in legend and "ALT6" in legend
 
@@ -58,7 +59,7 @@ def main():
         page.locator("#bisTabs button", has_text="T9").click()
         page.wait_for_timeout(300)
         assert "Trial of the Crusader" in page.locator("#bisPhaseNote").inner_text()
-        assert page.locator("#bisTabs button[aria-pressed='true']").inner_text() == "T9"
+        assert page.locator("#bisTabs button[aria-pressed='true']").inner_text().startswith("T9")
         assert page.locator(".bis-card").count() >= 14
         assert page.locator(".bis-card .rank-bis").count() >= 14
         assert page.locator(".bis-card .rank-bis2").count() == 2
@@ -109,10 +110,11 @@ def main():
         # Persistencia e idioma
         page.reload(wait_until="load")
         page.wait_for_timeout(900)
-        assert page.locator("#bisTabs button[aria-pressed='true']").inner_text() == "T9"
+        page.evaluate("document.getElementById('rankDetails').open = true")
+        assert page.locator("#bisTabs button[aria-pressed='true']").inner_text().startswith("T9")
         page.locator('.lang-switch button[data-lang="en"]').click()
         page.wait_for_timeout(400)
-        assert page.locator("#bisHeading").inner_text() == "BiS by phase"
+        assert page.locator("#bisHeading").inner_text() == "Full ranking by slot (reference)"
         assert "phase 3" in page.locator("#bisPhaseNote").inner_text().lower()
         assert "undefined" not in page.locator("#bisGrid").inner_text().lower()
 
