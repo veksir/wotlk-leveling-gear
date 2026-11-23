@@ -56,9 +56,28 @@ def main():
         page.evaluate("ENG.refBisPhases = {}; bisCache.clear(); state.bisPhase = 'F80'; renderBis(currentSpec());")
         assert page.locator("#bisGuideBox").is_hidden()
 
-        # Enlaces de encantamientos: hechizos (id < 30000) u objetos
-        res = page.evaluate("""() => ({ spell: enchLink({ id: 25080, name: 'A' }), item: enchLink({ id: 44494, name: 'B' }) })""")
-        assert "?spell=25080" in res["spell"] and "?item=44494" in res["item"], res
+        # Encantamientos: enlaces por nombre (los IDs de las guías mezclan hechizos y objetos); el kit de armadura va por ID de objeto
+        res = page.evaluate("""() => ({ byName: enchLink({ id: 25080, name: "Enchant Gloves - Major Agility" }), kit: enchLink({ id: 38376, name: 'Heavy Borean Armor Kit', kind: 'item' }) })""")
+        assert "?search=Enchant%20Gloves%20-%20Major%20Agility" in res["byName"] and "?item=38376" in res["kit"], res
+
+        # Botas de tanque: gana la que más Aguante da (Greater Fortitude +22 > kit +18 > Tuskarr's +15), tal como pide la guía; DPS y sanadores siguen la guía
+        res = page.evaluate("""() => {
+          const out = {};
+          for (const key of ['Paladin|Protection', 'Warrior|Protection', 'Death Knight|Blood Tank']) {
+            const spec = DATA.specs[key], ref = ENG.refGems[key], c = enchChoices('feet', ref, spec);
+            out[key] = { best: c.best.name, others: c.others.map((x) => x.name) };
+          }
+          const rg = ENG.refGems['Rogue|Combat'], rc = enchChoices('feet', rg, DATA.specs['Rogue|Combat']);
+          out.rogue = { best: rc.best.name, guide: rc.prim.name };
+          return out;
+        }""")
+        for key in ("Paladin|Protection", "Warrior|Protection", "Death Knight|Blood Tank"):
+            assert res[key]["best"] == "Greater Fortitude", res
+            assert res[key]["others"][0] == "Heavy Borean Armor Kit" and "Enchant Boots - Tuskarr's Vitality" in res[key]["others"], res
+        assert res["rogue"]["best"] == res["rogue"]["guide"], res
+        page.evaluate("state.cls = 'Paladin'; state.spec = 'Protection'; bisCache.clear(); state.bisPhase = 'T8'; render();")
+        txt = page.locator("#bisGrid").inner_text()
+        assert "Greater Fortitude" in txt and "La guía de Icy Veins recomienda" in txt, txt[:300]
 
         # Plan de meta-gema para todas las especialidades y pestañas: siempre hay plan y siempre cubre el requisito
         res = page.evaluate("""() => {

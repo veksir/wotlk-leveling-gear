@@ -239,6 +239,25 @@ def main():
         assert page.locator("#advNote").is_hidden()
         page.locator("#levelInput").fill("80"); page.locator("#levelInput").dispatch_event("change"); page.wait_for_timeout(500)
         assert page.locator("#advNote").is_visible()
+
+        # 11. Lo que llevas puesto se marca en la ruta (con su puesto en el ranking) y en el ranking completo
+        res = page.evaluate("""() => {
+          state.cls = 'Paladin'; state.spec = 'Protection'; state.bisPhase = 'PR'; bisCache.clear();
+          const d = bisData(BIS_PHASES[0]), head = d.rows.find((r) => r.slot === 'head'), neck = d.rows.find((r) => r.slot === 'neck');
+          state.gear[gearKey()] = { head: head.list[0].id, neck: neck.list[1].id }; render();
+          const route = document.getElementById('routeUpgrades').innerText + document.getElementById('routeSummary').innerText;
+          const chips = document.querySelectorAll('#routeUpgrades .up-chip').length;
+          const owned = document.querySelectorAll('#bisGrid li.owned').length, haves = document.querySelectorAll('#bisGrid .bis-have').length;
+          const btn = !!document.getElementById('openRank');
+          state.gear[gearKey()] = {}; persist(); render();
+          return { route, chips, owned, haves, btn };
+        }""")
+        assert res["owned"] == 2 and res["haves"] == 2, res
+        assert "lo llevas" in res["route"].lower() and res["btn"] and res["chips"] >= 1, res
+        page.evaluate("state.gear[gearKey()] = { head: bisData(BIS_PHASES[0]).rows[0].list[0].id }; render(); document.getElementById('rankDetails').open = false;")
+        page.locator("#openRank").click(); page.wait_for_timeout(300)
+        assert page.evaluate("document.getElementById('rankDetails').open")
+        page.evaluate("state.gear[gearKey()] = {}; persist(); render();")
         browser.close()
     assert not errors, errors
     print("extras OK")
