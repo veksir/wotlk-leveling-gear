@@ -342,6 +342,13 @@ def build_ref_gems():
     return out
 
 
+def build_ref_bis_phases():
+    """Guías BiS opcionales por fase (data/reference_bis_phases.json): {spec: {fase: {slot: [id, ...]}}}, con fase en
+    F80, PR, T7, T8, T9 o T10. Se rellena con scripts/import_bis_list.py; si no existe, no hay guía para esas fases."""
+    path = ROOT / "data" / "reference_bis_phases.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+
+
 def build_ref_bis():
     """BiS de referencia (Icy Veins, fase 4) por especialidad y slot, solo IDs en el orden de la guía.
     ENG.refBis[spec] = {slot: [id, ...]}; los anillos y abalorios van bajo «ring» y «trinket»."""
@@ -451,6 +458,7 @@ def main():
         "gems": build_gems(),
         "refGems": build_ref_gems(),
         "refBis": build_ref_bis(),
+        "refBisPhases": build_ref_bis_phases(),
         "gemNotesEn": (json.loads((ROOT / "data" / "gem_text_en.json").read_text(encoding="utf-8")).get("notes", {}) if (ROOT / "data" / "gem_text_en.json").exists() else {}),
         "metaGems": {"wildcard": load_meta_gems().get("wildcard")},
         "caps": CAPS,
