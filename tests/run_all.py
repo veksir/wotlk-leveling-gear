@@ -10,7 +10,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ALL = ["reference_ids", "reference_sets", "sockets", "spec_weights", "smoke", "features", "gems", "heirlooms", "leveling",
-       "fresh80", "optimizer", "bis", "extras", "ux"]
+       "fresh80", "optimizer", "bis", "extras", "ux", "import_bis", "icons"]
 
 
 def main():
