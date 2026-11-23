@@ -132,17 +132,19 @@ def main():
         assert not res, res[:8]
         page.get_by_role("button", name="Paladin", exact=True).click(); page.get_by_role("button", name="Protection", exact=True).click()
 
-        # 7b. «Sin bandas» coincide con el equipo recomendado (Sin bandas, Fase Todas) y el buscador explica por qué un objeto sí o no sirve
+        # 7b. El BiS del equipo recomendado «Sin bandas, Fase Todas» también está en PR, salvo lo que espera a una banda (vendedores de Frost, botín de banda);
+        #     las mazmorras de fases posteriores ya cuentan en PR, y el equipo de banda solo entra cuando abre su tier
         res = page.evaluate("""() => {
-          const bad = [], nd = BIS_TABS.find((t) => t.key === 'ND');
+          const bad = [], pr = BIS_PHASES[0];
           for (const key of Object.keys(DATA.specs)) {
             const spec = DATA.specs[key], [c, s] = key.split('|'); state.cls = c; state.spec = s;
             for (const f of ['horde', 'alliance']) {
               state.faction = f;
               const sheet = computeGear(spec, { level: 80, faction: f, scope: 'noraid', phase: 0, pvp: false, fresh: false });
               bisCache.clear();
-              const rows = bisData(nd).rows;
-              rows.forEach((r) => { if (r.pair) return; const a = sheet.slots[r.slot].list.slice(0, 3).map((e) => e.it.n).join(); const b = r.list.slice(0, 3).map((e) => e.it.n).join(); if (a !== b) bad.push(key + ' ' + f + ' ' + r.slot); });
+              bisData(pr).rows.forEach((r) => { if (r.pair) return;
+                const inPr = new Set(r.list.map((e) => e.it.n));
+                const top = sheet.slots[r.slot].list[0]; if (top && !inPr.has(top.it.n) && !raidGated(top.it)) bad.push(key + ' ' + f + ' ' + r.slot + ' ' + top.it.n); });
             }
             state.faction = 'horde';
           }
@@ -150,19 +152,39 @@ def main():
         }""")
         assert not res, res[:6]
         res = page.evaluate("""() => {
-          const out = {}; state.cls = 'Warrior'; state.spec = 'Protection'; bisCache.clear();
-          const id = Object.keys(DATA.items).find((i) => DATA.items[i].n === 'Titanium Links of Lore');
-          bisFindShow(id); out.warrior = document.getElementById('bisFindOut').innerText;
-          state.cls = 'Mage'; state.spec = 'Fire'; bisFindShow(id); out.mage = document.getElementById('bisFindOut').innerText;
-          return out;
+          state.cls = 'Warrior'; state.spec = 'Protection'; bisCache.clear();
+          const frost = Object.keys(DATA.items).find((i) => { const it = DATA.items[i]; return it.src && it.src.t === 'Vendor' && it.src.cur === 'frost' && it.s === 'chest' && it.sub === 'Plate'; });
+          const has = (ph) => bisData(ph).rows.some((r) => r.list.some((e) => e.id === frost));
+          return { frost: !!frost, early: BIS_PHASES.slice(0, 4).some(has), t10: has(BIS_PHASES[4]) };
         }""")
-        assert "Sí te sirve" in res["warrior"] and "Sin bandas" in res["warrior"].replace("SIN BANDAS", "Sin bandas") and "fase 4" in res["warrior"], res["warrior"]
-        assert "No te sirve" in res["mage"] and "armadura" in res["mage"], res["mage"]
+        assert res["frost"] and not res["early"], "los vendedores de Frost no deben aparecer antes de T10"
+        res = page.evaluate("""() => {
+          state.cls = 'Warrior'; state.spec = 'Protection'; bisCache.clear();
+          const belt = Object.keys(DATA.items).find((i) => DATA.items[i].n === 'Titanium Links of Lore');
+          const inTab = (ph) => bisData(ph).rows.some((r) => r.list.some((e) => e.it.n === 'Titanium Links of Lore'));
+          // un objeto de banda de ICC (fase 4): ningún tier anterior a T10 lo muestra
+          const icc = Object.keys(DATA.items).find((i) => { const it = DATA.items[i]; return it.raid && it.ph === 4 && it.s === 'waist' && it.sub === 'Plate' && it.ilvl >= 264; });
+          const gated = BIS_PHASES.slice(0, 4).every((ph) => !bisData(ph).rows.some((r) => r.list.some((e) => e.id === icc)));
+          bisFindShow(belt); const t1 = document.getElementById('bisFindOut').innerText;
+          return { belt: inTab(BIS_PHASES[0]) && inTab(BIS_PHASES[1]), gated, icc: !!icc, t1, later: bisLater(bisData(BIS_PHASES[0]).rows.find((r) => r.slot === 'chest'), BIS_PHASES[0]).length };
+        }""")
+        assert res["belt"], "el cinturón de ToC (fase 4, sin banda) debe contar en PR y T7"
+        assert res["icc"] and res["gated"], "el equipo de ICC no debe aparecer antes de T10"
+        assert "Sí te sirve" in res["t1"] and "disponible desde PR" in res["t1"], res["t1"]
+        assert res["later"] >= 1
+        res = page.evaluate("""() => {
+          state.cls = 'Mage'; state.spec = 'Fire'; bisCache.clear();
+          const belt = Object.keys(DATA.items).find((i) => DATA.items[i].n === 'Titanium Links of Lore');
+          bisFindShow(belt); return document.getElementById('bisFindOut').innerText;
+        }""")
+        assert "No te sirve" in res and "armadura" in res, res
         page.get_by_role("button", name="Warrior", exact=True).click(); page.get_by_role("button", name="Protection", exact=True).click()
         page.locator("#bisFind").fill("Titanium Links"); page.wait_for_timeout(300)
         assert page.locator("#bisFindList li").count() >= 1
         page.locator("#bisFind").press("Enter"); page.wait_for_timeout(300)
         assert "Titanium Links of Lore" in page.locator("#bisFindOut").inner_text() and page.locator("#bisFindList").is_hidden()
+        page.locator("#bisTabs button", has_text="PR").click(); page.wait_for_timeout(300)
+        assert page.locator(".bis-card .bis-later").count() >= 3
         page.get_by_role("button", name="Paladin", exact=True).click(); page.get_by_role("button", name="Protection", exact=True).click()
 
         # 8. Orden de secciones: a nivel 80 el BiS va antes del equipo recomendado; por debajo, después

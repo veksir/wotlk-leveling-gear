@@ -17,7 +17,7 @@ def main():
         page.wait_for_timeout(1200)
 
         # Pestañas de fase y leyenda
-        assert page.locator("#bisTabs button").all_inner_texts() == ["Recién 80", "PR", "Sin bandas", "T7", "T8", "T9", "T10"]
+        assert page.locator("#bisTabs button").all_inner_texts() == ["Recién 80", "PR", "T7", "T8", "T9", "T10"]
         legend = page.locator("#bisLegend").inner_text()
         assert "BiS²" in legend and "ALT6" in legend
 
@@ -113,7 +113,7 @@ def main():
         page.locator('.lang-switch button[data-lang="en"]').click()
         page.wait_for_timeout(400)
         assert page.locator("#bisHeading").inner_text() == "BiS by phase"
-        assert "Phase 3" in page.locator("#bisPhaseNote").inner_text()
+        assert "phase 3" in page.locator("#bisPhaseNote").inner_text().lower()
         assert "undefined" not in page.locator("#bisGrid").inner_text().lower()
 
         browser.close()
