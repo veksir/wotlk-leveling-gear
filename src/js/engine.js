@@ -196,6 +196,14 @@ function withSuffix(it, w) {
 
 const FRESH_CURRENCIES = new Set(["heroism", "valor", "conquest", "triumph", "gold", "reputation"]);
 
+const FROST_CUR = new Set(["frost", "frost-token"]);
+// Contenido que depende de que abra una banda: drops de banda, fichas de fuente desconocida de banda y vendedores de Frost.
+
+function raidGated(it) {
+  const s = it.src || {};
+  return !!it.raid || s.t === "RaidProb" || (s.t === "Vendor" && FROST_CUR.has(s.cur));
+}
+
 function freshAccessible(it) {
   if (it.raid || it.pvp) return false;
   const s = it.src || {};
@@ -333,7 +341,7 @@ function computeGear(spec, o) {
       if (it.pvp) reasons.push("pvp");
       if (it.raid && o.scope !== "raid") reasons.push("raid");
     }
-    if (o.phase && it.ph > o.phase) reasons.push("phase");
+    if (o.raidOpen != null ? raidGated(it) && it.ph > o.raidOpen : o.phase && it.ph > o.phase) reasons.push("phase");
     if (o.level === 80 && !o.pvp && avgIlvl != null && isHeroicOnlyDrop(it) && avgIlvl < heroicRequirement(it.src.zid)) reasons.push("heroic");
     if (reasons.length) e.reasons = reasons;
     r.pk.forEach((p) => {
@@ -486,4 +494,4 @@ function computeGear(spec, o) {
 
 /* ---------- Equipo actual del personaje ---------- */
 
-export { ENG, GEAR_ITEMS, ARMOR_KEYS, itemFactions, armorUnlock, preferredArmor, armorFactor, weightsFor, gemContext, scoreParts, isRelevant, availableLevel, poolsFor, ARMOR_PENALTY_SCALE, softArmor, SUFFIX_SLOPE, SUFFIXES, withSuffix, FRESH_CURRENCIES, freshAccessible, evalItem, BEAM_SLOTS, jointOptimize, computeGear };
+export { ENG, GEAR_ITEMS, ARMOR_KEYS, itemFactions, armorUnlock, preferredArmor, armorFactor, weightsFor, gemContext, scoreParts, isRelevant, availableLevel, poolsFor, ARMOR_PENALTY_SCALE, softArmor, SUFFIX_SLOPE, SUFFIXES, withSuffix, FRESH_CURRENCIES, FROST_CUR, raidGated, freshAccessible, evalItem, BEAM_SLOTS, jointOptimize, computeGear };

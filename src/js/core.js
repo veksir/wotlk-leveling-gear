@@ -286,7 +286,7 @@ if (state.scope !== "raid") state.scope = "noraid";
 if (state.level !== 80 || state.pvp || state.scope === "raid") state.fresh = false;
 if (![0, 1, 2, 3, 4].includes(state.phase)) state.phase = 0;
 if (![2, 5, 10].includes(state.alts)) state.alts = 2;
-if (!["F80", "PR", "ND", "T7", "T8", "T9", "T10"].includes(state.bisPhase)) state.bisPhase = "F80";
+if (!["F80", "PR", "T7", "T8", "T9", "T10"].includes(state.bisPhase)) state.bisPhase = "F80";
 if (!DATA.factions.includes(state.faction)) state.faction = "horde";
 if (!["boss", "upgrade", "ilvl"].includes(state.lootSort)) state.lootSort = "boss";
 if (!I18N[state.lang]) state.lang = "es";
