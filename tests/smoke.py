@@ -134,7 +134,7 @@ def main():
         page.get_by_role("button", name="Arms", exact=True).click()
         page.locator("#levelInput").fill("80")
         page.locator("#levelInput").dispatch_event("change")
-        page.get_by_role("button", name="Con bandas", exact=True).click()
+        page.locator("#modes").get_by_role("button", name="Con bandas", exact=True).click()
         page.locator("#alts button", has_text="10").click()
         page.wait_for_timeout(400)
         assert page.locator("#capsBox").is_visible(), "el panel de topes debe verse a nivel 80"
@@ -143,7 +143,7 @@ def main():
         assert page.locator('#slots a[href$="item=49623"]').count() > 0, "Shadowmourne debe verse con bandas"
         assert page.locator("#alts button[aria-pressed='true']").inner_text() == "10"
         
-        page.get_by_role("button", name="Sin bandas", exact=True).click()
+        page.locator("#modes").get_by_role("button", name="Sin bandas", exact=True).click()
         page.wait_for_timeout(300)
         assert page.locator('#slots a[href$="item=49623"]').count() == 0, "Shadowmourne no debe ser un objeto recomendado sin bandas"
         assert any("oculto" in w and "banda" in w for w in page.locator("#slots .warn").all_inner_texts()), "debe explicar que hay objetos ocultos por ser de banda"

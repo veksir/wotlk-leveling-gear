@@ -17,7 +17,7 @@ def main():
         page.wait_for_timeout(1200)
 
         # Pestañas de fase y leyenda
-        assert page.locator("#bisTabs button").all_inner_texts() == ["Recién 80", "PR", "T7", "T8", "T9", "T10"]
+        assert page.locator("#bisTabs button").all_inner_texts() == ["Recién 80", "PR", "Sin bandas", "T7", "T8", "T9", "T10"]
         legend = page.locator("#bisLegend").inner_text()
         assert "BiS²" in legend and "ALT6" in legend
 

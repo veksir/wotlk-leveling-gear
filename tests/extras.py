@@ -132,6 +132,39 @@ def main():
         assert not res, res[:8]
         page.get_by_role("button", name="Paladin", exact=True).click(); page.get_by_role("button", name="Protection", exact=True).click()
 
+        # 7b. «Sin bandas» coincide con el equipo recomendado (Sin bandas, Fase Todas) y el buscador explica por qué un objeto sí o no sirve
+        res = page.evaluate("""() => {
+          const bad = [], nd = BIS_TABS.find((t) => t.key === 'ND');
+          for (const key of Object.keys(DATA.specs)) {
+            const spec = DATA.specs[key], [c, s] = key.split('|'); state.cls = c; state.spec = s;
+            for (const f of ['horde', 'alliance']) {
+              state.faction = f;
+              const sheet = computeGear(spec, { level: 80, faction: f, scope: 'noraid', phase: 0, pvp: false, fresh: false });
+              bisCache.clear();
+              const rows = bisData(nd).rows;
+              rows.forEach((r) => { if (r.pair) return; const a = sheet.slots[r.slot].list.slice(0, 3).map((e) => e.it.n).join(); const b = r.list.slice(0, 3).map((e) => e.it.n).join(); if (a !== b) bad.push(key + ' ' + f + ' ' + r.slot); });
+            }
+            state.faction = 'horde';
+          }
+          return bad;
+        }""")
+        assert not res, res[:6]
+        res = page.evaluate("""() => {
+          const out = {}; state.cls = 'Warrior'; state.spec = 'Protection'; bisCache.clear();
+          const id = Object.keys(DATA.items).find((i) => DATA.items[i].n === 'Titanium Links of Lore');
+          bisFindShow(id); out.warrior = document.getElementById('bisFindOut').innerText;
+          state.cls = 'Mage'; state.spec = 'Fire'; bisFindShow(id); out.mage = document.getElementById('bisFindOut').innerText;
+          return out;
+        }""")
+        assert "Sí te sirve" in res["warrior"] and "Sin bandas" in res["warrior"].replace("SIN BANDAS", "Sin bandas") and "fase 4" in res["warrior"], res["warrior"]
+        assert "No te sirve" in res["mage"] and "armadura" in res["mage"], res["mage"]
+        page.get_by_role("button", name="Warrior", exact=True).click(); page.get_by_role("button", name="Protection", exact=True).click()
+        page.locator("#bisFind").fill("Titanium Links"); page.wait_for_timeout(300)
+        assert page.locator("#bisFindList li").count() >= 1
+        page.locator("#bisFind").press("Enter"); page.wait_for_timeout(300)
+        assert "Titanium Links of Lore" in page.locator("#bisFindOut").inner_text() and page.locator("#bisFindList").is_hidden()
+        page.get_by_role("button", name="Paladin", exact=True).click(); page.get_by_role("button", name="Protection", exact=True).click()
+
         # 8. Orden de secciones: a nivel 80 el BiS va antes del equipo recomendado; por debajo, después
         page.locator("#levelInput").fill("80"); page.locator("#levelInput").dispatch_event("change"); page.wait_for_timeout(500)
         order = page.evaluate("[...document.querySelector('main').children].map((e) => e.id || e.className.split(' ')[0]).join('>')")
