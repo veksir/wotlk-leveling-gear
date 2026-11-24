@@ -21,7 +21,7 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 - **How to get it**: every item shows its source (quest, vendor, dungeon boss with drop chance, raid, rare drop) and links to its EVOWOW page.
 - **"Why this item?"** per slot: score breakdown by stat, armor-type penalty, comparison with the next alternative, and a warning when a higher item level option is hidden or weaker.
 - **Content modes**: "No raids" (default) or "With raids", raid phase 1–4 or All, and a separate "PvP only" mode (PvE is the default; PvP gear is never mixed into PvE recommendations).
-- **"Fresh 80" mode**: hides Frost, Tier 10, raid tokens, and PvP gear, leaving quests, dungeons, reputation, gold, auction house, crafting, and badges up to Triumph (1:1 conversion to Conquest/Valor/Heroism). A five-step route explains the fastest gearing path. Checked by `python tests/fresh80.py`.
+- **"Fresh 80" mode**: hides Frost, Tier 10, raid tokens, and PvP gear, leaving quests, dungeons, reputation, gold, auction house, crafting, and badges up to Triumph (1:1 conversion to Conquest/Valor/Heroism). Checked by `python tests/fresh80.py`.
 - **Legendary items included**: legendaries are scored like any other item and appear when they are the best option; raid legendaries require "With raids". The page shows the top choices per slot, not a full legendary catalog.
 - **Proc-aware trinkets**: on-use and proc effects are averaged by duration and cooldown (≈). Curated trinket lists from the guides take priority in their slot.
 - **Gems by color and meta gems**: each socket uses the best gem of its color; the socket bonus only activates when the colors are respected, and a meta gem only counts when it meets its requirements and pays for its activation cost.
@@ -29,7 +29,22 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 - **Class relics**: sigils, totems, idols, and librams are normal gear and are recommended when the guide lists them. They are separate from leveling heirlooms.
 - **Level 80 caps**: hit and expertise totals are shown; stats above the cap count for 15 %.
 - **Leveling coverage**: random-enchant items ("of the Bear") are estimated with the best suffix for your spec, white armor-only items fill empty slots, and slots without any useful item show the best available option with a notice. Checked by `python tests/leveling.py`.
-- **BiS by phase (BiS-Tooltip style)**: PR, T7, T8, T9 and T10 tabs (cumulative) ranking every slot at level 80: **BiS** (best), **BiS²** (second, for rings and trinkets) and **ALT1–ALT6**. Alternatives that "fill" hit or expertise are flagged when the phase's BiS is under the cap. Pieces you already wear (from "My current gear") are marked "Equipped", each slot shows its sockets with the recommended gem and its enchant, and the main sheet also labels BiS and ALT.
+- **Your level 80 route (3-step flow)**: ① enter your current gear (or import it), ② choose your server's stage (Fresh 80, Heroics, T7 Naxxramas, T8 Ulduar, T9 Crusader, T10 Icecrown) and ③ see **every upgrade over what you wear**, sorted by how much each slot improves (+X%), with its source, the farming plan by source and the "Got a drop?" finder, which also compares against your current piece. The full ranking by slot (BiS and ALT) is folded away as a reference.
+- **Level 80 progression**: at level 80 the "BiS by phase" panel comes first and starts with the **Fresh 80** tab (no heroics: quests, reputations, normal dungeons, emblems and crafting), then **PR** (with heroics, gated by the average item level each one requires) and the raids. Below level 80 the leveling sheet comes first.
+- **Offline**: fonts (Cinzel and Source Sans 3, OFL license in `assets/fonts/`) are embedded in the page. Only item tooltips and icons (EVOWOW) need a connection.
+- **BiS by phase (BiS-Tooltip style)**: Fresh 80, PR, T7, T8, T9 and T10 tabs (cumulative) ranking every slot at level 80: **BiS** (best), **BiS²** (second, for rings and trinkets) and **ALT1–ALT6**. Alternatives that "fill" hit or expertise are flagged when the phase's BiS is under the cap. Pieces you already wear (from "My current gear") are marked "Equipped", each slot shows its sockets with the recommended gem and its enchant, and the main sheet also labels BiS and ALT.
+- **Navigation and design**: sticky section bar (gear, BiS by phase, gems, loot), collapsible filters on mobile that remember your choice, visible keyboard focus, 11 px minimum text, larger touch targets and clean printing. Checked with `python tests/ux.py`.
+- **Curated BiS in T10**: the T10 tab takes its BiS from the Icy Veins guide ("guide" tag), with a checkbox to go back to the engine's calculation; other phases are calculated.
+- **Item finder ("Got a drop?")**: type the name (or paste the link) and it tells you whether it suits your spec and where it ranks in each tab (BiS, ALT or "rank N of M"), or why it does not appear (phase, raid, heroic, armor type).
+- **Server with phased raids**: in the tabs, anything that is not raid gear (dungeons of any phase, reputations, professions, emblems) counts from **PR** on, and raid gear only enters when its tier opens (T7 Naxxramas, T8 Ulduar, T9 ToC, T10 ICC/Ruby Sanctum; Frost vendors count as T10). Each slot shows "Later" what changes in the following tiers.
+- **Farming plan**: groups the BiS pieces you are missing by source (raid, boss, vendor, quest) and shows what percentage of the BiS you cover.
+- **Editable weights**: side panel to adjust each stat weight for your spec.
+- **Export, import and share** your current gear (text or `#eq=` link).
+- **Compressed HTML**: `python scripts/build_page.py` writes a compressed `tolltip.html` (~1.4 MB); `--plain` writes it uncompressed.
+- **Meta gem plan**: on each tab's BiS set it checks whether the recommended gems already activate the meta gem and, if not, what to change (it counts real gem colors: a purple gem counts as red and blue; the Nightmare Tear counts as all three).
+- **BiS guides per phase**: only the T10 guide ships with the repo. To add another phase, paste its list into a text file (`Head: Item A; Item B`, one slot per line), run `python scripts/import_bis_list.py "Paladin|Protection" PR list.txt` and then `python scripts/build_page.py`; it is stored in `data/reference_bis_phases.json`.
+- **Offline icons (optional)**: `python scripts/fetch_icons.py` downloads the icons used by BiS by phase into `assets/icons/` and `python scripts/build_page.py --icons assets/icons` embeds them (the page grows by several MB). Without that step they load from EVOWOW.
+- **Enchants with alternatives**: each slot shows the guide's enchant and its alternatives. If an alternative gives more of the same stat (for example tank boots: Greater Fortitude +22 Stamina > Heavy Borean Armor Kit +18 > Tuskarr's Vitality +15), it moves to first place and the guide's pick is noted. Links open a name search on EVOWOW (guide IDs mix spells and items).
 - **Gems and enchants**: per-spec panel with the meta gem, gems by socket color, the enchant for each slot and gemming notes (Icy Veins and Wowhead guides). The long gemming rules are Spanish only. Checked with `python tests/bis.py`.
 - **Loot browser**: enter what your character is wearing (or load the recommended set), pick a dungeon or raid, and see every item it can drop for your class and spec with the % change over your equipped piece. Off-spec items are hidden by default and can be revealed with a toggle.
 - **Faction-aware**: quests and vendors are filtered for Horde or Alliance.
@@ -38,7 +53,6 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 - **Optional heirlooms**: all 35 leveling heirlooms have exact stats per level and armor-type changes before level 40. They stay out of recommendations unless you mark “Include leveling heirlooms I already own”, because their vendors require level-80 currency.
 - **EVOWOW tooltips** for every item.
 - **Responsive layout** and persisted selection (`localStorage`).
-- **Self-contained, compressed build**: the generated page inlines the data and compresses its JavaScript with gzip, and Cinzel / Source Sans 3 are bundled locally.
 - **No backend** and no build step required to view the page.
 
 ## How it works
@@ -47,14 +61,15 @@ It supports all 10 WotLK classes, 31 specializations, levels 1–80, Horde/Allia
 2. `scripts/build_item_db.py` normalizes items, stats (including averaged trinket procs, on-use effects, socket colors, and meta sockets), required levels, armor/weapon metadata, and sources.
 3. `scripts/build_recommendations.py` emits the item database, spec definitions, stat weights, reference gems and meta gems, T10 set bonuses, curated trinkets/relics, and the dungeon list. Level-80 weights follow each spec's Icy Veins priority, calibrated with WowSims where available; below 80 the role weights keep leveling gear sensible. Heirlooms are ranked only when the “already own” toggle is enabled; class relics are normal gear. The ranking itself runs in the browser, so mode, phase, PvP, and faction filters apply instantly. At level 80 the browser chooses armor and rings together with a beam search; weapons, trinkets, and relics keep their own rules.
 4. `scripts/build_page.py` runs the Vite build over the modular source in `src/` (HTML, CSS, and ES modules) and copies the generated single-file page to `tolltip.html`.
+5. Optional: `scripts/import_bis_list.py` adds per-phase guide lists to `data/reference_bis_phases.json`, and `scripts/fetch_icons.py` downloads the phase icons into `assets/icons/` for `--icons`.
 
-The ranking is a practical heuristic, not a combat simulator: it sorts by a weighted stat score (item level only breaks ties), uses per-spec priorities at level 80 and role weights while leveling, penalizes armor types that are not ideal for the class, averages trinket procs and on-use effects by duration and cooldown, chooses gems by color, activates the socket bonus only when the colors are respected, uses a meta gem only when it meets its requirements and pays for its activation cost, shares the T10 set bonus only among the recommended pieces, applies hit/expertise caps at level 80, and compares two-handers against one-hand + off-hand. A two-hander blocks the off-hand slot unless the spec uses Titan's Grip. Epic items with no recorded source at item level 213 or higher are treated as raid loot ("likely raid"). Enchants and random-enchant items are not scored yet.
+The ranking is a practical heuristic, not a combat simulator: it sorts by a weighted stat score (item level only breaks ties), uses per-spec priorities at level 80 and role weights while leveling, penalizes armor types that are not ideal for the class, averages trinket procs and on-use effects by duration and cooldown, chooses gems by color, activates the socket bonus only when the colors are respected, uses a meta gem only when it meets its requirements and pays for its activation cost, shares the T10 set bonus only among the recommended pieces, applies hit/expertise caps at level 80, and compares two-handers against one-hand + off-hand. A two-hander blocks the off-hand slot unless the spec uses Titan's Grip. Epic items with no recorded source at item level 213 or higher are treated as raid loot ("likely raid"). Enchant alternatives are ranked only by the same stat they share; random-enchant items are not scored yet.
 
 ## Quick start
 
 Clone the repository and open `tolltip.html` in a browser.
 
-Internet access is required only for EVOWOW item tooltips; the fonts are bundled locally. The page itself works without a local server.
+Internet access is required only for EVOWOW item tooltips and icons; the fonts are bundled locally. The page itself works without a local server.
 
 ## Build from source
 
@@ -67,7 +82,6 @@ Requirements:
 ```bash
 npm ci
 python -m pip install -r requirements.txt
-python -m playwright install chromium
 python -m playwright install chromium
 
 python scripts/fetch_raw.py
@@ -94,16 +108,19 @@ python tests/reference_sets.py
 python tests/reference_ids.py
 python tests/extras.py
 python tests/ux.py
+python tests/import_bis.py
+python tests/icons.py
 python tests/run_all.py
 ```
 
-`build_page.py` runs `npm run build` with Vite and writes the single-file `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` audits all 31 level-80 specializations against the Icy Veins BiS lists in `tests/reference_bis_ids.json` (ID-based, Icy Veins + Wowhead) and reports hit/exact rates; `--min=497` enforces the current gate and `--strict` is the final 518/518 target. `sockets.py` covers socket colors and meta sockets, `gems.py` covers meta-gem activation and socket bonuses, and `optimizer.py` covers the beam search, performance (<750 ms), and that level 79 does not use it. `heirlooms.py` covers level scaling, off-spec filtering, two-handed weapons, and relic search; `features.py` covers gems/sockets, set bonuses, and curated relics; `reference_sets.py` validates the T10 set pieces; `reference_ids.py` validates the ID-based reference; `spec_weights.py` checks all 31 level-80 specializations; `fresh80.py` checks the Fresh 80 filter across all 31 specializations and both factions, plus the checkbox, route, persistence, and disabling in PvP/With raids.
+`build_page.py` runs `npm run build` with Vite and writes the single-file `tolltip.html` in the repository and, when available, to `~/Desktop/tolltip.html`. `check_reference.py` audits all 31 level-80 specializations against the Icy Veins BiS lists in `tests/reference_bis_ids.json` (ID-based, Icy Veins + Wowhead) and reports hit/exact rates; `--min=497` enforces the current gate and `--strict` is the final 518/518 target. `sockets.py` covers socket colors and meta sockets, `gems.py` covers meta-gem activation and socket bonuses, and `optimizer.py` covers the beam search, performance (<750 ms), and that level 79 does not use it. `heirlooms.py` covers level scaling, off-spec filtering, two-handed weapons, and relic search; `features.py` covers gems/sockets, set bonuses, and curated relics; `reference_sets.py` validates the T10 set pieces; `reference_ids.py` validates the ID-based reference; `spec_weights.py` checks all 31 level-80 specializations; `fresh80.py` checks the Fresh 80 filter across all 31 specializations and both factions, plus the checkbox, route, persistence, and disabling in PvP/With raids; `import_bis.py` covers the per-phase guide importer and `icons.py` the optional embedded icon build. `build_page.py --icons assets/icons` embeds `assets/icons/`, while `--plain` skips compression.
 
 ## Project structure
 
 ```text
 .
 ├── assets/fonts/          # bundled Cinzel and Source Sans 3 (OFL)
+├── assets/icons/          # optional embedded item icons (generated)
 ├── data/                  # generated gear_data.json (raw data is ignored)
 ├── docs/                  # README screenshots
 ├── legacy/                # previous heirloom-only implementation
@@ -139,7 +156,7 @@ This project is not affiliated with Blizzard Entertainment. World of Warcraft an
 - "No raids" excludes raid loot and raid quest chains; "With raids" includes them.
 - "Fresh 80" does not score the T9 set bonus and does not distinguish seasonal event availability; it filters by currency/source, not by whether the event is active this week.
 - Stat weights are role-based while leveling and follow Icy Veins priorities, calibrated with WowSims where available, at level 80. They are designed to be useful, not to replace a full BiS simulator; haste soft caps and talent interactions are not modeled.
-- Gems are chosen by color and the socket bonus only activates when the colors are respected; the meta gem uses a heuristic EP cost documented in `data/reference_meta_gems.json` and does not model every activation effect. Enchants, random enchants, and some trinket/set interactions are still simplified.
+- Gems are chosen by color and the socket bonus only activates when the colors are respected; the meta gem uses a heuristic EP cost documented in `data/reference_meta_gems.json` and does not model every activation effect. Enchant alternatives only compare the stat they share, random enchants are not scored, and some trinket/set interactions are still simplified.
 - Below level 80 the previous approximation remains: one recommended gem per socket and socket bonuses count for half.
 - The level-80 beam search only covers armor and rings; weapons, off-hand, ranged, trinkets, and relics keep their greedy or curated calculation.
 - The T10 set bonus is an estimate shared only among the pieces recommended by the guide; it is not a full simulation of 2-piece/4-piece uptime.

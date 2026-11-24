@@ -21,7 +21,7 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 - **Cómo conseguirlo**: cada objeto muestra su fuente (misión, vendedor, jefe de mazmorra con probabilidad de drop, banda, drop raro) y enlaza a su ficha de EVOWOW.
 - **«¿Por qué este objeto?»** por slot: desglose de la puntuación por estadística, penalización por tipo de armadura, comparación con la siguiente alternativa y aviso cuando una opción de mayor nivel está oculta o es peor.
 - **Modos de contenido**: «Sin bandas» (por defecto) o «Con bandas», fase de raid 1–4 o Todas y un modo aparte «Solo PvP» (el PvE es el predeterminado; el equipo PvP nunca se mezcla en la recomendación PvE).
-- **Modo «Recién 80»**: oculta Frost, T10, fichas de raid y PvP, y deja misiones, mazmorras, reputación, oro, subasta, crafting y emblemas hasta Triunfo (conversión 1:1 a Conquista/Valor/Heroísmo). Una ruta de cinco pasos explica el camino más rápido. Se comprueba con `python tests/fresh80.py`.
+- **Modo «Recién 80»**: oculta Frost, T10, fichas de raid y PvP, y deja misiones, mazmorras, reputación, oro, subasta, crafting y emblemas hasta Triunfo (conversión 1:1 a Conquista/Valor/Heroísmo). Se comprueba con `python tests/fresh80.py`.
 - **Legendarios incluidos**: los legendarios se puntúan como cualquier otro objeto y aparecen cuando son la mejor opción; los de banda requieren «Con bandas». La página muestra el top por slot, no un catálogo completo de legendarios.
 - **Abalorios con procs**: los efectos de uso y los procs se promedian según duración y enfriamiento (≈). Las listas curadas de abalorios de las guías mandan en su slot.
 - **Gemas por color y meta-gemas**: cada socket usa la mejor gema de su color; el bonus de socket solo se activa si se respetan los colores y la meta-gema solo cuenta si cumple sus requisitos y compensa su coste de activación.
@@ -29,7 +29,22 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 - **Reliquias de clase**: sigilos, tótems, ídolos y librams son equipo normal y se recomiendan cuando la guía los incluye. Son distintas de las reliquias de subida (heirlooms).
 - **Topes de nivel 80**: se muestran los totales de golpe y pericia; lo que excede el tope vale un 15 %.
 - **Cobertura al subir de nivel**: los objetos con encantamiento aleatorio («of the Bear») se estiman con el mejor sufijo para tu especialidad, los blancos solo con armadura rellenan slots vacíos y los slots sin ningún objeto útil muestran la mejor opción disponible con un aviso. Se comprueba con `python tests/leveling.py`.
-- **BiS por fase (estilo BiS-Tooltip)**: pestañas PR, T7, T8, T9 y T10 (acumulativas) con el ranking de cada slot a nivel 80: **BiS** (mejor), **BiS²** (segundo, en anillos y abalorios) y **ALT1–ALT6**. Marca las alternativas que «completan» golpe o pericia cuando el BiS de esa fase no llega al tope. Las piezas que ya llevas puestas (según «Mi equipo actual») se marcan con «✓ Lo llevas», cada slot muestra los sockets con la gema recomendada y su encantamiento, y la ficha principal también etiqueta BiS y ALT.
+- **Tu ruta a nivel 80 (flujo de 3 pasos)**: ① introduce tu equipo actual (o impórtalo), ② elige la etapa de tu servidor (Recién 80, Heroicas, T7 Naxxramas, T8 Ulduar, T9 Cruzada, T10 Corona de Hielo) y ③ consulta **todas las mejoras sobre lo que llevas**, ordenadas por cuánto mejora cada slot (+X%), con su fuente, el plan de farmeo por fuente y el buscador «¿Te ha caído?», que también compara con tu pieza actual. El ranking completo por slot (BiS y ALT) queda plegado como referencia.
+- **Progresión a nivel 80**: a nivel 80 el panel «BiS por fase» aparece primero y arranca en la pestaña **Recién 80** (sin heroicas: misiones, reputaciones, mazmorras normales, emblemas y crafting), luego **PR** (con heroicas, limitadas por el nivel de objeto medio que exige cada una) y las bandas. Por debajo de 80 la ficha de subida va primero.
+- **Sin conexión**: las fuentes (Cinzel y Source Sans 3, licencia OFL en `assets/fonts/`) van incrustadas. Solo los tooltips e iconos de objetos (EVOWOW) necesitan conexión.
+- **BiS por fase (estilo BiS-Tooltip)**: pestañas Recién 80, PR, T7, T8, T9 y T10 (acumulativas) con el ranking de cada slot a nivel 80: **BiS** (mejor), **BiS²** (segundo, en anillos y abalorios) y **ALT1–ALT6**. Marca las alternativas que «completan» golpe o pericia cuando el BiS de esa fase no llega al tope. Las piezas que ya llevas puestas (según «Mi equipo actual») se marcan con «✓ Lo llevas», cada slot muestra los sockets con la gema recomendada y su encantamiento, y la ficha principal también etiqueta BiS y ALT.
+- **Navegación y diseño**: barra de secciones fija (equipo, BiS por fase, gemas, botín), filtros plegables en móvil que recuerdan tu elección, foco de teclado visible, texto mínimo de 11 px, objetivos táctiles más grandes e impresión limpia. Se comprueba con `python tests/ux.py`.
+- **BiS curado en T10**: la pestaña T10 toma el BiS de la guía de Icy Veins (etiqueta «guía»), con una casilla para volver al cálculo del motor; las demás fases se calculan.
+- **Buscador de objetos («¿Te ha caído?»)**: escribe el nombre (o pega el enlace) y te dice si encaja con tu especialidad y en qué puesto queda en cada pestaña (BiS, ALT o «puesto N de M»), o por qué no aparece (fase, banda, heroica, tipo de armadura).
+- **Servidor con bandas por fase**: en las pestañas, todo lo que no es botín de banda (mazmorras de cualquier fase, reputaciones, profesiones, emblemas) cuenta desde **PR**, y el botín de banda solo entra cuando abre su tier (T7 Naxxramas, T8 Ulduar, T9 CdC, T10 CdH/Santuario Rubí; los vendedores de Escarcha cuentan como T10). Cada slot muestra en «Más adelante» lo que cambia en los siguientes tiers.
+- **Plan de farmeo**: agrupa las piezas BiS que te faltan por fuente (banda, jefe, vendedor, misión) y muestra qué porcentaje del BiS cubres.
+- **Pesos editables**: panel lateral para ajustar el peso de cada estadística de tu especialidad.
+- **Exportar, importar y compartir** tu equipo actual (texto o enlace `#eq=`).
+- **HTML comprimido**: `python scripts/build_page.py` escribe un `tolltip.html` comprimido (~1,4 MB); `--plain` lo escribe sin comprimir.
+- **Plan de meta-gema**: en el BiS de cada pestaña comprueba si las gemas recomendadas ya activan la meta-gema y, si no, qué cambiar (cuenta los colores reales: una gema púrpura cuenta como roja y azul; la Lágrima de Pesadilla cuenta como las tres).
+- **Guías BiS por fase**: solo la guía de T10 viene con el repositorio. Para añadir otra fase, pega su lista en un archivo de texto (`Cabeza: Objeto A; Objeto B`, un slot por línea), ejecuta `python scripts/import_bis_list.py "Paladin|Protection" PR lista.txt` y luego `python scripts/build_page.py`; se guarda en `data/reference_bis_phases.json`.
+- **Iconos sin conexión (opcional)**: `python scripts/fetch_icons.py` descarga los iconos que usa BiS por fase a `assets/icons/` y `python scripts/build_page.py --icons assets/icons` los incrusta (la página crece varios MB). Sin ese paso se cargan desde EVOWOW.
+- **Encantamientos con alternativas**: cada slot muestra el encantamiento de la guía y sus alternativas. Si una alternativa da más de la misma estadística (por ejemplo, botas de tanque: Fortaleza superior +22 Aguante > Kit de armadura boreal pesado +18 > Vitalidad de Tuskarr +15), pasa al primer puesto y se indica la elección de la guía. Los enlaces abren una búsqueda por nombre en EVOWOW (los IDs de las guías mezclan hechizos y objetos).
 - **Gemas y encantamientos**: panel por especialidad con la meta-gema, las gemas por color de socket, el encantamiento de cada slot y las notas de gemado (guías de Icy Veins y Wowhead). Las notas largas de gemado solo están en español. Se comprueba con `python tests/bis.py`.
 - **Buscador de botín**: indica lo que lleva puesto tu personaje (o carga el recomendado), elige una mazmorra o banda y mira todo lo que puede soltar para tu clase y especialidad, con el % de cambio frente a tu pieza equipada. El botín fuera de especialidad queda oculto por defecto y se puede mostrar con un interruptor.
 - **Filtro de facción**: las misiones y vendedores se ajustan a Horda o Alianza.
@@ -38,7 +53,6 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 - **Reliquias de subida (heirlooms) opcionales**: las 35 reliquias de subida tienen estadísticas exactas por nivel y cambio de tipo de armadura antes del nivel 40. Quedan fuera de las recomendaciones salvo que marques «Incluir reliquias de subida (heirlooms) que ya tengo», porque sus vendedores requieren moneda de nivel 80.
 - **Tooltips de EVOWOW** para todos los objetos.
 - **Diseño responsive** y selección guardada en `localStorage`.
-- **Build autocontenido y comprimido**: la página generada incrusta los datos y comprime su JavaScript con gzip, y Cinzel / Source Sans 3 se incluyen en local.
 - **Sin backend** y sin compilación para ver la página.
 
 ## Cómo funciona
@@ -47,14 +61,15 @@ Incluye las 10 clases de WotLK, 31 especialidades, niveles 1–80, Horda/Alianza
 2. `scripts/build_item_db.py` normaliza objetos, estadísticas (incluidos los procs y efectos de uso de abalorios, promediados, colores de socket y socket meta), niveles requeridos, armadura/armas y fuentes.
 3. `scripts/build_recommendations.py` genera la base de objetos, las definiciones de especialidad, los pesos de estadísticas, las gemas de referencia y meta-gemas, los bonus de set T10, los abalorios y reliquias curados y la lista de mazmorras. A nivel 80 se usa la prioridad de Icy Veins de cada especialidad, calibrada con WowSims cuando hay datos; por debajo de 80, los pesos por rol mantienen el equipo de subida coherente. Las reliquias de subida solo se rankean si activas «Incluir reliquias de subida (heirlooms) que ya tengo»; las reliquias de clase son equipo normal. El ranking se calcula en el navegador, así que los filtros de modo, fase, PvP y facción se aplican al instante. A nivel 80 el navegador elige a la vez armadura y anillos con una búsqueda en haz; armas, abalorios y reliquias mantienen sus reglas.
 4. `scripts/build_page.py` ejecuta la compilación de Vite sobre la fuente modular de `src/` (HTML, CSS y módulos ES) y copia la página autocontenida generada a `tolltip.html`.
+5. Opcional: `scripts/import_bis_list.py` añade listas de guía por fase a `data/reference_bis_phases.json`, y `scripts/fetch_icons.py` descarga los iconos de fase a `assets/icons/` para `--icons`.
 
-El ranking es una heurística práctica, no un simulador de combate: ordena por una puntuación ponderada de estadísticas (el nivel de objeto solo desempata), usa prioridades por especialidad a nivel 80 y pesos por rol durante la subida, penaliza los tipos de armadura que no son ideales para la clase, promedia los procs y efectos de uso de los abalorios según duración y enfriamiento, elige gemas por color, activa el bonus de socket solo si se respetan los colores, usa la meta-gema solo si cumple sus requisitos y compensa su coste, reparte el bonus de set T10 solo entre las piezas recomendadas, aplica los topes de golpe/pericia a nivel 80 y compara dos manos contra una mano + secundaria. Un arma a dos manos bloquea la mano secundaria salvo en especialidades con Titan's Grip. Los épicos sin fuente registrada de nivel de objeto 213 o más se tratan como botín de banda («banda probable»). Aún no se puntúan encantamientos ni objetos con encantamiento aleatorio.
+El ranking es una heurística práctica, no un simulador de combate: ordena por una puntuación ponderada de estadísticas (el nivel de objeto solo desempata), usa prioridades por especialidad a nivel 80 y pesos por rol durante la subida, penaliza los tipos de armadura que no son ideales para la clase, promedia los procs y efectos de uso de los abalorios según duración y enfriamiento, elige gemas por color, activa el bonus de socket solo si se respetan los colores, usa la meta-gema solo si cumple sus requisitos y compensa su coste, reparte el bonus de set T10 solo entre las piezas recomendadas, aplica los topes de golpe/pericia a nivel 80 y compara dos manos contra una mano + secundaria. Un arma a dos manos bloquea la mano secundaria salvo en especialidades con Titan's Grip. Los épicos sin fuente registrada de nivel de objeto 213 o más se tratan como botín de banda («banda probable»). Las alternativas de encantamiento solo se ordenan por la estadística que comparten; los objetos con encantamiento aleatorio aún no se puntúan.
 
 ## Inicio rápido
 
 Clona el repositorio y abre `tolltip.html` en el navegador.
 
-Solo necesitas conexión a internet para los tooltips de EVOWOW; las fuentes se incluyen en local. La página funciona sin servidor local.
+Solo necesitas conexión a internet para los tooltips e iconos de EVOWOW; las fuentes se incluyen en local. La página funciona sin servidor local.
 
 ## Generar desde el código
 
@@ -67,7 +82,6 @@ Requisitos:
 ```bash
 npm ci
 python -m pip install -r requirements.txt
-python -m playwright install chromium
 python -m playwright install chromium
 
 python scripts/fetch_raw.py
@@ -94,16 +108,19 @@ python tests/reference_sets.py
 python tests/reference_ids.py
 python tests/extras.py
 python tests/ux.py
+python tests/import_bis.py
+python tests/icons.py
 python tests/run_all.py
 ```
 
-`build_page.py` ejecuta `npm run build` con Vite y escribe la página autocontenida `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis_ids.json` (por ID, Icy Veins + Wowhead) e informa de aciertos y coincidencias exactas; `--min=497` exige el gate actual y `--strict` es el objetivo final de 518/518. `sockets.py` comprueba los colores y el socket meta, `gems.py` la activación de la meta-gema y el bonus de socket, y `optimizer.py` la búsqueda en haz, el rendimiento (<750 ms) y que el nivel 79 no la use. `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `features.py` cubre gemas/sockets, bonus de set y reliquias curadas; `reference_sets.py` valida las piezas de los sets T10; `reference_ids.py` valida la referencia por ID; `spec_weights.py` comprueba las 31 especialidades a nivel 80; `fresh80.py` comprueba el filtro Recién 80 en las 31 especialidades y ambas facciones, además del checkbox, la ruta, la persistencia y su desactivación en PvP/«Con bandas».
+`build_page.py` ejecuta `npm run build` con Vite y escribe la página autocontenida `tolltip.html` en el repositorio y, si existe, también en `~/Desktop/tolltip.html`. `check_reference.py` audita las 31 especialidades a nivel 80 contra las listas BiS de Icy Veins en `tests/reference_bis_ids.json` (por ID, Icy Veins + Wowhead) e informa de aciertos y coincidencias exactas; `--min=497` exige el gate actual y `--strict` es el objetivo final de 518/518. `sockets.py` comprueba los colores y el socket meta, `gems.py` la activación de la meta-gema y el bonus de socket, y `optimizer.py` la búsqueda en haz, el rendimiento (<750 ms) y que el nivel 79 no la use. `heirlooms.py` cubre el escalado por nivel, el filtro fuera de especialidad, las armas a dos manos y la búsqueda de reliquias; `features.py` cubre gemas/sockets, bonus de set y reliquias curadas; `reference_sets.py` valida las piezas de los sets T10; `reference_ids.py` valida la referencia por ID; `spec_weights.py` comprueba las 31 especialidades a nivel 80; `fresh80.py` comprueba el filtro Recién 80 en las 31 especialidades y ambas facciones, además del checkbox, la ruta, la persistencia y su desactivación en PvP/«Con bandas»; `import_bis.py` cubre el importador de guías por fase e `icons.py` el build opcional con iconos incrustados. `build_page.py --icons assets/icons` incrusta `assets/icons/`, mientras que `--plain` omite la compresión.
 
 ## Estructura del proyecto
 
 ```text
 .
 ├── assets/fonts/          # Cinzel y Source Sans 3 incluidas (OFL)
+├── assets/icons/          # iconos de objeto opcionales (generados)
 ├── data/                  # gear_data.json generado (los datos crudos se ignoran)
 ├── docs/                  # capturas para el README
 ├── legacy/                # implementación anterior, solo reliquias
@@ -140,7 +157,7 @@ Este proyecto no está afiliado a Blizzard Entertainment. World of Warcraft y Wr
 - En «Sin bandas» se excluyen el botín de banda y las cadenas de misión de banda; en «Con bandas» aparecen.
 - «Recién 80» no puntúa el bonus T9 ni distingue la disponibilidad de eventos estacionales; filtra por moneda/fuente, no por si el evento está activo esta semana.
 - Los pesos de estadísticas son aproximaciones por rol durante la subida y siguen las prioridades de Icy Veins, calibradas con WowSims cuando hay datos, a nivel 80. Sirven para orientar, no sustituyen a un simulador de BiS; los topes suaves de celeridad y las interacciones de talentos no se modelan.
-- Las gemas se eligen por color y el bonus de socket solo se activa si se respetan los colores; la meta-gema usa un coste EP heurístico documentado en `data/reference_meta_gems.json` y no modela todos los efectos de activación. Los encantamientos, los encantamientos aleatorios y algunas interacciones de abalorios/sets siguen simplificados.
+- Las gemas se eligen por color y el bonus de socket solo se activa si se respetan los colores; la meta-gema usa un coste EP heurístico documentado en `data/reference_meta_gems.json` y no modela todos los efectos de activación. Las alternativas de encantamiento solo comparan la estadística que comparten, los encantamientos aleatorios no se puntúan y algunas interacciones de abalorios/sets siguen simplificadas.
 - Por debajo de nivel 80 se mantiene la aproximación anterior: una gema recomendada por socket y el bonus de socket cuenta la mitad.
 - La búsqueda en haz de nivel 80 solo recorre armadura y anillos; armas, mano secundaria, ranged, abalorios y reliquias siguen el cálculo greedy o curado.
 - El bonus de set T10 es una estimación que se reparte solo entre las piezas recomendadas por la guía; no simula por completo el uptime de 2 o 4 piezas.

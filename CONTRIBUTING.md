@@ -30,7 +30,6 @@ cd wotlk-leveling-gear
 npm ci
 python -m pip install -r requirements.txt
 python -m playwright install chromium
-python -m playwright install chromium
 ```
 
 Build the data and page:
@@ -61,6 +60,12 @@ python tests/spec_weights.py
 python tests/features.py
 python tests/reference_sets.py
 python tests/reference_ids.py
+python tests/bis.py
+python tests/extras.py
+python tests/ux.py
+python tests/import_bis.py
+python tests/icons.py
+python tests/run_all.py
 ```
 
 ## Where to make changes
@@ -69,11 +74,14 @@ python tests/reference_ids.py
 - `src/styles/app.css`: all page styles.
 - `src/styles/fonts.css`: local `@font-face` declarations for the bundled fonts.
 - `assets/fonts/`: Cinzel and Source Sans 3 WOFF2 files and their OFL licenses.
+- `assets/icons/`: optional generated item icons embedded with `python scripts/build_page.py --icons assets/icons`.
 - `src/js/`: client-side ES modules (`core`, `data`, `engine`, `heroic`, `equipment`, `format`, `loot`, `bis`, `render`, `main`). `data.js` imports `data/gear_data.json`; `main.js` wires events and exposes the test globals.
 - `scripts/build_item_db.py`: item parsing, stats, required levels, armor/weapon metadata, and sources.
-- `scripts/build_recommendations.py`: class/spec rules, faction filtering, armor/weapon eligibility, scoring, and ranking. Level-80 priorities live in `data/spec_weights.json`.
+- `scripts/build_recommendations.py`: class/spec rules, faction filtering, armor/weapon eligibility, scoring, and ranking. Level-80 priorities live in `data/spec_weights.json`; it also parses the reference gems, meta gems, BiS lists, and enchant alternatives.
+- `scripts/import_bis_list.py`: imports a per-phase BiS list (`Head: Item A; Item B`) into `data/reference_bis_phases.json`.
+- `scripts/fetch_icons.py`: downloads the optional phase icons into `assets/icons/`.
 - `scripts/fetch_heirloom_stats.py`: level-by-level heirloom stats from the WoWWiki archive and Wowhead.
-- `scripts/build_page.py`: runs the Vite single-file build, gzip-compresses the module script into a small bootstrap, and writes `tolltip.html`.
+- `scripts/build_page.py`: runs the Vite single-file build, gzip-compresses the module script into a small bootstrap, and writes `tolltip.html`; `--plain` skips compression and `--icons assets/icons` embeds the downloaded icons.
 - `tests/smoke.py`: browser smoke test.
 - `tests/sockets.py`: socket colors, meta sockets, and exceptions such as item 23232.
 - `tests/gems.py`: meta-gem activation, gem choice by color, and socket bonuses.
@@ -86,7 +94,9 @@ python tests/reference_ids.py
 - `tests/reference_ids.py`: validates that every ID reference exists, has the right name, and belongs to a compatible slot.
 - `tests/spec_weights.py`: all 31 level-80 specializations.
 - `tests/fresh80.py`: Fresh 80 coverage for all 31 specializations and both factions, plus the checkbox, route, persistence, and disabling in PvP/With raids.
-- `tests/extras.py` and `tests/ux.py`: feature and usability regressions; `tests/run_all.py` runs the full suite.
+- `tests/bis.py`, `tests/extras.py`, and `tests/ux.py`: feature, ranking, and usability regressions.
+- `tests/import_bis.py` and `tests/icons.py`: per-phase guide importer and optional embedded icon build.
+- `tests/run_all.py` runs the full suite.
 
 Do **not** edit `tolltip.html` by hand. It is generated. After changing the source modules, styles, or data, run the build again.
 
@@ -125,7 +135,7 @@ Avoid mixing unrelated changes in one commit.
 ## Pull request checklist
 
 - [ ] The page builds with `python scripts/build_page.py`.
-- [ ] `python tests/smoke.py`, `tests/sockets.py`, `tests/gems.py`, `tests/optimizer.py`, `tests/check_reference.py`, `tests/check_reference.py --ref=reference_bis_ids.json`, `tests/fresh80.py`, `tests/heirlooms.py`, `tests/spec_weights.py`, `tests/features.py`, `tests/reference_sets.py`, and `tests/reference_ids.py` pass.
+- [ ] `python tests/smoke.py`, `tests/sockets.py`, `tests/gems.py`, `tests/optimizer.py`, `tests/check_reference.py`, `tests/check_reference.py --ref=reference_bis_ids.json`, `tests/fresh80.py`, `tests/heirlooms.py`, `tests/spec_weights.py`, `tests/features.py`, `tests/reference_sets.py`, `tests/reference_ids.py`, `tests/bis.py`, `tests/extras.py`, `tests/ux.py`, `tests/import_bis.py`, and `tests/icons.py` pass.
 - [ ] `data/gear_data.json` and `tolltip.html` are regenerated if needed.
 - [ ] Both Spanish and English UI strings are updated.
 - [ ] No raw data, caches, or `__pycache__` files are included.
